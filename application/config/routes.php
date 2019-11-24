@@ -51,6 +51,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 
 
+$route['suppliers/(:any)'] = 'suppliers/$1';
 $route['suppliers'] = 'suppliers/index';
 $route['(:any)'] = 'users/';
 $route['default_controller'] = 'users/';

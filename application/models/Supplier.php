@@ -33,7 +33,8 @@ class Supplier extends CI_Model {
 				}
 
 				$query = $this->db->get();
-				$result = ($query->num_rows() > 0) ? $query->result_array() : false;
+				//$result = ($query->num_rows() > 0) ? $query->result_array() : false;
+				$result = $query;
 			}
 		}
 
@@ -43,7 +44,7 @@ class Supplier extends CI_Model {
 	public function insert($data = array()){
 		if(!empty($data)){
 			if(!array_key_exists("created_by", $data)){
-				$data['created_by'] = $this->session->get_userdata('username');
+				$data['created_by'] = $this->session->userdata('username');
 			}
 
 			$insert = $this->db->insert($this->table, $data);
@@ -66,4 +67,5 @@ class Supplier extends CI_Model {
 		return false;
 	}
 }
+
 ?>
