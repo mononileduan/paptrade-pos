@@ -14,7 +14,7 @@ class Users extends CI_Controller {
 
 	public function index(){
 		if($this->isLoggedIn){
-			redirect('');
+			redirect('users/dashboard');
 		}else{
 			redirect('users/login');
 		}
@@ -57,7 +57,7 @@ class Users extends CI_Controller {
 							);
 							$this->session->set_userdata('isLoggedIn', true);
 							$this->session->set_userdata('username', $checkLogin['USERNAME']);
-							redirect('');
+							redirect('users/dashboard');
 						}else{
 							$data['error_msg'] = 'Invalid login.';
 							$status = $checkLogin['STATUS'];
@@ -89,10 +89,18 @@ class Users extends CI_Controller {
 		$this->load->view('components/footer');
 	}
 
+	public function dashboard(){
+		$data = array();
+		$data['session_user'] = $this->session->userdata('username');
+		$this->load->view('components/header', $data);
+		$this->load->view('dashboard/dashboard', $data);
+		$this->load->view('components/footer');
+	}
+
 	public function logout(){
 		$this->session->unset_userdata('isLoggedIn');
 		$this->session->unset_userdata('username');
-		$this->session->session_destroy();
+		$this->session->sess_destroy();
 		redirect('users/login/');
 	}
 }
