@@ -13,10 +13,18 @@ class Suppliers extends CI_Controller {
 
 	public function index(){
 		if($this->isLoggedIn){
-			redirect('suppliers/search');
+			redirect('suppliers/view');
 		}else{
 			redirect('users/login');
 		}
+	}
+
+	public function view(){
+		$data = array();
+		$data['session_user'] = $this->session->userdata('username');
+		$this->load->view('components/header', $data);
+		$this->load->view('suppliers/view', $data);
+		$this->load->view('components/footer');
 	}
 
 }
