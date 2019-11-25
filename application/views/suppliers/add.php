@@ -43,7 +43,7 @@
 				<?php echo form_error('notes', '<p class="help-block">','</p>'); ?>
 			</div>
 			<div class="form-group">
-				<input type="submit" name="submit_supplier" class="btn btn-success" value="Register">
+				<input type="submit" name="submit_supplier" class="btn btn-success" value="Submit">
 				<button class="btn btn-info" type="reset">Reset</button>
 			</div>
 		</form>
