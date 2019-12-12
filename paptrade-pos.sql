@@ -89,3 +89,23 @@ CREATE TABLE MODELS (
 	UPDATED_DT timestamp null,
 	CONSTRAINT MODELS_ID_uk UNIQUE KEY (ID)
 );
+
+CREATE TABLE INVENTORIES (
+	ID varchar(50) not null,
+	VERSION int(11) not null default 0,
+	DEL boolean not null default false,
+	SKU varchar (50) not null,
+	ITEM varchar (50) not null,
+	BRAND varchar (50) not null,
+	CATEGORY varchar (50) not null,
+	UNIT_TYPE varchar (50) not null,
+	QUANTITY int(11) not null,
+	BUYING_PRICE decimal(18,2) not null,
+	SELLING_PRICE decimal(18,2) not null,
+	PO_REF_NO varchar (50) null,
+	CREATED_BY varchar(50) not null,
+	CREATED_DT timestamp not null default current_timestamp(),
+	UPDATED_BY varchar(50) null,
+	UPDATED_DT timestamp null,
+	CONSTRAINT INVENTORIES_ID_uk UNIQUE KEY (ID)
+);

@@ -102,6 +102,23 @@ class Models extends CI_Controller {
 		);
 		echo json_encode($output);
 		exit();
-     }
+    }
+
+	public function get_by_brand(){
+		$brand = $this->input->get('id',TRUE);
+		$con = array(
+			'returnType' => 'list',
+			'conditions' => array(
+				'del' => false,
+				'brand' => $brand
+			)
+		);
+		$modelList = $this->model->getRows($con);
+
+		$data = $modelList->result();
+		
+		echo json_encode($data);
+		exit();
+	}
 
 }

@@ -1,8 +1,8 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); 
 
-class Measure extends CI_Model {
+class Inventory extends CI_Model {
 	public function __construct(){
-		$this->table = 'units_of_measure';
+		$this->table = 'inventories';
 	}
 
 	public function getRows($params = array()){
