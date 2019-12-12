@@ -8,16 +8,6 @@
     <div class="col-md-12">
 		<form action="" method="post" accept-charset="utf-8">
 			<div class="form-group">
-				<label for='category'>Category</label>
-				<select required="required" name="category" class="form-control">
-					<option value="" selected="selected"></option>
-					<?php foreach($categories->result_array() as $r) {
-						echo '<option value="'.$r['CATEGORY'].'">'.$r['CATEGORY'].'</option>';
-					} ?>
-				</select>
-				<?php echo form_error('category', '<p class="help-block">','</p>'); ?>
-			</div>
-			<div class="form-group">
 				<label for='brand'>Brand</label>
 				<input required="required" type="text" name="brand" class="form-control">
 				<?php echo form_error('brand', '<p class="help-block">','</p>'); ?>

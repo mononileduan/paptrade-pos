@@ -6,7 +6,6 @@
 				<thead>
 					<tr>
 						<td>Brand</td>
-						<td>Category</td>
 					</tr>
 				</thead>
 				<tbody>

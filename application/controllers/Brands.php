@@ -7,7 +7,6 @@ class Brands extends CI_Controller {
 
 		$this->load->library('form_validation');
 		$this->load->model('brand');
-		$this->load->model('category');
 
 		$this->isLoggedIn = $this->session->userdata('isLoggedIn');
 	}
@@ -42,13 +41,11 @@ class Brands extends CI_Controller {
 		}
 
 		if($this->input->post('submit_brand')){
-			$this->form_validation->set_rules('category', 'Category', 'required|trim');
 			$this->form_validation->set_rules('brand', 'Brand', 'required|trim');
 
 			if($this->form_validation->run() == true){
 				$brand = array(
 					'id'		=> uniqid('', true),
-					'category'	=> strtoupper($this->input->post('category')),
 					'brand'		=> strtoupper($this->input->post('brand'))
 					);
 				$this->brand->insert($brand);
@@ -64,7 +61,6 @@ class Brands extends CI_Controller {
 				'del' => false
 			)
 		);
-		$data['categories'] = $this->category->getRows($con);
 
 		$this->load->view('components/header', $data);
 		$this->load->view('brands/add', $data);
@@ -89,8 +85,7 @@ class Brands extends CI_Controller {
 		
 		foreach($brandList->result_array() as $r) {
 		   $data[] = array(
-		        $r['BRAND'],
-		        $r['CATEGORY']
+		        $r['BRAND']
 		   );
 		}
 
