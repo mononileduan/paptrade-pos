@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="col-lg-12">
-		<h1 class="page-header">Add Unit of Measure</h1>
+		<h1 class="page-header">Add Unit Type</h1>
 	</div>
 </div>
 
@@ -8,12 +8,12 @@
     <div class="col-md-12">
 		<form action="" method="post" accept-charset="utf-8">
 			<div class="form-group">
-				<label for='measure'>Unit of Measure</label>
-				<input required="required" type="text" name="measure" class="form-control">
-				<?php echo form_error('measure', '<p class="help-block">','</p>'); ?>
+				<label for='unit_type'>Unit Type</label>
+				<input required="required" type="text" name="unit_type" class="form-control">
+				<?php echo form_error('unit_type', '<p class="help-block">','</p>'); ?>
 			</div>
 			<div class="form-group">
-				<input type="submit" name="submit_measure" class="btn btn-success" value="Submit">
+				<input type="submit" name="submit_unit_type" class="btn btn-success" value="Submit">
 				<button class="btn btn-info" type="reset">Reset</button>
 			</div>
 		</form>

@@ -41,11 +41,11 @@ CREATE TABLE SUPPLIERS (
 	CONSTRAINT SUPPLIERS_ID_uk UNIQUE KEY (ID)
 );
 
-CREATE TABLE UNITS_OF_MEASURE (
+CREATE TABLE UNIT_TYPES (
 	ID varchar(50) not null,
 	VERSION int(11) not null default 0,
 	DEL boolean not null default false,
-	UNIT_OF_MEASURE varchar (50) not null,
+	UNIT_TYPE varchar (50) not null,
 	CREATED_BY varchar(50) not null,
 	CREATED_DT timestamp not null default current_timestamp(),
 	UPDATED_BY varchar(50) null,

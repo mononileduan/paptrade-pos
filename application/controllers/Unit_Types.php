@@ -1,19 +1,19 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); 
 
-class Measures extends CI_Controller {
+class Unit_Types extends CI_Controller {
 	
 	public function __construct(){
 		parent::__construct();
 
 		$this->load->library('form_validation');
-		$this->load->model('measure');
+		$this->load->model('unit_type');
 
 		$this->isLoggedIn = $this->session->userdata('isLoggedIn');
 	}
 
 	public function index(){
 		if($this->isLoggedIn){
-			redirect('measures/view');
+			redirect('unit_types/view');
 		}else{
 			redirect('users/login');
 		}
@@ -24,7 +24,7 @@ class Measures extends CI_Controller {
 		$data['session_user'] = $this->session->userdata('username');
 		
 		$this->load->view('components/header', $data);
-		$this->load->view('measures/view', $data);
+		$this->load->view('unit_types/view', $data);
 		$this->load->view('components/footer');
 	}
 
@@ -40,15 +40,15 @@ class Measures extends CI_Controller {
 			$this->session->unset_userdata('error_msg');
 		}
 
-		if($this->input->post('submit_measure')){
-			$this->form_validation->set_rules('measure', 'Unit of Measure', 'required|trim');
+		if($this->input->post('submit_unit_type')){
+			$this->form_validation->set_rules('unit_type', 'Unit Type', 'required|trim');
 
 			if($this->form_validation->run() == true){
-				$measure = array(
+				$unit_type = array(
 					'id'		=> uniqid('', true),
-					'unit_of_measure'	=> strtoupper($this->input->post('measure'))
+					'unit_type'	=> strtoupper($this->input->post('unit_type'))
 					);
-				$this->measure->insert($measure);
+				$this->unit_type->insert($unit_type);
 
 			}else{
 				$data['error_msg'] = 'Please fill all required fields.';
@@ -56,11 +56,11 @@ class Measures extends CI_Controller {
 		}
 
 		$this->load->view('components/header', $data);
-		$this->load->view('measures/add', $data);
+		$this->load->view('unit_type/add', $data);
 		$this->load->view('components/footer');
 	}
 
-	public function measures_page(){
+	public function unit_types_page(){
 		// Datatables Variables
 		$draw = intval($this->input->get("draw"));
 		$start = intval($this->input->get("start"));
@@ -72,21 +72,21 @@ class Measures extends CI_Controller {
 				'del' => false
 			)
 		);
-		$measureList = $this->measure->getRows($con);
+		$unitTypeList = $this->unit_type->getRows($con);
 
 		$data = array();
 		
-		foreach($measureList->result_array() as $r) {
+		foreach($unitTypeList->result_array() as $r) {
 
 		   $data[] = array(
-		        $r['UNIT_OF_MEASURE']
+		        $r['UNIT_TYPE']
 		   );
 		}
 
 		$output = array(
 		   "draw" => $draw,
-		     "recordsTotal" => $measureList->num_rows(),
-		     "recordsFiltered" => $measureList->num_rows(),
+		     "recordsTotal" => $unitTypeList->num_rows(),
+		     "recordsFiltered" => $unitTypeList->num_rows(),
 		     "data" => $data
 		);
 		echo json_encode($output);
