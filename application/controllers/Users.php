@@ -57,6 +57,7 @@ class Users extends CI_Controller {
 							);
 							$this->session->set_userdata('isLoggedIn', true);
 							$this->session->set_userdata('username', $checkLogin['USERNAME']);
+							$this->session->set_userdata('branch_id', $checkLogin['BRANCH_ID']);
 							redirect('users/dashboard');
 						}else{
 							$data['error_msg'] = 'Invalid login.';

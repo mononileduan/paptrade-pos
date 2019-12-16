@@ -56,6 +56,7 @@ class Inventories_Branch extends CI_Controller {
 			if($this->form_validation->run() == true){
 				$inventory = array(
 					'id'					=> uniqid('', true),
+					'branch_id'				=> $this->session->userdata('branch_id'),
 					'category'				=> strtoupper($this->input->post('category')),
 					'brand'					=> strtoupper($this->input->post('brand')),
 					'item'					=> strtoupper($this->input->post('item')),
@@ -96,7 +97,8 @@ class Inventories_Branch extends CI_Controller {
 		$con = array(
 			'returnType' => 'list',
 			'conditions' => array(
-				'del' => false
+				'del' => false,
+				'branch_id' => $this->session->userdata('branch_id')
 			)
 		);
 		$inventoryList = $this->inventory_branch->getRows($con);
