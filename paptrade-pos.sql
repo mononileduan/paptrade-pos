@@ -109,3 +109,23 @@ CREATE TABLE INVENTORIES (
 	UPDATED_DT timestamp null,
 	CONSTRAINT INVENTORIES_ID_uk UNIQUE KEY (ID)
 );
+
+CREATE TABLE INVENTORIES_BRANCH (
+	ID varchar(50) not null,
+	VERSION int(11) not null default 0,
+	DEL boolean not null default false,
+	BRAND_ID varchar (50) not null,
+	SKU varchar (50) not null,
+	ITEM varchar (50) not null,
+	BRAND varchar (50) not null,
+	CATEGORY varchar (50) not null,
+	UNIT_TYPE varchar (50) not null,
+	QUANTITY int(11) not null,
+	SELLING_PRICE decimal(18,2) not null,
+	WAREHOUSE_PO_REF_NO varchar (50) null,
+	CREATED_BY varchar(50) not null,
+	CREATED_DT timestamp not null default current_timestamp(),
+	UPDATED_BY varchar(50) null,
+	UPDATED_DT timestamp null,
+	CONSTRAINT INVENTORIES_BRANCH_ID_uk UNIQUE KEY (ID)
+);
