@@ -43,7 +43,7 @@ class Inventories extends CI_Controller {
 			$this->session->unset_userdata('error_msg');
 		}
 
-		if($this->input->post('submit_brand')){
+		if($this->input->post('submit_inventory')){
 			$this->form_validation->set_rules('category', 'Category', 'required|trim');
 			$this->form_validation->set_rules('brand', 'Brand', 'required|trim');
 			$this->form_validation->set_rules('item', 'Item', 'required|trim');

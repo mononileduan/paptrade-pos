@@ -72,7 +72,7 @@
 
 			
 			<div class="form-group">
-				<input type="submit" name="submit_brand" class="btn btn-success" value="Submit">
+				<input type="submit" name="submit_inventory" class="btn btn-success" value="Submit">
 				<button class="btn btn-info" type="reset">Reset</button>
 			</div>
 		</form>
