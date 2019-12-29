@@ -33,8 +33,8 @@ class Users extends CI_Controller {
 		}
 
 		if($this->input->post('loginSubmit')){
-			$this->form_validation->set_rules('username', 'Username', 'required|trim');
-			$this->form_validation->set_rules('password', 'Password', 'required|trim');
+			$this->form_validation->set_rules('username', 'username', 'required|trim');
+			$this->form_validation->set_rules('password', 'password', 'required|trim');
 
 			if($this->form_validation->run() == true){
 				$con = array(
@@ -85,9 +85,7 @@ class Users extends CI_Controller {
 			}
 		}
 
-		$this->load->view('components/header', $data);
 		$this->load->view('users/login', $data);
-		$this->load->view('components/footer');
 	}
 
 	public function dashboard(){
