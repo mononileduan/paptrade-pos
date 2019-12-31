@@ -33,36 +33,35 @@
 
 	    <script type="text/javascript">
 			$(document).ready(function() {
-			    var suppliertable = $('#supplier-table').DataTable({
-			    	dom: 'Bfrtip',
-			        lengthChange: false,
-			        buttons: [ 'copy', 'excel', 'pdf' ],
-			        "ajax": {
-			            url : "<?php echo site_url("suppliers/suppliers_page") ?>",
-			            type : 'GET'
-			        }
-			    });
-			    suppliertable.buttons().container()
-			        .appendTo( '#supplier-table_wrapper .col-md-6:eq(0)' );
+				var page_has_table = "<?php if(isset($page_has_table)){ echo $page_has_table; } else {echo 'no_table';} ?>";
 
+				if(page_has_table == "has_table"){
+					<?php if(!isset($site_url)){ $site_url = '';} ?>
 
-
-			    $('#unit-type-table').DataTable({
-			        "ajax": {
-			            url : "<?php echo site_url("unit_types/unit_types_page") ?>",
-			            type : 'GET'
-			        },
-			    });
-
-
-			    $('#categories-table').DataTable({
-			        "ajax": {
-			            url : "<?php echo site_url("categories/categories_page") ?>",
-			            type : 'GET'
-			        },
-			    });
-
-			    
+					var has_export_buttons = "<?php if(isset($has_export_buttons)){ echo $has_export_buttons; } else {echo '';} ?>";
+					
+				    if(has_export_buttons!="" && has_export_buttons == "enabled"){
+				    	var datatable = $('#view-data-table').DataTable({
+					    	dom: 'Bfrtip',
+					        lengthChange: false,
+					        buttons: [ 'copy', 'excel', 'pdf' ],
+					        "ajax": {
+					            url : "<?php echo site_url($site_url) ?>",
+					            type : 'GET'
+					        }
+					    });
+					    datatable.buttons().container()
+					        .appendTo( '#view-data-table_wrapper .col-md-6:eq(0)' );
+					        
+				    }else{
+				    	$('#view-data-table').DataTable({
+					        "ajax": {
+					            url : "<?php echo site_url($site_url) ?>",
+					            type : 'GET'
+					        },
+					    });
+				    }
+			    }
 			});
 		</script>
 	</body>

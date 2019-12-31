@@ -22,10 +22,15 @@ class Suppliers extends CI_Controller {
 	public function view(){
 		$data = array();
 		$data['session_user'] = $this->session->userdata('username');
+
+		$footer_data = array();
+		$footer_data['page_has_table'] = 'has_table';
+		$footer_data['site_url'] = 'suppliers/suppliers_page';
+		$footer_data['has_export_buttons'] = 'enabled';
 		
 		$this->load->view('components/header', $data);
 		$this->load->view('suppliers/view', $data);
-		$this->load->view('components/footer');
+		$this->load->view('components/footer', $footer_data);
 	}
 
 	public function add(){
