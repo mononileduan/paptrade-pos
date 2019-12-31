@@ -45,23 +45,38 @@ class Suppliers extends CI_Controller {
 			$this->form_validation->set_rules('supplier_name', 'Supplier Name', 'required|trim');
 			$this->form_validation->set_rules('contact_person', 'Contact Person', 'required|trim');
 			$this->form_validation->set_rules('address', 'Address', 'required|trim');
-			$this->form_validation->set_rules('contact_no', 'Contact No', 'required|trim');
+			$this->form_validation->set_rules('contact_no', 'Contact No', 'required|trim|numeric');
 			$this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
 			$this->form_validation->set_rules('website', 'Website', 'required|trim|valid_url');
 			$this->form_validation->set_rules('notes', 'Notes', 'trim');
 
 			if($this->form_validation->run() == true){
-				$supplier = array(
-					'id'      			=> uniqid('', true),
-					'supplier_name'		=> $this->input->post('supplier_name'),
-					'contact_person'	=> $this->input->post('contact_person'),
-					'address'			=> $this->input->post('address'),
-					'contact_no'		=> $this->input->post('contact_no'),
-					'email'				=> $this->input->post('email'),
-					'website'			=> $this->input->post('website'),
-					'notes'				=> $this->input->post('notes')
-					);
-				$this->supplier->insert($supplier);
+				$con = array(
+					'returnType' => 'count',
+					'conditions' => array(
+						'del' => false,
+						'supplier_name' => strtoupper($this->input->post('supplier_name'))
+					)
+				);
+
+				$supplierCnt = $this->supplier->getRows($con);
+				if($supplierCnt > 0){
+					$data['error_msg'] = 'Supplier already exists';
+				}else{
+					$supplier = array(
+						'id'      			=> uniqid('', true),
+						'supplier_name'		=> $this->input->post('supplier_name'),
+						'contact_person'	=> $this->input->post('contact_person'),
+						'address'			=> $this->input->post('address'),
+						'contact_no'		=> $this->input->post('contact_no'),
+						'email'				=> $this->input->post('email'),
+						'website'			=> $this->input->post('website'),
+						'notes'				=> $this->input->post('notes')
+						);
+					$this->supplier->insert($supplier);
+
+					redirect(current_url());
+				}
 
 			}else{
 				$data['error_msg'] = 'Please fill all required fields.';

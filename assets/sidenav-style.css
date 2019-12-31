@@ -167,6 +167,12 @@ a.article, a.article:hover {
     height: 20px;
 }
 
+.content .help-block {
+    font-style: italic;
+    font-size: small;
+    color: #721c24;
+}
+
 
 
 #sidebarCollapse {
