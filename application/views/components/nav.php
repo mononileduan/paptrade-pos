@@ -23,7 +23,15 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#">Unit Types</a>
+                    <a href="#unitTypeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Unit Types</a>
+                    <ul class="collapse list-unstyled" id="unitTypeSubmenu">
+                        <li>
+                            <a href="<?= base_url();?><?= index_page();?>/unit_types/add">Add Unit Type</a>
+                        </li>
+                        <li>
+                            <a href="<?= base_url();?><?= index_page();?>/unit_types">View Unit Types</a>
+                        </li>
+                    </ul>
                 </li>
                 <li>
                     <a href="#">Categories</a>

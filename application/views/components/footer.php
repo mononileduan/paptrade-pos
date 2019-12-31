@@ -44,6 +44,15 @@
 			    });
 			    suppliertable.buttons().container()
 			        .appendTo( '#supplier-table_wrapper .col-md-6:eq(0)' );
+
+
+
+			    $('#unit-type-table').DataTable({
+			        "ajax": {
+			            url : "<?php echo site_url("unit_types/unit_types_page") ?>",
+			            type : 'GET'
+			        },
+			    });
 			});
 		</script>
 	</body>

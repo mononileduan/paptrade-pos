@@ -30,6 +30,7 @@ class Unit_Types extends CI_Controller {
 
 	public function add(){
 		$data = array();
+		$data['session_user'] = $this->session->userdata('username');
 		
 		if($this->session->userdata('success_msg')){
 			$data['success_msg'] = $this->session->userdata('success_msg');
@@ -44,11 +45,25 @@ class Unit_Types extends CI_Controller {
 			$this->form_validation->set_rules('unit_type', 'Unit Type', 'required|trim');
 
 			if($this->form_validation->run() == true){
-				$unit_type = array(
-					'id'		=> uniqid('', true),
-					'unit_type'	=> strtoupper($this->input->post('unit_type'))
-					);
-				$this->unit_type->insert($unit_type);
+				$con = array(
+					'returnType' => 'count',
+					'conditions' => array(
+						'del' => false,
+						'unit_type' => strtoupper($this->input->post('unit_type'))
+					)
+				);
+				$unitTypeCnt = $this->unit_type->getRows($con);
+				if($unitTypeCnt > 0){
+					$data['error_msg'] = 'Unit Type already exists';
+				}else{
+					$unit_type = array(
+						'id'		=> uniqid('', true),
+						'unit_type'	=> strtoupper($this->input->post('unit_type'))
+						);
+					$this->unit_type->insert($unit_type);
+					
+					redirect(current_url());
+				}
 
 			}else{
 				$data['error_msg'] = 'Please fill all required fields.';
@@ -56,7 +71,7 @@ class Unit_Types extends CI_Controller {
 		}
 
 		$this->load->view('components/header', $data);
-		$this->load->view('unit_type/add', $data);
+		$this->load->view('unit_types/add', $data);
 		$this->load->view('components/footer');
 	}
 
