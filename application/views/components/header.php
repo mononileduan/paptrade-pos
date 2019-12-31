@@ -8,11 +8,9 @@
 		<base href="<?= base_url();?>">
 		<link rel="shortcut icon" type="image/x-icon" href="assets/images/iconpap.png" />
 		
-	    <link rel="stylesheet" href="assets/bootstrap/4.1.0/css/bootstrap.min.css">
+	    <link rel="stylesheet" type="text/css" href="assets/bootstrap/4.1.3/css/bootstrap.min.css">
+	    <link rel="stylesheet" type="text/css" href="assets/fontawesome/5.12.0/css/fontawesome.min.css">
 	    <link rel="stylesheet" href="assets/sidenav-style.css">
-
-	    <script src="assets/fontawesome/5.0.13/js/solid.js"></script>
-	    <script defer src="assets/fontawesome/5.0.13/js/fontawesome.js"></script>
 	</head>
 
 	<body>
