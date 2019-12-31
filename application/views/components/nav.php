@@ -9,30 +9,41 @@
             <a href="<?= base_url();?><?= index_page();?>/users/dashboard">Home</a>
         </li>
         <li>
-            <a href="#adminSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Administration</a>
-            <ul class="collapse list-unstyled" id="adminSubmenu">
+            <a href="#maintenanceSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Maintenance</a>
+            <ul class="collapse list-unstyled" id="maintenanceSubmenu">
                 <li>
-                    <a href="#">Page 1</a>
+                    <a href="#suppliersSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Suppliers</a>
+                    <ul class="collapse list-unstyled" id="suppliersSubmenu">
+                        <li>
+                            <a href="<?= base_url();?><?= index_page();?>/suppliers/add">Add Supplier</a>
+                        </li>
+                        <li>
+                            <a href="<?= base_url();?><?= index_page();?>/suppliers">View Suppliers</a>
+                        </li>
+                    </ul>
                 </li>
                 <li>
-                    <a href="#">Page 2</a>
+                    <a href="#">Unit Types</a>
                 </li>
                 <li>
-                    <a href="#">Page 3</a>
+                    <a href="#">Categories</a>
+                </li>
+                <li>
+                    <a href="#">Brands</a>
+                </li>
+                <li>
+                    <a href="#">Models</a>
                 </li>
             </ul>
         </li>
         <li>
-            <a href="#maintenanceSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Maintenance</a>
-            <ul class="collapse list-unstyled" id="maintenanceSubmenu">
+            <a href="#inventorySubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Inventory</a>
+            <ul class="collapse list-unstyled" id="inventorySubmenu">
                 <li>
-                    <a href="#">Page 1</a>
+                    <a href="#">Warehouse</a>
                 </li>
                 <li>
-                    <a href="#">Page 2</a>
-                </li>
-                <li>
-                    <a href="#">Page 3</a>
+                    <a href="#">Branch</a>
                 </li>
             </ul>
         </li>
@@ -40,13 +51,29 @@
             <a href="#reportsSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Reports</a>
             <ul class="collapse list-unstyled" id="reportsSubmenu">
                 <li>
-                    <a href="#">Page 1</a>
+                    <a href="#">Sales</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#adminSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Administration</a>
+            <ul class="collapse list-unstyled" id="adminSubmenu">
+                <li>
+                    <a href="#usersSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Users</a>
+                     <ul class="collapse list-unstyled" id="usersSubmenu">
+                        <li>
+                            <a href="<?= base_url();?><?= index_page();?>/users/add">Add User</a>
+                        </li>
+                        <li>
+                            <a href="<?= base_url();?><?= index_page();?>/users">View Users</a>
+                        </li>
+                    </ul>
                 </li>
                 <li>
-                    <a href="#">Page 2</a>
+                    <a href="#">Roles</a>
                 </li>
                 <li>
-                    <a href="#">Page 3</a>
+                    <a href="#">Branch</a>
                 </li>
             </ul>
         </li>
