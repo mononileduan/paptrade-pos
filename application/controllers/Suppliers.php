@@ -65,7 +65,7 @@ class Suppliers extends CI_Controller {
 				}else{
 					$supplier = array(
 						'id'      			=> uniqid('', true),
-						'supplier_name'		=> $this->input->post('supplier_name'),
+						'supplier_name'		=> strtoupper($this->input->post('supplier_name')),
 						'contact_person'	=> $this->input->post('contact_person'),
 						'address'			=> $this->input->post('address'),
 						'contact_no'		=> $this->input->post('contact_no'),
