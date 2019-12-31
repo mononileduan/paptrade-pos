@@ -30,6 +30,7 @@ class Suppliers extends CI_Controller {
 
 	public function add(){
 		$data = array();
+		$data['session_user'] = $this->session->userdata('username');
 		
 		if($this->session->userdata('success_msg')){
 			$data['success_msg'] = $this->session->userdata('success_msg');

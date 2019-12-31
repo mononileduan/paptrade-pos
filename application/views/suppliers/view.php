@@ -1,8 +1,15 @@
-<div class="container">
+<div class="content">
+	<div class="row page-title">
+		<div class="col-lg-12">
+			<h1 class="page-header">Suppliers</h1>
+		</div>
+	</div>
+
+	<div class="row-pad"></div>
+
     <div class="row">
 	    <div class="col-md-12">
-	    	<h1>Suppliers</h1>
-			<table id="supplier-table" class="table table-bordered table-striped table-hover">
+			<table id="supplier-table" class="table table-bordered table-striped table-hover" style="width:100%">
 				<thead>
 					<tr>
 						<td>Name</td>
@@ -21,14 +28,3 @@
 	</div>
 </div>
 
-<script type="text/javascript" src="assets/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script type="text/javascript">
-	$(document).ready(function() {
-	    $('#supplier-table').DataTable({
-	        "ajax": {
-	            url : "<?php echo site_url("suppliers/suppliers_page") ?>",
-	            type : 'GET'
-	        },
-	    });
-	});
-</script>

@@ -10,6 +10,10 @@
 		
 	    <link rel="stylesheet" type="text/css" href="assets/bootstrap/4.1.3/css/bootstrap.min.css">
 	    <link rel="stylesheet" type="text/css" href="assets/fontawesome/5.12.0/css/fontawesome.min.css">
+
+	    <link rel="stylesheet" type="text/css" href="assets/DataTables/datatables.min.css">
+	    <link rel="stylesheet" type="text/css" href="assets/DataTables/DataTables-1.10.20/css/dataTables.bootstrap4.min.css">
+	    <link rel="stylesheet" type="text/css" href="assets/DataTables/Buttons-1.6.1/css/buttons.bootstrap4.min.css">
 	    <link rel="stylesheet" href="assets/sidenav-style.css">
 	</head>
 
