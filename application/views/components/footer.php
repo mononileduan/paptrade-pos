@@ -53,6 +53,16 @@
 			            type : 'GET'
 			        },
 			    });
+
+
+			    $('#categories-table').DataTable({
+			        "ajax": {
+			            url : "<?php echo site_url("categories/categories_page") ?>",
+			            type : 'GET'
+			        },
+			    });
+
+			    
 			});
 		</script>
 	</body>

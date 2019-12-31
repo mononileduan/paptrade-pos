@@ -34,7 +34,15 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#">Categories</a>
+                    <a href="#categorySubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Categories</a>
+                    <ul class="collapse list-unstyled" id="categorySubmenu">
+                        <li>
+                            <a href="<?= base_url();?><?= index_page();?>/categories/add">Add Category</a>
+                        </li>
+                        <li>
+                            <a href="<?= base_url();?><?= index_page();?>/categories">View Categories</a>
+                        </li>
+                    </ul>
                 </li>
                 <li>
                     <a href="#">Brands</a>

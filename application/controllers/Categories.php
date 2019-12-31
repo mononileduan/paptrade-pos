@@ -30,6 +30,7 @@ class Categories extends CI_Controller {
 
 	public function add(){
 		$data = array();
+		$data['session_user'] = $this->session->userdata('username');
 		
 		if($this->session->userdata('success_msg')){
 			$data['success_msg'] = $this->session->userdata('success_msg');
@@ -44,11 +45,26 @@ class Categories extends CI_Controller {
 			$this->form_validation->set_rules('category', 'Category', 'required|trim');
 
 			if($this->form_validation->run() == true){
-				$category = array(
-					'id'		=> uniqid('', true),
-					'category'	=> strtoupper($this->input->post('category'))
-					);
-				$this->category->insert($category);
+				$con = array(
+					'returnType' => 'count',
+					'conditions' => array(
+						'del' => false,
+						'category' => strtoupper($this->input->post('category'))
+					)
+				);
+
+				$categoryCnt = $this->category->getRows($con);
+				if($categoryCnt > 0){
+					$data['error_msg'] = 'Category already exists';
+				}else{
+					$category = array(
+						'id'		=> uniqid('', true),
+						'category'	=> strtoupper($this->input->post('category'))
+						);
+					$this->category->insert($category);
+
+					redirect(current_url());
+				}
 
 			}else{
 				$data['error_msg'] = 'Please fill all required fields.';
