@@ -12,7 +12,7 @@
 			<form action="" method="post" accept-charset="utf-8">
 				<div class="form-group">
 					<label for='brand'>Brand</label>
-					<select required="required" name="brand" value="<?php echo set_value('brand'); ?>" class="form-control">
+					<select required="required" name="brand" class="form-control">
 						<option value=""></option>
 						<?php foreach($brands->result_array() as $r) {
 							if(set_value('brand') === $r['BRAND']){
