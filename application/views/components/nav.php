@@ -45,7 +45,15 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#">Brands</a>
+                    <a href="#brandSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Brands</a>
+                    <ul class="collapse list-unstyled" id="brandSubmenu">
+                        <li>
+                            <a href="<?= base_url();?><?= index_page();?>/brands/add">Add Brand</a>
+                        </li>
+                        <li>
+                            <a href="<?= base_url();?><?= index_page();?>/brands">View Brands</a>
+                        </li>
+                    </ul>
                 </li>
                 <li>
                     <a href="#">Models</a>
