@@ -23,14 +23,19 @@ class Models extends CI_Controller {
 	public function view(){
 		$data = array();
 		$data['session_user'] = $this->session->userdata('username');
+
+		$footer_data = array();
+		$footer_data['page_has_table'] = 'has_table';
+		$footer_data['site_url'] = 'models/models_page';
 		
 		$this->load->view('components/header', $data);
 		$this->load->view('models/view', $data);
-		$this->load->view('components/footer');
+		$this->load->view('components/footer', $footer_data);
 	}
 
 	public function add(){
 		$data = array();
+		$data['session_user'] = $this->session->userdata('username');
 		
 		if($this->session->userdata('success_msg')){
 			$data['success_msg'] = $this->session->userdata('success_msg');
@@ -46,12 +51,28 @@ class Models extends CI_Controller {
 			$this->form_validation->set_rules('brand', 'Brand', 'required|trim');
 
 			if($this->form_validation->run() == true){
-				$model = array(
-					'id'		=> uniqid('', true),
-					'model'		=> strtoupper($this->input->post('model')),
-					'brand'		=> strtoupper($this->input->post('brand'))
-					);
-				$this->model->insert($model);
+				$con = array(
+					'returnType' => 'count',
+					'conditions' => array(
+						'del' 	=> false,
+						'model'	=> strtoupper($this->input->post('model')),
+						'brand' => strtoupper($this->input->post('brand'))
+					)
+				);
+
+				$modelCnt = $this->model->getRows($con);
+				if($modelCnt > 0){
+					$data['error_msg'] = 'Model already exists';
+				}else{
+					$model = array(
+						'id'		=> uniqid('', true),
+						'model'		=> strtoupper($this->input->post('model')),
+						'brand'		=> strtoupper($this->input->post('brand'))
+						);
+					$this->model->insert($model);
+
+					redirect(current_url());
+				}
 
 			}else{
 				$data['error_msg'] = 'Please fill all required fields.';

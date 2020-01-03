@@ -56,7 +56,15 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#">Models</a>
+                    <a href="#modelSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Models</a>
+                    <ul class="collapse list-unstyled" id="modelSubmenu">
+                        <li>
+                            <a href="<?= base_url();?><?= index_page();?>/models/add">Add Model</a>
+                        </li>
+                        <li>
+                            <a href="<?= base_url();?><?= index_page();?>/models">View Models</a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </li>
