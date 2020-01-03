@@ -12,7 +12,7 @@
 			<form action="" method="post" accept-charset="utf-8">
 				<div class="form-group">
 					<label for='brand'>Brand</label>
-					<input required="required" type="text" name="brand" class="form-control">
+					<input required="required" type="text" value="<?php echo set_value('brand'); ?>" name="brand" class="form-control">
 					<?php echo form_error('brand', '<p class="help-block">','</p>'); ?>
 				</div>
 				<?php
