@@ -94,7 +94,7 @@ class Suppliers extends CI_Controller {
 	}
 
 	public function suppliers_page(){
-		// Datatables Variables
+		// Datatables Variable
 		$draw = intval($this->input->get("draw"));
 		$start = intval($this->input->get("start"));
 		$length = intval($this->input->get("length"));
