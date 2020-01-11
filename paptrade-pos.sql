@@ -130,3 +130,34 @@ CREATE TABLE INVENTORIES_BRANCH (
 	CONSTRAINT INVENTORIES_BRANCH_ID_uk UNIQUE KEY (ID)
 );
 
+CREATE TABLE PURCHASE_ORDERS (
+	ID varchar(50) not null,
+	VERSION int(11) not null default 0,
+	DEL boolean not null default false,
+	REF_NO varchar(50) not null,
+	STATUS varchar(10) not null,
+	ORDERED_DT datetime not null,
+	EXPECTED_DT datetime not null,
+	ORDERED_BY varchar(50) not null,
+	SUPPLIER_ID varchar(50) not null,
+	NOTES varchar(255) null,
+	CREATED_BY varchar(50) not null,
+	CREATED_DT timestamp not null default current_timestamp(),
+	UPDATED_BY varchar(50) null,
+	UPDATED_DT timestamp null,
+	CONSTRAINT PURCHASE_ORDERS_ID_uk UNIQUE KEY (ID),
+	CONSTRAINT PURCHASE_ORDERS_SUPPLIER_ID_fk FOREIGN KEY (SUPPLIER_ID) REFERENCES SUPPLIERS (ID)
+);
+
+CREATE TABLE PURCHASE_ORDERS_DTL (
+	ID varchar(50) not null,
+	VERSION int(11) not null default 0,
+	DEL boolean not null default false,
+	PURCHASE_ORDER_ID varchar(50) not null,
+	MODEL_ID varchar(50) not null,
+	QUANTITY int(11) not null,
+	UNIT_PRICE decimal(18,2) not null,
+	CONSTRAINT PURCHASE_ORDERS_DTL_ID_uk UNIQUE KEY (ID),
+	CONSTRAINT PURCHASE_ORDERS_DTL_PURCHASE_ORDER_ID_fk FOREIGN KEY (PURCHASE_ORDER_ID) REFERENCES PURCHASE_ORDERS (ID),
+	CONSTRAINT PURCHASE_ORDERS_DTL_MODEL_ID_fk FOREIGN KEY (MODEL_ID) REFERENCES MODELS (ID)
+);

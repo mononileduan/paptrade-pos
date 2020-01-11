@@ -69,13 +69,18 @@
             </ul>
         </li>
         <li>
-            <a href="#inventorySubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Inventory</a>
-            <ul class="collapse list-unstyled" id="inventorySubmenu">
+            <a href="#warehouseSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Warehouse</a>
+            <ul class="collapse list-unstyled" id="warehouseSubmenu">
                 <li>
-                    <a href="#">Warehouse</a>
-                </li>
-                <li>
-                    <a href="#">Branch</a>
+                    <a href="#poSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Purchase Order</a>
+                    <ul class="collapse list-unstyled" id="poSubmenu">
+                        <li>
+                            <a href="<?= base_url();?><?= index_page();?>/purchase_orders/add">New Purchase Order</a>
+                        </li>
+                        <li>
+                            <a href="<?= base_url();?><?= index_page();?>/purchase_orders">View Purchase Order</a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </li>

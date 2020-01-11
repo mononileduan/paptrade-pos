@@ -8,13 +8,21 @@
 		<base href="<?= base_url();?>">
 		<link rel="shortcut icon" type="image/x-icon" href="assets/images/iconpap.png" />
 		
-	    <link rel="stylesheet" type="text/css" href="assets/bootstrap/4.1.3/css/bootstrap.min.css">
+	    <link rel="stylesheet" type="text/css" href="assets/bootstrap/4.4.1/css/bootstrap.min.css">
 	    <link rel="stylesheet" type="text/css" href="assets/fontawesome/5.12.0/css/fontawesome.min.css">
 
 	    <link rel="stylesheet" type="text/css" href="assets/DataTables/datatables.min.css">
 	    <link rel="stylesheet" type="text/css" href="assets/DataTables/DataTables-1.10.20/css/dataTables.bootstrap4.min.css">
 	    <link rel="stylesheet" type="text/css" href="assets/DataTables/Buttons-1.6.1/css/buttons.bootstrap4.min.css">
+
+	    <link rel="stylesheet" type="text/css" href="assets/datepicker/gijgo/css/gijgo.min.css">
 	    <link rel="stylesheet" href="assets/sidenav-style.css">
+
+
+	    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    	<!-- <script src="assets/jquery/3.3.1/jquery-3.3.1.slim.min.js"></script> -->
+    	<script src="assets/jquery/3.4.1/jquery.min.js"></script>
+		<script type="text/javascript" src="assets/sweetalert/9.5.4/sweetalert2.all.min.js"></script>
 	</head>
 
 	<body>
