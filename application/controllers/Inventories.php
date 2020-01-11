@@ -25,14 +25,20 @@ class Inventories extends CI_Controller {
 	public function view(){
 		$data = array();
 		$data['session_user'] = $this->session->userdata('username');
+
+		$footer_data = array();
+		$footer_data['page_has_table'] = 'has_table';
+		$footer_data['site_url'] = 'inventories/inventories_page';
+		$footer_data['has_export_buttons'] = 'enabled';
 		
 		$this->load->view('components/header', $data);
 		$this->load->view('inventories/view', $data);
-		$this->load->view('components/footer');
+		$this->load->view('components/footer', $footer_data);
 	}
 
 	public function add(){
 		$data = array();
+		$data['session_user'] = $this->session->userdata('username');
 		
 		if($this->session->userdata('success_msg')){
 			$data['success_msg'] = $this->session->userdata('success_msg');

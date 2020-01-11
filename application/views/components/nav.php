@@ -82,6 +82,17 @@
                         </li>
                     </ul>
                 </li>
+                <li>
+                    <a href="#inventorySubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Inventory</a>
+                    <ul class="collapse list-unstyled" id="inventorySubmenu">
+                        <li>
+                            <a href="<?= base_url();?><?= index_page();?>/inventories/add">New Inventory</a>
+                        </li>
+                        <li>
+                            <a href="<?= base_url();?><?= index_page();?>/inventories">View Inventory</a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </li>
         <li>
