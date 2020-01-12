@@ -61,19 +61,34 @@ class Inventories extends CI_Controller {
 			$this->form_validation->set_rules('po_ref_no', 'PO Ref No', 'required|trim');
 
 			if($this->form_validation->run() == true){
-				$inventory = array(
-					'id'			=> uniqid('', true),
-					'category'		=> strtoupper($this->input->post('category')),
-					'brand'			=> strtoupper($this->input->post('brand')),
-					'item'			=> strtoupper($this->input->post('item')),
-					'sku'			=> strtoupper($this->input->post('sku')),
-					'unit_type'		=> strtoupper($this->input->post('unit_type')),
-					'quantity'		=> $this->input->post('quantity'),
-					'buying_price'	=> $this->input->post('buying_price'),
-					'selling_price'	=> $this->input->post('selling_price'),
-					'po_ref_no'		=> strtoupper($this->input->post('po_ref_no'))
-					);
-				$this->inventory->insert($inventory);
+				$con = array(
+					'returnType' => 'count',
+					'conditions' => array(
+						'del' 	=> false,
+						'sku'	=> strtoupper($this->input->post('sku'))
+					)
+				);
+
+				$inventoryCnt = $this->inventory->getRows($con);
+				if($inventoryCnt > 0){
+					$data['error_msg'] = 'SKU ' .strtoupper($this->input->post('sku')). ' already exists';
+				}else{
+					$inventory = array(
+						'id'			=> uniqid('', true),
+						'category'		=> strtoupper($this->input->post('category')),
+						'brand'			=> strtoupper($this->input->post('brand')),
+						'item'			=> strtoupper($this->input->post('item')),
+						'sku'			=> strtoupper($this->input->post('sku')),
+						'unit_type'		=> strtoupper($this->input->post('unit_type')),
+						'quantity'		=> $this->input->post('quantity'),
+						'buying_price'	=> $this->input->post('buying_price'),
+						'selling_price'	=> $this->input->post('selling_price'),
+						'po_ref_no'		=> strtoupper($this->input->post('po_ref_no'))
+						);
+					$this->inventory->insert($inventory);
+
+					redirect(current_url());
+				}
 
 			}else{
 				$data['error_msg'] = 'Please fill all required fields.';
