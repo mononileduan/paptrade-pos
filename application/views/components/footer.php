@@ -57,18 +57,24 @@
 					        "ajax": {
 					            url : "<?php echo site_url($site_url) ?>",
 					            type : 'GET'
-					        },
-					         "columnDefs": [ {
-					            "targets": -1,
-					            "data": null,
-					            "defaultContent": "<a class='action-view'><i class='fas fa-eye'></i></a>"
-					        } ]
+					        }
+					        <?php if(isset($view_dtl)){ 
+					        	echo ','.
+					         		'"columnDefs": [ {'.
+							        '   "targets": -1,'.
+							        '    "data": null,'.
+							        '    "defaultContent": "<a class=\'action-view\'><i class=\'fas fa-eye\'></i></a>"'.
+					        		'} ]';
+					        	}
+					        ?>
+					        
 					    });
 
-						$('#view-data-table tbody').on( 'click', 'a', function () {
+						$('#view-data-table tbody').on( 'click', 'a', function (refno) {
 					        var data = table.row( $(this).parents('tr') ).data();
 					        var refno = data[0];
-					        window.location.replace('<?= base_url();?><?= index_page();?>/purchase_orders_dtl/view/'+refno);
+					        <?php if(!isset($view_dtl_url)){ $view_dtl_url = '';} ?>
+					        window.location.replace('<?= base_url();?><?= index_page();?><?= $view_dtl_url;?>'+refno);
 					    } );
 				    }
 			    }

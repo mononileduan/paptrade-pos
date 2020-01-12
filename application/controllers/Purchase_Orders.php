@@ -29,6 +29,8 @@ class Purchase_Orders extends CI_Controller {
 		$footer_data = array();
 		$footer_data['page_has_table'] = 'has_table';
 		$footer_data['site_url'] = 'purchase_orders/purchase_orders_page';
+		$footer_data['view_dtl'] = true;
+		$footer_data['view_dtl_url'] = '/purchase_orders_dtl/view/';
 		
 		$this->load->view('components/header', $data);
 		$this->load->view('purchase_orders/view', $data);
