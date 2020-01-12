@@ -29,6 +29,20 @@
 					<input required="required" type="text" value="<?php echo set_value('model'); ?>" name="model" class="form-control">
 					<?php echo form_error('model', '<p class="help-block">','</p>'); ?>
 				</div>
+				<div class="form-group">
+					<label for='brand'>Category</label>
+					<select required="required" name="category" class="form-control">
+						<option value=""></option>
+						<?php foreach($categories->result_array() as $r) {
+							if(set_value('category') === $r['CATEGORY']){
+								echo '<option value="'.$r['CATEGORY'].'" selected="selected">'.$r['CATEGORY'].'</option>';
+							}else{
+								echo '<option value="'.$r['CATEGORY'].'">'.$r['CATEGORY'].'</option>';
+							}
+						} ?>
+					</select>
+					<?php echo form_error('brand', '<p class="help-block">','</p>'); ?>
+				</div>
 				<?php
 					if(!empty($success_msg)){
 						echo '<p class="status-msg success">'.$success_msg.'</p>';

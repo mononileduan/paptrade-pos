@@ -8,6 +8,7 @@ class Models extends CI_Controller {
 		$this->load->library('form_validation');
 		$this->load->model('model');
 		$this->load->model('brand');
+		$this->load->model('category');
 
 		$this->isLoggedIn = $this->session->userdata('isLoggedIn');
 	}
@@ -67,7 +68,8 @@ class Models extends CI_Controller {
 					$model = array(
 						'id'		=> uniqid('', true),
 						'model'		=> strtoupper($this->input->post('model')),
-						'brand'		=> strtoupper($this->input->post('brand'))
+						'brand'		=> strtoupper($this->input->post('brand')),
+						'category' => strtoupper($this->input->post('category'))
 						);
 					$this->model->insert($model);
 
@@ -86,6 +88,7 @@ class Models extends CI_Controller {
 			)
 		);
 		$data['brands'] = $this->brand->getRows($con);
+		$data['categories'] = $this->category->getRows($con);
 
 		$this->load->view('components/header', $data);
 		$this->load->view('models/add', $data);
@@ -110,8 +113,9 @@ class Models extends CI_Controller {
 		
 		foreach($modelList->result_array() as $r) {
 		   $data[] = array(
+		        $r['BRAND'],
 		        $r['MODEL'],
-		        $r['BRAND']
+		        $r['CATEGORY']
 		   );
 		}
 

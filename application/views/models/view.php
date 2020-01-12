@@ -12,8 +12,9 @@
 			<table id="view-data-table" class="table table-bordered table-striped table-hover">
 				<thead>
 					<tr>
-						<td>Model</td>
 						<td>Brand</td>
+						<td>Model</td>
+						<td>Category</td>
 					</tr>
 				</thead>
 				<tbody>
