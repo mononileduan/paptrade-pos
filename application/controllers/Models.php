@@ -129,13 +129,13 @@ class Models extends CI_Controller {
 		exit();
     }
 
-	public function get_by_brand(){
-		$brand = $this->input->get('id',TRUE);
+	public function get_by_category(){
+		$category = $this->input->get('id',TRUE);
 		$con = array(
 			'returnType' => 'list',
 			'conditions' => array(
 				'del' => false,
-				'brand' => $brand
+				'category' => $category
 			)
 		);
 		$modelList = $this->model->getRows($con);

@@ -98,9 +98,7 @@ CREATE TABLE INVENTORIES (
 	VERSION int(11) not null default 0,
 	DEL boolean not null default false,
 	SKU varchar (50) not null,
-	ITEM varchar (50) not null,
-	BRAND varchar (50) not null,
-	CATEGORY varchar (50) not null,
+	ITEM_ID varchar (50) not null,
 	UNIT_TYPE varchar (50) not null,
 	QUANTITY int(11) not null,
 	BUYING_PRICE decimal(18,2) not null,
@@ -110,7 +108,8 @@ CREATE TABLE INVENTORIES (
 	CREATED_DT timestamp not null default current_timestamp(),
 	UPDATED_BY varchar(50) null,
 	UPDATED_DT timestamp null,
-	CONSTRAINT INVENTORIES_ID_uk UNIQUE KEY (ID)
+	CONSTRAINT INVENTORIES_ID_uk UNIQUE KEY (ID),
+	CONSTRAINT INVENTORIES_ITEM_ID_fk FOREIGN KEY (ITEM_ID) REFERENCES MODELS (ID)
 );
 
 CREATE TABLE INVENTORIES_BRANCH (

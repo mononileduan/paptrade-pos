@@ -41,6 +41,28 @@ class Inventory extends CI_Model {
 		return $result;
 	}
 
+	public function getRowsJoin($params = array()){
+		$sql = "SELECT ".
+		"inv.ID as ID, ".
+		"inv.SKU as SKU, ".
+		"concat(m.BRAND, ' - ', m.MODEL) as ITEM, ".
+		"m.CATEGORY as CATEGORY, ".
+		"inv.QUANTITY as QUANTITY, ".
+		"inv.UNIT_TYPE as UNIT_TYPE, ".
+		"inv.BUYING_PRICE as BUYING_PRICE, ".
+		"inv.SELLING_PRICE as SELLING_PRICE, ".
+		"inv.PO_REF_NO as PO_REF_NO ".
+		"FROM inventories inv, models m where m.id=inv.item_id";
+		if(array_key_exists("conditions", $params)){
+			foreach ($params['conditions'] as $key => $val) {
+				$sql = $sql . " AND " . $key . "='" . $val . "'"; 
+			}
+		}
+		$result = $this->db->query($sql);
+		return $result;
+
+	}
+
 	public function insert($data = array()){
 		if(!empty($data)){
 			if(!array_key_exists("created_by", $data)){

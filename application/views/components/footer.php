@@ -47,7 +47,13 @@
 					        "ajax": {
 					            url : "<?php echo site_url($site_url) ?>",
 					            type : 'GET'
-					        }
+					        },
+					        "columnDefs": [
+							    { 
+							    	className: "dt-right",
+							    	"targets": <?php if(isset($right_align_columns)){echo json_encode($right_align_columns);} else {echo '[]';} ?>
+							    }
+							  ]
 					    });
 					    datatable.buttons().container()
 					        .appendTo( '#view-data-table_wrapper .col-md-6:eq(0)' );
@@ -59,12 +65,27 @@
 					            type : 'GET'
 					        }
 					        <?php if(isset($view_dtl)){ 
-					        	echo ','.
-					         		'"columnDefs": [ {'.
-							        '   "targets": -1,'.
-							        '    "data": null,'.
-							        '    "defaultContent": "<a class=\'action-view\'><i class=\'fas fa-eye\'></i></a>"'.
-					        		'} ]';
+						        	echo ','.
+						         		'"columnDefs": [ {'.
+								        '	"targets": -1,'.
+								        '	"data": null,'.
+								        '	"defaultContent": "<a class=\'action-view\'><i class=\'fas fa-eye\'></i></a>"'.
+						        		'}';
+						        		if(isset($right_align_columns)){
+							        		echo ', {'.
+											    '	className: "dt-right", '.
+									        	'	"targets": '. json_encode($right_align_columns);
+							        		echo '}';
+						        		}
+						        	echo ']';
+					        	}else{
+					        		if(isset($right_align_columns)){
+						        		echo ','.
+						         		'"columnDefs": [ {'.
+										    '	className: "dt-right", '.
+								        	'	"targets": '. json_encode($right_align_columns);
+						        		echo '}]';
+					        		}
 					        	}
 					        ?>
 					        

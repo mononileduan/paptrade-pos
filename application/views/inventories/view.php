@@ -14,10 +14,9 @@
 					<tr>
 						<td>SKU</td>
 						<td>Item</td>
-						<td>Brand</td>
 						<td>Category</td>
-						<td>Unit Type</td>
 						<td>Quantity</td>
+						<td>Unit Type</td>
 						<td>Buying Price</td>
 						<td>Selling Price</td>
 						<td>PO Ref. No.</td>

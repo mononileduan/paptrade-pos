@@ -31,6 +31,7 @@ class Purchase_Orders extends CI_Controller {
 		$footer_data['site_url'] = 'purchase_orders/purchase_orders_page';
 		$footer_data['view_dtl'] = true;
 		$footer_data['view_dtl_url'] = '/purchase_orders_dtl/view/';
+		$footer_data['right_align_columns'] = array(-3, -5);
 		
 		$this->load->view('components/header', $data);
 		$this->load->view('purchase_orders/view', $data);

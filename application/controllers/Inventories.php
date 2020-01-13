@@ -30,6 +30,7 @@ class Inventories extends CI_Controller {
 		$footer_data['page_has_table'] = 'has_table';
 		$footer_data['site_url'] = 'inventories/inventories_page';
 		$footer_data['has_export_buttons'] = 'enabled';
+		$footer_data['right_align_columns'] = array(-2, -3, -5);
 		
 		$this->load->view('components/header', $data);
 		$this->load->view('inventories/view', $data);
@@ -51,11 +52,10 @@ class Inventories extends CI_Controller {
 
 		if($this->input->post('submit_inventory')){
 			$this->form_validation->set_rules('category', 'Category', 'required|trim');
-			$this->form_validation->set_rules('brand', 'Brand', 'required|trim');
-			$this->form_validation->set_rules('item', 'Item', 'required|trim');
+			$this->form_validation->set_rules('item_id', 'Item', 'required|trim');
 			$this->form_validation->set_rules('sku', 'SKU', 'required|trim');
 			$this->form_validation->set_rules('unit_type', 'Unit Type', 'required|trim');
-			$this->form_validation->set_rules('quantity', 'Quantity', 'required|trim');
+			$this->form_validation->set_rules('quantity', 'Quantity', 'required|trim|numeric');
 			$this->form_validation->set_rules('buying_price', 'Buying Price', 'required|trim');
 			$this->form_validation->set_rules('selling_price', 'Selling Price', 'required|trim');
 			$this->form_validation->set_rules('po_ref_no', 'PO Ref No', 'required|trim');
@@ -75,9 +75,7 @@ class Inventories extends CI_Controller {
 				}else{
 					$inventory = array(
 						'id'			=> uniqid('', true),
-						'category'		=> strtoupper($this->input->post('category')),
-						'brand'			=> strtoupper($this->input->post('brand')),
-						'item'			=> strtoupper($this->input->post('item')),
+						'item_id'		=> strtoupper($this->input->post('item_id')),
 						'sku'			=> strtoupper($this->input->post('sku')),
 						'unit_type'		=> strtoupper($this->input->post('unit_type')),
 						'quantity'		=> $this->input->post('quantity'),
@@ -119,10 +117,10 @@ class Inventories extends CI_Controller {
 		$con = array(
 			'returnType' => 'list',
 			'conditions' => array(
-				'del' => false
+				'inv.del' => false
 			)
 		);
-		$inventoryList = $this->inventory->getRows($con);
+		$inventoryList = $this->inventory->getRowsJoin($con);
 
 		$data = array();
 		
@@ -130,10 +128,9 @@ class Inventories extends CI_Controller {
 		   $data[] = array(
 		        $r['SKU'],
 		        $r['ITEM'],
-		        $r['BRAND'],
 		        $r['CATEGORY'],
-		        $r['UNIT_TYPE'],
 		        $r['QUANTITY'],
+		        $r['UNIT_TYPE'],
 		        $r['BUYING_PRICE'],
 		        $r['SELLING_PRICE'],
 		        $r['PO_REF_NO']
