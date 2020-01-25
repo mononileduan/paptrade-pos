@@ -7,9 +7,7 @@ class Inventories_Branch extends CI_Controller {
 
 		$this->load->library('form_validation');
 		$this->load->model('inventory_branch');
-		$this->load->model('brand');
 		$this->load->model('category');
-		$this->load->model('unit_type');
 
 		$this->isLoggedIn = $this->session->userdata('isLoggedIn');
 	}
@@ -25,14 +23,21 @@ class Inventories_Branch extends CI_Controller {
 	public function view(){
 		$data = array();
 		$data['session_user'] = $this->session->userdata('username');
+
+		$footer_data = array();
+		$footer_data['page_has_table'] = 'has_table';
+		$footer_data['site_url'] = 'inventories_branch/inventories_branch_page';
+		$footer_data['has_export_buttons'] = 'enabled';
+		$footer_data['right_align_columns'] = array(-1, -2);
 		
 		$this->load->view('components/header', $data);
 		$this->load->view('inventories_branch/view', $data);
-		$this->load->view('components/footer');
+		$this->load->view('components/footer', $footer_data);
 	}
 
 	public function add(){
 		$data = array();
+		$data['session_user'] = $this->session->userdata('username');
 		
 		if($this->session->userdata('success_msg')){
 			$data['success_msg'] = $this->session->userdata('success_msg');
@@ -45,28 +50,40 @@ class Inventories_Branch extends CI_Controller {
 
 		if($this->input->post('submit_inventory_branch')){
 			$this->form_validation->set_rules('category', 'Category', 'required|trim');
-			$this->form_validation->set_rules('brand', 'Brand', 'required|trim');
-			$this->form_validation->set_rules('item', 'Item', 'required|trim');
-			$this->form_validation->set_rules('sku', 'SKU', 'required|trim');
-			$this->form_validation->set_rules('unit_type', 'Unit Type', 'required|trim');
+			$this->form_validation->set_rules('item_id', 'Item', 'required|trim');
 			$this->form_validation->set_rules('quantity', 'Quantity', 'required|trim');
 			$this->form_validation->set_rules('selling_price', 'Selling Price', 'required|trim');
-			$this->form_validation->set_rules('warehouse_po_ref_no', 'Warehouse PO Ref No', 'required|trim');
 
 			if($this->form_validation->run() == true){
-				$inventory = array(
-					'id'					=> uniqid('', true),
-					'branch_id'				=> $this->session->userdata('branch_id'),
-					'category'				=> strtoupper($this->input->post('category')),
-					'brand'					=> strtoupper($this->input->post('brand')),
-					'item'					=> strtoupper($this->input->post('item')),
-					'sku'					=> strtoupper($this->input->post('sku')),
-					'unit_type'				=> strtoupper($this->input->post('unit_type')),
-					'quantity'				=> $this->input->post('quantity'),
-					'selling_price'			=> $this->input->post('selling_price'),
-					'warehouse_po_ref_no'	=> strtoupper($this->input->post('warehouse_po_ref_no'))
-					);
-				$this->inventory_branch->insert($inventory);
+				$con = array(
+					'returnType' => 'single',
+					'conditions' => array(
+						'del' 	=> false,
+						'branch_id'	=> $this->session->userdata('branch_id'),
+						'item_id'	=> strtoupper($this->input->post('item_id'))
+					)
+				);
+
+				$inventory = $this->inventory_branch->getRows($con);
+				if($inventory){
+					$quantity = $inventory['QUANTITY'];
+					$newVal = array('quantity' => $quantity + $this->input->post('quantity'));
+					$this->inventory_branch->update($inventory['ID'], $newVal);
+
+					redirect(current_url());
+
+				}else{
+					$inventory = array(
+						'id'					=> uniqid('', true),
+						'branch_id'				=> $this->session->userdata('branch_id'),
+						'item_id'				=> strtoupper($this->input->post('item_id')),
+						'quantity'				=> $this->input->post('quantity'),
+						'selling_price'			=> $this->input->post('selling_price')
+						);
+					$this->inventory_branch->insert($inventory);
+
+					redirect(current_url());
+				}
 
 			}else{
 				$data['error_msg'] = 'Please fill all required fields.';
@@ -80,8 +97,6 @@ class Inventories_Branch extends CI_Controller {
 			)
 		);
 		$data['categories'] = $this->category->getRows($con);
-		$data['brands'] = $this->brand->getRows($con);
-		$data['unit_types'] = $this->unit_type->getRows($con);
 
 		$this->load->view('components/header', $data);
 		$this->load->view('inventories_branch/add', $data);
@@ -97,24 +112,20 @@ class Inventories_Branch extends CI_Controller {
 		$con = array(
 			'returnType' => 'list',
 			'conditions' => array(
-				'del' => false,
+				'inv.del' => false,
 				'branch_id' => $this->session->userdata('branch_id')
 			)
 		);
-		$inventoryList = $this->inventory_branch->getRows($con);
+		$inventoryList = $this->inventory_branch->getRowsJoin($con);
 
 		$data = array();
 		
 		foreach($inventoryList->result_array() as $r) {
 		   $data[] = array(
-		        $r['SKU'],
 		        $r['ITEM'],
-		        $r['BRAND'],
 		        $r['CATEGORY'],
-		        $r['UNIT_TYPE'],
 		        $r['QUANTITY'],
-		        $r['SELLING_PRICE'],
-		        $r['WAREHOUSE_PO_REF_NO']
+		        $r['SELLING_PRICE']
 		   );
 		}
 

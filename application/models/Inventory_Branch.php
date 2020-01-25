@@ -41,6 +41,24 @@ class Inventory_Branch extends CI_Model {
 		return $result;
 	}
 
+	public function getRowsJoin($params = array()){
+		$sql = "SELECT ".
+		"inv.ID as ID, ".
+		"concat(m.BRAND, ' - ', m.MODEL) as ITEM, ".
+		"m.CATEGORY as CATEGORY, ".
+		"inv.QUANTITY as QUANTITY, ".
+		"inv.SELLING_PRICE as SELLING_PRICE ".
+		"FROM inventories_branch inv, models m where m.id=inv.item_id";
+		if(array_key_exists("conditions", $params)){
+			foreach ($params['conditions'] as $key => $val) {
+				$sql = $sql . " AND " . $key . "='" . $val . "'"; 
+			}
+		}
+		$result = $this->db->query($sql);
+		return $result;
+
+	}
+
 	public function insert($data = array()){
 		if(!empty($data)){
 			if(!array_key_exists("created_by", $data)){

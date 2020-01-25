@@ -96,6 +96,33 @@
             </ul>
         </li>
         <li>
+            <a href="#branchSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Branch</a>
+            <ul class="collapse list-unstyled" id="branchSubmenu">
+                <li>
+                    <a href="#supplyRequestSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Supply Request</a>
+                    <ul class="collapse list-unstyled" id="supplyRequestSubmenu">
+                        <li>
+                            <a href="<?= base_url();?><?= index_page();?>/branch_supply_requests/add">New Supply Request</a>
+                        </li>
+                        <li>
+                            <a href="<?= base_url();?><?= index_page();?>/branch_supply_requests">View Supply Requests</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#branchInventorySubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Inventory</a>
+                    <ul class="collapse list-unstyled" id="branchInventorySubmenu">
+                        <li>
+                            <a href="<?= base_url();?><?= index_page();?>/inventories_branch/add">New Inventory</a>
+                        </li>
+                        <li>
+                            <a href="<?= base_url();?><?= index_page();?>/inventories_branch">View Inventory</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>
             <a href="#reportsSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Reports</a>
             <ul class="collapse list-unstyled" id="reportsSubmenu">
                 <li>
