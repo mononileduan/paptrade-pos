@@ -67,7 +67,10 @@ class Inventories_Branch extends CI_Controller {
 				$inventory = $this->inventory_branch->getRows($con);
 				if($inventory){
 					$quantity = $inventory['QUANTITY'];
-					$newVal = array('quantity' => $quantity + $this->input->post('quantity'));
+					$newVal = array(
+						'quantity'		=> $quantity + $this->input->post('quantity'),
+						'selling_price'	=> $this->input->post('selling_price')
+					);
 					$this->inventory_branch->update($inventory['ID'], $newVal);
 
 					redirect(current_url());
@@ -76,6 +79,7 @@ class Inventories_Branch extends CI_Controller {
 					$inventory = array(
 						'id'					=> uniqid('', true),
 						'branch_id'				=> $this->session->userdata('branch_id'),
+						'inventory_id'			=> date("YmdHis"),
 						'item_id'				=> strtoupper($this->input->post('item_id')),
 						'quantity'				=> $this->input->post('quantity'),
 						'selling_price'			=> $this->input->post('selling_price')
@@ -122,6 +126,7 @@ class Inventories_Branch extends CI_Controller {
 		
 		foreach($inventoryList->result_array() as $r) {
 		   $data[] = array(
+		   		$r['INVENTORY_ID'],
 		        $r['ITEM'],
 		        $r['CATEGORY'],
 		        $r['QUANTITY'],

@@ -12,6 +12,7 @@
 			<table id="view-data-table" class="table table-bordered table-striped table-hover" style="width:100%">
 				<thead>
 					<tr>
+						<td>Inventory ID</td>
 						<td>Item</td>
 						<td>Category</td>
 						<td>Quantity</td>

@@ -117,6 +117,7 @@ CREATE TABLE INVENTORIES_BRANCH (
 	VERSION int(11) not null default 0,
 	DEL boolean not null default false,
 	BRANCH_ID varchar (50) not null,
+	INVENTORY_ID varchar (50) not null,
 	ITEM_ID varchar (50) not null,
 	QUANTITY int(11) not null,
 	SELLING_PRICE decimal(18,2) not null,

@@ -44,6 +44,7 @@ class Inventory_Branch extends CI_Model {
 	public function getRowsJoin($params = array()){
 		$sql = "SELECT ".
 		"inv.ID as ID, ".
+		"inv.INVENTORY_ID as INVENTORY_ID, ".
 		"concat(m.BRAND, ' - ', m.MODEL) as ITEM, ".
 		"m.CATEGORY as CATEGORY, ".
 		"inv.QUANTITY as QUANTITY, ".
