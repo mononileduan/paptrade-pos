@@ -60,8 +60,8 @@
 	            </nav>
 
 
-	            <div class="row">
-	            	<div class="col-md-6">
+	            <div class="row header">
+	            	<div class="col-md-6 box rightnone" style="height: 694px; overflow-y: auto;">
 	            		<h3>List of Items</h3>
 	            		<div class="content">
 	            			<label>Select Item</label>
@@ -81,10 +81,10 @@
 	            		</div>
 	            	</div>
 
-	            	<div class="col-md-6">
+	            	<div class="col-md-6 box" style="height: 694px; overflow-y: auto;">
 	            		<h3>Order Details</h3>
 	            		<div class="content">
-	            			<div id="cart-tbl" style="min-height: 358px; max-height: 233px;">
+	            			<div id="cart-tbl" style="min-height: 310px; max-height: 185px;">
 		            			<table id="cart" class="table table-bordered table-striped table-hover" style="width:100%">
 									<thead>
 										<tr>
@@ -92,7 +92,7 @@
 											<td width="15%">Unit Price</td>
 											<td width="15%">Quantity</td>
 											<td width="15%">Sub-Total</td>
-											<th width="5%"></th>
+											<th width="5%"> </th>
 										</tr>
 									</thead>
 									<tbody>

@@ -99,16 +99,16 @@ $(document).ready(function() {
 				 	var subtotal = parseInt(quantity) * parseFloat(price);
 				 	totalAmountDue += parseFloat(subtotal);
 					$("#cart tbody").append(
-							'<tr>' +
-								'<input name="id" type="hidden" value="'+ id +'">' +
-								'<td>'+ name +'</td>' +
-								'<td>'+ price +'</td>' +
-								'<td><input data-stocks="'+stocks+'" data-remaining="'+stocks+'" data-id="'+id+'" name="qty" type="text" value="'+quantity+'" class="quantity-box" size="5"></td>' +
-								/*'<td> <input type="text" value="0" placeholder="Discount" name="discount" class="discount-input"></td>' +*/
-								'<td>'+ subtotal.toFixed(2) +'</td>' +
-					 			
-								'<td><span class="remove" style="font-size:12px;"><i class="fa fa-trash" title="Remove"></i></span></td>' +
-							'</tr>'
+						'<tr>' +
+							'<input name="id" type="hidden" value="'+ id +'">' +
+							'<td>'+ name +'</td>' +
+							'<td>'+ price +'</td>' +
+							'<td><input data-stocks="'+stocks+'" data-remaining="'+stocks+'" data-id="'+id+'" name="qty" type="text" value="'+quantity+'" class="quantity-box" size="5"></td>' +
+							/*'<td> <input type="text" value="0" placeholder="Discount" name="discount" class="discount-input"></td>' +*/
+							'<td>'+ subtotal.toFixed(2) +'</td>' +
+				 			
+							'<td><span class="remove" style="font-size:12px;"><i class="fa fa-trash" title="Remove"></i></span></td>' +
+						'</tr>'
 						);
 					recount();
 					$("payment").val('');
@@ -184,9 +184,9 @@ $(document).ready(function() {
 					$("#r-items-table tbody").append(
 							'<tr>' + 
 								'<td>'+value.name +'</td>' +
-								'<td>'+currency+ number_format(value.price) +'</td>' +
+								'<td>'+currency+ (value.price) +'</td>' +
 								'<td>'+value.quantity+'</td>' +
-								'<td>'+currency+ number_format(value.subtotal)+'</td>' +
+								'<td>'+currency+ (value.subtotal)+'</td>' +
 							'</tr>'
 						);
 				});
