@@ -59,7 +59,7 @@
 	                                <a class="nav-link" href="<?= base_url();?><?= index_page();?>/users/dashboard">Home</a>
 	                            </li>
 	                            <li class="nav-item">
-	                                <a class="nav-link" href="#">POS</a>
+	                                <a class="nav-link" href="<?= base_url();?><?= index_page();?>/pos">POS</a>
 	                            </li>
 	                            <li class="nav-item">
 	                                <a class="nav-link" href="<?= base_url();?><?= index_page();?>/users/logout">Logout</a>
