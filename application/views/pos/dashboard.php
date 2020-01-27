@@ -5,7 +5,8 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<base href="<?= base_url();?>">
+		<meta name="base_url" content="<?= base_url();?><?= index_page();?>">
+		<base href="<?= base_url();?><?= index_page();?>">
 		<link rel="shortcut icon" type="image/x-icon" href="assets/images/iconpap.png" />
 		
 	    <link rel="stylesheet" type="text/css" href="assets/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -119,6 +120,14 @@
 										<input type="submit" class="btn btn-primary form-control" name="" value="Process" id="btn" >
 									</div>
 								</form>
+
+								<?php
+									if(!empty($success_msg)){
+										echo '<p class="status-msg success">'.$success_msg.'</p>';
+									}elseif(!empty($error_msg)){
+										echo '<p class="alert alert-danger col-sm-12">'.$error_msg.'</p>';
+									}
+								?>
 							</div>
 							<!--<div class="col-md-12" style="border-bottom: solid 1px #ddd;padding: 15px 25px;">
 								<label>Grand Total: </label>
@@ -143,6 +152,98 @@
 				</div>
 
 	        </div>
+
+	        <div class="modal" tabindex="-1" role="dialog" id="payment-modal">
+				<div class="modal-dialog modal-lg" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">Transaction Complete</h5>
+						</div>
+						<div class="modal-body">
+							<div class="col-md-7">
+								<div id="receipt">
+									<div class="r-header text-center">
+										<h3>Receipt</h3>
+										<div class="row">
+											<div class="col-md-4 text-left">
+												<div>ID:</div>
+												<div>Date: <span></span></div>
+												<div>Cashier:</div>
+												<div>Time:</div>
+											</div>
+											<div class="col-md-8 text-left">
+												<div id="r-id">005250</div>
+												<div id="r-date">01/26/2020</div>
+												<div id="r-cashier">Cashier</div>
+												<div id="r-time">03:22 pm</div> 
+											</div>
+										</div>
+										<div class="clearfix"></div>
+									</div>
+									<div class="r-body">
+										<table class="table table-striped" id="r-items-table">
+											<thead>
+												<tr> 
+													<th>Item Name</th>
+													<th>Price</th>
+													<th>Quantity</th>
+													<th>Sub Total</th>
+												</tr>
+											</thead>
+											<tbody>
+
+											</tbody>
+										</table>
+										<hr>
+										<div class="text-right"> 
+											<div>Discount: <span id="r-discount"></span></div>
+											<div>Grand Total <span id="r-total-amount"></span></div>
+											<div>Payment: <span id="r-payment"></span></div>
+											<div>Change: <span id="r-change"></span></div>
+										</div>
+
+										<div class="r-footer">
+											<p>Thank you for shopping at our store</p>
+										</div>
+									</div>
+
+								</div>
+							</div>
+							
+							<div class="col-md-5">
+								<h4 class="">Transaction Summary</h3> 
+								<table class="table"> 
+									<tr>
+										<td>Discount Amount:</td>
+										<td id="summary-discount"></td>
+									</tr>
+									<tr>
+										<td>Grand Amount:</td>
+										<td id="summary-total"></td>
+									</tr>
+									<tr>
+										<td>Payment:</td>
+										<td id="summary-payment"></td>
+									</tr>
+									<tr>
+										<td>Change:</td>
+										<td id="summary-change"></td>
+									</tr>
+								</table>
+								<button class="btn btn-default btn-sm" id="print">Print Receipt</button>
+							</div>
+
+							<div class="clearfix"></div>
+
+						</div>
+						<div class="modal-footer"> 
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
 		</div>
 
 
@@ -201,6 +302,8 @@
 
 			});
 		</script>
+		<script type="text/javascript" src="assets/jquery-pos.js"></script>
+		<script type="text/javascript" src="assets/print.js"></script>
 		<script type="text/javascript" src="assets/pos.js"></script>
 	</body>
 </html>

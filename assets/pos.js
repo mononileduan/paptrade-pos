@@ -8,7 +8,6 @@ $(document).ready(function() {
 	var transactionComplete = false;
 	var currency = 'â‚±';
 
-
 	var dHeight = parseInt($(document).height());
  	
 	dHeight = dHeight - 60;
@@ -155,22 +154,20 @@ $(document).ready(function() {
 		var change = $("#change").val();
  	 
  		if (row) {
-
  			var totalAmountDue = parseFloat($("#amount-total").text().substring(1).replace(',',''));
 	 
 			if (parseFloat(payment) >= parseFloat(totalAmountDue)) {
 		 		
 	 			for (i = 0; i < row; i++) {
 					var r = $("#cart tbody tr").eq(i).find('td');
-					var quantity = r.eq(1).find('input').val();
-					var price = r.eq(3).text().substring(1).replace(',','');
+					var quantity = r.eq(2).find('input').val();
+					var price = r.eq(1).text().replace(',','');
 					var arr = {
-							id : $("#cart tbody tr").eq(i).find('input[name="id"]').val(), 
+							inventory_id : $("#cart tbody tr").eq(i).find('input[name="id"]').val(), 
+							unit_price : price,
 							quantity : quantity, 
-							price : price,
-							name : r.eq(0).text(),
-							subtotal : parseFloat(price) * parseInt(quantity),
-							discount : $("#cart tbody tr").eq(i).find('input[name="discount"]').val()
+							subtotal : parseFloat(price) * parseInt(quantity)
+							/*discount : $("#cart tbody tr").eq(i).find('input[name="discount"]').val()*/
 						};
 					total_amount += parseFloat(price) * parseInt(quantity);
 					sales.push(arr);
@@ -193,20 +190,21 @@ $(document).ready(function() {
 
 
 				var data = {};
+				data['process_sales'] = true;
+				data['grand_total'] = total_amount;
 				data['sales'] = sales;
-				data[csrfName] = csrfHash;
 				$.ajax({
 					type : 'POST',
 					data : data,
-					url : base_url + 'SalesController/insert',
-					beforeSend : function() {
+					url : base_url + '/sales/add',
+					/*beforeSend : function() {
 						$("#btn").button('loading');
-					},
+					},*/
 					success : function(data) { 
 		 				transactionComplete = true;
 		 				var total = parseFloat(total_amount);
 		 			 	var d = new Date();
-		 				$("#payment-modal").modal('toggle');
+		 				/*$("#payment-modal").modal('toggle');
 						$("#loader").hide();
 						//Transaction Summary 
 		
@@ -234,7 +232,7 @@ $(document).ready(function() {
 					 	item_table.clear().draw();
 					 	$("#btn").button('reset');
 					 	totalAmountDue = 0;  
-						totalDiscount = 0
+						totalDiscount = 0*/
 					 	
 					}
 				})

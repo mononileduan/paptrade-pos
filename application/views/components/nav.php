@@ -126,7 +126,7 @@
             <a href="#reportsSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Reports</a>
             <ul class="collapse list-unstyled" id="reportsSubmenu">
                 <li>
-                    <a href="#">Sales</a>
+                    <a href="<?= base_url();?><?= index_page();?>/sales">Sales</a>
                 </li>
             </ul>
         </li>
