@@ -196,3 +196,7 @@ header {
 .form-control[readonly] {
 	background: #ffffff;
 }
+
+.amount {
+	text-align: right;
+}

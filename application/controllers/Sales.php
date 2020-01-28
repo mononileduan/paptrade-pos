@@ -93,7 +93,8 @@ class Sales extends CI_Controller {
 				 
 				}
 
-				redirect(current_url());
+				echo $ref_no;
+				exit();
 
 			}else{
 				$data['error_msg'] = 'Failed to save Purchase Order.';

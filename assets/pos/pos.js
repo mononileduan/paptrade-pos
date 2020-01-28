@@ -175,6 +175,7 @@ $(document).ready(function() {
 					var price = r.eq(1).text().replace(',','');
 					var arr = {
 							inventory_id : $("#cart tbody tr").eq(i).find('input[name="id"]').val(), 
+							item : r.eq(0).text(),
 							unit_price : price,
 							quantity : quantity, 
 							subtotal : parseFloat(price) * parseInt(quantity)
@@ -191,10 +192,10 @@ $(document).ready(function() {
 			 	 
 					$("#r-items-table tbody").append(
 							'<tr>' + 
-								'<td>'+value.name +'</td>' +
-								'<td>'+currency+ (value.price) +'</td>' +
-								'<td>'+value.quantity+'</td>' +
-								'<td>'+currency+ (value.subtotal)+'</td>' +
+								'<td>'+value.item +'</td>' +
+								'<td class="amount">'+formatCurrencyVal(value.unit_price) +'</td>' +
+								'<td class="amount">'+value.quantity+'</td>' +
+								'<td class="amount">'+formatCurrencyVal(value.subtotal)+'</td>' +
 							'</tr>'
 						);
 				});
@@ -219,17 +220,17 @@ $(document).ready(function() {
 						$("#loader").hide();
 						//Transaction Summary 
 		
-						$("#summary-payment").text( currency + number_format(payment));
-						$("#summary-change").text( currency + number_format(change.substring(1)));
-					 	$("#summary-discount").text(currency + number_format(totalDiscount));
-						$("#summary-total").text( currency + number_format(total_amount) )
+						$("#summary-payment").text( formatCurrencyVal(payment));
+						$("#summary-change").text( formatCurrencyVal(change.substring(1)));
+					 	$("#summary-discount").text( formatCurrencyVal(totalDiscount));
+						$("#summary-total").text( formatCurrencyVal(total_amount) )
 						
 						//Fill In Receipt 
-						$("#r-payment").text( currency + number_format(payment));
-						$("#r-change").text( currency + number_format(change.substring(1)));
+						$("#r-payment").text( formatCurrencyVal(payment));
+						$("#r-change").text( formatCurrencyVal(change.substring(1)));
 						$("#r-cashier").text($("#user").text()); 
-						$("#r-total-amount").text( currency + number_format(total_amount) )
-						$("#r-discount").text(currency + number_format(totalDiscount));
+						$("#r-total-amount").text( formatCurrencyVal(total_amount) )
+						$("#r-discount").text(formatCurrencyVal(totalDiscount));
 						$("#r-id").text(data);
 						$("#r-time").text(d.toLocaleTimeString());
 
