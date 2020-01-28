@@ -81,6 +81,17 @@ $(document).ready(function() {
 	
 	//data = {};
 	//data[csrfName] = csrfHash;
+	var item_table = $('#item-table').DataTable({
+        "ajax": {
+            url : base_url + '/inventories_branch/inventories_branch_page',
+            type : 'GET'
+        },
+        "columnDefs": [{
+        	className: "dt-right",
+        	"targets": [-1, -2]
+        }]
+        
+    });
 	
 
 	$("#item-table").on('click', 'tbody tr', function(event) {
@@ -204,18 +215,18 @@ $(document).ready(function() {
 		 				transactionComplete = true;
 		 				var total = parseFloat(total_amount);
 		 			 	var d = new Date();
-		 				/*$("#payment-modal").modal('toggle');
+		 				$("#payment-modal").modal('toggle');
 						$("#loader").hide();
 						//Transaction Summary 
 		
 						$("#summary-payment").text( currency + number_format(payment));
-						$("#summary-change").text( currency + number_format(change));
+						$("#summary-change").text( currency + number_format(change.substring(1)));
 					 	$("#summary-discount").text(currency + number_format(totalDiscount));
 						$("#summary-total").text( currency + number_format(total_amount) )
 						
 						//Fill In Receipt 
 						$("#r-payment").text( currency + number_format(payment));
-						$("#r-change").text( currency + number_format(change));
+						$("#r-change").text( currency + number_format(change.substring(1)));
 						$("#r-cashier").text($("#user").text()); 
 						$("#r-total-amount").text( currency + number_format(total_amount) )
 						$("#r-discount").text(currency + number_format(totalDiscount));
@@ -232,7 +243,7 @@ $(document).ready(function() {
 					 	item_table.clear().draw();
 					 	$("#btn").button('reset');
 					 	totalAmountDue = 0;  
-						totalDiscount = 0*/
+						totalDiscount = 0
 					 	
 					}
 				})

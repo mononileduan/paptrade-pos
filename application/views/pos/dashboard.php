@@ -8,58 +8,37 @@
 		<meta name="base_url" content="<?= base_url();?><?= index_page();?>">
 		<base href="<?= base_url();?><?= index_page();?>">
 		<link rel="shortcut icon" type="image/x-icon" href="assets/images/iconpap.png" />
-		
-	    <link rel="stylesheet" type="text/css" href="assets/bootstrap/4.4.1/css/bootstrap.min.css">
-	    <link rel="stylesheet" type="text/css" href="assets/fontawesome/5.12.0/css/fontawesome.min.css">
 
-	    <link rel="stylesheet" type="text/css" href="assets/DataTables/datatables.min.css">
-	    <link rel="stylesheet" type="text/css" href="assets/DataTables/DataTables-1.10.20/css/dataTables.bootstrap4.min.css">
-	    <link rel="stylesheet" type="text/css" href="assets/DataTables/Buttons-1.6.1/css/buttons.bootstrap4.min.css">
-
-	    <link rel="stylesheet" type="text/css" href="assets/datepicker/gijgo/css/gijgo.min.css">
-	    <link rel="stylesheet" href="assets/pos-style.css">
-
-    	<script src="assets/jquery/3.4.1/jquery.min.js"></script>
-		<script type="text/javascript" src="assets/sweetalert/9.5.4/sweetalert2.all.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="assets/pos/bootstrap/css/bootstrap-3.3.7.css">
+	    <link rel="stylesheet" type="text/css" href="assets/pos/pos-style.css">
+	    <link rel="stylesheet" type="text/css" href="assets/pos/jquery-ui/jquery-ui-1.12.1.css">
+	    <link rel="stylesheet" type="text/css" href="assets/pos/font-awesome/css/font-awesome-4.6.3.min.css">
+	    <link rel="stylesheet" type="text/css" href="assets/pos/datatable/dataTables.bootstrap.css">
+	    <link rel="stylesheet" type="text/css" href="assets/pos/datatable/dataTables.responsive.css">
 	</head>
 
 	<body>
 		<div class="wrapper">
 		    <!-- Page Content  -->
 	        <div id="content-wrapper">
-	        	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-	                <div class="container-fluid">
-
-	                    <span style="margin-left: 30px;">
-	                    	<img src="assets/images/paptrade-cropped.png" height="50px">
-	                    </span> &nbsp;&nbsp;
-	                    <h4><small>POS & Inventory System</small></h4>
-	                    
-						<button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-	                        <i class="fas fa-align-justify"></i>
-	                    </button>
-
-	                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-	                        <ul class="nav navbar-nav ml-auto">
-	                        	<li class="nav-item active">
-	                                <span class="nav-link" 
-	                                style="margin-right: 50px; padding-right: 20px;">
-	                                Hello, <?= $session_user; ?>! </span>
-	                            </li>
-	                            <li class="nav-item">
-	                                <a class="nav-link" href="<?= base_url();?><?= index_page();?>/users/dashboard">Home</a>
-	                            </li>
-	                            <li class="nav-item">
-	                                <a class="nav-link active" href="<?= base_url();?><?= index_page();?>/pos">POS</a>
-	                            </li>
-	                            <li class="nav-item">
-	                                <a class="nav-link" href="<?= base_url();?><?= index_page();?>/users/logout">Logout</a>
-	                            </li>
-	                        </ul>
-	                    </div>
-	                </div>
-	            </nav>
-
+	        	<div class="col-md-12" style="padding: 0">
+					<nav class="navbar">
+						<span class="navbar-img">
+	                    	<img src="assets/images/paptrade-cropped.png" height="50px"> &nbsp;&nbsp; POS & Inventory System
+	                    </span>
+						
+						<ul class="nav navbar-nav navbar-right">
+							<li><span>Current User:  <span id="user"><?= $session_user?></span></span></li>
+							<li><a href="<?= base_url();?><?= index_page();?>/users/dashboard">Go to Inventory</a></li>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> <span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li><a href="<?= base_url();?><?= index_page();?>/users/logout">Logout</a></li> 
+								</ul>
+							</li>
+						</ul>
+					</nav>
+				</div>
 
 	            <div class="row header">
 	            	<div class="col-md-6 box rightnone" style="height: 694px; overflow-y: auto;">
@@ -129,26 +108,8 @@
 									}
 								?>
 							</div>
-							<!--<div class="col-md-12" style="border-bottom: solid 1px #ddd;padding: 15px 25px;">
-								<label>Grand Total: </label>
-								<span id="grand-total" class="align-right"></span>
-							</div>
-							<div class="col-md-12" style="padding: 15px 25px;">
-								<form action="" method="post" accept-charset="utf-8">
-									<div class="form-group">
-										<label for='payment'>Payment</label>
-										<input required="required" type="text" value="<?php echo set_value('payment'); ?>" name="payment" class="form-control">
-										<?php echo form_error('payment', '<p class="help-block">','</p>'); ?>
-									</div>
-									<div class="form-group">
-										<input type="submit" name="submit_payment" class="btn btn-success" value="Submit">
-									</div>
-								</form>
-							</div>-->
 	            		</div>
 	            	</div>
-
-
 				</div>
 
 	        </div>
@@ -246,28 +207,17 @@
 			</div>
 		</div>
 
-
-	    <script src="assets/fontawesome/5.0.13/js/solid.js"></script>
-	    <script src="assets/fontawesome/5.12.0/js/fontawesome.min.js"></script>
-
-	    <!-- Popper.JS -->
-	    <script src="assets/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-	    <!-- Bootstrap JS -->
-	    <script src="assets/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-
-	    <script type="text/javascript" src="assets/DataTables/datatables.min.js"></script>
-	    <script type="text/javascript" src="assets/DataTables/DataTables-1.10.20/js/jquery.dataTables.min.js"></script>
-	    <script type="text/javascript" src="assets/DataTables/DataTables-1.10.20/js/dataTables.bootstrap4.min.js"></script>
-	    <script type="text/javascript" src="assets/DataTables/Buttons-1.6.1/js/dataTables.buttons.min.js"></script>
-	    <script type="text/javascript" src="assets/DataTables/Buttons-1.6.1/js/buttons.bootstrap4.min.js"></script>
-	    <script type="text/javascript" src="assets/DataTables/Buttons-1.6.1/js/buttons.flash.min.js"></script>
-		<script type="text/javascript" src="assets/DataTables/Buttons-1.6.1/js/buttons.html5.min.js"></script>
-		<script type="text/javascript" src="assets/DataTables/Buttons-1.6.1/js/buttons.print.min.js"></script>
-		<script type="text/javascript" src="assets/datepicker/gijgo/js/gijgo.min.js"></script>
-
+		<script type="text/javascript" src="assets/pos/jquery/jquery-3.2.0.js"></script>
+		<script type="text/javascript" src="assets/pos/jquery-ui/jquery-ui-1.12.1.js"></script>
+		<script type="text/javascript" src="assets/pos/bootstrap/js/bootstrap-3.3.7.min.js"></script>
+		<script type="text/javascript" src="assets/pos/datatable/js/jquery.dataTables-1.10.12.min.js"></script>
+		<script type="text/javascript" src="assets/pos/datatable/dataTables.bootstrap.min.js"></script>
+		<script type="text/javascript" src="assets/pos/datatable/dataTables.responsive.js"></script>
+		<script type="text/javascript" src="assets/pos/jquery-pos.js"></script>
+		<script type="text/javascript" src="assets/pos/print.js"></script>
+		<script type="text/javascript" src="assets/pos/pos.js"></script>
 
 	    <script type="text/javascript">
-	    	
 		    function formatCurrency(ccy){
 				var monetary_value = $(ccy).text();
 		        var i = new Intl.NumberFormat('en-PH', { 
@@ -284,26 +234,6 @@
 		        }).format(money); 
 		        return i;
 			}
-
-
-			$(document).ready(function() {
-				var table = $('#item-table').DataTable({
-			        "ajax": {
-			            url : "<?php echo site_url('inventories_branch/inventories_branch_page') ?>",
-			            type : 'GET'
-			        },
-			        "columnDefs": [{
-			        	className: "dt-right",
-			        	"targets": [-1, -2]
-			        }]
-			        
-			    });
-
-
-			});
 		</script>
-		<script type="text/javascript" src="assets/jquery-pos.js"></script>
-		<script type="text/javascript" src="assets/print.js"></script>
-		<script type="text/javascript" src="assets/pos.js"></script>
 	</body>
 </html>
