@@ -241,7 +241,7 @@ $(document).ready(function() {
 					 	$("#amount-total").text('');
 					 	$("#amount-discount").text('');
 
-					 	item_table.clear().draw();
+					 	item_table.DataTable().clear().draw();
 					 	$("#btn").button('reset');
 					 	totalAmountDue = 0;  
 						totalDiscount = 0
