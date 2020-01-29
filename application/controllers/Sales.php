@@ -77,6 +77,12 @@ class Sales extends CI_Controller {
 					$inventory = $this->inventory_branch->getRows($con);
 
 					if($inventory){
+						$quantity = $inventory['QUANTITY'];
+						$newVal = array(
+							'quantity'		=> $quantity - $item['quantity'],
+							'selling_price'	=> $this->input->post('selling_price')
+						);
+						$this->inventory_branch->update($inventory['ID'], $newVal);
 						
 						$sales_dtl = array(
 							'id'		=> uniqid('', true),
