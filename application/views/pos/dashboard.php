@@ -129,14 +129,14 @@
 											<div class="col-md-4 text-left">
 												<div>ID:</div>
 												<div>Date: <span></span></div>
-												<div>Cashier:</div>
 												<div>Time:</div>
+												<div>Cashier:</div>
 											</div>
 											<div class="col-md-8 text-left">
 												<div id="r-id">005250</div>
 												<div id="r-date">01/26/2020</div>
-												<div id="r-cashier">Cashier</div>
 												<div id="r-time">03:22 pm</div> 
+												<div id="r-cashier">Cashier</div>
 											</div>
 										</div>
 										<div class="clearfix"></div>
@@ -146,9 +146,9 @@
 											<thead>
 												<tr> 
 													<th>Item Name</th>
-													<th>Price</th>
-													<th>Quantity</th>
-													<th>Sub Total</th>
+													<th class="amount">Price</th>
+													<th class="amount">Quantity</th>
+													<th class="amount">Sub Total</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -158,7 +158,7 @@
 										<hr>
 										<div class="text-right"> 
 											<div>Discount: <span id="r-discount"></span></div>
-											<div>Grand Total <span id="r-total-amount"></span></div>
+											<div>Grand Total: <span id="r-total-amount"></span></div>
 											<div>Payment: <span id="r-payment"></span></div>
 											<div>Change: <span id="r-change"></span></div>
 										</div>
@@ -175,20 +175,20 @@
 								<h4 class="">Transaction Summary</h3> 
 								<table class="table"> 
 									<tr>
-										<td>Discount Amount:</td>
-										<td id="summary-discount"></td>
+										<td>Discount:</td>
+										<td id="summary-discount" class="amount"></td>
 									</tr>
 									<tr>
-										<td>Grand Amount:</td>
-										<td id="summary-total"></td>
+										<td>Grand Total:</td>
+										<td id="summary-total" class="amount"></td>
 									</tr>
 									<tr>
 										<td>Payment:</td>
-										<td id="summary-payment"></td>
+										<td id="summary-payment" class="amount"></td>
 									</tr>
 									<tr>
 										<td>Change:</td>
-										<td id="summary-change"></td>
+										<td id="summary-change" class="amount"></td>
 									</tr>
 								</table>
 								<button class="btn btn-default btn-sm" id="print">Print Receipt</button>

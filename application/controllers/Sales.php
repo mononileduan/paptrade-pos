@@ -79,8 +79,7 @@ class Sales extends CI_Controller {
 					if($inventory){
 						$quantity = $inventory['QUANTITY'];
 						$newVal = array(
-							'quantity'		=> $quantity - $item['quantity'],
-							'selling_price'	=> $this->input->post('selling_price')
+							'quantity'		=> $quantity - $item['quantity']
 						);
 						$this->inventory_branch->update($inventory['ID'], $newVal);
 						
