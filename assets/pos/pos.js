@@ -259,6 +259,77 @@ $(document).ready(function() {
 		
 	})
 
+	$("#btn-save").on('click', function(){
+		$("#customer-name-modal").modal('toggle');
+	});
+
+	$("#customer-name-confirm-btn").on('click', function(){
+		var customer_name = $("#customer_name").val();
+		if(customer_name){
+			var row = $("#cart tbody tr").length;
+			var sales = [];
+			var total_amount = 0;
+			if (row) {
+	 			var totalAmountDue = parseFloat($("#amount-total").text().substring(1).replace(',',''));
+				for (i = 0; i < row; i++) {
+					var r = $("#cart tbody tr").eq(i).find('td');
+					var quantity = r.eq(2).find('input').val();
+					var price = r.eq(1).text().replace(',','');
+					var arr = {
+							inventory_id : $("#cart tbody tr").eq(i).find('input[name="id"]').val(), 
+							item : r.eq(0).text(),
+							unit_price : price,
+							quantity : quantity, 
+							subtotal : parseFloat(price) * parseInt(quantity)
+						};
+					total_amount += parseFloat(price) * parseInt(quantity);
+					sales.push(arr);
+				}
+
+				var data = {};
+					data['save_sales_on_hold'] = true;
+					data['customer_name'] = customer_name;
+					data['grand_total'] = total_amount;
+					data['sales'] = sales;
+					$.ajax({
+						type : 'POST',
+						data : data,
+						url : base_url + '/sales_on_hold/add',
+						success : function(data) { 
+			 				alert("Sales on hold for customer " + customer_name);
+							$("#customer-name-modal").modal('toggle');
+			 				$("#cart tbody").empty();
+						 	$("#payment").val('');
+						 	$("#change").val('');
+						 	$("#amount-due").text(''); 
+						 	$("#amount-total").text('');
+						 	$("#amount-discount").text('');
+
+						 	item_table.DataTable().clear().draw();
+						 	$("#btn").button('reset');
+						 	totalAmountDue = 0;  
+							totalDiscount = 0
+						}
+					})
+			}
+		}else{
+			alert("Customer Name is required");
+		}
+		
+	});
+
+
+	$('#customer-name-modal').on('hidden.bs.modal', function (e) {
+	  $(this)
+	    .find("input,textarea,select")
+	       .val('')
+	       .end()
+	    .find("input[type=checkbox], input[type=radio]")
+	       .prop("checked", "")
+	       .end();
+	})
+
+
 	$("#payment").keyup(function() {
 
 		var payment = parseFloat($(this).val());

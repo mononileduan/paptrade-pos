@@ -187,3 +187,32 @@ CREATE TABLE SALES_DTLS (
 	CONSTRAINT SALES_DTLS_SALES_ID_fk FOREIGN KEY (SALES_ID) REFERENCES SALES (ID),
 	CONSTRAINT SALES_DTLS_INV_BRANCH_ID_fk FOREIGN KEY (INVENTORIES_BRANCH_ID) REFERENCES INVENTORIES_BRANCH (ID)
 );
+
+
+CREATE TABLE SALES_ON_HOLD (
+	ID varchar(50) not null,
+	VERSION int(11) not null default 0,
+	DEL boolean not null default false,
+	BRANCH_ID varchar (50) not null,
+	CUST_NAME varchar (50) not null,
+	GRAND_TOTAL decimal(18,2) not null,
+	CREATED_BY varchar(50) not null,
+	CREATED_DT timestamp not null default current_timestamp(),
+	CONSTRAINT SALES_ON_HOLD_ID_uk UNIQUE KEY (ID),
+	CONSTRAINT SALES_ON_HOLD_BRANCH_ID_fk FOREIGN KEY (BRANCH_ID) REFERENCES BRANCH (ID)
+);
+
+
+CREATE TABLE SALES_ON_HOLD_DTLS (
+	ID varchar(50) not null,
+	VERSION int(11) not null default 0,
+	DEL boolean not null default false,
+	SALES_ON_HOLD_ID varchar (50) not null,
+	INVENTORY_ID varchar (50) not null,
+	ITEM_NAME varchar (50) not null,
+	UNIT_PRICE decimal(18,2) not null,
+	QUANTITY int(11) not null,
+	SUB_TOTAL decimal(18,2) not null,
+	CONSTRAINT SALES_ON_HOLD_DTLS_ID_uk UNIQUE KEY (ID),
+	CONSTRAINT SALES_ON_HOLD_DTLS_SALES_ON_HOLD_ID_fk FOREIGN KEY (SALES_ON_HOLD_ID) REFERENCES SALES_ON_HOLD (ID)
+);

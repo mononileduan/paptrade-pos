@@ -97,6 +97,7 @@
 									</div>
 									<div class="form-group">
 										<input type="submit" class="btn btn-primary form-control" name="" value="Process" id="btn" >
+										<input type="button" class="btn btn-success form-control" name="" value="Save" id="btn-save" >
 									</div>
 								</form>
 
@@ -199,6 +200,29 @@
 						</div>
 						<div class="modal-footer"> 
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+			<div class="modal" tabindex="-2" role="dialog" id="customer-name-modal">
+				<div class="modal-dialog modal-sm" role="document">
+					<div class="modal-content">
+						<div class="modal-body">
+							<div class="col-md-12">
+								<div class="form-group">
+									<input type="text" class="form-control" name="customer_name" placeholder="Enter Customer Name" id="customer_name" autocomplete="off" max="500000" maxlength="6">
+								</div>
+							</div>
+
+							<div class="clearfix"></div>
+
+						</div>
+						<div class="modal-footer"> 
+							<button type="button" class="btn btn-success" id="customer-name-confirm-btn">Confirm</button>
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 						</div>
 
 					</div>
