@@ -260,7 +260,12 @@ $(document).ready(function() {
 	})
 
 	$("#btn-save").on('click', function(){
-		$("#customer-name-modal").modal('toggle');
+		var row = $("#cart tbody tr").length;
+		if (row) {
+			$("#customer-name-modal").modal('toggle');
+		}else{
+			alert('Please add some items');
+		}
 	});
 
 	$("#customer-name-confirm-btn").on('click', function(){
