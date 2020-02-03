@@ -163,6 +163,7 @@ $(document).ready(function() {
 		// var discount = $("#amount-discount").text();
 		var payment = $("#payment").val();
 		var change = $("#change").val();
+		var sales_on_hold_id = $("#sales_on_hold_id").val();
  	 
  		if (row) {
  			var totalAmountDue = parseFloat($("#amount-total").text().substring(1).replace(',',''));
@@ -204,6 +205,7 @@ $(document).ready(function() {
 				var data = {};
 				data['process_sales'] = true;
 				data['grand_total'] = total_amount;
+				data['sales_on_hold_id'] = sales_on_hold_id;
 				data['sales'] = sales;
 				$.ajax({
 					type : 'POST',
@@ -268,6 +270,78 @@ $(document).ready(function() {
 		}
 	});
 
+	var pending_sales_table = $('#pending-sales').DataTable({
+        "ajax": {
+            url : base_url + '/sales_on_hold/sales_on_hold_page',
+            type : 'GET'
+        },
+        "columnDefs": [{
+        	className: "dt-right",
+        	"targets": [-1, -2]
+        }]
+        
+    });
+
+	$("#btn-view-saved").on('click', function(){
+		$("#pending-sales-modal").modal('toggle');
+		pending_sales_table.DataTable().clear().draw();
+	});
+
+	$("#pending-sales").on('click', 'tbody tr', function(event) {
+		var customer_name = $(this).find('td').eq(0).text();
+		var grand_total = $(this).find('td').eq(1).text();
+		var sales_on_hold_id = null;
+
+		$.getJSON(base_url + '/sales_on_hold_dtls/sales_on_hold_dtls_page/'+customer_name, function(data) {
+
+	        for(i = 0; i < data.recordsFiltered; i++){
+				var id = data.data[i][0];
+				var name = data.data[i][1];
+				var price = data.data[i][2];
+				var quantity = data.data[i][3];
+				var subtotal = data.data[i][4];
+				var stocks= data.data[i][5];
+				sales_on_hold_id = data.data[i][6];
+
+				if (stocks >= quantity) {
+					var subtotal = parseInt(quantity) * parseFloat(price);
+					totalAmountDue += parseFloat(subtotal);
+					$("#cart tbody").append(
+						'<tr>' +
+							'<input name="id" type="hidden" value="'+ id +'">' +
+							'<td>'+ name +'</td>' +
+							'<td>'+ price +'</td>' +
+							'<td><input data-stocks="'+stocks+'" data-remaining="'+stocks+'" data-id="'+id+'" name="qty" type="text" value="'+quantity+'" class="quantity-box" size="5"></td>' +
+							/*'<td> <input type="text" value="0" placeholder="Discount" name="discount" class="discount-input"></td>' +*/
+							'<td>'+ subtotal.toFixed(2) +'</td>' +
+							
+							'<td><span class="remove" style="font-size:12px;"><i class="fa fa-trash" title="Remove"></i></span></td>' +
+						'</tr>'
+						);
+					recount();
+					$("payment").val('');
+					$("change").val('');
+				}
+
+				item_table.rows().every( function () {
+				    var d = this.data();
+				    if(d[0] == id){
+					    d[3] = d[3] - quantity; // update data source for the row
+					    this.invalidate(); // invalidate the data DataTables has cached for this row
+					}
+				} );
+				item_table.draw();
+			}
+			$("#sales_on_hold_id").val(sales_on_hold_id);
+			
+	        
+	    });
+		
+		$("#pending-sales-modal").modal('toggle');
+	})
+
+
+
 	$("#customer-name-confirm-btn").on('click', function(){
 		var customer_name = $("#customer_name").val();
 		if(customer_name){
@@ -301,19 +375,25 @@ $(document).ready(function() {
 						data : data,
 						url : base_url + '/sales_on_hold/add',
 						success : function(data) { 
-			 				alert("Sales on hold for customer " + customer_name);
-							$("#customer-name-modal").modal('toggle');
-			 				$("#cart tbody").empty();
-						 	$("#payment").val('');
-						 	$("#change").val('');
-						 	$("#amount-due").text(''); 
-						 	$("#amount-total").text('');
-						 	$("#amount-discount").text('');
+							if(data == 'OK'){
+								alert("Sales on hold for customer " + customer_name);
+								$("#customer-name-modal").modal('toggle');
+				 				$("#cart tbody").empty();
+							 	$("#payment").val('');
+							 	$("#change").val('');
+							 	$("#amount-due").text(''); 
+							 	$("#amount-total").text('');
+							 	$("#amount-discount").text('');
 
-						 	item_table.DataTable().clear().draw();
-						 	$("#btn").button('reset');
-						 	totalAmountDue = 0;  
-							totalDiscount = 0
+							 	item_table.DataTable().clear().draw();
+							 	$("#btn").button('reset');
+							 	totalAmountDue = 0;  
+								totalDiscount = 0
+							
+							}else{
+								alert(data);
+							}
+			 				
 						}
 					})
 			}

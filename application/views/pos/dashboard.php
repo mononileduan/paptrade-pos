@@ -97,7 +97,17 @@
 									</div>
 									<div class="form-group">
 										<input type="submit" class="btn btn-primary form-control" name="" value="Process" id="btn" >
-										<input type="button" class="btn btn-success form-control" name="" value="Save" id="btn-save" >
+										
+									</div>
+
+									<div class="form-group">
+										<div class="col-md-6">
+											<input type="hidden" name="sales_on_hold_id" id="sales_on_hold_id">
+											<input type="button" class="btn btn-success form-control" name="" value="Save" id="btn-save" >
+										</div>
+										<div class="col-md-6">
+											<input type="button" class="btn btn-info form-control" name="" value="View Saved" id="btn-view-saved" >
+										</div>
 									</div>
 								</form>
 
@@ -208,12 +218,12 @@
 			</div>
 
 			<div class="modal" tabindex="-2" role="dialog" id="customer-name-modal">
-				<div class="modal-dialog modal-sm" role="document">
+				<div class="modal-dialog modal-sm">
 					<div class="modal-content">
 						<div class="modal-body">
 							<div class="col-md-12">
 								<div class="form-group">
-									<input type="text" class="form-control" name="customer_name" placeholder="Enter Customer Name" id="customer_name" autocomplete="off" max="500000" maxlength="6">
+									<input type="text" class="form-control" name="customer_name" placeholder="Enter Customer Name" id="customer_name" autocomplete="off" max="500000" maxlength="50">
 								</div>
 							</div>
 
@@ -223,6 +233,37 @@
 						<div class="modal-footer"> 
 							<button type="button" class="btn btn-success" id="customer-name-confirm-btn">Confirm</button>
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+			<div class="modal" tabindex="-3" role="dialog" id="pending-sales-modal">
+				<div class="modal-dialog modal-md">
+					<div class="modal-content">
+						<div class="modal-body">
+							<div id="pending-sales-tbl" style="min-height: 310px; max-height: 185px;">
+		            			<table id="pending-sales" class="table table-bordered table-striped table-hover" style="width:100%">
+									<thead>
+										<tr>
+											<td width="50%">Customer Name</td>
+											<td width="15%">Grand Total</td>
+											<td width="15%">Cashier</td>
+											<td width="15%">Date</td>
+											<!--th width="5%"> </th-->
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+							</div>
+							<div class="clearfix"></div>
+
+						</div>
+						<div class="modal-footer"> 
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 						</div>
 
 					</div>

@@ -9,6 +9,8 @@ class Sales extends CI_Controller {
 		$this->load->model('sales_model');
 		$this->load->model('sales_dtls_model');
 		$this->load->model('inventory_branch');
+		$this->load->model('sales_on_hold_model');
+		$this->load->model('sales_on_hold_dtls_model');
 
 		$this->isLoggedIn = $this->session->userdata('isLoggedIn');
 	}
@@ -96,6 +98,11 @@ class Sales extends CI_Controller {
 						$data['error_msg'] = 'Failed to save.';
 					}
 				 
+				}
+
+				if($this->input->post('sales_on_hold_id')){
+					$deleted = $this->sales_on_hold_dtls_model->delete(array('sales_on_hold_id' => $this->input->post('sales_on_hold_id')));
+					$deleted = $this->sales_on_hold_model->delete(array('id' => $this->input->post('sales_on_hold_id')));
 				}
 
 				echo $ref_no;

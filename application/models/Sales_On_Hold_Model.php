@@ -67,5 +67,12 @@ class Sales_On_Hold_Model extends CI_Model {
 		return false;
 	}
 
+	public function delete($data = array()){
+
+		$delete = $this->db->delete($this->table, $data);
+		
+		return $delete ? $this->db->affected_rows() : false;
+	}
+
 
 }

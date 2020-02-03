@@ -41,6 +41,27 @@ class Sales_On_Hold_Dtls_Model extends CI_Model {
 		return $result;
 	}
 
+	public function getRowsJoin($params = array()){
+		$sql = "SELECT ".
+		"SALES_ON_HOLD_ID, ".
+		"dtl.INVENTORY_ID as INVENTORY_ID, ".
+		"ITEM_NAME, ".
+		"UNIT_PRICE, ".
+		"dtl.QUANTITY as QUANTITY, ".
+		"SUB_TOTAL, ".
+		"inv.QUANTITY as STOCKS ".
+		"FROM sales_on_hold hold, sales_on_hold_dtls dtl, inventories_branch inv ".
+		"WHERE dtl.SALES_ON_HOLD_ID=hold.id AND inv.INVENTORY_ID=dtl.INVENTORY_ID ";
+		if(array_key_exists("conditions", $params)){
+			foreach ($params['conditions'] as $key => $val) {
+				$sql = $sql . " AND " . $key . "='" . $val . "'"; 
+			}
+		}
+		$result = $this->db->query($sql);
+		return $result;
+
+	}
+
 
 	public function insert($data = array()){
 		if(!empty($data)){
@@ -62,6 +83,13 @@ class Sales_On_Hold_Dtls_Model extends CI_Model {
 		}
 
 		return false;
+	}
+
+	public function delete($data = array()){
+
+		$delete = $this->db->delete($this->table, $data);
+
+		return $delete ? $this->db->affected_rows() : false;
 	}
 
 

@@ -100,7 +100,8 @@ class Sales_On_Hold extends CI_Controller {
 		$con = array(
 			'returnType' => 'list',
 			'conditions' => array(
-				'del' => false
+				'del' => false,
+				'branch_id' => $this->session->userdata('branch_id')
 			)
 		);
 		$salesList = $this->sales_on_hold_model->getRows($con);
