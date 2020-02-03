@@ -41,38 +41,51 @@ class Sales_On_Hold extends CI_Controller {
 		$data['session_user'] = $this->session->userdata('username');
 		
 		if($this->input->post('save_sales_on_hold')){
-			$id = uniqid('', true);
-			
-			$sales = array(
-				'id' => $id,
-				'branch_id' => $this->session->userdata('branch_id'),
-				'cust_name' => $this->input->post('customer_name'),
-				'grand_total' => $this->input->post('grand_total')
+			$con = array(
+				'returnType' => 'count',
+				'conditions' => array(
+					'del' => false,
+					'branch_id' => $this->session->userdata('branch_id'),
+					'cust_name' => $this->input->post('customer_name')
+				)
 			);
-
-			$insert_id = $this->sales_on_hold_model->insert($sales);
-
-			if(!$insert_id){
-
-				foreach($this->input->post('sales') as $item) {
-						
-					$sales_dtl = array(
-						'id'		=> uniqid('', true),
-						'sales_on_hold_id' => $id,
-						'inventory_id' => $item['inventory_id'],
-						'item_name' => $item['item'],
-						'unit_price' => $item['unit_price'],
-						'quantity' => $item['quantity'],
-						'sub_total' => $item['subtotal']
-					);
-
-					$this->sales_on_hold_dtls_model->insert($sales_dtl);
-				 
-				}
-				exit();
-
+			$salesCnt = $this->sales_on_hold_model->getRows($con);
+			if($salesCnt > 0){
+				echo $this->input->post('customer_name').' already exists';
 			}else{
-				$data['error_msg'] = 'Failed to save Purchase Order.';
+				$id = uniqid('', true);
+				$sales = array(
+					'id' => $id,
+					'branch_id' => $this->session->userdata('branch_id'),
+					'cust_name' => $this->input->post('customer_name'),
+					'grand_total' => $this->input->post('grand_total')
+				);
+
+				$insert_id = $this->sales_on_hold_model->insert($sales);
+
+				if(!$insert_id){
+
+					foreach($this->input->post('sales') as $item) {
+							
+						$sales_dtl = array(
+							'id'		=> uniqid('', true),
+							'sales_on_hold_id' => $id,
+							'inventory_id' => $item['inventory_id'],
+							'item_name' => $item['item'],
+							'unit_price' => $item['unit_price'],
+							'quantity' => $item['quantity'],
+							'sub_total' => $item['subtotal']
+						);
+
+						$this->sales_on_hold_dtls_model->insert($sales_dtl);
+					 
+					}
+					echo 'OK';
+					exit();
+
+				}else{
+					$data['error_msg'] = 'Failed to save Purchase Order.';
+				}
 			}
 		}
 	}
