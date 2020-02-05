@@ -277,7 +277,7 @@ $(document).ready(function() {
         },
         "columnDefs": [{
         	className: "dt-right",
-        	"targets": [-1, -2]
+        	"targets": [-3]
         }]
         
     });

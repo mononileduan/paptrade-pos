@@ -40,7 +40,7 @@
 					</nav>
 				</div>
 
-	            <div class="row header">
+	            <div class="header">
 	            	<div class="col-md-6 box rightnone" style="height: 694px; overflow-y: auto;">
 	            		<h3>List of Items</h3>
 	            		<div class="content">
@@ -61,10 +61,10 @@
 	            		</div>
 	            	</div>
 
-	            	<div class="col-md-6 box" style="height: 694px; overflow-y: auto;">
+	            	<div class="col-md-6 box">
 	            		<h3>Order Details</h3>
 	            		<div class="content">
-	            			<div id="cart-tbl" style="min-height: 310px; max-height: 185px;">
+	            			<div id="cart-tbl">
 		            			<table id="cart" class="table table-bordered table-striped table-hover" style="width:100%">
 									<thead>
 										<tr>
@@ -87,26 +87,36 @@
 							</div>
 							<div class="col-md-12" style="padding: 15px 25px;">
 								<form id="process-form">
-									<div class="form-group">
-										<input type="text" class="form-control" name="" placeholder="Enter Payment" id="payment" autocomplete="off" max="500000" maxlength="6">
-									</div>
-									<div class="form-group">
-										 
-										<input readonly="readonly" type="text" class="form-control" name="" placeholder="Change:" id="change" autocomplete="off">
-										 
-									</div>
-									<div class="form-group">
-										<input type="submit" class="btn btn-primary form-control" name="" value="Process" id="btn" >
-										
-									</div>
-
-									<div class="form-group">
+									<div class="row">
 										<div class="col-md-6">
-											<input type="hidden" name="sales_on_hold_id" id="sales_on_hold_id">
-											<input type="button" class="btn btn-success form-control" name="" value="Save" id="btn-save" >
+											<div class="form-group">
+												<input type="text" class="form-control" name="" placeholder="Enter Payment" id="payment" autocomplete="off" max="500000" maxlength="6">
+											</div>
 										</div>
 										<div class="col-md-6">
-											<input type="button" class="btn btn-info form-control" name="" value="View Saved" id="btn-view-saved" >
+											<div class="form-group">
+												<input readonly="readonly" type="text" class="form-control" name="" placeholder="Change:" id="change" autocomplete="off">
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-12">
+											<div class="form-group">
+												<input type="submit" class="btn btn-primary form-control" name="" value="Process" id="btn" >
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<input type="hidden" name="sales_on_hold_id" id="sales_on_hold_id">
+												<input type="button" class="btn btn-success form-control" name="" value="Save for Later" id="btn-save" >
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<input type="button" class="btn btn-info form-control" name="" value="View Saved Transactions" id="btn-view-saved" >
+											</div>
 										</div>
 									</div>
 								</form>
