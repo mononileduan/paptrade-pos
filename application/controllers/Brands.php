@@ -105,6 +105,7 @@ class Brands extends CI_Controller {
 		
 		foreach($brandList->result_array() as $r) {
 		   $data[] = array(
+		        $r['ID'],
 		        $r['BRAND']
 		   );
 		}

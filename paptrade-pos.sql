@@ -81,16 +81,16 @@ CREATE TABLE MODELS (
 	ID varchar(50) not null,
 	VERSION int(11) not null default 0,
 	DEL boolean not null default false,
-	BRAND varchar (50) not null,
+	BRAND_ID varchar (50) not null,
 	MODEL varchar (50) not null,
-	CATEGORY varchar (50) not null,
+	CATEGORY_ID varchar (50) not null,
 	CREATED_BY varchar(50) not null,
 	CREATED_DT timestamp not null default current_timestamp(),
 	UPDATED_BY varchar(50) null,
 	UPDATED_DT timestamp null,
 	CONSTRAINT MODELS_ID_uk UNIQUE KEY (ID),
-	CONSTRAINT MODELS_BRAND_fk FOREIGN KEY (BRAND) REFERENCES BRANDS (BRAND),
-	CONSTRAINT MODELS_CATEGORY_fk FOREIGN KEY (CATEGORY) REFERENCES CATEGORIES (CATEGORY)
+	CONSTRAINT MODELS_BRAND_ID_fk FOREIGN KEY (BRAND_ID) REFERENCES BRANDS (ID),
+	CONSTRAINT MODELS_CATEGORY_ID_fk FOREIGN KEY (CATEGORY_ID) REFERENCES CATEGORIES (ID)
 );
 
 CREATE TABLE INVENTORIES (

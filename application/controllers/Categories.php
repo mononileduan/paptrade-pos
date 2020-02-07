@@ -99,6 +99,7 @@ class Categories extends CI_Controller {
 		foreach($categoryList->result_array() as $r) {
 
 		   $data[] = array(
+		        $r['ID'],
 		        $r['CATEGORY']
 		   );
 		}

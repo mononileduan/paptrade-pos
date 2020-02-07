@@ -49,7 +49,8 @@ class Models extends CI_Controller {
 
 		if($this->input->post('submit_model')){
 			$this->form_validation->set_rules('model', 'Model', 'required|trim');
-			$this->form_validation->set_rules('brand', 'Brand', 'required|trim');
+			$this->form_validation->set_rules('brand_id', 'Brand', 'required|trim');
+			$this->form_validation->set_rules('category_id', 'Category', 'required|trim');
 
 			if($this->form_validation->run() == true){
 				$con = array(
@@ -57,7 +58,7 @@ class Models extends CI_Controller {
 					'conditions' => array(
 						'del' 	=> false,
 						'model'	=> strtoupper($this->input->post('model')),
-						'brand' => strtoupper($this->input->post('brand'))
+						'brand_id' => strtoupper($this->input->post('brand_id'))
 					)
 				);
 
@@ -68,8 +69,8 @@ class Models extends CI_Controller {
 					$model = array(
 						'id'		=> uniqid('', true),
 						'model'		=> strtoupper($this->input->post('model')),
-						'brand'		=> strtoupper($this->input->post('brand')),
-						'category' => strtoupper($this->input->post('category'))
+						'brand_id'		=> strtoupper($this->input->post('brand_id')),
+						'category_id' => strtoupper($this->input->post('category_id'))
 						);
 					$this->model->insert($model);
 
@@ -104,10 +105,10 @@ class Models extends CI_Controller {
 		$con = array(
 			'returnType' => 'list',
 			'conditions' => array(
-				'del' => false
+				'm.del' => false
 			)
 		);
-		$modelList = $this->model->getRows($con);
+		$modelList = $this->model->getRowsJoin($con);
 
 		$data = array();
 		

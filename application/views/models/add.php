@@ -11,18 +11,18 @@
 	    <div class="col-md-12">
 			<form action="" method="post" accept-charset="utf-8">
 				<div class="form-group">
-					<label for='brand'>Brand</label>
-					<select required="required" name="brand" class="form-control">
+					<label for='brand_id'>Brand</label>
+					<select required="required" name="brand_id" class="form-control">
 						<option value=""></option>
 						<?php foreach($brands->result_array() as $r) {
-							if(set_value('brand') === $r['BRAND']){
-								echo '<option value="'.$r['BRAND'].'" selected="selected">'.$r['BRAND'].'</option>';
+							if(set_value('brand_id') === $r['ID']){
+								echo '<option value="'.$r['ID'].'" selected="selected">'.$r['BRAND'].'</option>';
 							}else{
-								echo '<option value="'.$r['BRAND'].'">'.$r['BRAND'].'</option>';
+								echo '<option value="'.$r['ID'].'">'.$r['BRAND'].'</option>';
 							}
 						} ?>
 					</select>
-					<?php echo form_error('brand', '<p class="help-block">','</p>'); ?>
+					<?php echo form_error('brand_id', '<p class="help-block">','</p>'); ?>
 				</div>
 				<div class="form-group">
 					<label for='model'>Model</label>
@@ -30,18 +30,18 @@
 					<?php echo form_error('model', '<p class="help-block">','</p>'); ?>
 				</div>
 				<div class="form-group">
-					<label for='brand'>Category</label>
-					<select required="required" name="category" class="form-control">
+					<label for='category_id'>Category</label>
+					<select required="required" name="category_id" class="form-control">
 						<option value=""></option>
 						<?php foreach($categories->result_array() as $r) {
-							if(set_value('category') === $r['CATEGORY']){
-								echo '<option value="'.$r['CATEGORY'].'" selected="selected">'.$r['CATEGORY'].'</option>';
+							if(set_value('category_id') === $r['ID']){
+								echo '<option value="'.$r['ID'].'" selected="selected">'.$r['CATEGORY'].'</option>';
 							}else{
-								echo '<option value="'.$r['CATEGORY'].'">'.$r['CATEGORY'].'</option>';
+								echo '<option value="'.$r['ID'].'">'.$r['CATEGORY'].'</option>';
 							}
 						} ?>
 					</select>
-					<?php echo form_error('brand', '<p class="help-block">','</p>'); ?>
+					<?php echo form_error('category_id', '<p class="help-block">','</p>'); ?>
 				</div>
 				<?php
 					if(!empty($success_msg)){
