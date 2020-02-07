@@ -45,14 +45,15 @@ class Inventory extends CI_Model {
 		$sql = "SELECT ".
 		"inv.ID as ID, ".
 		"inv.SKU as SKU, ".
-		"concat(m.BRAND, ' - ', m.MODEL) as ITEM, ".
-		"m.CATEGORY as CATEGORY, ".
+		"concat(b.BRAND, ' - ', m.MODEL) as ITEM, ".
+		"inv.DSCP as DSCP, ".
+		"c.CATEGORY as CATEGORY, ".
 		"inv.QUANTITY as QUANTITY, ".
 		"inv.UNIT_TYPE as UNIT_TYPE, ".
 		"inv.BUYING_PRICE as BUYING_PRICE, ".
 		"inv.SELLING_PRICE as SELLING_PRICE, ".
 		"inv.PO_REF_NO as PO_REF_NO ".
-		"FROM inventories inv, models m where m.id=inv.item_id";
+		"FROM inventories inv, models m, brands b, categories c where m.id=inv.item_id and b.id=m.brand_id and c.id=m.category_id";
 		if(array_key_exists("conditions", $params)){
 			foreach ($params['conditions'] as $key => $val) {
 				$sql = $sql . " AND " . $key . "='" . $val . "'"; 

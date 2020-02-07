@@ -51,8 +51,9 @@ class Inventories extends CI_Controller {
 		}
 
 		if($this->input->post('submit_inventory')){
-			$this->form_validation->set_rules('category', 'Category', 'required|trim');
+			$this->form_validation->set_rules('category_id', 'Category', 'required|trim');
 			$this->form_validation->set_rules('item_id', 'Item', 'required|trim');
+			$this->form_validation->set_rules('dscp', 'Description', 'required|trim');
 			$this->form_validation->set_rules('sku', 'SKU', 'required|trim');
 			$this->form_validation->set_rules('unit_type', 'Unit Type', 'required|trim');
 			$this->form_validation->set_rules('quantity', 'Quantity', 'required|trim|numeric');
@@ -76,6 +77,7 @@ class Inventories extends CI_Controller {
 					$inventory = array(
 						'id'			=> uniqid('', true),
 						'item_id'		=> strtoupper($this->input->post('item_id')),
+						'dscp'			=> strtoupper($this->input->post('dscp')),
 						'sku'			=> strtoupper($this->input->post('sku')),
 						'unit_type'		=> strtoupper($this->input->post('unit_type')),
 						'quantity'		=> $this->input->post('quantity'),
@@ -128,6 +130,7 @@ class Inventories extends CI_Controller {
 		   $data[] = array(
 		        $r['SKU'],
 		        $r['ITEM'],
+		        $r['DSCP'],
 		        $r['CATEGORY'],
 		        $r['QUANTITY'],
 		        $r['UNIT_TYPE'],

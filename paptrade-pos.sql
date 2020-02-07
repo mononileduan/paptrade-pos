@@ -99,6 +99,7 @@ CREATE TABLE INVENTORIES (
 	DEL boolean not null default false,
 	SKU varchar (50) not null,
 	ITEM_ID varchar (50) not null,
+	DSCP varchar (50) not null,
 	UNIT_TYPE varchar (50) not null,
 	QUANTITY int(11) not null,
 	BUYING_PRICE decimal(18,2) not null,

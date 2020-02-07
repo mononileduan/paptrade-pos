@@ -14,6 +14,7 @@
 					<tr>
 						<td>SKU</td>
 						<td>Item</td>
+						<td>Description</td>
 						<td>Category</td>
 						<td>Quantity</td>
 						<td>Unit Type</td>

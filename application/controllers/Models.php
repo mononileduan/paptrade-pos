@@ -130,16 +130,16 @@ class Models extends CI_Controller {
 		exit();
     }
 
-	public function get_by_category(){
+	public function get_by_category_id(){
 		$category = $this->input->get('id',TRUE);
 		$con = array(
 			'returnType' => 'list',
 			'conditions' => array(
-				'del' => false,
-				'category' => $category
+				'm.del' => false,
+				'm.category_id' => $category
 			)
 		);
-		$modelList = $this->model->getRows($con);
+		$modelList = $this->model->getRowsJoin($con);
 
 		$data = $modelList->result();
 		

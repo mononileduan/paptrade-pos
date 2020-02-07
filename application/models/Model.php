@@ -43,6 +43,7 @@ class Model extends CI_Model {
 
 	public function getRowsJoin($params = array()){
 		$sql = "SELECT ". 
+			"m.id as ID, ". 
 			"b.brand as BRAND, ". 
 			"m.model as MODEL, ". 
 			"c.category as CATEGORY ". 
