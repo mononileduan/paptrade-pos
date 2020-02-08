@@ -49,7 +49,7 @@ class Inventories_Branch extends CI_Controller {
 		}
 
 		if($this->input->post('submit_inventory_branch')){
-			$this->form_validation->set_rules('category', 'Category', 'required|trim');
+			$this->form_validation->set_rules('category_id', 'Category', 'required|trim');
 			$this->form_validation->set_rules('item_id', 'Item', 'required|trim');
 			$this->form_validation->set_rules('quantity', 'Quantity', 'required|trim');
 			$this->form_validation->set_rules('selling_price', 'Selling Price', 'required|trim');

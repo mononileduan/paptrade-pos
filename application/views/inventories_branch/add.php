@@ -11,18 +11,18 @@
 	    <div class="col-md-12">
 			<form action="" method="post" accept-charset="utf-8">
 				<div class="form-group">
-					<label for='category'>Category</label>
-					<select required="required" name="category" id="category" class="form-control">
+					<label for='category_id'>Category</label>
+					<select required="required" name="category_id" id="category_id" class="form-control">
 						<option value="" selected="selected"></option>
 						<?php foreach($categories->result_array() as $r) {
-							if(set_value('category') === $r['CATEGORY']){
-								echo '<option value="'.$r['CATEGORY'].'" selected="selected">'.$r['CATEGORY'].'</option>';
+							if(set_value('category_id') === $r['ID']){
+								echo '<option value="'.$r['ID'].'" selected="selected">'.$r['CATEGORY'].'</option>';
 							}else{
-								echo '<option value="'.$r['CATEGORY'].'">'.$r['CATEGORY'].'</option>';
+								echo '<option value="'.$r['ID'].'">'.$r['CATEGORY'].'</option>';
 							}
 						} ?>
 					</select>
-					<?php echo form_error('category', '<p class="help-block">','</p>'); ?>
+					<?php echo form_error('category_id', '<p class="help-block">','</p>'); ?>
 				</div>
 				<div class="form-group">
 					<label for='item'>Item</label>
@@ -61,11 +61,11 @@
 <script type="text/javascript">
         $(document).ready(function(){
  
-            $('#category').change(function(){ 
+            $('#category_id').change(function(){ 
                 var id=$(this).val();
                 
                 $.ajax({
-                    url : "<?php echo site_url('models/get_by_category');?>",
+                    url : "<?php echo site_url('models/get_by_category_id');?>",
                     method : "GET",
                     data : {id: id},
                     async : true,
@@ -91,9 +91,9 @@
 
             var item_id = "<?= set_value('item_id'); ?>";
             if(item_id != ""){
-            	var category = "<?= set_value('category'); ?>";
+            	var category = "<?= set_value('category_id'); ?>";
             	$.ajax({
-                    url : "<?php echo site_url('models/get_by_category');?>",
+                    url : "<?php echo site_url('models/get_by_category_id');?>",
                     method : "GET",
                     data : {id: category},
                     async : true,
