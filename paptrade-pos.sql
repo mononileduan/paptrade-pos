@@ -217,3 +217,20 @@ CREATE TABLE SALES_ON_HOLD_DTLS (
 	CONSTRAINT SALES_ON_HOLD_DTLS_ID_uk UNIQUE KEY (ID),
 	CONSTRAINT SALES_ON_HOLD_DTLS_SALES_ON_HOLD_ID_fk FOREIGN KEY (SALES_ON_HOLD_ID) REFERENCES SALES_ON_HOLD (ID)
 );
+
+CREATE TABLE BRANCH_SUPPLY_REQUESTS (
+	ID varchar(50) not null,
+	VERSION int(11) not null default 0,
+	DEL boolean not null default false,
+	BRANCH_ID varchar (50) not null,
+	ITEM_ID varchar (50) not null,
+	DSCP varchar (100) not null,
+	QUANTITY int(11) not null,
+	STATUS varchar(10) not null,
+	CREATED_BY varchar(50) not null,
+	CREATED_DT timestamp not null default current_timestamp(),
+	UPDATED_BY varchar(50) null,
+	UPDATED_DT timestamp null,
+	CONSTRAINT BRANCH_SUPPLY_REQUESTS_ID_uk UNIQUE KEY (ID),
+	CONSTRAINT BRANCH_SUPPLY_REQUESTS_BRANCH_ID_fk FOREIGN KEY (BRANCH_ID) REFERENCES BRANCH (ID)
+);
