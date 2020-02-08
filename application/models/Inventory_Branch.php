@@ -45,11 +45,11 @@ class Inventory_Branch extends CI_Model {
 		$sql = "SELECT ".
 		"inv.ID as ID, ".
 		"inv.INVENTORY_ID as INVENTORY_ID, ".
-		"concat(m.BRAND, ' - ', m.MODEL) as ITEM, ".
-		"m.CATEGORY as CATEGORY, ".
+		"concat(b.BRAND, ' - ', m.MODEL) as ITEM, ".
+		"c.CATEGORY as CATEGORY, ".
 		"inv.QUANTITY as QUANTITY, ".
 		"inv.SELLING_PRICE as SELLING_PRICE ".
-		"FROM inventories_branch inv, models m where m.id=inv.item_id";
+		"FROM inventories_branch inv, models m, brands b, categories c where m.id=inv.item_id AND b.id=m.brand_id AND c.id=m.category_id ";
 		if(array_key_exists("conditions", $params)){
 			foreach ($params['conditions'] as $key => $val) {
 				$sql = $sql . " AND " . $key . "='" . $val . "'"; 
