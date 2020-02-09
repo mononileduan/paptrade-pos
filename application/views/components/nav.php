@@ -148,7 +148,15 @@
                     <a href="#">Roles</a>
                 </li>
                 <li>
-                    <a href="#">Branch</a>
+                    <a href="#branchAdminSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Branch</a>
+                    <ul class="collapse list-unstyled" id="branchAdminSubmenu">
+                        <li>
+                            <a href="<?= base_url();?><?= index_page();?>/branches/add">New Branch</a>
+                        </li>
+                        <li>
+                            <a href="<?= base_url();?><?= index_page();?>/branches">View Branches</a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </li>

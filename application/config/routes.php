@@ -51,6 +51,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 
 
+$route['branches/(:any)'] = 'branches/$1';
+$route['branches'] = 'branches/index';
 $route['branch_supply_requests/(:any)'] = 'branch_supply_requests/$1';
 $route['branch_supply_requests'] = 'branch_supply_requests/index';
 $route['brands/(:any)'] = 'brands/$1';

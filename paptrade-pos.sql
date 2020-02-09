@@ -1,3 +1,16 @@
+CREATE TABLE BRANCHES (
+	ID varchar(50) not null,
+	VERSION int(11) not null default 0,
+	DEL boolean not null default false,
+	BRANCH_NAME varchar(100) not null,
+	CREATED_BY varchar(50) not null,
+	CREATED_DT timestamp not null default current_timestamp(),
+	UPDATED_BY varchar(50),
+	UPDATED_DT timestamp null,
+	CONSTRAINT BRANCHES_uk UNIQUE KEY (ID)
+);
+
+
 CREATE TABLE USER_ (
 	ID varchar(50) not null,
 	VERSION int(11) not null default 0,
