@@ -56,10 +56,17 @@ class Users extends CI_Controller {
 								'status' => 'Active',
 								'last_login_dt' => date("Y-m-d H:i:s")
 							);
+							$this->user->update($checkLogin['ID'], $loginUpdt);
 							$this->session->set_userdata('isLoggedIn', true);
 							$this->session->set_userdata('username', $checkLogin['USERNAME']);
 							$this->session->set_userdata('branch_id', $checkLogin['BRANCH_ID']);
-							redirect('users/dashboard');
+							$this->session->set_userdata('user_role', $checkLogin['ROLE']);
+							
+							if($checkLogin['ROLE'] == 'Cashier'){
+								redirect('pos/dashboard');
+							}else{
+								redirect('users/dashboard');
+							}
 						}else{
 							$data['error_msg'] = 'Invalid login.';
 							$status = $checkLogin['STATUS'];

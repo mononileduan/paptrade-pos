@@ -29,7 +29,11 @@
 						
 						<ul class="nav navbar-nav navbar-right">
 							<li><span>Current User:  <span id="user"><?= $session_user?></span></span></li>
-							<li><a href="<?= base_url();?><?= index_page();?>/users/dashboard">Go to Inventory</a></li>
+							<?php
+							if($session_user_role != 'Cashier'){
+								echo '<li><a href="'. base_url() . index_page() . '/users/dashboard">Go to Inventory</a></li>';
+							}
+							?>
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> <span class="caret"></span></a>
 								<ul class="dropdown-menu">
