@@ -3,7 +3,7 @@
 class User extends CI_Model {
 
 	public function __construct(){
-		$this->table = 'user_';
+		$this->table = 'users';
 	}
 
 	public function getRows($params = array()){
@@ -41,10 +41,34 @@ class User extends CI_Model {
 		return $result;
 	}
 
+
+	public function getRowsJoin($params = array()){
+		$sql = "SELECT ". 
+			"u.username as USERNAME, ". 
+			"b.branch_name as BRANCH_NAME, ". 
+			"u.role as ROLE, ". 
+			"u.status as STATUS, ". 
+			"u.last_login_dt as LAST_LOGIN_DT, ".
+			"u.last_name as LAST_NAME, ".
+			"u.first_name as FIRST_NAME ".
+			"FROM USERS u, BRANCHES b ". 
+			"WHERE b.id=u.branch_id ";
+
+		if(array_key_exists("conditions", $params)){
+			foreach ($params['conditions'] as $key => $val) {
+				$sql = $sql . " AND " . $key . "='" . $val . "'"; 
+			}
+		}
+		$result = $this->db->query($sql);
+		return $result;
+
+	}
+
+
 	public function insert($data = array()){
 		if(!empty($data)){
 			if(!array_key_exists("created_by", $data)){
-				$data['created_by'] = $this->session->get_userdata('username');
+				$data['created_by'] = $this->session->userdata('username');
 			}
 
 			$insert = $this->db->insert($this->table, $data);

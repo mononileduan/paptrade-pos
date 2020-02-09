@@ -7,32 +7,29 @@ CREATE TABLE BRANCHES (
 	CREATED_DT timestamp not null default current_timestamp(),
 	UPDATED_BY varchar(50),
 	UPDATED_DT timestamp null,
-	CONSTRAINT BRANCHES_uk UNIQUE KEY (ID)
+	CONSTRAINT BRANCHES_ID_uk UNIQUE KEY (ID)
 );
 
 
-CREATE TABLE USER_ (
+CREATE TABLE USERS (
 	ID varchar(50) not null,
 	VERSION int(11) not null default 0,
 	DEL boolean not null default false,
 	USERNAME varchar(50) not null,
 	PASSWORD varchar(100) not null,
-	LAST_NAME varchar(50) not null,
-	FIRST_NAME varchar(50) not null,
-	POSITION varchar(50) not null,
-	CONTACT_NO varchar(50) not null,
-	IMG blob,
-	BRANCH_ID varchar(50) not null,
-	ROLE varchar(50) not null,
-	LAST_LOGIN_DT timestamp,
 	STATUS varchar(20) not null,
 	RETRY_CNT int(11) not null default 0,
+	LAST_LOGIN_DT timestamp null,
+	ROLE varchar(50) not null,
+	BRANCH_ID varchar(50) not null,
+	LAST_NAME varchar(50) not null,
+	FIRST_NAME varchar(50) not null,
 	CREATED_BY varchar(50) not null,
 	CREATED_DT timestamp not null default current_timestamp(),
 	UPDATED_BY varchar(50),
 	UPDATED_DT timestamp null,
-	CONSTRAINT USER_INVENTORY_ID_uk UNIQUE KEY (ID),
-	CONSTRAINT USER_INVENTORY_BRANCH_ID_fk FOREIGN KEY (BRANCH_ID) REFERENCES BRANCH (ID)
+	CONSTRAINT USERS_ID_uk UNIQUE KEY (ID),
+	CONSTRAINT USERS_BRANCH_ID_fk FOREIGN KEY (BRANCH_ID) REFERENCES BRANCHES (ID)
 );
 
 

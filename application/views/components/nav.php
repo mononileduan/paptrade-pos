@@ -140,7 +140,7 @@
                             <a href="<?= base_url();?><?= index_page();?>/users/add">Add User</a>
                         </li>
                         <li>
-                            <a href="<?= base_url();?><?= index_page();?>/users">View Users</a>
+                            <a href="<?= base_url();?><?= index_page();?>/users/view">View Users</a>
                         </li>
                     </ul>
                 </li>
