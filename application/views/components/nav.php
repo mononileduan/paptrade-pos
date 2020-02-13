@@ -93,6 +93,14 @@
                         </li>
                     </ul>
                 </li>
+                <li>
+                    <a href="#supplyRequesWarehousetSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Branch Supply Request</a>
+                    <ul class="collapse list-unstyled" id="supplyRequesWarehousetSubmenu">
+                        <li>
+                            <a href="<?= base_url();?><?= index_page();?>/branch_supply_requests/warehouse_view">View Branch Supply Requests</a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </li>
         <li>

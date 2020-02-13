@@ -64,6 +64,23 @@ class Inventory extends CI_Model {
 
 	}
 
+	public function getInventoryForBranchSupplyRequest(){
+		$sql = "SELECT ".
+		"inv.ITEM_ID as ITEM_ID, ".
+		"concat(b.BRAND, ' - ', m.MODEL) as ITEM, ".
+		"sum(inv.QUANTITY) as STOCKS, ".
+		"inv.UNIT_TYPE as UNIT_TYPE ".
+		"FROM inventories inv, models m, brands b, categories c where m.id=inv.item_id and b.id=m.brand_id and c.id=m.category_id ".
+		"AND inv.item_id in (SELECT distinct ITEM_ID FROM branch_supply_requests where del = false) ".
+		"AND inv.del = false ".
+		"group by ITEM_ID ".
+		"order by ITEM";
+		
+		$result = $this->db->query($sql);
+		return $result;
+
+	}
+
 	public function insert($data = array()){
 		if(!empty($data)){
 			if(!array_key_exists("created_by", $data)){

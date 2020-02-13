@@ -8,6 +8,7 @@ class Branch_Supply_Requests extends CI_Controller {
 		$this->load->library('form_validation');
 		$this->load->model('branch_supply_request');
 		$this->load->model('category');
+		$this->load->model('inventory');
 
 		$this->isLoggedIn = $this->session->userdata('isLoggedIn');
 	}
@@ -110,7 +111,8 @@ class Branch_Supply_Requests extends CI_Controller {
 		$con = array(
 			'returnType' => 'list',
 			'conditions' => array(
-				'req.del' => false
+				'req.del' => false,
+				'req.branch_id' => $this->session->userdata('branch_id')
 			)
 		);
 		$supply_request = $this->branch_supply_request->getRowsJoin($con);
@@ -138,6 +140,18 @@ class Branch_Supply_Requests extends CI_Controller {
 		);
 		echo json_encode($output);
 		exit();
+     }
+
+
+     public function warehouse_view(){
+		$data = array();
+		$data['session_user'] = $this->session->userdata('username');
+
+		$data['items'] = $this->inventory->getInventoryForBranchSupplyRequest();
+
+     	$this->load->view('components/header', $data);
+		$this->load->view('branch_supply_requests/warehouse_view', $data);
+		$this->load->view('components/footer');
      }
 
 
