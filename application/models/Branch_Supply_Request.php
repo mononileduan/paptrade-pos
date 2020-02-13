@@ -48,11 +48,12 @@ class Branch_Supply_Request extends CI_Model {
 		"req.DSCP as DSCP, ".
 		"c.CATEGORY as CATEGORY, ".
 		"req.QUANTITY as QUANTITY, ".
+		"br.BRANCH_NAME as BRANCH, ".
 		"req.STATUS as STATUS, ".
 		"req.CREATED_BY as CREATED_BY, ".
 		"req.CREATED_DT as CREATED_DT ".
-		"FROM branch_supply_requests req, models m, brands b, categories c ".
-		"where m.id=req.item_id AND b.id=m.brand_id AND c.id=m.category_id ";
+		"FROM branch_supply_requests req, models m, brands b, categories c, branches br ".
+		"where m.id=req.item_id AND b.id=m.brand_id AND c.id=m.category_id AND br.id=req.branch_id ";
 		if(array_key_exists("conditions", $params)){
 			foreach ($params['conditions'] as $key => $val) {
 				$sql = $sql . " AND " . $key . "='" . $val . "'"; 

@@ -148,6 +148,33 @@ class Branch_Supply_Requests extends CI_Controller {
 		$data['session_user'] = $this->session->userdata('username');
 
 		$data['items'] = $this->inventory->getInventoryForBranchSupplyRequest();
+		$data['requests'][] = array();
+
+		$req_container = array(array());
+		foreach($data['items']->result_array() as $r) {
+			$con = array(
+				'returnType' => 'list',
+				'conditions' => array(
+					'req.del' => false,
+					'req.item_id' => $r['ITEM_ID']
+				)
+			);
+			$supply_requests = $this->branch_supply_request->getRowsJoin($con);
+			$requests = array();
+			foreach($supply_requests->result_array() as $d) {
+			   $requests[] = array(
+			        'branch' => $d['BRANCH'],
+			        'quantity' => $d['QUANTITY'],
+			        'requested_by' => $d['CREATED_BY'],
+			        'requested_dt' => $d['CREATED_DT']
+			   );
+			}
+
+			$req_container[$r['ITEM_ID']] = $requests;	
+		}
+		$data['requests'] = $req_container;
+		
+
 
      	$this->load->view('components/header', $data);
 		$this->load->view('branch_supply_requests/warehouse_view', $data);
