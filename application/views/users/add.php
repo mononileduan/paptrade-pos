@@ -28,7 +28,13 @@
 							if(set_value('branch_id') === $r['ID']){
 								echo '<option value="'.$r['ID'].'" selected="selected">'.$r['BRANCH_NAME'].'</option>';
 							}else{
-								echo '<option value="'.$r['ID'].'">'.$r['BRANCH_NAME'].'</option>';
+								if($this->session->userdata('user_role') == 'Branch Administrator'){
+									if($this->session->userdata('branch_id') === $r['ID']){
+										echo '<option value="'.$r['ID'].'" selected="selected">'.$r['BRANCH_NAME'].'</option>';
+									}
+								}else{
+									echo '<option value="'.$r['ID'].'">'.$r['BRANCH_NAME'].'</option>';
+								}
 							}
 						} ?>
 					</select>
@@ -48,7 +54,9 @@
 					<label for='role'>Role</label>
 					<select required="required" name="role" class="form-control">
 						<option value=""></option>
-						<option value="System Administrator">System Administrator</option>
+						<?php if($this->session->userdata('user_role') == 'System Administrator'){
+						echo '<option value="System Administrator">System Administrator</option>';
+						}?>
 						<option value="Branch Administrator">Branch Administrator</option>
 						<option value="Cashier">Cashier</option>
 					</select>

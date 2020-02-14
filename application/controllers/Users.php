@@ -207,6 +207,11 @@ class Users extends CI_Controller {
 				'u.del' => false
 			)
 		);
+
+		if($this->session->userdata('user_role') == 'Branch Administrator'){
+			$con['conditions']['branch_id'] = $this->session->userdata('branch_id');
+		}
+
 		$user = $this->user->getRowsJoin($con);
 
 		$data = array();

@@ -156,17 +156,19 @@ echo '  </li>';
                         </li>
                     </ul>
                 </li>
-                <li>
-                    <a href="#branchAdminSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Branch</a>
-                    <ul class="collapse list-unstyled" id="branchAdminSubmenu">
-                        <li>
-                            <a href="<?= base_url();?><?= index_page();?>/branches/add">New Branch</a>
-                        </li>
-                        <li>
-                            <a href="<?= base_url();?><?= index_page();?>/branches">View Branches</a>
-                        </li>
-                    </ul>
-                </li>
+                <?php if($this->session->userdata('user_role') == 'System Administrator'){
+echo '          <li>';
+echo '              <a href="#branchAdminSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Branch</a>';
+echo '              <ul class="collapse list-unstyled" id="branchAdminSubmenu">';
+echo '                  <li>';
+echo '                      <a href="' . base_url() . index_page() . '/branches/add">New Branch</a>';
+echo '                  </li>';
+echo '                  <li>';
+echo '                      <a href="' . base_url() . index_page() . '/branches">View Branches</a>';
+echo '                  </li>';
+echo '              </ul>';
+echo '          </li>';
+                }?>
             </ul>
         </li>
         <li>
