@@ -96,7 +96,7 @@ echo '          <li>';
 echo '              <a href="#supplyRequesWarehousetSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Branch Supply Request</a>';
 echo '              <ul class="collapse list-unstyled" id="supplyRequesWarehousetSubmenu">';
 echo '                  <li>';
-echo '                      <a href="' . base_url() . index_page() . '/branch_supply_requests/warehouse_view">View Branch Supply Requests</a>';
+echo '                      <a href="' . base_url() . index_page() . '/branch_supply_requests/warehouse_branch_view">View Branch Supply Requests</a>';
 echo '                  </li>';
 echo '              </ul>';
 echo '          </li>';

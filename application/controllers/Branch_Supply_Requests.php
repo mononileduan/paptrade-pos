@@ -182,4 +182,73 @@ class Branch_Supply_Requests extends CI_Controller {
      }
 
 
+     public function warehouse_branch_view(){
+		$data = array();
+		$data['session_user'] = $this->session->userdata('username');
+
+		$con = array(
+			'returnType' => 'list',
+			'conditions' => array(
+				'req.del' => false,
+				'req.status' => 'PENDING'
+			)
+		);
+
+		$data['branches'] = $this->branch_supply_request->getUniqueBranch($con);
+
+     	$this->load->view('components/header', $data);
+		$this->load->view('branch_supply_requests/warehouse_branch_view', $data);
+     }
+
+
+ 	public function get_dtls_by_branch_id(){
+		$branch_id = $this->input->get('id',TRUE);
+		$con = array(
+			'returnType' => 'list',
+			'conditions' => array(
+				'req.del' => false,
+				'req.branch_id' => $branch_id,
+				'req.status' => 'PENDING'
+			)
+		);
+		$supply_requests = $this->branch_supply_request->getBranchRequestDtlsWithStocks($con);
+		
+
+		$data = $supply_requests->result();
+		
+		echo json_encode($data);
+		exit();
+	}
+
+
+	public function approve(){
+		$data = array();
+		$data['session_user'] = $this->session->userdata('username');
+		
+		if($this->session->userdata('success_msg')){
+			$data['success_msg'] = $this->session->userdata('success_msg');
+			$this->session->unset_userdata('success_msg');
+		}
+		if($this->session->userdata('error_msg')){
+			$data['error_msg'] = $this->session->userdata('error_msg');
+			$this->session->unset_userdata('error_msg');
+		}
+
+		if($this->input->post('process_approve_request')){
+			foreach($this->input->post('requests') as $item) {
+				log_message('info',$item['id']);
+				$newVal = array(
+					'status'		=> 'APPROVED'
+				);
+				$this->branch_supply_request->update($item['id'], $newVal);
+			 
+			}
+			$ref_no = date('YmdHis');
+
+			echo $ref_no;
+			exit();
+		}
+
+	}
+
 }

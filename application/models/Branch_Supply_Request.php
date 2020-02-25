@@ -64,6 +64,50 @@ class Branch_Supply_Request extends CI_Model {
 
 	}
 
+	public function getUniqueBranch($params = array()){
+		$sql = "SELECT ".
+		"distinct req.BRANCH_ID as BRANCH_ID, ".
+		"br.BRANCH_NAME as BRANCH_NAME, ".
+		"count(req.ITEM_ID) as ITEM_COUNT ".
+		"FROM branch_supply_requests req, branches br ".
+		"where br.id=req.branch_id ";
+		if(array_key_exists("conditions", $params)){
+			foreach ($params['conditions'] as $key => $val) {
+				$sql = $sql . " AND " . $key . "='" . $val . "'"; 
+			}
+		}
+		$sql = $sql . ' GROUP BY BRANCH_ID';
+		$result = $this->db->query($sql);
+		return $result;
+
+	}
+
+	public function getBranchRequestDtlsWithStocks($params = array()){
+		$sql = "SELECT ".
+		"req.ID as ID, ".
+		"concat(b.BRAND, ' - ', m.MODEL) as ITEM, ".
+		"sum(i.QUANTITY) as STOCKS, ".
+		"i.UNIT_TYPE as STOCKS_UNIT, ".
+		"req.DSCP as DSCP, ".
+		"c.CATEGORY as CATEGORY, ".
+		"req.QUANTITY as QUANTITY, ".
+		"br.BRANCH_NAME as BRANCH, ".
+		"req.STATUS as STATUS, ".
+		"req.CREATED_BY as CREATED_BY, ".
+		"req.CREATED_DT as CREATED_DT ".
+		"FROM branch_supply_requests req, models m, brands b, categories c, branches br, inventories i ".
+		"where m.id=req.item_id AND b.id=m.brand_id AND c.id=m.category_id AND br.id=req.branch_id AND i.item_id=req.item_id ";
+		if(array_key_exists("conditions", $params)){
+			foreach ($params['conditions'] as $key => $val) {
+				$sql = $sql . " AND " . $key . "='" . $val . "'"; 
+			}
+		}
+		$sql = $sql . ' GROUP BY req.ITEM_ID';
+		$result = $this->db->query($sql);
+		return $result;
+
+	}
+
 	public function insert($data = array()){
 		if(!empty($data)){
 			if(!array_key_exists("created_by", $data)){
@@ -80,7 +124,10 @@ class Branch_Supply_Request extends CI_Model {
 
 	public function update($id = FALSE, $data = array()){
 		if($id && !empty($data)){
-
+			if(!array_key_exists("updated_by", $data)){
+				$data['updated_by'] = $this->session->userdata('username');
+				$data['updated_dt'] = date('YmdHis');
+			}
 			$this->db->where('id', $id);
 			$update = $this->db->update($this->table, $data);
 
