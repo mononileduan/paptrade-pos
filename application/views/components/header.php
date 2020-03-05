@@ -59,9 +59,12 @@
 	                            <li class="nav-item active">
 	                                <a class="nav-link" href="<?= base_url();?><?= index_page();?>/users/dashboard">Home</a>
 	                            </li>
-	                            <li class="nav-item">
-	                                <a class="nav-link" href="<?= base_url();?><?= index_page();?>/pos">POS</a>
-	                            </li>
+	                            <?php
+	        					if($this->session->userdata('user_role') != 'System Administrator'){
+		                        echo '    <li class="nav-item">';
+		                        echo '        <a class="nav-link" href="'. base_url() . index_page().'/pos">POS</a>';
+		                        echo '    </li>';
+		                        }?>
 	                            <li class="nav-item">
 	                                <a class="nav-link" href="<?= base_url();?><?= index_page();?>/users/logout">Logout</a>
 	                            </li>
