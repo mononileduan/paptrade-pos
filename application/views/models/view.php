@@ -1,7 +1,7 @@
 <div class="content">
 	<div class="row page-title">
 		<div class="col-lg-12">
-			<h1 class="page-header">Models</h1>
+			<h1 class="page-header">Items</h1>
 		</div>
 	</div>
 
@@ -13,7 +13,7 @@
 				<thead>
 					<tr>
 						<td>Brand</td>
-						<td>Model</td>
+						<td>Description</td>
 						<td>Category</td>
 					</tr>
 				</thead>

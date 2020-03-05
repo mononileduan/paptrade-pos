@@ -1,7 +1,7 @@
 <div class="content">
 	<div class="row page-title">
 		<div class="col-lg-12">
-			<h1 class="page-header">Add Model</h1>
+			<h1 class="page-header">Add Item</h1>
 		</div>
 	</div>
 
@@ -25,7 +25,7 @@
 					<?php echo form_error('brand_id', '<p class="help-block">','</p>'); ?>
 				</div>
 				<div class="form-group">
-					<label for='model'>Model</label>
+					<label for='model'>Description</label>
 					<input required="required" type="text" value="<?php echo set_value('model'); ?>" name="model" class="form-control">
 					<?php echo form_error('model', '<p class="help-block">','</p>'); ?>
 				</div>
