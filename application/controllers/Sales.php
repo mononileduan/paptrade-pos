@@ -126,7 +126,8 @@ class Sales extends CI_Controller {
 		$con = array(
 			'returnType' => 'list',
 			'conditions' => array(
-				'sales.del' => false
+				'sales.del' => false,
+				'sales.branch_id' => $this->session->userdata('branch_id')
 			)
 		);
 		$salesList = $this->sales_model->getRowsJoin($con);
