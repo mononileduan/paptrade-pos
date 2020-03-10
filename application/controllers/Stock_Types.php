@@ -61,7 +61,7 @@ class Stock_Types extends CI_Controller {
 			}
 
 			$this->load->view('components/header', $data);
-			$this->load->view('stock_types/view', $data);
+			$this->load->view('stock_types/index', $data);
 			$this->load->view('components/footer_modal', $footer_data);
 
 		}else{
