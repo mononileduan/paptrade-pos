@@ -17,7 +17,7 @@
 
 					<div class="row-pad"></div>
 
-					<div class="row collapse <?php if(!empty($success_msg) || !empty($error_msg)){echo 'show';} ?> border border-primary rounded" id="add_container" style="padding-top: 10px;">
+					<div class="row collapse <?php if(!empty($error_msg)){echo 'show';} ?> border border-primary rounded" id="add_container" style="padding-top: 10px;">
 						<div class="col-md-12">
 							<div class="col-md-12">
 								<form action="" method="post" accept-charset="utf-8">
@@ -26,14 +26,6 @@
 										<input required="required" type="text" value="<?php echo set_value('stock_type'); ?>" name="stock_type" class="form-control">
 										<?php echo form_error('stock_type', '<p class="help-block">','</p>'); ?>
 									</div>
-
-									<?php
-										if(!empty($success_msg)){
-											echo '<p class="alert alert-success col-sm-12 help-block">'.$success_msg.'</p>';
-										}elseif(!empty($error_msg)){
-											echo '<p class="alert alert-danger col-sm-12 help-block">'.$error_msg.'</p>';
-										}
-									?>
 									
 									<div class="form-group">
 										<input type="submit" name="submit_stock_type" class="btn btn-sm btn-success" value="Submit">

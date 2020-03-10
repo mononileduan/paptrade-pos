@@ -21,6 +21,7 @@ class Stock_Types extends CI_Controller {
 			$footer_data['site_url'] = 'stock_types/stock_types_page';
 			$footer_data['action'] = 'delete';
 			$footer_data['right_align_cols'] = array();
+			$footer_data['success_msg'] = $this->session->flashdata('success_msg');
 
 			if($this->session->userdata('success_msg')){
 				$data['success_msg'] = $this->session->userdata('success_msg');
@@ -52,12 +53,17 @@ class Stock_Types extends CI_Controller {
 							);
 						$this->stock_type->insert($stock_type);
 						
-						$data['success_msg'] = 'Stock Type successfully added!';
+						$this->session->set_flashdata('success_msg', 'Stock Type successfully added!');
+						redirect(current_url());
 					}
 
 				}else{
 					$data['error_msg'] = 'Please fill all required fields.';
 				}
+			}
+
+			if(isset($data['error_msg'])){
+				$footer_data['error_msg'] = $data['error_msg'];
 			}
 
 			$this->load->view('components/header', $data);
