@@ -11,6 +11,7 @@
 		
 	    <link rel="stylesheet" type="text/css" href="assets/bootstrap/4.4.1/css/bootstrap.min.css">
 	    <link rel="stylesheet" type="text/css" href="assets/fontawesome/5.12.0/css/fontawesome.min.css">
+	    <link rel="stylesheet" type="text/css" href="assets/material_icons/material-icons.css">
 
 	    <link rel="stylesheet" type="text/css" href="assets/DataTables/datatables.min.css">
 	    <link rel="stylesheet" type="text/css" href="assets/DataTables/DataTables-1.10.20/css/dataTables.bootstrap4.min.css">
@@ -23,7 +24,6 @@
 	    <!-- jQuery CDN - Slim version (=without AJAX) -->
     	<!-- <script src="assets/jquery/3.3.1/jquery-3.3.1.slim.min.js"></script> -->
     	<script src="assets/jquery/3.4.1/jquery.min.js"></script>
-		<script type="text/javascript" src="assets/sweetalert/9.5.4/sweetalert2.all.min.js"></script>
 	</head>
 
 	<body>
