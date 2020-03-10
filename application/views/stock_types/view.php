@@ -70,38 +70,3 @@
     </div>
 </div>
 
-
-<div class="modal" tabindex="-1" role="dialog" id="add_modal_lg">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">Add Stock Type</h5>
-			</div>
-			<div class="modal-body">
-				<div class="row">
-					<div class="col-md-12">
-						<form action="" method="post" accept-charset="utf-8">
-							<div class="form-group">
-								<label for='stock_type'>Stock Type</label>
-								<input required="required" type="text" value="<?php echo set_value('stock_type'); ?>" name="stock_type" class="form-control">
-								<?php echo form_error('stock_type', '<p class="help-block">','</p>'); ?>
-							</div>
-
-							<?php
-								if(!empty($success_msg)){
-									echo '<p class="status-msg success">'.$success_msg.'</p>';
-								}elseif(!empty($error_msg)){
-									echo '<p class="alert alert-danger col-sm-12">'.$error_msg.'</p>';
-								}
-							?>
-							
-							<div class="form-group">
-								<input type="submit" name="submit_stock_type" class="btn btn-success" value="Submit">
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
