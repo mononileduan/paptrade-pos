@@ -58,6 +58,7 @@ class Item extends CI_Model {
 				$sql = $sql . " AND " . $key . "='" . $val . "'"; 
 			}
 		}
+		$sql = $sql . "ORDER BY b.brand, i.dscp ";
 		$result = $this->db->query($sql);
 		return $result;
 

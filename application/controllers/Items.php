@@ -47,6 +47,7 @@ class Items extends CI_Controller {
 					$con = array(
 						'returnType' => 'count',
 						'conditions' => array(
+							'del'	=> false,
 							'brand_id' => trim($this->input->post('brand_id')),
 							'dscp' => trim(strtoupper($this->input->post('dscp')))
 						)
