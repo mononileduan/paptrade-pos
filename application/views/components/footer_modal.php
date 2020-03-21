@@ -191,6 +191,7 @@
 
 	    <script type="text/javascript">
 			$(document).ready(function() {
+				var base_url = $("meta[name='base_url']").attr('content');
 
 				$('#sidebarCollapse').on('click', function () {
 	                $('#sidebar').toggleClass('active');
@@ -245,7 +246,9 @@
 			    	$("#error_modal .modal-content .modal-body p.text-center").text(error_msg);
 			    	$("#error_modal").modal('show');
 			    }
+
 			});
+
 
 			function formatCurrency(ccy){
 				var monetary_value = $(ccy).text();
@@ -256,5 +259,6 @@
 		        $(ccy).text(i); 
 			}
 		</script>
+	    <script type="text/javascript" src="assets/supply_request/add_supply_request.js"></script>
 	</body>
 </html>
