@@ -44,13 +44,13 @@ class Warehouse_Inventory extends CI_Model {
 	public function getRowsJoin($params = array()){
 		$sql = "SELECT ". 
 			"inv.id as ID, ".
-			"b.brand as BRAND, ".
-			"i.dscp as DSCP, ".
+			"concat(b.BRAND, ' ', i.DSCP) as ITEM, ". 
+			"c.category as CATEGORY, ".
 			"inv.CURRENT_QTY as CURRENT_QTY, ".
 			"inv.AVAILABLE_QTY as AVAILABLE_QTY, ".
 			"inv.CRITICAL_QTY as CRITICAL_QTY ".
-			"FROM warehouse_inventory inv, items i, brands b ".
-			"WHERE i.id=inv.item_id and b.id=i.brand_id and i.del=false ";
+			"FROM warehouse_inventory inv, items i, brands b, categories c ".
+			"WHERE i.id=inv.item_id and b.id=i.brand_id and c.id=i.category_id and inv.del=false and i.del=false ";
 
 		if(array_key_exists("conditions", $params)){
 			foreach ($params['conditions'] as $key => $val) {
@@ -64,9 +64,6 @@ class Warehouse_Inventory extends CI_Model {
 
 	public function insert($data = array()){
 		if(!empty($data)){
-			if(!array_key_exists("created_by", $data)){
-				$data['created_by'] = $this->session->userdata('username');
-			}
 
 			$insert = $this->db->insert($this->table, $data);
 

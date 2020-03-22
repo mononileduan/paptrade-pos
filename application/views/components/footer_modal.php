@@ -169,6 +169,7 @@
 			</div>
 		</div>
 
+
 	    <script src="assets/fontawesome/5.0.13/js/solid.js"></script>
 	    <script src="assets/fontawesome/5.12.0/js/fontawesome.min.js"></script>
 
@@ -199,6 +200,7 @@
 	            });
 
 				<?php
+					$btnprops = '';
 					$btnlist = '';
 					if(isset($action)){ 
 						if(strpos($action, 'view') !== false){
@@ -207,6 +209,14 @@
 						if(strpos($action, 'delete') !== false){
 							$btnlist .= '<button class=\'btn btn-danger btn-sm\' title=\'Delete\' data-title=\'Delete\' data-toggle=\'modal\' data-target=\'#delete\' ><i class=\'fas fa-sm fa-trash-alt\'></i></button>';
 						}
+					}
+
+					if(isset($action_cust)){ 
+						$btnlist .= $action_cust;
+					}
+
+					if($btnlist){
+						$btnprops = '{"targets": -1, "data": null, "defaultContent": "'.$btnlist.'"},';
 					}
 				?>
 
@@ -217,7 +227,7 @@
 						},
 						"columnDefs": [
 							{className: "dt-right", "targets": <?= json_encode($right_align_cols); ?> },
-							{"targets": -1, "data": null, "defaultContent": "<?= $btnlist; ?>"},
+							<?= $btnprops; ?>
 							{"targets": [ 0 ], "visible": false, "searchable": false}
 						]
 				});
@@ -229,6 +239,7 @@
 			       	var redirect = base_url + '/' + '<?= $view_url; ?>' + id;
 			        window.location.replace(redirect);
 			    } );
+
 
 
 				/***************************/
