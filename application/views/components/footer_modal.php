@@ -222,6 +222,14 @@
 						]
 				});
 
+				$('#view-data-table tbody').on( 'click', 'a.action-view', function (id) {
+					<?php if(!isset($view_url)){ $view_url=''; } ?>
+			        var data = datatable.row( $(this).parents('tr') ).data();
+			       	var id = data[0];
+			       	var redirect = base_url + '/' + '<?= $view_url; ?>' + id;
+			        window.location.replace(redirect);
+			    } );
+
 
 				/***************************/
 				$('.datepicker').datepicker({
@@ -246,6 +254,13 @@
 			    	$("#error_modal .modal-content .modal-body p.text-center").text(error_msg);
 			    	$("#error_modal").modal('show');
 			    }
+
+
+   				$('.back-btn').on('click', function () {
+					<?php if(!isset($back_url)){ $back_url=''; } ?>
+			       	var redirect = base_url + '/' + '<?= $back_url; ?>';
+			        window.location.replace(redirect);
+			    } );
 
 			});
 

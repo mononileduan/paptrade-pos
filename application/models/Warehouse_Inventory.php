@@ -1,11 +1,9 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); 
 
-class Supply_Request extends CI_Model {
-	
+class Warehouse_Inventory extends CI_Model {
 	public function __construct(){
-		$this->table = 'supply_requests';
+		$this->table = 'warehouse_inventory';
 	}
-
 
 	public function getRows($params = array()){
 		$this->db->select('*');
@@ -43,19 +41,16 @@ class Supply_Request extends CI_Model {
 		return $result;
 	}
 
-
 	public function getRowsJoin($params = array()){
 		$sql = "SELECT ". 
-			"sr.ID as ID, ". 
-			"b.BRANCH_NAME as BRANCH, ". 
-			"concat(br.BRAND, ' ', i.DSCP) as ITEM, ". 
-			"sr.ITEM_ID as ITEM_ID, ". 
-			"sr.QTY as QTY, ". 
-			"concat(rqu.FIRST_NAME, ' ', rqu.LAST_NAME) as REQUESTED_BY, ". 
-			"sr.REQUESTED_DT as REQUESTED_DT, ". 
-			"sr.STATUS as STATUS ". 
-			"FROM supply_requests sr, brands br, items i, branches b, users rqu ". 
-			"WHERE sr.del=false AND i.id=sr.item_id AND br.id=i.brand_id AND b.id=sr.branch_id AND rqu.username=sr.requested_by ";
+			"inv.id as ID, ".
+			"b.brand as BRAND, ".
+			"i.dscp as DSCP, ".
+			"inv.CURRENT_QTY as CURRENT_QTY, ".
+			"inv.AVAILABLE_QTY as AVAILABLE_QTY, ".
+			"inv.CRITICAL_QTY as CRITICAL_QTY ".
+			"FROM warehouse_inventory inv, items i, brands b ".
+			"WHERE i.id=inv.item_id and b.id=i.brand_id and i.del=false ";
 
 		if(array_key_exists("conditions", $params)){
 			foreach ($params['conditions'] as $key => $val) {
@@ -69,6 +64,10 @@ class Supply_Request extends CI_Model {
 
 	public function insert($data = array()){
 		if(!empty($data)){
+			if(!array_key_exists("created_by", $data)){
+				$data['created_by'] = $this->session->userdata('username');
+			}
+
 			$insert = $this->db->insert($this->table, $data);
 
 			return $insert ? $this->db->insert_id() : false;
@@ -88,5 +87,6 @@ class Supply_Request extends CI_Model {
 
 		return false;
 	}
-
 }
+
+?>
