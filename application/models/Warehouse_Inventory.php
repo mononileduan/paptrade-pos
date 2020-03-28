@@ -44,6 +44,7 @@ class Warehouse_Inventory extends CI_Model {
 	public function getRowsJoin($params = array()){
 		$sql = "SELECT ". 
 			"inv.id as ID, ".
+			"inv.item_id as ITEM_ID, ".
 			"concat(b.BRAND, ' ', i.DSCP) as ITEM, ". 
 			"c.category as CATEGORY, ".
 			"inv.CURRENT_QTY as CURRENT_QTY, ".

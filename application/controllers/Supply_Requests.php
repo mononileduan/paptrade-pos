@@ -7,7 +7,6 @@ class Supply_Requests extends CI_Controller {
 
 		$this->load->library('form_validation');
 		$this->load->model('supply_request');
-		$this->load->model('item');
 		$this->load->model('warehouse_inventory');
 
 		$this->isLoggedIn = $this->session->userdata('isLoggedIn');
@@ -37,6 +36,7 @@ class Supply_Requests extends CI_Controller {
 		$footer_data['site_url'] = 'supply_requests/branch_view_list';
 		$footer_data['right_align_cols'] = array();
 		$footer_data['action'] = 'view';
+		$footer_data['view_url'] = 'supply_requests/receive/';
 		
 		$this->load->view('components/header', $data);
 		$this->load->view('supply_requests/branch_view', $data);
@@ -88,6 +88,107 @@ class Supply_Requests extends CI_Controller {
 		exit();
     }
 
+
+	public function receive($id = null){
+		if($this->isLoggedIn){
+			$data = array();
+			$data['session_user'] = $this->session->userdata('username');
+
+			if($this->input->post('submit_receive_request')){
+				$this->form_validation->set_rules('id', 'ID', 'required|trim');
+				$this->form_validation->set_rules('approved_qty', 'Approved Quantity', 'required|trim|is_natural');
+
+				if($this->form_validation->run() == true){
+					$con = array(
+						'returnType' => 'single',
+						'conditions' => array(
+							'del' 	=> false,
+							'id'	=> strtoupper($this->input->post('id')),
+							'status' => 'APPROVED'
+						)
+					);
+					$request = $this->supply_request->getRows($con);
+
+					if($request){
+						$con = array(
+							'returnType' => 'single',
+							'conditions' => array(
+								'item_id' => $request['ITEM_ID']
+							)
+						);
+						$wh_item = $this->warehouse_inventory->getRows($con); //get item from warehouse inventory
+						if($wh_item){
+							if($wh_item['CURRENT_QTY'] >= $this->input->post('approved_qty')){
+								$newVal = array(
+									'current_qty'	=> $wh_item['CURRENT_QTY'] - $this->input->post('approved_qty')
+								);
+								$this->warehouse_inventory->update($wh_item['ID'], $newVal);
+
+
+								$newVal = array(
+									'received_by'	=> $this->session->userdata('username'),
+									'received_dt'	=> date('YmdHis'),
+									'status'		=> 'RECEIVED'
+								);
+								$this->supply_request->update($request['ID'], $newVal); //update supply request
+
+								$this->session->set_flashdata('success_msg', 'Request successfully received!');
+								redirect('supply_requests/branch_view');
+
+							}else{
+								$data['error_msg'] = 'Insufficient warehouse stocks';
+							}
+						}else{
+							$data['error_msg'] = 'Could not find item from warehouse inventory';
+						}
+					}else{
+						$data['error_msg'] = 'Could not find request';
+					}
+				}else{
+					$data['error_msg'] = 'Please fill all required fields.';
+				}
+			}
+
+			$footer_data = array();
+			$footer_data['page_has_table'] = '';
+			$footer_data['site_url'] = '';
+			$footer_data['view_url'] = '';
+			$footer_data['back_url'] = 'supply_requests/branch_view';
+			$footer_data['right_align_cols'] = array();
+			$footer_data['action'] = '';
+			$footer_data['success_msg'] = $this->session->flashdata('success_msg');
+			if(isset($data['error_msg'])){
+				$footer_data['error_msg'] = $data['error_msg'];
+			}
+
+			$con = array(
+				'returnType' => 'single',
+				'conditions' => array(
+					'sr.del' => false,
+					'sr.id' => $id
+				)
+			);
+			$data['req'] = $this->supply_request->getRowsJoin($con)->row_array();
+
+			$con = array(
+				'returnType' => 'single',
+				'conditions' => array(
+					'inv.item_id' => $data['req']['ITEM_ID']
+				)
+			);
+			$data['wh_item'] = $this->warehouse_inventory->getRowsJoin($con)->row_array();
+			
+			$this->load->view('components/header', $data);
+			$this->load->view('supply_requests/receive', $data);
+			$this->load->view('components/footer_modal', $footer_data);
+
+		}else{
+			redirect('users/login');
+		}
+	}
+
+
+
 	public function add(){
 		$data = array();
 		$data['session_user'] = $this->session->userdata('username');
@@ -99,11 +200,9 @@ class Supply_Requests extends CI_Controller {
 
 		$con = array(
 			'returnType' => 'list',
-			'conditions' => array(
-				'i.del' => false
-			)
+			'conditions' => array()
 		);
-		$data['items'] = $this->item->getRowsJoin($con);
+		$data['items'] = $this->warehouse_inventory->getRowsJoin($con);
 		
 		$this->load->view('components/header', $data);
 		$this->load->view('supply_requests/add', $data);

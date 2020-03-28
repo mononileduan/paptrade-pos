@@ -53,9 +53,12 @@ class Supply_Request extends CI_Model {
 			"sr.QTY as QTY, ". 
 			"concat(rqu.FIRST_NAME, ' ', rqu.LAST_NAME) as REQUESTED_BY, ". 
 			"sr.REQUESTED_DT as REQUESTED_DT, ". 
-			"sr.STATUS as STATUS ". 
-			"FROM supply_requests sr, brands br, items i, branches b, users rqu ". 
-			"WHERE sr.del=false AND i.id=sr.item_id AND br.id=i.brand_id AND b.id=sr.branch_id AND rqu.username=sr.requested_by ";
+			"sr.STATUS as STATUS, ". 
+			"concat(apu.FIRST_NAME, ' ', apu.LAST_NAME) as PROCESSED_BY, ". 
+			"sr.PROCESSED_DT as PROCESSED_DT, ". 
+			"sr.APPROVED_QTY as APPROVED_QTY ". 
+			"FROM supply_requests sr, brands br, items i, branches b, users rqu, users apu ". 
+			"WHERE sr.del=false AND i.id=sr.item_id AND br.id=i.brand_id AND b.id=sr.branch_id AND rqu.username=sr.requested_by AND apu.username=sr.processed_by ";
 
 		if(array_key_exists("conditions", $params)){
 			foreach ($params['conditions'] as $key => $val) {

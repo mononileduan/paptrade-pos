@@ -17,10 +17,10 @@
 						<select required="required" name="item" class="form-control">
 							<option value=""></option>
 							<?php foreach($items->result_array() as $r) {
-								if(set_value('brand_id') === $r['ID']){
-									echo '<option value="'.$r['ID'].'" selected="selected">'.$r['BRAND'].' '.$r['DSCP'].'</option>';
+								if(set_value('item_id') === $r['ITEM_ID']){
+									echo '<option value="'.$r['ITEM_ID'].'" selected="selected">'.$r['ITEM'].'</option>';
 								}else{
-									echo '<option value="'.$r['ID'].'">'.$r['BRAND'].' '.$r['DSCP'].'</option>';
+									echo '<option value="'.$r['ITEM_ID'].'">'.$r['ITEM'].'</option>';
 								}
 							} ?>
 						</select>
