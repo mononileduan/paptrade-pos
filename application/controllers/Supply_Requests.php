@@ -8,6 +8,7 @@ class Supply_Requests extends CI_Controller {
 		$this->load->library('form_validation');
 		$this->load->model('supply_request');
 		$this->load->model('warehouse_inventory');
+		$this->load->model('branch_inventory');
 
 		$this->isLoggedIn = $this->session->userdata('isLoggedIn');
 	}
@@ -123,6 +124,24 @@ class Supply_Requests extends CI_Controller {
 									'current_qty'	=> $wh_item['CURRENT_QTY'] - $this->input->post('approved_qty')
 								);
 								$this->warehouse_inventory->update($wh_item['ID'], $newVal);
+
+
+								$br_item = $this->branch_inventory->getRows($con); //get item from branch inventory
+								if($br_item){ //update
+									$newVal = array(
+										'qty'	=> $br_item['QTY'] + $this->input->post('approved_qty')
+									);
+									$this->branch_inventory->update($br_item['ID'], $newVal);
+								}else{ //insert
+									$inventory = array(
+										'id'		=> uniqid('', true),
+										'branch_id'	=> $this->session->userdata('branch_id'),
+										'item_id'	=> $this->input->post('item_id'),
+										'qty'		=> $this->input->post('init_qty'),
+										'critical_qty' => $this->input->post('crit_qty')
+									);
+									$this->branch_inventory->insert($inventory);
+								}
 
 
 								$newVal = array(
