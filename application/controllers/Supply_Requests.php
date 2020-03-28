@@ -164,9 +164,18 @@ class Supply_Requests extends CI_Controller {
 			$con = array(
 				'returnType' => 'single',
 				'conditions' => array(
+					'del' => false,
+					'id' => $id
+				));
+			$statusObj= $this->supply_request->getRows($con);
+
+			$con = array(
+				'returnType' => 'single',
+				'conditions' => array(
 					'sr.del' => false,
 					'sr.id' => $id
-				)
+				),
+				'status' => $statusObj['STATUS']
 			);
 			$data['req'] = $this->supply_request->getRowsJoin($con)->row_array();
 

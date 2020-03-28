@@ -54,11 +54,41 @@ class Supply_Request extends CI_Model {
 			"concat(rqu.FIRST_NAME, ' ', rqu.LAST_NAME) as REQUESTED_BY, ". 
 			"sr.REQUESTED_DT as REQUESTED_DT, ". 
 			"sr.STATUS as STATUS, ". 
-			"concat(apu.FIRST_NAME, ' ', apu.LAST_NAME) as PROCESSED_BY, ". 
-			"sr.PROCESSED_DT as PROCESSED_DT, ". 
-			"sr.APPROVED_QTY as APPROVED_QTY ". 
-			"FROM supply_requests sr, brands br, items i, branches b, users rqu, users apu ". 
-			"WHERE sr.del=false AND i.id=sr.item_id AND br.id=i.brand_id AND b.id=sr.branch_id AND rqu.username=sr.requested_by AND apu.username=sr.processed_by ";
+			"sr.APPROVED_QTY as APPROVED_QTY"; 
+			
+			if(array_key_exists("status", $params)){
+				if($params['status'] == 'APPROVED'){
+					$sql .= ", concat(apu.FIRST_NAME, ' ', apu.LAST_NAME) as PROCESSED_BY, ". 
+					"sr.PROCESSED_DT as PROCESSED_DT";
+				}else if($params['status'] == 'RECEIVED'){
+					$sql .= ", concat(apu.FIRST_NAME, ' ', apu.LAST_NAME) as PROCESSED_BY, ". 
+					"sr.PROCESSED_DT as PROCESSED_DT, ". 
+					"concat(ru.FIRST_NAME, ' ', ru.LAST_NAME) as RECEIVED_BY, ". 
+					"sr.RECEIVED_DT as RECEIVED_DT";
+				}
+			}
+			
+			$sql .= " FROM supply_requests sr, brands br, items i, branches b, users rqu";
+
+			if(array_key_exists("status", $params)){
+				if($params['status'] == 'APPROVED'){
+					$sql .= ", users apu";
+				}else if($params['status'] == 'RECEIVED'){
+					$sql .= ", users apu, ".
+					"users ru";
+				}
+			}
+			
+			$sql .= " WHERE sr.del=false AND i.id=sr.item_id AND br.id=i.brand_id AND b.id=sr.branch_id AND rqu.username=sr.requested_by ";
+			
+			if(array_key_exists("status", $params)){
+				if($params['status'] == 'APPROVED'){
+					$sql .= "AND apu.username=sr.processed_by ";
+				}else if($params['status'] == 'RECEIVED'){
+					$sql .= "AND apu.username=sr.processed_by ".
+					"AND ru.username=sr.received_by ";
+				}
+			}
 
 		if(array_key_exists("conditions", $params)){
 			foreach ($params['conditions'] as $key => $val) {

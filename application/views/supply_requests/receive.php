@@ -31,18 +31,35 @@
 						<label>Request Date</label>
 						<span><?= $req['REQUESTED_DT']; ?></span>
 					</div>
-					<div class="form-group">
-						<label>Processed By</label>
-						<span><?= $req['PROCESSED_BY']; ?></span>
-					</div>
-					<div class="form-group">
-						<label>Date Processed</label>
-						<span><?= $req['PROCESSED_DT']; ?></span>
-					</div>
-					<div class="form-group">
-						<label>Approved Quantity</label>
-						<span><?= $req['APPROVED_QTY']; ?></span>
-					</div>	
+					<?php 
+					if($req['STATUS'] == 'APPROVED' || $req['STATUS'] == 'RECEIVED'){
+						echo '<div class="form-group">';
+						echo '	<label>Approved Quantity</label>';
+						echo '	<span>'.$req['APPROVED_QTY'].'</span>';
+						echo '</div>';
+						echo '<div class="form-group">';
+						echo '	<label>Processed By</label>';
+						echo '	<span>'.$req['PROCESSED_BY'].'</span>';
+						echo '</div>';
+						echo '<div class="form-group">';
+						echo '	<label>Date Processed</label>';
+						echo '	<span>'.$req['PROCESSED_DT'].'</span>';
+						echo '</div>';
+					
+					}
+
+					if($req['STATUS'] == 'RECEIVED'){
+						echo '<div class="form-group">';
+						echo '	<label>Received By</label>';
+						echo '	<span>'.$req['RECEIVED_BY'].'</span>';
+						echo '</div>';
+						echo '<div class="form-group">';
+						echo '	<label>Date Received</label>';
+						echo '	<span>'.$req['RECEIVED_DT'].'</span>';
+						echo '</div>';
+					}
+
+					?>					
 				</div>
 			</div>
 
