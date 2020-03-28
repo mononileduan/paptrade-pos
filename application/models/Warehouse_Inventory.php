@@ -49,7 +49,8 @@ class Warehouse_Inventory extends CI_Model {
 			"c.category as CATEGORY, ".
 			"inv.CURRENT_QTY as CURRENT_QTY, ".
 			"inv.AVAILABLE_QTY as AVAILABLE_QTY, ".
-			"inv.CRITICAL_QTY as CRITICAL_QTY ".
+			"inv.CRITICAL_QTY as CRITICAL_QTY, ".
+			"i.CRITICAL_QTY as ITEM_CRIT_QTY ".
 			"FROM warehouse_inventory inv, items i, brands b, categories c ".
 			"WHERE i.id=inv.item_id and b.id=i.brand_id and c.id=i.category_id and inv.del=false and i.del=false ";
 
