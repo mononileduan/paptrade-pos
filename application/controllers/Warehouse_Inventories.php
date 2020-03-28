@@ -109,7 +109,7 @@ class Warehouse_Inventories extends CI_Controller {
 				}
 			}else if($this->input->post('submit_deduct')){
 				$this->form_validation->set_rules('id', 'Inventory', 'required|trim');
-				$this->form_validation->set_rules('adjust_qty', 'No. of Stocks to Add', 'required|trim|is_natural');
+				$this->form_validation->set_rules('adjust_qty', 'No. of Stocks to Deduct', 'required|trim|is_natural');
 
 				if($this->form_validation->run() == true){
 					$con = array(
@@ -123,6 +123,27 @@ class Warehouse_Inventories extends CI_Controller {
 					$newVal = array(
 						'available_qty'	=> $inventory['AVAILABLE_QTY'] - $this->input->post('adjust_qty'),
 						'current_qty'	=> $inventory['CURRENT_QTY'] - $this->input->post('adjust_qty')
+					);
+					$this->warehouse_inventory->update($inventory['ID'], $newVal);
+
+					echo 'OK';
+					exit();
+				}
+			}else if($this->input->post('submit_edit')){
+				$this->form_validation->set_rules('id', 'Inventory', 'required|trim');
+				$this->form_validation->set_rules('crit_qty', 'Critical Quantity', 'required|trim|is_natural');
+
+				if($this->form_validation->run() == true){
+					$con = array(
+						'returnType' => 'single',
+						'conditions' => array(
+							'del' => false,
+							'id' => strtoupper($this->input->post('id'))
+						)
+					);
+					$inventory = $this->warehouse_inventory->getRows($con);
+					$newVal = array(
+						'critical_qty'	=> $this->input->post('crit_qty')
 					);
 					$this->warehouse_inventory->update($inventory['ID'], $newVal);
 
