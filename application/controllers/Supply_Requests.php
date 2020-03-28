@@ -103,7 +103,7 @@ class Supply_Requests extends CI_Controller {
 						'returnType' => 'single',
 						'conditions' => array(
 							'del' 	=> false,
-							'id'	=> strtoupper($this->input->post('id')),
+							'id'	=> $this->input->post('id'),
 							'status' => 'APPROVED'
 						)
 					);
@@ -315,7 +315,7 @@ class Supply_Requests extends CI_Controller {
 						'returnType' => 'single',
 						'conditions' => array(
 							'del' 	=> false,
-							'id'	=> strtoupper($this->input->post('id')),
+							'id'	=> $this->input->post('id'),
 							'status' => 'NEW'
 						)
 					);

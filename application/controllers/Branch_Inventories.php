@@ -49,7 +49,7 @@ class Branch_Inventories extends CI_Controller {
 						'returnType' => 'count',
 						'conditions' => array(
 							'del' => false,
-							'item_id' => strtoupper($this->input->post('item_id'))
+							'item_id' => $this->input->post('item_id')
 						)
 					);
 					$itemCnt = $this->warehouse_inventory->getRows($con); //check if item id exists in database
@@ -58,7 +58,7 @@ class Branch_Inventories extends CI_Controller {
 							'returnType' => 'count',
 							'conditions' => array(
 								'del' => false,
-								'item_id' => strtoupper($this->input->post('item_id'))
+								'item_id' => $this->input->post('item_id')
 							)
 						);
 						$inventoryCnt = $this->branch_inventory->getRows($con);
@@ -68,7 +68,7 @@ class Branch_Inventories extends CI_Controller {
 							$inventory = array(
 								'id'		=> uniqid('', true),
 								'branch_id'	=> $this->session->userdata('branch_id'),
-								'item_id'	=> strtoupper($this->input->post('item_id')),
+								'item_id'	=> $this->input->post('item_id'),
 								'qty'		=> $this->input->post('init_qty'),
 								'critical_qty' => $this->input->post('crit_qty')
 								);
@@ -94,7 +94,7 @@ class Branch_Inventories extends CI_Controller {
 						'returnType' => 'single',
 						'conditions' => array(
 							'del' => false,
-							'id' => strtoupper($this->input->post('id'))
+							'id' => $this->input->post('id')
 						)
 					);
 					$inventory = $this->branch_inventory->getRows($con);
@@ -115,7 +115,7 @@ class Branch_Inventories extends CI_Controller {
 						'returnType' => 'single',
 						'conditions' => array(
 							'del' => false,
-							'id' => strtoupper($this->input->post('id'))
+							'id' => $this->input->post('id')
 						)
 					);
 					$inventory = $this->branch_inventory->getRows($con);
@@ -136,7 +136,7 @@ class Branch_Inventories extends CI_Controller {
 						'returnType' => 'single',
 						'conditions' => array(
 							'del' => false,
-							'id' => strtoupper($this->input->post('id'))
+							'id' => $this->input->post('id')
 						)
 					);
 					$inventory = $this->branch_inventory->getRows($con);

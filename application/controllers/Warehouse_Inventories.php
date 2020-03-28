@@ -49,7 +49,7 @@ class Warehouse_Inventories extends CI_Controller {
 						'returnType' => 'count',
 						'conditions' => array(
 							'del' => false,
-							'id' => strtoupper($this->input->post('item_id'))
+							'id' => $this->input->post('item_id')
 						)
 					);
 					$itemCnt = $this->item->getRows($con); //check if item id exists in database
@@ -58,7 +58,7 @@ class Warehouse_Inventories extends CI_Controller {
 							'returnType' => 'count',
 							'conditions' => array(
 								'del' => false,
-								'item_id' => strtoupper($this->input->post('item_id'))
+								'item_id' => $this->input->post('item_id')
 							)
 						);
 						$inventoryCnt = $this->warehouse_inventory->getRows($con);
@@ -67,7 +67,7 @@ class Warehouse_Inventories extends CI_Controller {
 						}else{
 							$inventory = array(
 								'id'		=> uniqid('', true),
-								'item_id'	=> strtoupper($this->input->post('item_id')),
+								'item_id'	=> $this->input->post('item_id'),
 								'current_qty' => $this->input->post('init_qty'),
 								'available_qty' => $this->input->post('init_qty'),
 								'critical_qty' => $this->input->post('crit_qty')
@@ -94,7 +94,7 @@ class Warehouse_Inventories extends CI_Controller {
 						'returnType' => 'single',
 						'conditions' => array(
 							'del' => false,
-							'id' => strtoupper($this->input->post('id'))
+							'id' => $this->input->post('id')
 						)
 					);
 					$inventory = $this->warehouse_inventory->getRows($con);
@@ -116,7 +116,7 @@ class Warehouse_Inventories extends CI_Controller {
 						'returnType' => 'single',
 						'conditions' => array(
 							'del' => false,
-							'id' => strtoupper($this->input->post('id'))
+							'id' => $this->input->post('id')
 						)
 					);
 					$inventory = $this->warehouse_inventory->getRows($con);
@@ -138,7 +138,7 @@ class Warehouse_Inventories extends CI_Controller {
 						'returnType' => 'single',
 						'conditions' => array(
 							'del' => false,
-							'id' => strtoupper($this->input->post('id'))
+							'id' => $this->input->post('id')
 						)
 					);
 					$inventory = $this->warehouse_inventory->getRows($con);
