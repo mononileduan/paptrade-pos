@@ -9,59 +9,44 @@
 
 			<div class="row-pad"></div>
 
-		    <div class="row">
-			    <div class="col-md-12">
-					<div class="form-group">
-						<label>Item</label>
-						<span><?= $req['ITEM']; ?></span>
-					</div>
-					<div class="form-group">
-						<label>Quantity</label>
-						<span><?= $req['QTY']; ?></span>
-					</div>
-					<div class="form-group">
-						<label>Branch</label>
-						<span><?= $req['BRANCH']; ?></span>
-					</div>
-					<div class="form-group">
-						<label>Requested By</label>
-						<span><?= $req['REQUESTED_BY']; ?></span>
-					</div>
-					<div class="form-group">
-						<label>Request Date</label>
-						<span><?= $req['REQUESTED_DT']; ?></span>
-					</div>
-					<?php 
-					if($req['STATUS'] == 'APPROVED' || $req['STATUS'] == 'RECEIVED'){
-						echo '<div class="form-group">';
-						echo '	<label>Approved Quantity</label>';
-						echo '	<span>'.$req['APPROVED_QTY'].'</span>';
-						echo '</div>';
-						echo '<div class="form-group">';
-						echo '	<label>Processed By</label>';
-						echo '	<span>'.$req['PROCESSED_BY'].'</span>';
-						echo '</div>';
-						echo '<div class="form-group">';
-						echo '	<label>Date Processed</label>';
-						echo '	<span>'.$req['PROCESSED_DT'].'</span>';
-						echo '</div>';
+			<dl class="row">
+				<dt class="col-sm-3">Item</dt>
+				<dd class="col-sm-9"><?= $req['ITEM']; ?></dd>
+
+				<dt class="col-sm-3">Quantity</dt>
+				<dd class="col-sm-9"><?= $req['QTY']; ?></dd>
+
+				<dt class="col-sm-3">Branch</dt>
+				<dd class="col-sm-9"><?= $req['BRANCH']; ?></dd>
+				
+				<dt class="col-sm-3">Requested By</dt>
+				<dd class="col-sm-9"><?= $req['REQUESTED_BY']; ?></dd>
+				
+				<dt class="col-sm-3">Request Date</dt>
+				<dd class="col-sm-9"><?= $req['REQUESTED_DT']; ?></dd>
+
+				<?php 
+				if($req['STATUS'] == 'APPROVED' || $req['STATUS'] == 'RECEIVED'){
+
+					echo '<dt class="col-sm-3">Approved Quantity</dt>';
+					echo '<dd class="col-sm-9">'.$req['APPROVED_QTY'].'</dd>';
 					
-					}
+					echo '<dt class="col-sm-3">Processed By</dt>';
+					echo '<dd class="col-sm-9">'.$req['PROCESSED_BY'].'</dd>';
+					
+					echo '<dt class="col-sm-3">Date Processed</dt>';
+					echo '<dd class="col-sm-9">'.$req['PROCESSED_DT'].'</dd>';
+				}
 
-					if($req['STATUS'] == 'RECEIVED'){
-						echo '<div class="form-group">';
-						echo '	<label>Received By</label>';
-						echo '	<span>'.$req['RECEIVED_BY'].'</span>';
-						echo '</div>';
-						echo '<div class="form-group">';
-						echo '	<label>Date Received</label>';
-						echo '	<span>'.$req['RECEIVED_DT'].'</span>';
-						echo '</div>';
-					}
-
-					?>					
-				</div>
-			</div>
+				if($req['STATUS'] == 'RECEIVED'){
+					echo '<dt class="col-sm-3">Received By</dt>';
+					echo '<dd class="col-sm-9">'.$req['RECEIVED_BY'].'</dd>';
+					
+					echo '<dt class="col-sm-3">Date Received</dt>';
+					echo '<dd class="col-sm-9">'.$req['RECEIVED_DT'].'</dd>';
+				}
+				?>
+			</dl>
 
 		    <div class="row">
 			    <div class="col-md-12">

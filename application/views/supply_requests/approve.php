@@ -9,44 +9,36 @@
 
 			<div class="row-pad"></div>
 
-		    <div class="row">
-			    <div class="col-md-12">
-					<div class="form-group">
-						<label>Branch</label>
-						<span><?= $req['BRANCH']; ?></span>
-					</div>
-					<div class="form-group">
-						<label>Item</label>
-						<span><?= $req['ITEM']; ?></span>
-					</div>
-					<div class="form-group">
-						<label>Quantity</label>
-						<span><?= $req['QTY']; ?></span>
-					</div>
-					<div class="form-group">
-						<label>Requested By</label>
-						<span><?= $req['REQUESTED_BY']; ?></span>
-					</div>
-					<div class="form-group">
-						<label>Request Date</label>
-						<span><?= $req['REQUESTED_DT']; ?></span>
-					</div>
-				</div>
-			</div>
+			<dl class="row">
+				<dt class="col-sm-3">Item</dt>
+				<dd class="col-sm-9"><?= $req['ITEM']; ?></dd>
+
+				<dt class="col-sm-3">Quantity</dt>
+				<dd class="col-sm-9"><?= $req['QTY']; ?></dd>
+
+				<dt class="col-sm-3">Branch</dt>
+				<dd class="col-sm-9"><?= $req['BRANCH']; ?></dd>
+				
+				<dt class="col-sm-3">Requested By</dt>
+				<dd class="col-sm-9"><?= $req['REQUESTED_BY']; ?></dd>
+				
+				<dt class="col-sm-3">Request Date</dt>
+				<dd class="col-sm-9"><?= $req['REQUESTED_DT']; ?></dd>
+			</dl>
+
+		    
 
 		    <div class="row">
 			    <div class="col-md-12">
 					
 					<form action="" method="post" accept-charset="utf-8">
-						<div class="form-group">
-							<label>Available Stocks</label>
-							<span><?php if(isset($wh_item['AVAILABLE_QTY'])){ echo $wh_item['AVAILABLE_QTY']; } else { echo '0'; } ?></span>
-						</div>
-						<div class="form-group">
-							<label>Approved Quantity</label>
-							<input required="required" type="text" value="<?php echo set_value('approved_qty'); ?>" name="approved_qty" class="form-control">
-							<?php echo form_error('approved_qty', '<p class="help-block">','</p>'); ?>
-						</div>						
+						<dl class="row">
+							<dt class="col-sm-3">Available Stocks</dt>
+							<dd class="col-sm-9"><?php if(isset($wh_item['AVAILABLE_QTY'])){ echo $wh_item['AVAILABLE_QTY']; } else { echo '0'; } ?></dd>
+
+							<dt class="col-sm-3"><label class="form-label">Approved Quantity</label></dt>
+							<dd class="col-sm-9"><input required="required" type="text" value="<?php echo set_value('approved_qty'); ?>" name="approved_qty" class="form-control" maxlength="5" size="5"></dd>
+						</dl>				
 						<div class="form-group">
 							<input type="hidden" name="id" value="<?= $req['ID']; ?>">
 							<input type="button" class="btn btn-secondary back-btn" value="Back">
