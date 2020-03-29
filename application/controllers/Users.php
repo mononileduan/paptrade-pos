@@ -44,7 +44,7 @@ class Users extends CI_Controller {
 						'username' => strtoupper($this->input->post('username'))
 					)
 				);
-				$checkLogin = $this->user->getRows($con);
+				$checkLogin = $this->user->getRowsJoin($con)->row_array();
 				if($checkLogin){
 					if($checkLogin['STATUS'] === 'Locked'){
 						$data['error_msg'] = 'User is locked.';
@@ -62,7 +62,16 @@ class Users extends CI_Controller {
 							$this->session->set_userdata('fullname', $checkLogin['FIRST_NAME'].' '.$checkLogin['LAST_NAME']);
 							$this->session->set_userdata('branch_id', $checkLogin['BRANCH_ID']);
 							$this->session->set_userdata('branch', $checkLogin['BRANCH_NAME']);
+							$this->session->set_userdata('last_login_dt', $checkLogin['LAST_LOGIN_DT']);
 							$this->session->set_userdata('user_role', $checkLogin['ROLE']);
+							if($checkLogin['ROLE'] == 'CASHIER'){
+								$this->session->set_userdata('user_role_dscp', 'Cashier');
+							}else if($checkLogin['ROLE'] == 'SYS_ADMIN'){
+								$this->session->set_userdata('user_role_dscp', 'System Administrator');
+							}else if($checkLogin['ROLE'] == 'BRANCH_ADMIN'){
+								$this->session->set_userdata('user_role_dscp', 'Branch Administrator');
+							}
+
 							
 							if($checkLogin['ROLE'] == 'Cashier'){
 								redirect('pos/dashboard');
@@ -100,10 +109,7 @@ class Users extends CI_Controller {
 
 	public function dashboard(){
 		$data = array();
-		$data['session_user'] = $this->session->userdata('username');
-		$this->load->view('components/header', $data);
-		$this->load->view('dashboard/dashboard', $data);
-		$this->load->view('components/footer');
+		$this->load->view('dashboard/dashboard');
 	}
 
 	public function logout(){

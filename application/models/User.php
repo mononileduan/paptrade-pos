@@ -44,7 +44,10 @@ class User extends CI_Model {
 
 	public function getRowsJoin($params = array()){
 		$sql = "SELECT ". 
+			"u.id as ID, ". 
 			"u.username as USERNAME, ". 
+			"u.password as PASSWORD, ". 
+			"u.branch_id as BRANCH_ID, ". 
 			"b.branch_name as BRANCH_NAME, ". 
 			"u.role as ROLE, ". 
 			"u.status as STATUS, ". 
