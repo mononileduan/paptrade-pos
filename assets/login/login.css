@@ -1,0 +1,21 @@
+.wrapper {
+	margin: 0;
+}
+
+.top-logo-container {
+	margin-top:50px; 
+	text-align: center;
+}
+
+.top-logo {
+    max-width:100%;
+    height:auto;
+}
+
+.login-box-container {
+	margin-top:40px;
+}
+
+.login-box {
+	
+}
