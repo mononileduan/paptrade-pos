@@ -53,44 +53,41 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 $route['branches/(:any)'] = 'branches/$1';
 $route['branches'] = 'branches/index';
+
 $route['branch_inventories/(:any)'] = 'branch_inventories/$1';
 $route['branch_inventories'] = 'branch_inventories/index';
-$route['branch_supply_requests/(:any)'] = 'branch_supply_requests/$1';
-$route['branch_supply_requests'] = 'branch_supply_requests/index';
+
 $route['brands/(:any)'] = 'brands/$1';
 $route['brands'] = 'brands/index';
+
 $route['categories/(:any)'] = 'categories/$1';
 $route['categories'] = 'categories/index';
-$route['inventories/(:any)'] = 'inventories/$1';
-$route['inventories'] = 'inventories/index';
-$route['inventories_branch/(:any)'] = 'inventories_branch/$1';
-$route['inventories_branch'] = 'inventories_branch/index';
+
 $route['items/(:any)'] = 'items/$1';
 $route['items'] = 'items/index';
-$route['models/(:any)'] = 'models/$1';
-$route['models'] = 'models/index';
+
 $route['pos/(:any)'] = 'pos/$1';
 $route['pos'] = 'pos/index';
-$route['purchase_orders/(:any)'] = 'purchase_orders/$1';
-$route['purchase_orders'] = 'purchase_orders/index';
-$route['purchase_orders_dtl/(:any)'] = 'purchase_orders_dtl/$1';
-$route['purchase_orders_dtl'] = 'purchase_orders_dtl/index';
+
 $route['sales/(:any)'] = 'sales/$1';
 $route['sales'] = 'sales/index';
+
 $route['sales_on_hold/(:any)'] = 'sales_on_hold/$1';
 $route['sales_on_hold'] = 'sales_on_hold/index';
+
 $route['stock_types/(:any)'] = 'stock_types/$1';
 $route['stock_types'] = 'stock_types/index';
-$route['suppliers/(:any)'] = 'suppliers/$1';
-$route['suppliers'] = 'suppliers/index';
+
 $route['supply_requests/(:any)'] = 'supply_requests/$1';
 $route['supply_requests'] = 'supply_requests/index';
-$route['unit_types/(:any)'] = 'unit_types/$1';
-$route['unit_types'] = 'unit_types/index';
+
 $route['users/(:any)'] = 'users/$1';
 $route['users'] = 'users/index';
+
 $route['warehouse_inventories/(:any)'] = 'warehouse_inventories/$1';
 $route['warehouse_inventories'] = 'warehouse_inventories/index';
+
+
 $route['(:any)'] = 'users/';
 $route['default_controller'] = 'users/';
 $route['404_override'] = '';

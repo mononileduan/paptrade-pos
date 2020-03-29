@@ -59,7 +59,9 @@ class Users extends CI_Controller {
 							$this->user->update($checkLogin['ID'], $loginUpdt);
 							$this->session->set_userdata('isLoggedIn', true);
 							$this->session->set_userdata('username', $checkLogin['USERNAME']);
+							$this->session->set_userdata('fullname', $checkLogin['FIRST_NAME'].' '.$checkLogin['LAST_NAME']);
 							$this->session->set_userdata('branch_id', $checkLogin['BRANCH_ID']);
+							$this->session->set_userdata('branch', $checkLogin['BRANCH_NAME']);
 							$this->session->set_userdata('user_role', $checkLogin['ROLE']);
 							
 							if($checkLogin['ROLE'] == 'Cashier'){
