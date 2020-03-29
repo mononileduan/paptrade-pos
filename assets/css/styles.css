@@ -54,3 +54,7 @@ Content
     margin: 10px 0 20px;
     border-bottom: 1px solid #eee;
 }
+
+.row-pad {
+    height: 20px;
+}

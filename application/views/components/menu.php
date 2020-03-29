@@ -33,7 +33,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h4 class="panel-title">
-					<a href="<?= index_page(); ?>/users/index"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;Dashboard</a>
+					<a href="<?=index_page()?>/users/index"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;Dashboard</a>
 				</h4>
 			</div>
 		</div>
@@ -48,7 +48,7 @@
 					<table class="table">
 						<tr>
 							<td>
-								<a href="">Brand</a>
+								<a href="<?=index_page()?>/brands">Brand</a>
 							</td>
 						</tr>
 						<tr>
