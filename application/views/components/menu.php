@@ -73,7 +73,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h4 class="panel-title">
-					<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"><span class="glyphicon glyphicon-map-marker"></span>&nbsp;Branch</a>
+					<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"><span class="glyphicon glyphicon-map-marker"></span>&nbsp;Warehouse</a>
 				</h4>
 			</div>
 			<div id="collapseTwo" class="panel-collapse collapse">
@@ -81,7 +81,7 @@
 					<table class="table">
 						<tr>
 							<td>
-								<a href="">Inventory</a>
+								<a href="<?=index_page()?>/warehouse_inventories">Inventory</a>
 							</td>
 						</tr>
 						<tr>
@@ -96,7 +96,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h4 class="panel-title">
-					<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;Warehouse</a>
+					<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;Branch</a>
 				</h4>
 			</div>
 			<div id="collapseThree" class="panel-collapse collapse">
@@ -104,7 +104,7 @@
 					<table class="table">
 						<tr>
 							<td>
-								<a href="<?=index_page()?>/warehouse_inventories">Inventory</a>
+								<a href="<?=index_page()?>/branch_inventories">Inventory</a>
 							</td>
 						</tr>
 						<tr>

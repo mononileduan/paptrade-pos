@@ -15,20 +15,7 @@ class Branch_Inventories extends CI_Controller {
 	public function index(){
 		if($this->isLoggedIn){
 			$data = array();
-			$data['session_user'] = $this->session->userdata('username');
-
-			$action_cust  = '<a class=\'action-add\' data-mode=\'modal\'><i class=\'fas fa-plus\'></i></a> &nbsp;&nbsp;';
-			$action_cust .= '<a class=\'action-deduct\' data-mode=\'modal\'><i class=\'fas fa-minus\'></i></a> &nbsp;&nbsp;';
-			$action_cust .= '<a class=\'action-edit\' data-mode=\'modal\'><i class=\'fas fa-edit\'></i></a>';
-
-			$footer_data = array();
-			$footer_data['has_table'] = 'has_table';
-			$footer_data['site_url'] = 'branch_inventories/inventory_list';
-			$footer_data['view_url'] = '';
-			$footer_data['action'] = '';
-			$footer_data['action_cust'] = $action_cust;
-			$footer_data['right_align_cols'] = array(-2, -3, -4);
-			$footer_data['success_msg'] = $this->session->flashdata('success_msg');
+			$data['success_msg'] = $this->session->flashdata('success_msg');
 
 			if($this->session->userdata('success_msg')){
 				$data['success_msg'] = $this->session->userdata('success_msg');
@@ -157,19 +144,14 @@ class Branch_Inventories extends CI_Controller {
 			);
 			$data['items'] = $this->warehouse_inventory->getRowsJoin($con);
 
-			if(isset($data['error_msg'])){
-				$footer_data['error_msg'] = $data['error_msg'];
-			}
-
-			$this->load->view('components/header', $data);
 			$this->load->view('branch_inventories/index', $data);
-			$this->load->view('components/footer_modal', $footer_data);
+
 		}else{
 			redirect('users/login');
 		}
 	}
 
-	public function inventory_list(){
+	public function list(){
 		// Datatables Variables
 		$draw = intval($this->input->get("draw"));
 		$start = intval($this->input->get("start"));
