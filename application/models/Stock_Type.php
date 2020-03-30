@@ -73,6 +73,18 @@ class Stock_Type extends CI_Model {
 
 		return false;
 	}
+
+	public function delete($id = FALSE){
+		if($id){
+
+			$this->db->where('id', $id);
+			$delete = $this->db->delete($this->table);
+
+			return $delete ? $this->db->affected_rows() : false;
+		}
+
+		return false;
+	}
 }
 
 ?>

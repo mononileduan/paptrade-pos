@@ -66,8 +66,6 @@ class Brands extends CI_Controller {
 						echo 'Could not delete Brand. ID does not exist.';
 						exit();
 					}
-
-					
 				}
 			}
 

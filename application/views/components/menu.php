@@ -58,7 +58,7 @@
 						</tr>
 						<tr>
 							<td>
-								<a href="">Stock Type</a>
+								<a href="<?=index_page()?>/stock_types">Stock Type</a>
 							</td>
 						</tr>
 						<tr>

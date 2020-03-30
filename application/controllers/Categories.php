@@ -66,8 +66,6 @@ class Categories extends CI_Controller {
 						echo 'Could not delete Category. ID does not exist.';
 						exit();
 					}
-
-					
 				}
 			}
 

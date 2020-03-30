@@ -60,24 +60,30 @@ class Stock_Types extends CI_Controller {
 				}else{
 					$data['error_msg'] = 'Please fill all required fields.';
 				}
+
+			}else if($this->input->post('submit_delete')){
+				$this->form_validation->set_rules('id', 'Stock Type', 'required|trim');
+
+				if($this->form_validation->run() == true){
+					if($this->stock_type->delete($this->input->post('id'))){
+						echo 'OK';
+						exit();
+					}else{
+						echo 'Could not delete Stock Type. ID does not exist.';
+						exit();
+					}					
+				}
 			}
 
-			if(isset($data['error_msg'])){
-				$footer_data['error_msg'] = $data['error_msg'];
-			}
-
-			$this->load->view('components/header', $data);
 			$this->load->view('stock_types/index', $data);
-			$this->load->view('components/footer_modal', $footer_data);
 
 		}else{
 			redirect('users/login');
 		}
 	}
 
-	
 
-	public function stock_types_page(){
+	public function list(){
 		// Datatables Variables
 		$draw = intval($this->input->get("draw"));
 		$start = intval($this->input->get("start"));
@@ -89,26 +95,27 @@ class Stock_Types extends CI_Controller {
 				'del' => false
 			)
 		);
-		$stockTypeList = $this->stock_type->getRows($con);
+		$list = $this->stock_type->getRows($con);
 
 		$data = array();
 		
-		foreach($stockTypeList->result_array() as $r) {
-
-		   $data[] = array(
-		   		$r['ID'],
-		        $r['STOCK_TYPE']
-		   );
+		foreach($list->result_array() as $r) {
+			$data[] = array(
+				$r['ID'],
+			    $r['STOCK_TYPE']
+			);
 		}
 
 		$output = array(
 		   "draw" => $draw,
-		     "recordsTotal" => $stockTypeList->num_rows(),
-		     "recordsFiltered" => $stockTypeList->num_rows(),
+		     "recordsTotal" => $list->num_rows(),
+		     "recordsFiltered" => $list->num_rows(),
 		     "data" => $data
 		);
 		echo json_encode($output);
 		exit();
      }
+
+
 
 }
