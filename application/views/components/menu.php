@@ -104,7 +104,7 @@
 					<table class="table">
 						<tr>
 							<td>
-								<a href="">Inventory</a>
+								<a href="<?=index_page()?>/warehouse_inventories">Inventory</a>
 							</td>
 						</tr>
 						<tr>

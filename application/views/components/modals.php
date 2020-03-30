@@ -114,24 +114,6 @@
 
 </style>
 
-<!--div id="delete_modal" class="modal fade" role="dialog" aria-labelledby="edit" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title">Delete this entry</h4>
-			</div>
-			<div class="modal-body">
-				<div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span>&nbsp;&nbsp;Are you sure you want to delete this record?</div>
-			</div>
-			<div class="modal-footer ">
-				<input type="hidden" name="id">
-				<button type="button" class="btn btn-danger" ><span class="fas fa-check"></span> Yes</button>
-				<button type="button" class="btn btn-default" data-dismiss="modal"><span class="fas fa-times"></span> No</button>
-			</div>
-		</div>
-	</div>
-</div-->
-
 <div id="delete_modal" class="modal fade">
 	<div class="modal-dialog modal-confirm">
 		<div class="modal-content">
@@ -217,6 +199,94 @@
 			<div class="modal-footer">
 				<button class="btn btn-error btn-success btn-block" data-dismiss="modal">OK</button>
 			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<div id="edit_modal" class="modal fade">
+	<div class="modal-dialog modal-confirm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="icon-box">
+					<i class="material-icons">edit</i>
+				</div>	
+				<div>		
+					<h4>Update</h4>	
+				</div>	
+			</div>
+			<form action="" id="edit_modal_form" method="post" accept-charset="utf-8">
+				<div class="modal-body">
+					<div class="form-group">
+						<label for='crit_qty'>Critical Quantity</label>
+						<input required="required" type="text" value="<?php echo set_value('crit_qty'); ?>" name="crit_qty" class="form-control">
+						<?php echo form_error('crit_qty', '<p class="help-block">','</p>'); ?>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="hidden" name="id" >
+					<input type="submit" name="submit_edit" class="btn btn-sm btn-success btn-block" value="Submit">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+<div id="add_modal" class="modal fade">
+	<div class="modal-dialog modal-confirm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="icon-box">
+					<i class="material-icons">add</i>
+				</div>	
+				<div>		
+					<h4>Add Stocks</h4>	
+				</div>	
+			</div>
+			<form action="" id="add_modal_form" method="post" accept-charset="utf-8">
+				<div class="modal-body">
+					<div class="form-group">
+						<label for='adjust_qty'>No. of Stocks to Add</label>
+						<input required="required" type="text" value="<?php echo set_value('adjust_qty'); ?>" name="adjust_qty" class="form-control">
+						<?php echo form_error('adjust_qty', '<p class="help-block">','</p>'); ?>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="hidden" name="id" >
+					<input type="submit" name="submit_add" class="btn btn-sm btn-success btn-block" value="Submit">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+<div id="deduct_modal" class="modal fade">
+	<div class="modal-dialog modal-confirm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="icon-box">
+					<i class="material-icons">remove</i>
+				</div>	
+				<div>		
+					<h4>Deduct Stocks</h4>	
+				</div>	
+			</div>
+			<form action="" id="deduct_modal_form" method="post" accept-charset="utf-8">
+				<div class="modal-body">
+					<div class="form-group">
+						<label for='adjust_qty'>No. of Stocks to Deduct</label>
+						<input required="required" type="text" value="<?php echo set_value('adjust_qty'); ?>" name="adjust_qty" class="form-control">
+						<?php echo form_error('adjust_qty', '<p class="help-block">','</p>'); ?>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="hidden" name="id">
+					<input type="submit" name="submit_deduct" class="btn btn-sm btn-success btn-block" value="Submit">
+				</div>
+			</form>
 		</div>
 	</div>
 </div>
