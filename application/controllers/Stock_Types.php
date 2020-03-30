@@ -14,14 +14,7 @@ class Stock_Types extends CI_Controller {
 	public function index(){
 		if($this->isLoggedIn){
 			$data = array();
-			$data['session_user'] = $this->session->userdata('username');
-
-			$footer_data = array();
-			$footer_data['has_table'] = 'has_table';
-			$footer_data['site_url'] = 'stock_types/stock_types_page';
-			$footer_data['action'] = 'delete';
-			$footer_data['right_align_cols'] = array();
-			$footer_data['success_msg'] = $this->session->flashdata('success_msg');
+			$data['success_msg'] = $this->session->flashdata('success_msg');
 
 			if($this->session->userdata('success_msg')){
 				$data['success_msg'] = $this->session->userdata('success_msg');

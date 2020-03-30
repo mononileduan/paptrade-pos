@@ -48,7 +48,7 @@
 													<label class="control-label col-sm-2" for='category'>Category</label>
 													<div class="col-sm-10">
 														<input required="required" type="text" value="<?php echo set_value('category'); ?>" name="category" class="form-control">
-														<?php echo form_error('category', '<p class="help-block">','</p>'); ?>
+														<?php echo form_error('category', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
 													</div>
 												</div>
 												
@@ -171,7 +171,7 @@
 
 				$('#success_modal').on('hide.bs.modal', function () {
 			    	if($('#success_modal').data('trigger') =='not-new'){
-						location.reload();
+						window.location.replace(base_url + '/categories/index');
 			    	}
 				});
 

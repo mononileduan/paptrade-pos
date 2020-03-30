@@ -48,7 +48,7 @@
 													<label class="control-label col-sm-2" for='brand'>Brand</label>
 													<div class="col-sm-10">
 														<input required="required" type="text" value="<?php echo set_value('brand'); ?>" name="brand" class="form-control">
-														<?php echo form_error('brand', '<p class="help-block">','</p>'); ?>
+														<?php echo form_error('brand', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
 													</div>
 												</div>
 												
@@ -171,7 +171,7 @@
 
 				$('#success_modal').on('hide.bs.modal', function () {
 			    	if($('#success_modal').data('trigger') =='not-new'){
-						location.reload();
+						window.location.replace(base_url + '/brands/index');
 			    	}
 				});
 
