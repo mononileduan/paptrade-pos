@@ -63,7 +63,7 @@
 						</tr>
 						<tr>
 							<td>
-								<a href="">Item</a>
+								<a href="<?=index_page()?>/items">Item</a>
 							</td>
 						</tr>
 					</table>

@@ -17,14 +17,7 @@ class Items extends CI_Controller {
 	public function index(){
 		if($this->isLoggedIn){
 			$data = array();
-			$data['session_user'] = $this->session->userdata('username');
-
-			$footer_data = array();
-			$footer_data['has_table'] = 'has_table';
-			$footer_data['site_url'] = 'items/items_page';
-			$footer_data['action'] = '';
-			$footer_data['right_align_cols'] = array(-2, -4);
-			$footer_data['success_msg'] = $this->session->flashdata('success_msg');
+			$data['success_msg'] = $this->session->flashdata('success_msg');
 
 			if($this->session->userdata('success_msg')){
 				$data['success_msg'] = $this->session->userdata('success_msg');
@@ -74,6 +67,19 @@ class Items extends CI_Controller {
 				}else{
 					$data['error_msg'] = 'Please fill all required fields.';
 				}
+
+			}else if($this->input->post('submit_delete')){
+				$this->form_validation->set_rules('id', 'Item', 'required|trim');
+
+				if($this->form_validation->run() == true){
+					if($this->item->delete($this->input->post('id'))){
+						echo 'OK';
+						exit();
+					}else{
+						echo 'Could not delete Item. ID does not exist.';
+						exit();
+					}
+				}
 			}
 
 			$con = array(
@@ -85,13 +91,8 @@ class Items extends CI_Controller {
 			$data['brands'] = $this->brand->getRows($con);
 			$data['categories'] = $this->category->getRows($con);
 			$data['stock_types'] = $this->stock_type->getRows($con);
-			if(isset($data['error_msg'])){
-				$footer_data['error_msg'] = $data['error_msg'];
-			}
 			
-			$this->load->view('components/header', $data);
 			$this->load->view('items/index', $data);
-			$this->load->view('components/footer_modal', $footer_data);
 
 		}else{
 			redirect('users/login');
@@ -100,7 +101,7 @@ class Items extends CI_Controller {
 
 	
 
-	public function items_page(){
+	public function list(){
 		// Datatables Variables
 		$draw = intval($this->input->get("draw"));
 		$start = intval($this->input->get("start"));
