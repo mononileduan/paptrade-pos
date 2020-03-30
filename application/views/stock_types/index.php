@@ -77,7 +77,7 @@
 										<tr>
 											<td></td>
 											<td width="90%">Stock Type</td>
-											<td width="10%"></td>
+											<td width="10%">Action</td>
 										</tr>
 									</thead>
 									<tbody>

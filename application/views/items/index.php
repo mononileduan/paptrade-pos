@@ -11,6 +11,7 @@
 
 	 	<link rel="stylesheet" type="text/css" href="assets/bootstrap/3.4.1/css/bootstrap.css">
 	 	<link rel="stylesheet" type="text/css" href="assets/datatables/datatables.min.css"/>
+	    <link rel="stylesheet" type="text/css" href="assets/datatables/DataTables-1.10.20/css/jquery.dataTables.css">
 	    <link rel="stylesheet" type="text/css" href="assets/materialicons/material-icons.css">
 	 	<link rel="stylesheet" type="text/css" href="assets/css/styles.css">
 		
@@ -144,7 +145,7 @@
 											<td width="5%">Critical Quantity</td>
 											<td width="10%">Stock Type</td>
 											<td width="5%">Stock Type Content</td>
-											<td width="5%"></td>
+											<td width="5%">Action</td>
 										</tr>
 									</thead>
 									<tbody>
@@ -173,6 +174,7 @@
 						    type : 'GET'
 						},
 						"columnDefs": [
+							{className: "dt-right", "targets": [-2, -4] },
 							{"targets": -1, "data": null, "defaultContent": "<a class=\'action-delete btn btn-xs btn-danger\' data-mode=\'modal\'><i class=\'glyphicon glyphicon-trash\'></i></a>"},
 							{"targets": [ 0 ], "visible": false, "searchable": false}
 						]
