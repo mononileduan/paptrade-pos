@@ -53,7 +53,7 @@
 						</tr>
 						<tr>
 							<td>
-								<a href="">Category</a>
+								<a href="<?=index_page()?>/categories">Category</a>
 							</td>
 						</tr>
 						<tr>
