@@ -93,6 +93,7 @@
 									<form id="process-submit-request" class="form-horizontal">
 										<div class="form-group">
 											<div class="col-sm-offset-5 col-sm-5">
+												<input type="button" class="btn btn-secondary back-btn" value="Back">
 										    	<input type="submit" name="submit_request" class="btn btn-sm btn-success" value="Submit">
 										    </div>
 										</div>
@@ -204,6 +205,12 @@
 
 					return exist;
 				}
+
+				$('.back-btn').on('click', function () {
+					<?php if(!isset($back_url)){ $back_url=''; } ?>
+			       	var redirect = base_url + '/' + '<?= $back_url; ?>';
+			        window.location.replace('<?= site_url('supply_requests/branch') ?>');
+			    } );
 
 			});
 		</script>
