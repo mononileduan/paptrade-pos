@@ -101,7 +101,7 @@ class Supply_Requests extends CI_Controller {
 								'item_id' => $request['ITEM_ID']
 							)
 						);
-						$wh_item = $this->warehouse_inventory->getRows($con); //get item from warehouse inventory
+						$wh_item = $this->warehouse_inventory->getRowsJoin($con)->row_array(); //get item from warehouse inventory
 						if($wh_item){
 							if($wh_item['CURRENT_QTY'] >= $this->input->post('approved_qty')){
 								$newVal = array(
@@ -120,9 +120,9 @@ class Supply_Requests extends CI_Controller {
 									$inventory = array(
 										'id'		=> uniqid('', true),
 										'branch_id'	=> $this->session->userdata('branch_id'),
-										'item_id'	=> $this->input->post('item_id'),
-										'qty'		=> $this->input->post('init_qty'),
-										'critical_qty' => $this->input->post('crit_qty')
+										'item_id'	=> $wh_item['ITEM_ID'],
+										'qty'		=> $this->input->post('approved_qty'),
+										'critical_qty' => $wh_item['ITEM_CRIT_QTY']
 									);
 									$this->branch_inventory->insert($inventory);
 								}
@@ -136,7 +136,7 @@ class Supply_Requests extends CI_Controller {
 								$this->supply_request->update($request['ID'], $newVal); //update supply request
 
 								$this->session->set_flashdata('success_msg', 'Request successfully received!');
-								redirect('supply_requests/branch_view');
+								redirect('supply_requests/branch');
 
 							}else{
 								$data['error_msg'] = 'Insufficient warehouse stocks';
@@ -150,18 +150,6 @@ class Supply_Requests extends CI_Controller {
 				}else{
 					$data['error_msg'] = 'Please fill all required fields.';
 				}
-			}
-
-			$footer_data = array();
-			$footer_data['page_has_table'] = '';
-			$footer_data['site_url'] = '';
-			$footer_data['view_url'] = '';
-			$footer_data['back_url'] = 'supply_requests/branch_view';
-			$footer_data['right_align_cols'] = array();
-			$footer_data['action'] = '';
-			$footer_data['success_msg'] = $this->session->flashdata('success_msg');
-			if(isset($data['error_msg'])){
-				$footer_data['error_msg'] = $data['error_msg'];
 			}
 
 			$con = array(
@@ -181,18 +169,8 @@ class Supply_Requests extends CI_Controller {
 				'status' => $statusObj['STATUS']
 			);
 			$data['req'] = $this->supply_request->getRowsJoin($con)->row_array();
-
-			$con = array(
-				'returnType' => 'single',
-				'conditions' => array(
-					'inv.item_id' => $data['req']['ITEM_ID']
-				)
-			);
-			$data['wh_item'] = $this->warehouse_inventory->getRowsJoin($con)->row_array();
 			
-			$this->load->view('components/header', $data);
 			$this->load->view('supply_requests/receive', $data);
-			$this->load->view('components/footer_modal', $footer_data);
 
 		}else{
 			redirect('users/login');
@@ -343,9 +321,18 @@ class Supply_Requests extends CI_Controller {
 			$con = array(
 				'returnType' => 'single',
 				'conditions' => array(
+					'del' => false,
+					'id' => $id
+				));
+			$statusObj= $this->supply_request->getRows($con);
+
+			$con = array(
+				'returnType' => 'single',
+				'conditions' => array(
 					'sr.del' => false,
 					'sr.id' => $id
-				)
+				),
+				'status' => $statusObj['STATUS']
 			);
 			$data['req'] = $this->supply_request->getRowsJoin($con)->row_array();
 

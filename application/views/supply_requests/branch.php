@@ -84,7 +84,7 @@
 						    type : 'GET'
 						},
 						"columnDefs": [
-							{"targets": -1, "data": null, "defaultContent": "<a class=\'action-add\' data-mode=\'modal\' title=\'View\'><i class=\'glyphicon glyphicon-eye-open\'></i></a>&nbsp; <a class=\'action-delete btn btn-xs btn-danger\' data-mode=\'modal\'><i class=\'glyphicon glyphicon-trash\'></i></a>"},
+							{"targets": -1, "data": null, "defaultContent": "<a class=\'action-view\' data-mode=\'modal\' title=\'View\'><i class=\'glyphicon glyphicon-eye-open\'></i></a>&nbsp; <a class=\'action-delete\' data-mode=\'modal\' title=\'Delete\'><i class=\'glyphicon glyphicon-trash\'></i></a>"},
 							{"targets": [ 0 ], "visible": false, "searchable": false}
 						]
 				});
@@ -103,6 +103,12 @@
 			    	$("#error_modal .modal-content .modal-body p.text-center").text(error_msg);
 			    	$("#error_modal").modal('show');
 			    }
+
+			    $('#view-data-table tbody').on( 'click', 'a.action-view', function (id) {
+					var data = $("#view-data-table").DataTable().row( $(this).parents('tr') ).data();
+			       	var id = data[0];
+			        window.location.replace('<?= site_url('supply_requests/receive/') ?>' + id);
+			    } );
 
 	    		$('#view-data-table tbody').on( 'click', 'a.action-delete', function (id) {
 					var data = $("#view-data-table").DataTable().row( $(this).parents('tr') ).data();
@@ -146,12 +152,6 @@
 						return;
 					}
 				})
-
-				$('#success_modal').on('hide.bs.modal', function () {
-			    	if($('#success_modal').data('trigger') =='not-new'){
-						window.location.replace(base_url + '/stock_types/index');
-			    	}
-				});
 
 			});
 		</script>
