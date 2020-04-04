@@ -125,8 +125,6 @@
 				var base_url = $("meta[name='base_url']").attr('content');
 
 	    		$('.back-btn').on('click', function () {
-					<?php if(!isset($back_url)){ $back_url=''; } ?>
-			       	var redirect = base_url + '/' + '<?= $back_url; ?>';
 			        window.location.replace('<?= site_url('supply_requests/branch') ?>');
 			    } );
 

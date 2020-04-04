@@ -84,7 +84,9 @@
 						    type : 'GET'
 						},
 						"columnDefs": [
-							{"targets": -1, "data": null, "defaultContent": "<a class=\'action-view\' data-mode=\'modal\' title=\'View\'><i class=\'glyphicon glyphicon-eye-open\'></i></a>&nbsp; <a class=\'action-delete\' data-mode=\'modal\' title=\'Delete\'><i class=\'glyphicon glyphicon-trash\'></i></a>"},
+							{"targets": -1, "data": null, "defaultContent": 
+							"<a class=\'action-view\' data-mode=\'modal\' title=\'View\'><i class=\'glyphicon glyphicon-eye-open\'></i></a>&nbsp; " +
+							"<a class=\'action-delete\' data-mode=\'modal\' title=\'Delete\'><i class=\'glyphicon glyphicon-trash\'></i></a>"},
 							{"targets": [ 0 ], "visible": false, "searchable": false}
 						]
 				});
@@ -114,9 +116,15 @@
 					var data = $("#view-data-table").DataTable().row( $(this).parents('tr') ).data();
 			       	var id = data[0];
 			       	var dscp = data[1];
-					$("#delete_modal").find('input[name="id"]').val(id);
-					$("#delete_modal").find('p.dscp').text(dscp);
-			    	$("#delete_modal").modal('show');
+			       	var status = data[5];
+			       	if(status != 'NEW'){
+						$("#error_modal .modal-content .modal-body p.text-center").text('You cannot delete this request.');
+					    $("#error_modal").modal('show');
+			       	}else{
+			       		$("#delete_modal").find('input[name="id"]').val(id);
+						$("#delete_modal").find('p.dscp').text(dscp);
+				    	$("#delete_modal").modal('show');
+			       	}
 			    } );
 
 			    $("#delete_modal_form").submit(function(e) {
@@ -136,11 +144,11 @@
 						$.ajax({
 							type : 'POST',
 							data : data,
-							url : base_url + '/stock_types/index',
+							url : base_url + '/supply_requests/branch',
 							success : function(data) { 
 								if(data == 'OK'){
 			    					$("#delete_modal").modal('toggle');
-									$("#success_modal .modal-content .modal-body p.text-center").text("Stock Type successfully deleted.");
+									$("#success_modal .modal-content .modal-body p.text-center").text("Supply Request successfully deleted.");
 									$("#success_modal").attr('data-trigger', 'not-new');
 									$("#success_modal").modal('show');
 								}else{
@@ -152,6 +160,12 @@
 						return;
 					}
 				})
+
+				$('#success_modal').on('hide.bs.modal', function () {
+			    	if($('#success_modal').data('trigger') =='not-new'){
+						window.location.replace('<?= site_url('supply_requests/branch') ?>');
+			    	}
+				});
 
 			});
 		</script>

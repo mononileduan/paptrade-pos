@@ -31,6 +31,20 @@ class Supply_Requests extends CI_Controller {
 	public function branch(){
 		$data = array();
 		$data['success_msg'] = $this->session->flashdata('success_msg');
+
+		if($this->input->post('submit_delete')){
+			$this->form_validation->set_rules('id', 'Supply Request', 'required|trim');
+
+			if($this->form_validation->run() == true){
+				if($this->supply_request->delete($this->input->post('id'))){
+					echo 'OK';
+					exit();
+				}else{
+					echo 'Could not delete Supply Request. ID does not exist.';
+					exit();
+				}					
+			}
+		}
 		
 		$this->load->view('supply_requests/branch', $data);
 	}
