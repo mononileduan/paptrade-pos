@@ -234,28 +234,14 @@ class Supply_Requests extends CI_Controller {
 
 
 
-	public function warehouse_view(){
+	public function warehouse(){
 		$data = array();
-		$data['session_user'] = $this->session->userdata('username');
-
-		$footer_data = array();
-		$footer_data['page_has_table'] = 'has_table';
-		$footer_data['site_url'] = 'supply_requests/warehouse_view_list';
-		$footer_data['view_url'] = 'supply_requests/approve/';
-		$footer_data['right_align_cols'] = array();
-		$footer_data['action'] = 'view';
-		$footer_data['success_msg'] = $this->session->flashdata('success_msg');
-		if(isset($data['error_msg'])){
-			$footer_data['error_msg'] = $data['error_msg'];
-		}
-
+		$data['success_msg'] = $this->session->flashdata('success_msg');
 		
-		$this->load->view('components/header', $data);
-		$this->load->view('supply_requests/warehouse_view', $data);
-		$this->load->view('components/footer_modal', $footer_data);
+		$this->load->view('supply_requests/warehouse', $data);
 	}
 
-	public function warehouse_view_list(){
+	public function warehouse_list(){
 		// Datatables Variables
 		$draw = intval($this->input->get("draw"));
 		$start = intval($this->input->get("start"));
@@ -263,9 +249,7 @@ class Supply_Requests extends CI_Controller {
 
 		$con = array(
 			'returnType' => 'list',
-			'conditions' => array(
-				'sr.status' => 'NEW'
-			)
+			'conditions' => array()
 		);
 		$srequestList = $this->supply_request->getRowsJoin($con);
 
@@ -340,7 +324,7 @@ class Supply_Requests extends CI_Controller {
 								$this->supply_request->update($request['ID'], $newVal); //update supply request
 
 								$this->session->set_flashdata('success_msg', 'Request successfully approved!');
-								redirect('supply_requests/warehouse_view');
+								redirect('supply_requests/warehouse');
 
 							}else{
 								$data['error_msg'] = 'Insufficient warehouse stocks';
@@ -354,18 +338,6 @@ class Supply_Requests extends CI_Controller {
 				}else{
 					$data['error_msg'] = 'Please fill all required fields.';
 				}
-			}
-
-			$footer_data = array();
-			$footer_data['page_has_table'] = '';
-			$footer_data['site_url'] = '';
-			$footer_data['view_url'] = '';
-			$footer_data['back_url'] = 'supply_requests/warehouse_view';
-			$footer_data['right_align_cols'] = array();
-			$footer_data['action'] = '';
-			$footer_data['success_msg'] = $this->session->flashdata('success_msg');
-			if(isset($data['error_msg'])){
-				$footer_data['error_msg'] = $data['error_msg'];
 			}
 
 			$con = array(
@@ -385,9 +357,7 @@ class Supply_Requests extends CI_Controller {
 			);
 			$data['wh_item'] = $this->warehouse_inventory->getRowsJoin($con)->row_array();
 			
-			$this->load->view('components/header', $data);
 			$this->load->view('supply_requests/approve', $data);
-			$this->load->view('components/footer_modal', $footer_data);
 
 		}else{
 			redirect('users/login');
