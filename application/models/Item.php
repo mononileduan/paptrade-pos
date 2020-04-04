@@ -15,6 +15,12 @@ class Item extends CI_Model {
 			}
 		}
 
+		if(array_key_exists("not_in", $params)){
+			foreach ($params['not_in'] as $key => $val) {
+				$this->db->where_not_in($key, $val);
+			}
+		}
+
 		if(array_key_exists("returnType", $params) && $params['returnType'] == 'count'){
 			$result = $this->db->count_all_results();
 		}else{
@@ -47,6 +53,7 @@ class Item extends CI_Model {
 			"b.brand as BRAND, ".
 			"i.dscp as DSCP, ".
 			"c.category as CATEGORY, ".
+			"PRICE, ".
 			"CRITICAL_QTY, ".
 			"s.stock_type as STOCK_TYPE, ".
 			"STOCK_TYPE_CONTENT ".
