@@ -20,7 +20,7 @@ class Supply_Requests extends CI_Controller {
 			}else if($this->session->userdata('user_role') == 'System Administrator'){
 				redirect('supply_requests/warehouse_view');
 			}else{
-
+				redirect('users/dashboard');
 			}
 			
 		}else{
@@ -28,23 +28,14 @@ class Supply_Requests extends CI_Controller {
 		}
 	}
 
-	public function branch_view(){
+	public function branch(){
 		$data = array();
-		$data['session_user'] = $this->session->userdata('username');
-
-		$footer_data = array();
-		$footer_data['page_has_table'] = 'has_table';
-		$footer_data['site_url'] = 'supply_requests/branch_view_list';
-		$footer_data['right_align_cols'] = array();
-		$footer_data['action'] = 'view';
-		$footer_data['view_url'] = 'supply_requests/receive/';
+		$data['success_msg'] = $this->session->flashdata('success_msg');
 		
-		$this->load->view('components/header', $data);
-		$this->load->view('supply_requests/branch_view', $data);
-		$this->load->view('components/footer_modal', $footer_data);
+		$this->load->view('supply_requests/branch', $data);
 	}
 
-	public function branch_view_list(){
+	public function branch_list(){
 		// Datatables Variables
 		$draw = intval($this->input->get("draw"));
 		$start = intval($this->input->get("start"));
@@ -64,18 +55,11 @@ class Supply_Requests extends CI_Controller {
 
 		   $data[] = array(
 		   		$r['ID'],
-		        //$r['BRANCH'],
 		        $r['ITEM'],
 		        $r['QTY'],
 		        $r['REQUESTED_BY'],
 		        $r['REQUESTED_DT'],
 		        $r['STATUS']
-		        //$r['ASSIGNEE'],
-		        //$r['APPROVED_BY'],
-		        //$r['APPROVED_DT'],
-		        //$r['APPROVED_QTY'],
-		        //$r['RECEIVED_BY'],
-		        //$r['RECEIVED_DT']
 		   );
 		}
 
@@ -216,29 +200,12 @@ class Supply_Requests extends CI_Controller {
 	}
 
 
-
 	public function add(){
 		$data = array();
-		$data['session_user'] = $this->session->userdata('username');
+		$data['success_msg'] = $this->session->flashdata('success_msg');
 
-		$footer_data = array();
-		$footer_data['page_has_table'] = '';
-		$footer_data['site_url'] = '';
-		$footer_data['right_align_cols'] = array();
 
-		$con = array(
-			'returnType' => 'list',
-			'conditions' => array()
-		);
-		$data['items'] = $this->warehouse_inventory->getRowsJoin($con);
-		
-		$this->load->view('components/header', $data);
-		$this->load->view('supply_requests/add', $data);
-		$this->load->view('components/footer_modal', $footer_data);
-	}
-
-	public function process_add(){
-		if($this->input->post('process_requests')){
+		if($this->input->post('submit_requests')){
 			foreach($this->input->post('requests') as $item) {
 				$req = array(
 					'id'		=> uniqid('', true),
@@ -253,6 +220,14 @@ class Supply_Requests extends CI_Controller {
 			echo 'OK';
 			exit();
 		}
+
+		$con = array(
+			'returnType' => 'list',
+			'conditions' => array()
+		);
+		$data['items'] = $this->warehouse_inventory->getRowsJoin($con);
+		
+		$this->load->view('supply_requests/add', $data);
 	}
 
 

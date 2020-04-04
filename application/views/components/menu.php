@@ -109,7 +109,7 @@
 						</tr>
 						<tr>
 							<td>
-								<a href="">Supply Request</a>
+								<a href="<?=index_page()?>/supply_requests/branch">Supply Request</a>
 							</td>
 						</tr>
 					</table>
