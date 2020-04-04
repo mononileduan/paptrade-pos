@@ -98,6 +98,7 @@
 										<div class="col-sm-12">
 											<input type="hidden" name="id" value="<?= $req['ID']; ?>">
 											<input type="hidden" name="approved_qty" value="<?= $req['APPROVED_QTY']; ?>">
+											<input type="hidden" name="branch" value="<?= $req['BRANCH']; ?>">
 											<input type="button" class="btn btn-secondary back-btn" value="Back">
 											<?php
 											if($req['STATUS'] == 'APPROVED'){

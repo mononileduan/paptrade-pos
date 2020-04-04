@@ -1,8 +1,8 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); 
 
-class Item extends CI_Model {
+class Warehouse_Inventory_Hist extends CI_Model {
 	public function __construct(){
-		$this->table = 'items';
+		$this->table = 'warehouse_inventory_hist';
 	}
 
 	public function getRows($params = array()){
@@ -12,12 +12,6 @@ class Item extends CI_Model {
 		if(array_key_exists("conditions", $params)){
 			foreach ($params['conditions'] as $key => $val) {
 				$this->db->where($key, $val);
-			}
-		}
-
-		if(array_key_exists("not_in", $params)){
-			foreach ($params['not_in'] as $key => $val) {
-				$this->db->where_not_in($key, $val);
 			}
 		}
 
@@ -49,23 +43,23 @@ class Item extends CI_Model {
 
 	public function getRowsJoin($params = array()){
 		$sql = "SELECT ". 
-			"i.id as ID, ".
-			"b.brand as BRAND, ".
-			"i.dscp as DSCP, ".
-			"c.category as CATEGORY, ".
-			"PRICE, ".
-			"CRITICAL_QTY, ".
-			"s.stock_type as STOCK_TYPE, ".
-			"STOCK_TYPE_CONTENT ".
-			"FROM items i, brands b, categories c, stock_types s ".
-			"WHERE b.id=i.brand_id AND c.id=i.category_id AND s.id=i.stock_type_id and i.del=false ";
+			"inv.id as ID, ".
+			"inv.inventory_id as INVENTORY_ID, ".
+			"inv.ITEM as ITEM, ". 
+			"inv.QTY as QTY, ".
+			"inv.QTY_RUNNING as QTY_RUNNING, ".
+			"inv.MOVEMENT as MOVEMENT, ".
+			"concat(u.FIRST_NAME, ' ', u.LAST_NAME) as UPDATED_BY, ". 
+			"inv.UPDATED_DT as UPDATED_DT, ". 
+			"inv.REMARKS as REMARKS ". 
+			"FROM warehouse_inventory_hist inv, users u ".
+			"WHERE u.username=inv.updated_by and inv.del=false ";
 
 		if(array_key_exists("conditions", $params)){
 			foreach ($params['conditions'] as $key => $val) {
 				$sql = $sql . " AND " . $key . "='" . $val . "'"; 
 			}
 		}
-		$sql = $sql . " ORDER BY b.brand, i.dscp ";
 		$result = $this->db->query($sql);
 		return $result;
 
@@ -73,37 +67,10 @@ class Item extends CI_Model {
 
 	public function insert($data = array()){
 		if(!empty($data)){
-			if(!array_key_exists("created_by", $data)){
-				$data['created_by'] = $this->session->userdata('username');
-			}
 
 			$insert = $this->db->insert($this->table, $data);
 
 			return $insert ? $this->db->insert_id() : false;
-		}
-
-		return false;
-	}
-
-	public function update($id = FALSE, $data = array()){
-		if($id && !empty($data)){
-
-			$this->db->where('id', $id);
-			$update = $this->db->update($this->table, $data);
-
-			return $update ? $this->db->affected_rows() : false;
-		}
-
-		return false;
-	}
-
-	public function delete($id = FALSE){
-		if($id){
-
-			$this->db->where('id', $id);
-			$delete = $this->db->delete($this->table);
-
-			return $delete ? $this->db->affected_rows() : false;
 		}
 
 		return false;

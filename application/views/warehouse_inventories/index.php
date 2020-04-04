@@ -132,7 +132,11 @@
 						},
 						"columnDefs": [
 							{className: "dt-right", "targets": [-2, -3, -4] },
-							{"targets": -1, "data": null, "defaultContent": "<a class=\'action-add\' data-mode=\'modal\' title=\'Add\'><i class=\'glyphicon glyphicon-plus\'></i></a>&nbsp; <a class=\'action-deduct\' data-mode=\'modal\' title=\'Deduct\'><i class=\'glyphicon glyphicon-minus\'></i></a>&nbsp; <a class=\'action-edit\' data-mode=\'modal\' title=\'Edit\'><i class=\'glyphicon glyphicon-pencil\'></i></a>"},
+							{"targets": -1, "data": null, "defaultContent": 
+								"<a class=\'action-add\' data-mode=\'modal\' title=\'Add\'><i class=\'glyphicon glyphicon-plus\'></i></a>&nbsp; " +
+								"<a class=\'action-deduct\' data-mode=\'modal\' title=\'Deduct\'><i class=\'glyphicon glyphicon-minus\'></i></a>&nbsp; " +
+								"<a class=\'action-edit\' data-mode=\'modal\' title=\'Edit\'><i class=\'glyphicon glyphicon-pencil\'></i></a>&nbsp; " +
+								"<a class=\'action-hist\' data-mode=\'modal\' title=\'History\'><i class=\'glyphicon glyphicon-calendar\'></i></a>"},
 							{"targets": [ 0 ], "visible": false, "searchable": false}
 						]
 				});
@@ -187,6 +191,14 @@
 					$("#deduct_modal").find('input[name="id"]').attr('data-avail', avail);
 					$("#deduct_modal").modal('show');
 			    } );
+
+
+			    $('#view-data-table tbody').on( 'click', 'a.action-hist', function (id) {
+					var data = $("#view-data-table").DataTable().row( $(this).parents('tr') ).data();
+			       	var id = data[0];
+			        window.location.replace('<?= site_url('warehouse_inventories/hist/') ?>' + id);
+			    } );
+
 
 			    $('#success_modal').on('hide.bs.modal', function () {
 			    	if($('#success_modal').data('trigger') =='not-new'){

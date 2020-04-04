@@ -8,7 +8,9 @@ class Supply_Requests extends CI_Controller {
 		$this->load->library('form_validation');
 		$this->load->model('supply_request');
 		$this->load->model('warehouse_inventory');
+		$this->load->model('warehouse_inventory_hist');
 		$this->load->model('branch_inventory');
+		$this->load->model('branch_inventory_hist');
 
 		$this->isLoggedIn = $this->session->userdata('isLoggedIn');
 	}
@@ -124,21 +126,65 @@ class Supply_Requests extends CI_Controller {
 								$this->warehouse_inventory->update($wh_item['ID'], $newVal);
 
 
-								$br_item = $this->branch_inventory->getRows($con); //get item from branch inventory
+								$inventory_hist = array(
+									'id'			=> uniqid('', true),
+									'inventory_id'	=> $wh_item['ID'],
+									'item'			=> $wh_item['ITEM'],
+									'qty' 			=> $this->input->post('approved_qty'),
+									'qty_running'	=> $wh_item['CURRENT_QTY'] - $this->input->post('approved_qty'),
+									'movement' 		=> 'OUT',
+									'updated_by'	=> $this->session->userdata('username'),
+									'updated_dt'	=> date('YmdHis'),
+									'remarks'		=> 'Supply Request of '.$this->input->post('branch')
+									);
+								$this->warehouse_inventory_hist->insert($inventory_hist);
+
+
+								$br_item = $this->branch_inventory->getRowsJoin($con)->row_array(); //get item from branch inventory
 								if($br_item){ //update
 									$newVal = array(
 										'qty'	=> $br_item['QTY'] + $this->input->post('approved_qty')
 									);
 									$this->branch_inventory->update($br_item['ID'], $newVal);
+
+									$branch_inventory_hist = array(
+										'id'			=> uniqid('', true),
+										'branch_id'		=> $this->session->userdata('branch_id'),
+										'inventory_id'	=> $br_item['ID'],
+										'item'			=> $br_item['ITEM'],
+										'qty' 			=> $this->input->post('approved_qty'),
+										'qty_running'	=> $br_item['QTY'] + $this->input->post('approved_qty'),
+										'movement' 		=> 'IN',
+										'updated_by'	=> $this->session->userdata('username'),
+										'updated_dt'	=> date('YmdHis'),
+										'remarks'		=> 'Add from Supply Request'
+										);
+									$this->branch_inventory_hist->insert($branch_inventory_hist);
+
 								}else{ //insert
+									$branch_inv_id = uniqid('', true);
 									$inventory = array(
-										'id'		=> uniqid('', true),
+										'id'		=> $branch_inv_id,
 										'branch_id'	=> $this->session->userdata('branch_id'),
 										'item_id'	=> $wh_item['ITEM_ID'],
 										'qty'		=> $this->input->post('approved_qty'),
 										'critical_qty' => $wh_item['ITEM_CRIT_QTY']
 									);
 									$this->branch_inventory->insert($inventory);
+
+									$branch_inventory_hist = array(
+										'id'			=> uniqid('', true),
+										'branch_id'		=> $this->session->userdata('branch_id'),
+										'inventory_id'	=> $branch_inv_id,
+										'item'			=> $wh_item['ITEM'],
+										'qty' 			=> $this->input->post('approved_qty'),
+										'qty_running'	=> $this->input->post('approved_qty'),
+										'movement' 		=> 'IN',
+										'updated_by'	=> $this->session->userdata('username'),
+										'updated_dt'	=> date('YmdHis'),
+										'remarks'		=> 'Initial from Supply Request'
+										);
+									$this->branch_inventory_hist->insert($branch_inventory_hist);
 								}
 
 

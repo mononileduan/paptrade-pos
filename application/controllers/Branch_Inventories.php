@@ -7,6 +7,7 @@ class Branch_Inventories extends CI_Controller {
 
 		$this->load->library('form_validation');
 		$this->load->model('branch_inventory');
+		$this->load->model('branch_inventory_hist');
 		$this->load->model('warehouse_inventory');
 
 		$this->isLoggedIn = $this->session->userdata('isLoggedIn');
@@ -33,14 +34,14 @@ class Branch_Inventories extends CI_Controller {
 
 				if($this->form_validation->run() == true){
 					$con = array(
-						'returnType' => 'count',
+						'returnType' => 'single',
 						'conditions' => array(
-							'del' => false,
-							'item_id' => $this->input->post('item_id')
+							'inv.del' => false,
+							'inv.item_id' => $this->input->post('item_id')
 						)
 					);
-					$itemCnt = $this->warehouse_inventory->getRows($con); //check if item id exists in database
-					if($itemCnt > 0){
+					$itemObj = $this->warehouse_inventory->getRowsJoin($con)->row_array(); //check if item id exists in database
+					if($itemObj){
 						$con = array(
 							'returnType' => 'count',
 							'conditions' => array(
@@ -52,14 +53,29 @@ class Branch_Inventories extends CI_Controller {
 						if($inventoryCnt > 0){
 							$data['error_msg'] = 'Item already exists';
 						}else{
+							$inventory_id = uniqid('', true);
 							$inventory = array(
-								'id'		=> uniqid('', true),
+								'id'		=> $inventory_id,
 								'branch_id'	=> $this->session->userdata('branch_id'),
 								'item_id'	=> $this->input->post('item_id'),
 								'qty'		=> $this->input->post('init_qty'),
 								'critical_qty' => $this->input->post('crit_qty')
 								);
 							$this->branch_inventory->insert($inventory);
+
+							$branch_inventory_hist = array(
+								'id'			=> uniqid('', true),
+								'branch_id'		=> $this->session->userdata('branch_id'),
+								'inventory_id'	=> $inventory_id,
+								'item'			=> $itemObj['ITEM'],
+								'qty' 			=> $this->input->post('init_qty'),
+								'qty_running'	=> $this->input->post('init_qty'),
+								'movement' 		=> 'IN',
+								'updated_by'	=> $this->session->userdata('username'),
+								'updated_dt'	=> date('YmdHis'),
+								'remarks'		=> 'Initial'
+								);
+							$this->branch_inventory_hist->insert($branch_inventory_hist);
 							
 							$this->session->set_flashdata('success_msg', 'New Inventory successfully added!');
 							redirect(current_url());
@@ -80,15 +96,29 @@ class Branch_Inventories extends CI_Controller {
 					$con = array(
 						'returnType' => 'single',
 						'conditions' => array(
-							'del' => false,
-							'id' => $this->input->post('id')
+							'inv.del' => false,
+							'inv.id' => $this->input->post('id')
 						)
 					);
-					$inventory = $this->branch_inventory->getRows($con);
+					$inventory = $this->branch_inventory->getRowsJoin($con)->row_array();
 					$newVal = array(
 						'qty'	=> $inventory['QTY'] + $this->input->post('adjust_qty')
 					);
 					$this->branch_inventory->update($inventory['ID'], $newVal);
+
+					$branch_inventory_hist = array(
+						'id'			=> uniqid('', true),
+						'branch_id'		=> $this->session->userdata('branch_id'),
+						'inventory_id'	=> $inventory['ID'],
+						'item'			=> $inventory['ITEM'],
+						'qty' 			=> $this->input->post('adjust_qty'),
+						'qty_running'	=> $inventory['QTY'] + $this->input->post('adjust_qty'),
+						'movement' 		=> 'IN',
+						'updated_by'	=> $this->session->userdata('username'),
+						'updated_dt'	=> date('YmdHis'),
+						'remarks'		=> 'Add'
+						);
+					$this->branch_inventory_hist->insert($branch_inventory_hist);
 
 					echo 'OK';
 					exit();
@@ -101,15 +131,29 @@ class Branch_Inventories extends CI_Controller {
 					$con = array(
 						'returnType' => 'single',
 						'conditions' => array(
-							'del' => false,
-							'id' => $this->input->post('id')
+							'inv.del' => false,
+							'inv.id' => $this->input->post('id')
 						)
 					);
-					$inventory = $this->branch_inventory->getRows($con);
+					$inventory = $this->branch_inventory->getRowsJoin($con)->row_array();
 					$newVal = array(
 						'qty'	=> $inventory['QTY'] - $this->input->post('adjust_qty')
 					);
 					$this->branch_inventory->update($inventory['ID'], $newVal);
+
+					$branch_inventory_hist = array(
+						'id'			=> uniqid('', true),
+						'branch_id'		=> $this->session->userdata('branch_id'),
+						'inventory_id'	=> $inventory['ID'],
+						'item'			=> $inventory['ITEM'],
+						'qty' 			=> $this->input->post('adjust_qty'),
+						'qty_running'	=> $inventory['QTY'] - $this->input->post('adjust_qty'),
+						'movement' 		=> 'OUT',
+						'updated_by'	=> $this->session->userdata('username'),
+						'updated_dt'	=> date('YmdHis'),
+						'remarks'		=> 'Deduct'
+						);
+					$this->branch_inventory_hist->insert($branch_inventory_hist);
 
 					echo 'OK';
 					exit();
@@ -173,6 +217,58 @@ class Branch_Inventories extends CI_Controller {
 		        $r['CATEGORY'],
 		        $r['QTY'],
 		        $r['CRITICAL_QTY']
+		   );
+		}
+
+		$output = array(
+		   "draw" => $draw,
+		     "recordsTotal" => $inventoryList->num_rows(),
+		     "recordsFiltered" => $inventoryList->num_rows(),
+		     "data" => $data
+		);
+		echo json_encode($output);
+		exit();
+    }
+
+
+
+    public function hist($id = null){
+    	if($this->isLoggedIn){
+    		$data = array();
+    		$data['inventory_id'] = $id;
+			$this->load->view('branch_inventories/hist', $data);
+    	}else{
+			redirect('users/login');
+		}
+    }
+
+    public function hist_list(){
+		// Datatables Variables
+		$draw = intval($this->input->get("draw"));
+		$start = intval($this->input->get("start"));
+		$length = intval($this->input->get("length"));
+
+		$con = array(
+			'returnType' => 'list',
+			'conditions' => array(
+				'inv.inventory_id' => $this->input->get('inventory_id')
+			)
+		);
+		$inventoryList = $this->branch_inventory_hist->getRowsJoin($con);
+
+		$data = array();
+		
+		foreach($inventoryList->result_array() as $r) {
+
+		   $data[] = array(
+		   		$r['ID'],
+		        $r['ITEM'],
+		        $r['QTY'],
+		        $r['QTY_RUNNING'],
+		        $r['MOVEMENT'],
+		        $r['UPDATED_BY'],
+		        $r['UPDATED_DT'],
+		        $r['REMARKS']
 		   );
 		}
 
