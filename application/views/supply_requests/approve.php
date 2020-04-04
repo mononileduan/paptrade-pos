@@ -28,7 +28,7 @@
 			        <?php $this->load->view('components/menu'); ?>
 
 			        <div class="col-sm-10 col-md-10" id="page-content">
-			            <h2 class="page-header">Approve Supply Request</h2>
+			            <h2 class="page-header">View Supply Request</h2>
 
 						<div class="row-pad"></div>
 
@@ -55,6 +55,36 @@
 								<div class="col-sm-2"><label>Requested Date</label></div>
 								<div class="col-sm-10"><?= $req['REQUESTED_DT']; ?></div>
 							</div>
+							<?php 
+							if($req['STATUS'] == 'APPROVED' || $req['STATUS'] == 'RECEIVED'){
+								echo '<div class="row form-group">';
+								echo '<div class="col-sm-2"><label>Approved Quantity</label></div>';
+								echo '<div class="col-sm-10">'.$req['APPROVED_QTY'].'</div>';
+								echo '</div>';
+
+								echo '<div class="row form-group">';
+								echo '<div class="col-sm-2"><label>Processed By</label></div>';
+								echo '<div class="col-sm-10">'.$req['PROCESSED_BY'].'</div>';
+								echo '</div>';
+
+								echo '<div class="row form-group">';
+								echo '<div class="col-sm-2"><label>Date Processed</label></div>';
+								echo '<div class="col-sm-10">'.$req['PROCESSED_DT'].'</div>';
+								echo '</div>';
+							}
+
+							if($req['STATUS'] == 'RECEIVED'){
+								echo '<div class="row form-group">';
+								echo '<div class="col-sm-2"><label>Received By</label></div>';
+								echo '<div class="col-sm-10">'.$req['RECEIVED_BY'].'</div>';
+								echo '</div>';
+
+								echo '<div class="row form-group">';
+								echo '<div class="col-sm-2"><label>Date Received</label></div>';
+								echo '<div class="col-sm-10">'.$req['RECEIVED_DT'].'</div>';
+								echo '</div>';
+							}
+							?>
 						</div>
 
 						<div class="row-pad"></div>
@@ -66,27 +96,35 @@
 						    <div class="col-md-12">
 								
 								<form action="" method="post" accept-charset="utf-8" class="form-horizontal">
-									<div class="row form-group">
-										<div class="col-sm-2">
-											<label>Available Stocks</label>
-										</div>
-										<div class="col-sm-10">
-											<span><?php if(isset($wh_item['AVAILABLE_QTY'])){ echo $wh_item['AVAILABLE_QTY']; } else { echo '0'; } ?></span>
-										</div>
-									</div>
-									<div class="row form-group">
-										<div class="col-sm-2">
-											<label>Approved Quantity</label>
-										</div>
-										<div class="col-sm-10">
-											<input required="required" type="text" value="<?php echo set_value('approved_qty'); ?>" name="approved_qty" class="form-control" maxlength="5" size="5">
-										</div>
-									</div>		
+									<?php 
+									if($req['STATUS'] == 'NEW'){
+										echo '<div class="row form-group">';
+										echo '	<div class="col-sm-2">';
+										echo '		<label>Available Stocks</label>';
+										echo '	</div>';
+										echo '	<div class="col-sm-10">';
+										echo '		<span>'. isset($wh_item['AVAILABLE_QTY']) ? $wh_item['AVAILABLE_QTY'] : '0' .'</span>';
+										echo '	</div>';
+										echo '</div>';
+										echo '<div class="row form-group">';
+										echo '	<div class="col-sm-2">';
+										echo '		<label>Approved Quantity</label>';
+										echo '	</div>';
+										echo '	<div class="col-sm-10">';
+										echo '		<input required="required" type="text" value="'. set_value('approved_qty') .'" name="approved_qty" class="form-control" maxlength="5" size="5">';
+										echo '	</div>';
+										echo '</div>';
+									}
+									?>
 									<div class="row form-group">
 										<div class="col-sm-12">
 											<input type="hidden" name="id" value="<?= $req['ID']; ?>">
 											<input type="button" class="btn btn-secondary back-btn" value="Back">
-											<input type="submit" name="submit_approve_request" class="btn btn-success" value="Approve">
+											<?php 
+											if($req['STATUS'] == 'NEW'){
+												echo '<input type="submit" name="submit_approve_request" class="btn btn-success" value="Approve">';
+											}
+											?>
 										</div>
 									</div>
 								</form>
