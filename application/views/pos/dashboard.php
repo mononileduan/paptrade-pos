@@ -5,8 +5,6 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="base_url" content="<?= base_url();?><?= index_page();?>">
-		<base href="<?= base_url();?><?= index_page();?>">
 		<link rel="shortcut icon" type="image/x-icon" href="assets/images/iconpap.png" />
 
 		<link rel="stylesheet" type="text/css" href="assets/pos/bootstrap/css/bootstrap-3.3.7.css">
@@ -31,13 +29,13 @@
 							<li><span>Current User:  <span id="user"><?= $session_user?></span></span></li>
 							<?php
 							if($session_user_role != 'Cashier'){
-								echo '<li><a href="'. base_url() . index_page() . '/users/dashboard">Go to Inventory</a></li>';
+								echo '<li><a href="'. site_url('/users/dashboard').'">Go to Inventory</a></li>';
 							}
 							?>
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> <span class="caret"></span></a>
 								<ul class="dropdown-menu">
-									<li><a href="<?= base_url();?><?= index_page();?>/users/logout">Logout</a></li> 
+									<li><a href="<?= site_url('/users/logout') ?>">Logout</a></li> 
 								</ul>
 							</li>
 						</ul>

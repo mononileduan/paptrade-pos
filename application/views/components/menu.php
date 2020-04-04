@@ -33,7 +33,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h4 class="panel-title">
-					<a href="<?=index_page()?>/users/index"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;Dashboard</a>
+					<a href="<?= site_url('/users/index') ?>"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;Dashboard</a>
 				</h4>
 			</div>
 		</div>
@@ -48,22 +48,22 @@
 					<table class="table">
 						<tr>
 							<td>
-								<a href="<?=index_page()?>/brands">Brand</a>
+								<a href="<?= site_url('/brands') ?>">Brand</a>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								<a href="<?=index_page()?>/categories">Category</a>
+								<a href="<?= site_url('/categories') ?>">Category</a>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								<a href="<?=index_page()?>/stock_types">Stock Type</a>
+								<a href="<?= site_url('/stock_types') ?>">Stock Type</a>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								<a href="<?=index_page()?>/items">Item</a>
+								<a href="<?= site_url('/items') ?>">Item</a>
 							</td>
 						</tr>
 					</table>
@@ -81,12 +81,12 @@
 					<table class="table">
 						<tr>
 							<td>
-								<a href="<?=index_page()?>/warehouse_inventories">Inventory</a>
+								<a href="<?= site_url('/warehouse_inventories') ?>">Inventory</a>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								<a href="<?=index_page()?>/supply_requests/warehouse">Supply Request</a>
+								<a href="<?= site_url('/supply_requests/warehouse') ?>">Supply Request</a>
 							</td>
 						</tr>
 					</table>
@@ -104,12 +104,12 @@
 					<table class="table">
 						<tr>
 							<td>
-								<a href="<?=index_page()?>/branch_inventories">Inventory</a>
+								<a href="<?= site_url('/branch_inventories') ?>">Inventory</a>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								<a href="<?=index_page()?>/supply_requests/branch">Supply Request</a>
+								<a href="<?= site_url('/supply_requests/branch') ?>">Supply Request</a>
 							</td>
 						</tr>
 					</table>

@@ -5,8 +5,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="base_url" content="<?= base_url();?><?= index_page();?>">
-		<base href="<?= base_url();?><?= index_page();?>">
+		<base href="<?= site_url() ?>">
 		<link rel="shortcut icon" type="image/x-icon" href="assets/images/paptrade-icon.png" />
 
 	 	<link rel="stylesheet" type="text/css" href="assets/bootstrap/3.4.1/css/bootstrap.css">
@@ -143,9 +142,6 @@
 
 		<script type="text/javascript">
 			$(document).ready(function() {
-				var base_url = $("meta[name='base_url']").attr('content');
-
-
 			    var success_msg = "<?php if(isset($success_msg)){ echo $success_msg; } else {echo '';} ?>";
 			    var error_msg = "<?php if(isset($error_msg)){ echo $error_msg; } else {echo '';} ?>";
 

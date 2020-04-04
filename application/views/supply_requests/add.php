@@ -5,8 +5,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="base_url" content="<?= base_url();?><?= index_page();?>">
-		<base href="<?= base_url();?><?= index_page();?>">
+		<base href="<?= site_url() ?>">
 		<link rel="shortcut icon" type="image/x-icon" href="assets/images/paptrade-icon.png" />
 
 	 	<link rel="stylesheet" type="text/css" href="assets/bootstrap/3.4.1/css/bootstrap.css">
@@ -113,8 +112,6 @@
 
 		<script type="text/javascript">
 			$(document).ready(function() {
-				var base_url = $("meta[name='base_url']").attr('content');
-
 	    		$('#add-req-item-btn').on('click', function () {
 				    var item_id = $('#add-req-item-container').find('select[name="item"]').val();
 				    var item_dscp = $('#add-req-item-container').find('select[name="item"] option:selected').text();
@@ -172,7 +169,7 @@
 						$.ajax({
 							type : 'POST',
 							data : data,
-							url : base_url + '/supply_requests/add',
+							url : '<?= site_url('/supply_requests/add') ?>',
 							success : function(data) { 
 								if(data == 'OK'){
 									$("#requests-tbl tbody").empty();
@@ -187,7 +184,7 @@
 				})
 
 				$('#success_modal').on('hide.bs.modal', function () {
-					window.location.replace(base_url + '/supply_requests/branch');
+					window.location.replace('<?= site_url('supply_requests/branch') ?>');
 				});
 
 
@@ -207,8 +204,6 @@
 				}
 
 				$('.back-btn').on('click', function () {
-					<?php if(!isset($back_url)){ $back_url=''; } ?>
-			       	var redirect = base_url + '/' + '<?= $back_url; ?>';
 			        window.location.replace('<?= site_url('supply_requests/branch') ?>');
 			    } );
 

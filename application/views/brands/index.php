@@ -5,8 +5,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="base_url" content="<?= base_url();?><?= index_page();?>">
-		<base href="<?= base_url();?><?= index_page();?>">
+		<base href="<?= site_url() ?>">
 		<link rel="shortcut icon" type="image/x-icon" href="assets/images/paptrade-icon.png" />
 
 	 	<link rel="stylesheet" type="text/css" href="assets/bootstrap/3.4.1/css/bootstrap.css">
@@ -98,8 +97,6 @@
 
 		<script type="text/javascript">
 			$(document).ready(function() {
-				var base_url = $("meta[name='base_url']").attr('content');
-
 				var datatable = $('#view-data-table').DataTable({
 						"ajax": {
 						   url : "<?= site_url('brands/list'); ?>",
@@ -152,7 +149,7 @@
 						$.ajax({
 							type : 'POST',
 							data : data,
-							url : base_url + '/brands/index',
+							url : '<?= site_url('/brands/index') ?>',
 							success : function(data) { 
 								if(data == 'OK'){
 			    					$("#delete_modal").modal('toggle');
@@ -171,7 +168,7 @@
 
 				$('#success_modal').on('hide.bs.modal', function () {
 			    	if($('#success_modal').data('trigger') =='not-new'){
-						window.location.replace(base_url + '/brands/index');
+						window.location.replace('<?= site_url('/brands/index') ?>');
 			    	}
 				});
 
