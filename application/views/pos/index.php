@@ -5,7 +5,8 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="base_url" content="<?= index_page() ?>">
+		<meta name="base_url" content="<?= base_url() ?>">
+		<meta name="index_page" content="<?= index_page() ?>">
 		<base href="<?= site_url() ?>">
 		<link rel="shortcut icon" type="image/x-icon" href="assets/images/paptrade-icon.png" />
 
@@ -126,13 +127,13 @@
 						<h5 class="modal-title">Transaction Complete</h5>
 					</div>
 					<div class="modal-body">
-						<div class="col-md-7">
+						<div class="col-md-8">
 							<div id="receipt">
 								<div class="r-header text-center">
 									<h3>Receipt</h3>
 									<div class="row">
-										<div class="col-md-4 text-left">
-											<div>ID:</div>
+										<div class="col-md-4 text-right">
+											<div>Reference No.:</div>
 											<div>Date: <span></span></div>
 											<div>Time:</div>
 											<div>Cashier:</div>
@@ -151,9 +152,9 @@
 										<thead>
 											<tr> 
 												<th>Item Name</th>
-												<th class="amount">Price</th>
-												<th class="amount">Quantity</th>
-												<th class="amount">Sub Total</th>
+												<th class="text-right">Price</th>
+												<th class="text-right">Quantity</th>
+												<th class="text-right">Sub Total</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -161,11 +162,17 @@
 										</tbody>
 									</table>
 									<hr>
-									<div class="text-right"> 
-										<div>Discount: <span id="r-discount"></span></div>
-										<div>Grand Total: <span id="r-total-amount"></span></div>
-										<div>Payment: <span id="r-payment"></span></div>
-										<div>Change: <span id="r-change"></span></div>
+									<div class="row">
+										<div class="col-md-4 text-right">
+											<div>Grand Total:</div>
+											<div>Payment: <span></span></div>
+											<div>Change:</div>
+										</div>
+										<div class="col-md-8 text-right">
+											<div id="r-total-amount">Total Amount</div>
+											<div id="r-payment">Payment</div>
+											<div id="r-change">Change</div>
+										</div>
 									</div>
 
 									<div class="r-footer">
@@ -176,24 +183,20 @@
 							</div>
 						</div>
 						
-						<div class="col-md-5">
+						<div class="col-md-4">
 							<h4 class="">Transaction Summary</h3> 
 							<table class="table"> 
 								<tr>
-									<td>Discount:</td>
-									<td id="summary-discount" class="amount"></td>
-								</tr>
-								<tr>
 									<td>Grand Total:</td>
-									<td id="summary-total" class="amount"></td>
+									<td id="summary-total" class="text-right"></td>
 								</tr>
 								<tr>
 									<td>Payment:</td>
-									<td id="summary-payment" class="amount"></td>
+									<td id="summary-payment" class="text-right"></td>
 								</tr>
 								<tr>
 									<td>Change:</td>
-									<td id="summary-change" class="amount"></td>
+									<td id="summary-change" class="text-right"></td>
 								</tr>
 							</table>
 							<button class="btn btn-default btn-sm" id="print">Print Receipt</button>
@@ -270,6 +273,7 @@
 
 		<script type="text/javascript" src="assets/datatables/datatables.min.js"></script>
 		<script type="text/javascript" src="assets/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="assets/pos/jQuery.print.js"></script>
 		<script type="text/javascript" src="assets/pos/pos.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {

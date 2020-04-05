@@ -1,5 +1,7 @@
 $(document).ready(function() {
 	var base_url = $("meta[name='base_url']").attr('content');
+	var index_page = $("meta[name='index_page']").attr('content');
+
 	var totalAmountDue = 0;
 
 	var dHeight = parseInt($(document).height());
@@ -13,7 +15,7 @@ $(document).ready(function() {
 
 	var item_table = $('#item-table').DataTable({
         "ajax": {
-            url : base_url + '/branch_inventories/pos_list',
+            url : index_page + '/branch_inventories/pos_list',
             type : 'GET'
         },
         "columnDefs": [
@@ -194,7 +196,7 @@ $(document).ready(function() {
 		var sales = [];
 		var total_amount = 0;
 		var payment = $("#payment").val();
-		var change = $("#change").val();
+		var change = $("#change").val().replace(',','');
  	 
  		if (row) {
 			if (parseFloat(payment) >= parseFloat(totalAmountDue)) {
@@ -218,9 +220,9 @@ $(document).ready(function() {
 					$("#r-items-table tbody").append(
 						'<tr>' + 
 							'<td>'+value.item +'</td>' +
-							'<td class="amount">'+formatCurrencyVal(value.unit_price) +'</td>' +
-							'<td class="amount">'+value.quantity+'</td>' +
-							'<td class="amount">'+formatCurrencyVal(value.subtotal)+'</td>' +
+							'<td class="text-right">'+formatCurrencyVal(value.unit_price) +'</td>' +
+							'<td class="text-right">'+value.quantity+'</td>' +
+							'<td class="text-right">'+formatCurrencyVal(value.subtotal)+'</td>' +
 						'</tr>'
 					);
 				});
@@ -232,12 +234,13 @@ $(document).ready(function() {
 				$.ajax({
 					type : 'POST',
 					data : data,
-					url : base_url + '/sales/add',
+					url : index_page + '/sales/add',
 					beforeSend : function() {
 						$("#btn").button('loading');
 					},
 					success : function(data) {
 						if(data != ''){
+							alert(change);
 							transactionComplete = true;
 			 				var total = parseFloat(total_amount);
 			 			 	var d = new Date();
@@ -284,6 +287,24 @@ $(document).ready(function() {
 	    	$("#error_modal").modal('show');
 	    }
 	});
+
+
+	$("#print").click(function(){
+		$("#receipt").print({
+	        	globalStyles: true,
+	        	mediaPrint: false,
+	        	stylesheet: base_url + '/assets/pos/receipt.css',
+	        	noPrintSelector: ".no-print",
+	        	iframe: true,
+	        	append: null,
+	        	prepend: null,
+	        	manuallyCopyFormValues: true,
+	        	deferred: $.Deferred(),
+	        	timeout: 500,
+	        	title: 'Receipt',
+	        	doctype: '<!doctype html>'
+		});
+	})
 
 
 
