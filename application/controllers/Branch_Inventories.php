@@ -215,6 +215,7 @@ class Branch_Inventories extends CI_Controller {
 		   		$r['ID'],
 		        $r['ITEM'],
 		        $r['CATEGORY'],
+		        $r['PRICE'],
 		        $r['QTY'],
 		        $r['CRITICAL_QTY']
 		   );

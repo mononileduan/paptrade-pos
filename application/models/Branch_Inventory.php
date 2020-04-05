@@ -47,6 +47,7 @@ class Branch_Inventory extends CI_Model {
 			"inv.item_id as ITEM_ID, ".
 			"concat(b.BRAND, ' ', i.DSCP) as ITEM, ". 
 			"c.category as CATEGORY, ".
+			"i.PRICE as PRICE, ".
 			"br.BRANCH_NAME as BRANCH, ".
 			"inv.QTY as QTY, ".
 			"inv.CRITICAL_QTY as CRITICAL_QTY ".

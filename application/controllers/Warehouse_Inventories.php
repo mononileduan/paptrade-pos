@@ -216,6 +216,7 @@ class Warehouse_Inventories extends CI_Controller {
 		   		$r['ID'],
 		        $r['ITEM'],
 		        $r['CATEGORY'],
+		        $r['PRICE'],
 		        $r['CURRENT_QTY'],
 		        $r['AVAILABLE_QTY'],
 		        $r['CRITICAL_QTY']

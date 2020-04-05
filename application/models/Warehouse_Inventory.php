@@ -47,6 +47,7 @@ class Warehouse_Inventory extends CI_Model {
 			"inv.item_id as ITEM_ID, ".
 			"concat(b.BRAND, ' ', i.DSCP) as ITEM, ". 
 			"c.category as CATEGORY, ".
+			"i.price as PRICE, ".
 			"inv.CURRENT_QTY as CURRENT_QTY, ".
 			"inv.AVAILABLE_QTY as AVAILABLE_QTY, ".
 			"inv.CRITICAL_QTY as CRITICAL_QTY, ".

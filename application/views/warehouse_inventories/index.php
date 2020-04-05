@@ -99,8 +99,9 @@
 									<thead>
 										<tr>
 											<td></td>
-											<td width="45%">Item</td>
+											<td width="35%">Item</td>
 											<td width="15%">Category</td>
+											<td width="10%">Unit Price</td>
 											<td width="10%">Current Quantity</td>
 											<td width="10%">Available Quantity</td>
 											<td width="10%">Critical Quantity</td>
@@ -131,7 +132,8 @@
 						    type : 'GET'
 						},
 						"columnDefs": [
-							{className: "dt-right", "targets": [-2, -3, -4] },
+							{className: "dt-right", "targets": [-2, -3, -4, -5] },
+        					{render: $.fn.dataTable.render.number( ',', '.', 2, '' ), "targets": [-5] },
 							{"targets": -1, "data": null, "defaultContent": 
 								"<a class=\'action-add\' data-mode=\'modal\' title=\'Add\'><i class=\'glyphicon glyphicon-plus\'></i></a>&nbsp; " +
 								"<a class=\'action-deduct\' data-mode=\'modal\' title=\'Deduct\'><i class=\'glyphicon glyphicon-minus\'></i></a>&nbsp; " +

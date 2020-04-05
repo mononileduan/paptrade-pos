@@ -10,6 +10,7 @@
 
 	 	<link rel="stylesheet" type="text/css" href="assets/bootstrap/3.4.1/css/bootstrap.css">
 	 	<link rel="stylesheet" type="text/css" href="assets/datatables/datatables.min.css"/>
+	    <link rel="stylesheet" type="text/css" href="assets/datatables/DataTables-1.10.20/css/jquery.dataTables.css">
 	    <link rel="stylesheet" type="text/css" href="assets/materialicons/material-icons.css">
 	 	<link rel="stylesheet" type="text/css" href="assets/css/styles.css">
 		
@@ -98,8 +99,9 @@
 									<thead>
 										<tr>
 											<td></td>
-											<td width="55%">Item</td>
+											<td width="40%">Item</td>
 											<td width="15%">Category</td>
+											<td width="15%">Unit Price</td>
 											<td width="10%">Quantity</td>
 											<td width="10%">Critical Quantity</td>
 											<td width="10%">Action</td>
@@ -130,6 +132,7 @@
 						},
 						"columnDefs": [
 							{className: "dt-right", "targets": [-2, -3, -4] },
+							{render: $.fn.dataTable.render.number( ',', '.', 2, '' ), "targets": [-4] },
 							{"targets": -1, "data": null, "defaultContent": 
 								"<a class=\'action-add\' data-mode=\'modal\' title=\'Add\'><i class=\'glyphicon glyphicon-plus\'></i></a>&nbsp; " + 
 								"<a class=\'action-deduct\' data-mode=\'modal\' title=\'Deduct\'><i class=\'glyphicon glyphicon-minus\'></i></a>&nbsp; " + 
