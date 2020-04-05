@@ -1,6 +1,8 @@
 $(document).ready(function() {
 	var base_url = $("meta[name='base_url']").attr('content');
 	var index_page = $("meta[name='index_page']").attr('content');
+	var user = $("meta[name='user']").attr('content');
+
 
 	var totalAmountDue = 0;
 
@@ -253,7 +255,7 @@ $(document).ready(function() {
 							//Fill In Receipt 
 							$("#r-payment").text( formatCurrencyVal(payment));
 							$("#r-change").text( formatCurrencyVal(change.substring(1)));
-							$("#r-cashier").text($("#user").text()); 
+							$("#r-cashier").text(user); 
 							$("#r-total-amount").text( formatCurrencyVal(total_amount))
 							$("#r-id").text(data);
 							$("#r-time").text(d.toLocaleTimeString());
