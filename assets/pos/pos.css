@@ -1,0 +1,53 @@
+.box-container {
+	border: solid 1px #ddd;
+	padding: 0;
+
+}
+
+.box-container h3 {
+	margin: 0;
+	padding: 10px;
+	text-align: center;
+	background: #337ab7;
+	color: #ffffff;
+}
+
+.box-container .content {
+	padding: 20px;
+}
+
+.box-container.rightnone {
+	border-right: none;
+}
+
+#item-table tr:hover {
+	cursor: pointer;
+}
+
+.table > tbody > tr > td {
+	border: none !important;
+}
+
+#cart-container {
+    background-color: #f4f4f5;
+    border: solid 1px #eee;
+	overflow: auto;
+}
+
+#cart {
+	max-height: 330px;
+}
+
+#cart tr td {
+	background: #fff;
+	border-bottom: solid 1px #eee !important;
+}
+
+.quantity-box {
+	border: none;
+	max-width: 50px;
+}
+
+.remove:hover {
+	cursor: pointer;
+}

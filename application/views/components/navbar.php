@@ -5,7 +5,7 @@
 	<div style="margin-right: 50px;">
 		<ul class="nav navbar-top-links navbar-right">
 			<li class="nav-item">
-				<a class="nav-link" href="">POS</a>
+				<a class="nav-link" href="<?= site_url('/pos') ?>">POS</a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link" href="<?= site_url('/users/logout') ?>">Logout</a>

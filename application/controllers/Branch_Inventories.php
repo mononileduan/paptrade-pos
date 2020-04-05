@@ -231,6 +231,41 @@ class Branch_Inventories extends CI_Controller {
 		exit();
     }
 
+	public function pos_list(){
+		// Datatables Variables
+		$draw = intval($this->input->get("draw"));
+		$start = intval($this->input->get("start"));
+		$length = intval($this->input->get("length"));
+
+		$con = array(
+			'returnType' => 'list',
+			'conditions' => array()
+		);
+		$inventoryList = $this->branch_inventory->getRowsJoin($con);
+
+		$data = array();
+		
+		foreach($inventoryList->result_array() as $r) {
+
+		   $data[] = array(
+		   		$r['ID'],
+		        $r['ITEM'],
+		        $r['CATEGORY'],
+		        $r['QTY'],
+		        $r['PRICE']
+		   );
+		}
+
+		$output = array(
+		   "draw" => $draw,
+		     "recordsTotal" => $inventoryList->num_rows(),
+		     "recordsFiltered" => $inventoryList->num_rows(),
+		     "data" => $data
+		);
+		echo json_encode($output);
+		exit();
+    }
+
 
 
     public function hist($id = null){

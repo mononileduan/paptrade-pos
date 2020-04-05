@@ -8,7 +8,8 @@ class Sales extends CI_Controller {
 		$this->load->library('form_validation');
 		$this->load->model('sales_model');
 		$this->load->model('sales_dtls_model');
-		$this->load->model('inventory_branch');
+		$this->load->model('branch_inventory');
+		$this->load->model('branch_inventory_hist');
 		$this->load->model('sales_on_hold_model');
 		$this->load->model('sales_on_hold_dtls_model');
 
@@ -71,33 +72,44 @@ class Sales extends CI_Controller {
 					$con = array(
 						'returnType' => 'single',
 						'conditions' => array(
-							'del' => false,
-							'inventory_id' => $item['inventory_id']
+							'inv.del' => false,
+							'inv.id' => $item['inventory_id']
 						)
 					);
-
-					$inventory = $this->inventory_branch->getRows($con);
+					$inventory = $this->branch_inventory->getRowsJoin($con)->row_array();
 
 					if($inventory){
-						$quantity = $inventory['QUANTITY'];
+						$quantity = $inventory['QTY'];
 						$newVal = array(
-							'quantity'		=> $quantity - $item['quantity']
+							'qty'		=> $quantity - $item['quantity']
 						);
-						$this->inventory_branch->update($inventory['ID'], $newVal);
+						$this->branch_inventory->update($inventory['ID'], $newVal);
+
+						$branch_inventory_hist = array(
+							'id'			=> uniqid('', true),
+							'branch_id'		=> $this->session->userdata('branch_id'),
+							'inventory_id'	=> $inventory['ID'],
+							'item'			=> $inventory['ITEM'],
+							'qty' 			=> $item['quantity'],
+							'qty_running'	=> $quantity - $item['quantity'],
+							'movement' 		=> 'OUT',
+							'updated_by'	=> $this->session->userdata('username'),
+							'updated_dt'	=> date('YmdHis'),
+							'remarks'		=> 'Sales '.$ref_no
+							);
+						$this->branch_inventory_hist->insert($branch_inventory_hist);
 						
 						$sales_dtl = array(
 							'id'		=> uniqid('', true),
 							'sales_id' => $id,
-							'inventories_branch_id' => $inventory['ID'],
+							'branch_inventory_id' => $inventory['ID'],
 							'unit_price' => $item['unit_price'],
 							'quantity' => $item['quantity']
 						);
-
 						$this->sales_dtls_model->insert($sales_dtl);
 					}else{
 						$data['error_msg'] = 'Failed to save.';
 					}
-				 
 				}
 
 				if($this->input->post('sales_on_hold_id')){
@@ -109,11 +121,13 @@ class Sales extends CI_Controller {
 				exit();
 
 			}else{
-				$data['error_msg'] = 'Failed to save Purchase Order.';
+				$data['error_msg'] = 'Failed to save Sales Order.';
+				echo '';
+				exit();
 			}
 		}
 
-		$this->load->view('pos/dashboard', $data);
+		$this->load->view('pos/index', $data);
 	}
 
 

@@ -14,7 +14,7 @@ class POS extends CI_Controller {
 
 	public function index(){
 		if($this->isLoggedIn){
-			redirect('pos/dashboard');
+			$this->load->view('pos/index');
 		}else{
 			redirect('users/login');
 		}
