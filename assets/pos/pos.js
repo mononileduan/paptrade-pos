@@ -240,7 +240,6 @@ $(document).ready(function() {
 					},
 					success : function(data) {
 						if(data != ''){
-							alert(change);
 							transactionComplete = true;
 			 				var total = parseFloat(total_amount);
 			 			 	var d = new Date();
