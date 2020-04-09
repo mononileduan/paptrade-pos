@@ -107,19 +107,6 @@
 											</div>
 										</div>
 									</div>
-									<div class="row">
-										<div class="col-md-6">
-											<div class="form-group">
-												<input type="hidden" name="sales_temp_id" id="sales_temp_id">
-												<input type="button" class="btn btn-success form-control" name="" value="Save for Later" id="btn-save" >
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="form-group">
-												<input type="button" class="btn btn-info form-control" name="" value="View Saved Transactions" id="btn-view-saved" >
-											</div>
-										</div>
-									</div>
 								</form>
 
 								<?php
