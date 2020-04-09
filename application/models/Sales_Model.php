@@ -60,6 +60,19 @@ class Sales_Model extends CI_Model {
 
 	}
 
+	public function getSummary($params = array()){
+		$sql = "SELECT COUNT(*) as CNT, sum(GRAND_TOTAL) as TOTAL FROM sales WHERE DATE_SUB(CURDATE(),INTERVAL 0 DAY) <= CREATED_DT ";
+
+		if(array_key_exists("conditions", $params)){
+			foreach ($params['conditions'] as $key => $val) {
+				$sql = $sql . " AND " . $key . "='" . $val . "'"; 
+			}
+		}
+		$result = $this->db->query($sql);
+		return $result;
+
+	}
+
 	public function insert($data = array()){
 		if(!empty($data)){
 			if(!array_key_exists("created_by", $data)){

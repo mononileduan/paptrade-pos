@@ -50,8 +50,20 @@
 					<div class="col-md-5 box-container">
 						<h3>Order Details</h3>
 						<div id="sales-dtls-container">
-							<a id="open-temp-txn"><span class="open" style="font-size:14px;"><i class="glyphicon glyphicon-folder-open" title="Open Saved Transactions"></i></span></a> &nbsp;
-							<a id="save-temp-txn"><span class="save" style="font-size:14px;"><i class="glyphicon glyphicon-floppy-disk" title="Save for Later"></i></span></a> &nbsp;
+							<table class="table table-striped" style="width:100%; margin-bottom: 10px;">
+								<tr>
+									<td width="20%">
+										<a id="open-temp-txn"><span class="open" style="font-size:14px;"><i class="glyphicon glyphicon-folder-open" title="Open Saved Transactions"></i></span></a> &nbsp; &nbsp;
+										<a id="save-temp-txn"><span class="save" style="font-size:14px;"><i class="glyphicon glyphicon-floppy-disk" title="Save for Later"></i></span></a>
+									</td>
+									<td width="30%" class="text-right" style="vertical-align: middle;">
+										<label style="margin-bottom: 0px;">Sales Count:&nbsp;</label><span id="daily_sales_cnt"><?= $daily_sales_cnt ?></span>
+									</td>
+									<td width="50%" class="text-right" style="vertical-align: middle;">
+										<label style="margin-bottom: 0px;">Total Sales:&nbsp;</label><span id="daily_total_sales"><?= $daily_total_sales ?></span>
+									</td>
+								</tr>
+							</table>
 						</div>
 						<div class="content" style="padding-top: 0; ">
 	            			<div id="cart-container">
@@ -211,7 +223,7 @@
 
 					</div>
 					<div class="modal-footer"> 
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-secondary" data-dismiss="modal" id="payment-modal-close">Close</button>
 					</div>
 
 				</div>

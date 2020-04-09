@@ -309,6 +309,10 @@ $(document).ready(function() {
 	})
 
 
+	$("#payment-modal-close").click(function(){
+		window.location.replace(index_page + '/pos');
+	})
+
 
 	function formatCurrency(ccy){
 		var monetary_value = $(ccy).text();
@@ -468,5 +472,8 @@ $(document).ready(function() {
 		});
 	});
 
+
+	thousands($("#daily_sales_cnt"));
+	formatCurrency($("#daily_total_sales"));
 
 });
