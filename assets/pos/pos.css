@@ -28,6 +28,18 @@
 	border: none !important;
 }
 
+#sales-dtls-container {
+	padding: 20px 20px 10px;
+}
+
+#sales-dtls-container a:hover {
+	cursor: pointer;
+}
+
+#sales-tmp tr:hover {
+	cursor: pointer;
+}
+
 #cart-container {
     background-color: #f4f4f5;
     border: solid 1px #eee;

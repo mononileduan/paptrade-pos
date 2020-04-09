@@ -49,7 +49,11 @@
 					</div>
 					<div class="col-md-5 box-container">
 						<h3>Order Details</h3>
-						<div class="content">
+						<div id="sales-dtls-container">
+							<a id="open-temp-txn"><span class="open" style="font-size:14px;"><i class="glyphicon glyphicon-folder-open" title="Open Saved Transactions"></i></span></a> &nbsp;
+							<a id="save-temp-txn"><span class="save" style="font-size:14px;"><i class="glyphicon glyphicon-floppy-disk" title="Save for Later"></i></span></a> &nbsp;
+						</div>
+						<div class="content" style="padding-top: 0; ">
 	            			<div id="cart-container">
 		            			<table id="cart" class="table" style="width:100%">
 									<thead>
@@ -94,7 +98,7 @@
 									<div class="row">
 										<div class="col-md-6">
 											<div class="form-group">
-												<input type="hidden" name="sales_on_hold_id" id="sales_on_hold_id">
+												<input type="hidden" name="sales_temp_id" id="sales_temp_id">
 												<input type="button" class="btn btn-success form-control" name="" value="Save for Later" id="btn-save" >
 											</div>
 										</div>
@@ -218,10 +222,13 @@
 		<div class="modal" tabindex="-2" role="dialog" id="customer-name-modal">
 			<div class="modal-dialog modal-sm">
 				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Save for Later</h5>
+					</div>
 					<div class="modal-body">
 						<div class="col-md-12">
 							<div class="form-group">
-								<input type="text" class="form-control" name="customer_name" placeholder="Enter Customer Name" id="customer_name" autocomplete="off" max="500000" maxlength="50">
+								<input type="text" class="form-control" name="customer_name" placeholder="Enter Customer Name" id="customer_name" autocomplete="off" max="50" maxlength="50">
 							</div>
 						</div>
 
@@ -238,19 +245,23 @@
 			</div>
 		</div>
 
-		<div class="modal" tabindex="-3" role="dialog" id="pending-sales-modal">
+		<div class="modal" tabindex="-3" role="dialog" id="sales-tmp-modal">
 			<div class="modal-dialog modal-md">
 				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Saved for Later Transactions</h5>
+					</div>
 					<div class="modal-body">
-						<div id="pending-sales-tbl" style="min-height: 310px; max-height: 185px;">
-	            			<table id="pending-sales" class="table table-bordered table-striped table-hover" style="width:100%">
+						<div id="sales-tmp-container" style="min-height: 310px; max-height: 185px;">
+	            			<table id="sales-tmp" class="table table-bordered table-striped table-hover" style="width:100%">
 								<thead>
 									<tr>
-										<td width="50%">Customer Name</td>
-										<td width="15%">Grand Total</td>
-										<td width="15%">Cashier</td>
+										<td>ID</td>
+										<td>Branch</td>
+										<td width="40%">Customer Name</td>
+										<td width="10%">Products</td>
+										<td width="35%">Cashier</td>
 										<td width="15%">Date</td>
-										<!--th width="5%"> </th-->
 									</tr>
 								</thead>
 								<tbody>

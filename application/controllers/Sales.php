@@ -10,8 +10,8 @@ class Sales extends CI_Controller {
 		$this->load->model('sales_dtls_model');
 		$this->load->model('branch_inventory');
 		$this->load->model('branch_inventory_hist');
-		$this->load->model('sales_on_hold_model');
-		$this->load->model('sales_on_hold_dtls_model');
+		$this->load->model('sales_temp');
+		$this->load->model('sales_temp_dtls');
 
 		$this->isLoggedIn = $this->session->userdata('isLoggedIn');
 	}
@@ -107,6 +107,12 @@ class Sales extends CI_Controller {
 							'quantity' => $item['quantity']
 						);
 						$this->sales_dtls_model->insert($sales_dtl);
+
+
+						$con = array( 'conditions' => array( 'sales_temp_id' => $this->input->post('sales_temp_id') ) );
+						$this->sales_temp_dtls->delete($con);
+						$this->sales_temp->delete($this->input->post('sales_temp_id'));
+
 					}else{
 						$data['error_msg'] = 'Failed to save.';
 					}

@@ -233,6 +233,7 @@ $(document).ready(function() {
 				data['process_sales'] = true;
 				data['grand_total'] = total_amount;
 				data['sales'] = sales;
+				data['sales_temp_id'] = $("#sales_temp_id").val();
 				$.ajax({
 					type : 'POST',
 					data : data,
@@ -329,4 +330,143 @@ $(document).ready(function() {
 	function thousands(str){
 	    return str.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
+
+
+
+
+	var sales_tmp_tbl = $('#sales-tmp').DataTable({
+        "ajax": {
+            url : index_page + '/sales_tmp/list',
+            type : 'GET'
+        },
+        "columnDefs": [
+        	{className: "dt-right", "targets": [-3] },
+        	{"targets": [ 0, 1 ], "visible": false, "searchable": false}
+        ]
+    });
+
+
+    $("#open-temp-txn").on('click', function(){
+		$("#sales-tmp-modal").modal('toggle');
+		sales_tmp_tbl.ajax.reload();
+	});
+
+
+	$("#save-temp-txn").on('click', function(){
+		var row = $("#cart tbody tr").length;
+		if (row) {
+			$("#customer-name-modal").modal('toggle');
+		}else{
+			$("#error_modal .modal-content .modal-body p.text-center").text('Please add some items');
+	    	$("#error_modal").modal('show');
+		}
+	});
+
+
+	$("#customer-name-confirm-btn").on('click', function(){
+		var customer_name = $("#customer_name").val();
+		if(customer_name){
+			var row = $("#cart tbody tr").length;
+			if (row) {
+	 			var sales = [];
+				for (i = 0; i < row; i++) {
+					var r = $("#cart tbody tr").eq(i).find('td');
+					var quantity = r.eq(2).find('input').val();
+					var price = r.eq(1).text().replace(',','');
+					var arr = {
+							inventory_id : $("#cart tbody tr").eq(i).find('input[name="id"]').val(), 
+							item : r.eq(0).text(),
+							unit_price : price,
+							quantity : quantity, 
+							subtotal : parseFloat(price) * parseInt(quantity)
+						};
+					sales.push(arr);
+				}
+
+				var data = {};
+				data['save_sales_temp'] = true;
+				data['cust_name'] = customer_name;
+				data['item_cnt'] = row;
+				data['sales'] = sales;
+				$.ajax({
+					type : 'POST',
+					data : data,
+					url : index_page + '/sales_tmp/add',
+					success : function(data) { 
+						if(data == 'OK'){
+							$("#customer-name-modal").modal('toggle');
+							$("#customer_name").val('');
+
+			 				$("#cart tbody").empty();
+						 	$("#payment").val('');
+						 	$("#change").val('');
+						 	$("#amount-due").text(''); 
+						 	$("#amount-total").text('');
+
+						 	item_table.ajax.reload();
+						 	$("#btn").button('reset');
+
+						 	$("#success_modal .modal-content .modal-body p.text-center").text('Transaction successfully saved for later');
+			    			$("#success_modal").modal('show');
+						
+						}else{
+							$("#error_modal .modal-content .modal-body p.text-center").text(data);
+	    					$("#error_modal").modal('show');
+						}
+					}
+				})
+			}
+		}else{
+			$("#error_modal .modal-content .modal-body p.text-center").text('Customer Name is required');
+	    	$("#error_modal").modal('show');
+		}
+	});
+
+
+	$("#sales-tmp").on('click', 'tbody tr', function(event) {
+    	var data = $("#sales-tmp").DataTable().row( $(this) ).data();
+		var id = data[0];
+		$.ajax({
+			url: index_page + '/sales_tmp/details',
+			method: 'GET',
+			data: {id, id},
+			async: true,
+			dataType: 'json',
+			success: function(data){
+				for(i=0; i<data.length; i++){
+					if(data[i].STOCKS >= data[i].QTY){
+						var inv_id = data[i].ID;
+						var stocks = data[i].STOCKS;
+						var qty = data[i].QTY;
+						$("#cart tbody").append(
+							'<tr>' +
+								'<input name="id" type="hidden" value="'+ inv_id +'">' +
+								'<td>'+ data[i].ITEM +'</td>' +
+								'<td class="text-right">'+ thousands(data[i].PRICE) +'</td>' +
+								'<td class="text-right"><input data-stocks="'+stocks+'" data-remaining="'+stocks+'" data-id="'+inv_id+'" name="qty" type="text" value="'+qty+'" class="quantity-box text-right" size="5"></td>' +
+								'<td class="text-right"></td>' +
+								'<td><span class="remove" style="font-size:12px;"><i class="glyphicon glyphicon-trash" title="Remove"></i></span></td>' +
+							'</tr>'
+						);
+						recount();
+						$("payment").val('');
+						$("change").val('');
+
+						item_table.rows().every( function () {
+						    var d = this.data();
+						    if(d[0] == inv_id){
+							    d[3] = stocks - qty; // update data source for the row
+							    this.invalidate(); // invalidate the data DataTables has cached for this row
+							}
+						} );
+						item_table.draw();
+					}
+				}
+			$("#sales_temp_id").val(id);
+			$("#sales-tmp-modal").modal('toggle');
+			}
+		});
+	});
+
+
 });
