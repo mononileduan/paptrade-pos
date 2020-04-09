@@ -4,9 +4,17 @@
 	</div>
 	<div style="margin-right: 50px;">
 		<ul class="nav navbar-top-links navbar-right">
-			<li class="nav-item">
-				<a class="nav-link" href="<?= site_url('/pos') ?>">POS</a>
-			</li>
+			<?php
+				if($this->session->userdata('user_role') != 'CASHIER'){
+					echo '<li class="nav-item">';
+					echo '	<a class="nav-link" href="'.site_url('/pos').'">POS</a>';
+					echo '</li>';
+				}else{
+					echo '<li class="nav-item">';
+					echo '	<label><dfn>Cashier:&nbsp;</dfn></label><span>'.$this->session->userdata('fullname').'</span>';
+					echo '</li>';
+				}
+			?>
 			<li class="nav-item">
 				<a class="nav-link" href="<?= site_url('/users/logout') ?>">Logout</a>
 			</li>

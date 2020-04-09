@@ -32,13 +32,4 @@ class POS extends CI_Controller {
 		}
 	}
 
-	public function dashboard(){
-		$data = array();
-		$data['session_user'] = $this->session->userdata('username');
-		$data['session_user_role'] = $this->session->userdata('user_role');
-		
-		$this->load->view('pos/dashboard', $data);
-		
-	}
-
 }
