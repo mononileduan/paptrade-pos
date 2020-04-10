@@ -86,3 +86,9 @@ table.dataTable td.dt-right {
     float: right;
     padding-top: 0.25em;
 }
+
+
+.dataview-val {
+	margin-bottom: 5px;
+}
+

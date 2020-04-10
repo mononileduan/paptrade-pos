@@ -114,6 +114,12 @@
 					                }
 					            }]
 				});
+
+				 $('#view-data-table tbody').on( 'click', 'a.action-view', function (id) {
+					var data = $("#view-data-table").DataTable().row( $(this).parents('tr') ).data();
+			       	var id = data[0];
+			        window.location.replace('<?= site_url('sales/details/') ?>' + id);
+			    } );
 			});
 		</script>
 	</body>

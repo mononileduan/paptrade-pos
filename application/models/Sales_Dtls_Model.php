@@ -42,13 +42,13 @@ class Sales_Dtls_Model extends CI_Model {
 	}
 
 	public function getRowsJoin($params = array()){
-		/*$sql = "SELECT ". 
-			"BRANCH.DSCP as BRANCH, ". 
-			"SALES.ref_no as REF_NO, ". 
-			"SALES.CREATED_DT as CREATED_DT, ". 
-			"SALES.GRAND_TOTAL as GRAND_TOTAL, ". 
-			"concat(USER_.FIRST_NAME, ' ', USER_.LAST_NAME) as CREATED_BY ". 
-			"from SALES, BRANCH, USER_  where user_.USERNAME=sales.CREATED_BY and branch.id=sales.BRANCH_ID ";
+		$sql = "SELECT ". 
+			"concat(b.BRAND, ' ', i.DSCP) as ITEM, ".
+			"dtl.unit_price as UNIT_PRICE, ".
+			"dtl.quantity as QUANTITY, ".
+			"dtl.unit_price * dtl.quantity as SUB_TOTAL ".
+			"from SALES_DTLS dtl, BRANCH_INVENTORY inv, ITEMS i, BRANDS b ".
+			"where inv.id=dtl.branch_inventory_id and i.id=inv.item_id and b.id=i.brand_id ";
 
 		if(array_key_exists("conditions", $params)){
 			foreach ($params['conditions'] as $key => $val) {
@@ -56,7 +56,7 @@ class Sales_Dtls_Model extends CI_Model {
 			}
 		}
 		$result = $this->db->query($sql);
-		return $result;*/
+		return $result;
 
 	}
 

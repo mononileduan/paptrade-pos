@@ -18,27 +18,14 @@ class Sales extends CI_Controller {
 
 	public function index(){
 		if($this->isLoggedIn){
+
 			$this->load->view('sales/index');
+	
 		}else{
 			redirect('users/login');
 		}
 	}
 
-	public function view(){
-		$data = array();
-		$data['session_user'] = $this->session->userdata('username');
-
-		$footer_data = array();
-		$footer_data['page_has_table'] = 'has_table';
-		$footer_data['site_url'] = 'sales/sales_page';
-		$footer_data['view_dtl'] = true;
-		$footer_data['view_dtl_url'] = '/sales_dtl/view/';
-		$footer_data['right_align_columns'] = array(-3);
-		
-		$this->load->view('components/header', $data);
-		$this->load->view('sales/view', $data);
-		$this->load->view('components/footer', $footer_data);
-	}
 
 	public function add(){
 		$data = array();
@@ -178,5 +165,31 @@ class Sales extends CI_Controller {
 		exit();
      }
 
+
+     public function details($id = null){
+    	if($this->isLoggedIn){
+    		$data = array();
+
+    		$con = array(
+				'returnType' => 'single',
+				'conditions' => array(
+					'sales.id' => $id
+				)
+			);
+    		$data['hdr'] = $this->sales_model->getRowsJoin($con)->row_array();
+
+    		$con = array(
+				'conditions' => array(
+					'dtl.sales_id' => $id
+				)
+			);
+    		$data['dtl'] = $this->sales_dtls_model->getRowsJoin($con);
+
+			$this->load->view('sales/details', $data);
+			
+    	}else{
+			redirect('users/login');
+		}
+    }
 
 }
