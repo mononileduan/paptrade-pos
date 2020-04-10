@@ -81,6 +81,7 @@
 						   url : "<?= site_url('sales/list'); ?>",
 						    type : 'GET'
 						},
+						"order": [[ 2, "desc" ]],
 						"columnDefs": [
 							{className: "dt-right", "targets": [-3, -4] },
 							{render: $.fn.dataTable.render.number( ',', '.', 2, '' ), "targets": [-3, -4] },
