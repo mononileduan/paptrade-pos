@@ -13,7 +13,6 @@
 
 	 	<link rel="stylesheet" type="text/css" href="assets/bootstrap/3.4.1/css/bootstrap.css">
 	 	<link rel="stylesheet" type="text/css" href="assets/datatables/datatables.min.css"/>
-	    <link rel="stylesheet" type="text/css" href="assets/datatables/DataTables-1.10.20/css/jquery.dataTables.css">
 	    <link rel="stylesheet" type="text/css" href="assets/materialicons/material-icons.css">
 	 	<link rel="stylesheet" type="text/css" href="assets/css/styles.css">
 	 	<link rel="stylesheet" type="text/css" href="assets/pos/pos.css">
