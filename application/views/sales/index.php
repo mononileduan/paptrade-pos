@@ -41,8 +41,9 @@
 											<td>BRANCH</td>
 											<td width="20%">Transaction Date</td>
 											<td width="20%">Reference No.</td>
-											<td width="20%">Transaction Amount</td>
-											<td width="30%">Cashier</td>
+											<td width="15%">Transaction Amount</td>
+											<td width="15%">Payment Amount</td>
+											<td width="20%">Cashier</td>
 											<td width="10%">Action</td>
 										</tr>
 									</thead>
@@ -81,8 +82,8 @@
 						    type : 'GET'
 						},
 						"columnDefs": [
-							{className: "dt-right", "targets": [-3] },
-							{render: $.fn.dataTable.render.number( ',', '.', 2, '' ), "targets": [-3] },
+							{className: "dt-right", "targets": [-3, -4] },
+							{render: $.fn.dataTable.render.number( ',', '.', 2, '' ), "targets": [-3, -4] },
 							{"targets": -1, "data": null, "defaultContent": "<a class=\'action-view\' data-mode=\'modal\' title=\'View\'><i class=\'glyphicon glyphicon-eye-open\'></i></a>&nbsp; "},
 							{"targets": [ 0, 1 ], "visible": false, "searchable": false}
 						],

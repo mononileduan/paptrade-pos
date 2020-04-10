@@ -232,6 +232,7 @@ $(document).ready(function() {
 				var data = {};
 				data['process_sales'] = true;
 				data['grand_total'] = total_amount;
+				data['payment'] = parseFloat(payment);
 				data['sales'] = sales;
 				data['sales_temp_id'] = $("#sales_temp_id").val();
 				$.ajax({

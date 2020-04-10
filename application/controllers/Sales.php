@@ -61,7 +61,8 @@ class Sales extends CI_Controller {
 				'id' => $id,
 				'ref_no' => $ref_no,
 				'branch_id' => $this->session->userdata('branch_id'),
-				'grand_total' => $this->input->post('grand_total')
+				'grand_total' => $this->input->post('grand_total'),
+				'payment' => $this->input->post('payment')
 			);
 
 			$insert_id = $this->sales_model->insert($sales);
@@ -162,6 +163,7 @@ class Sales extends CI_Controller {
 		        $r['CREATED_DT'],
 		        $r['REF_NO'],
 		        $r['GRAND_TOTAL'],
+		        $r['PAYMENT'],
 		        $r['CREATED_BY']
 		   );
 		}

@@ -48,6 +48,7 @@ class Sales_Model extends CI_Model {
 			"SALES.ref_no as REF_NO, ". 
 			"SALES.CREATED_DT as CREATED_DT, ". 
 			"SALES.GRAND_TOTAL as GRAND_TOTAL, ". 
+			"SALES.PAYMENT as PAYMENT, ".
 			"concat(USERS.FIRST_NAME, ' ', USERS.LAST_NAME) as CREATED_BY ". 
 			"from SALES, BRANCHES, USERS  where USERS.USERNAME=sales.CREATED_BY and BRANCHES.id=sales.BRANCH_ID ";
 
