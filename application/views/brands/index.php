@@ -103,7 +103,7 @@
 						    type : 'GET'
 						},
 						"columnDefs": [
-							{"targets": -1, "data": null, "defaultContent": "<a class=\'action-delete btn btn-xs btn-danger\' data-mode=\'modal\'><i class=\'glyphicon glyphicon-trash\'></i></a>"},
+							{"targets": -1, "data": null, "defaultContent": "<a class=\'action-delete\' data-mode=\'modal\' title=\'Delete\'><i class=\'glyphicon glyphicon-trash\'></i></a>"},
 							{"targets": [ 0 ], "visible": false, "searchable": false}
 						]
 				});
