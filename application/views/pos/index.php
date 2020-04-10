@@ -138,13 +138,11 @@
 										<div class="col-md-4 text-right">
 											<div>Reference No.:</div>
 											<div>Date: <span></span></div>
-											<div>Time:</div>
 											<div>Cashier:</div>
 										</div>
 										<div class="col-md-8 text-left">
 											<div id="r-id">005250</div>
 											<div id="r-date">01/26/2020</div>
-											<div id="r-time">03:22 pm</div> 
 											<div id="r-cashier">Cashier</div>
 										</div>
 									</div>
@@ -154,8 +152,8 @@
 									<table class="table table-striped" id="r-items-table">
 										<thead>
 											<tr> 
-												<th>Item Name</th>
-												<th class="text-right">Price</th>
+												<th>Item</th>
+												<th class="text-right">Unit Price</th>
 												<th class="text-right">Quantity</th>
 												<th class="text-right">Sub Total</th>
 											</tr>

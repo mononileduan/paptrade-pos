@@ -42,13 +42,11 @@
 									<div class="col-sm-4 col-md-4 text-right">
 										<div><label>Reference No.:</label></div>
 										<div><label>Date:</label></div>
-										<div><label>Time:</label></div>
 										<div><label>Cashier:</label></div>
 									</div>
 									<div class="col-sm-8 col-md-8 text-left">
 										<div class="dataview-val"><span><?= $hdr['REF_NO']; ?></span></div>
-										<div class="dataview-val"><span><?= date('m/d/Y', strtotime($hdr['CREATED_DT'])); ?></span></div>
-										<div class="dataview-val"><span><?= date('h:i:s A', strtotime($hdr['CREATED_DT'])); ?></span></div> 
+										<div class="dataview-val"><span><?= $hdr['CREATED_DT']; ?></span></div>
 										<div class="dataview-val"><span><?= $hdr['CREATED_BY']; ?></span></div>
 									</div>
 								</div>
@@ -126,13 +124,11 @@
 										<div class="col-md-4 text-right">
 											<div>Reference No.:</div>
 											<div>Date: <span></span></div>
-											<div>Time:</div>
 											<div>Cashier:</div>
 										</div>
 										<div class="col-md-8 text-left">
 											<div id="r-id"><?= $hdr['REF_NO']; ?></div>
-											<div id="r-date"><?= date('m/d/Y', strtotime($hdr['CREATED_DT'])); ?></div>
-											<div id="r-time"><?= date('h:i:s A', strtotime($hdr['CREATED_DT'])); ?></div> 
+											<div id="r-date"><?= $hdr['CREATED_DT']; ?></div>
 											<div id="r-cashier"><?= $hdr['CREATED_BY']; ?></div>
 										</div>
 									</div>

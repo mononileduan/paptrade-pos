@@ -111,7 +111,14 @@ class Sales extends CI_Controller {
 					$deleted = $this->sales_on_hold_model->delete(array('id' => $this->input->post('sales_on_hold_id')));
 				}
 
-				echo $ref_no;
+
+				$txn = $this->sales_model->getRowsJoin(array('conditions' => array('sales.id' => $id)))->row_array();
+				$response = array(
+					"ref_no" => $txn['REF_NO'],
+					"txn_dt" => $txn['CREATED_DT'],
+					"cashier" => $txn['CREATED_BY']
+				);
+				echo json_encode($response);
 				exit();
 
 			}else{
@@ -156,10 +163,10 @@ class Sales extends CI_Controller {
 		}
 
 		$output = array(
-		   "draw" => $draw,
-		     "recordsTotal" => $salesList->num_rows(),
-		     "recordsFiltered" => $salesList->num_rows(),
-		     "data" => $data
+			"draw" => $draw,
+			"recordsTotal" => $salesList->num_rows(),
+			"recordsFiltered" => $salesList->num_rows(),
+			"data" => $data
 		);
 		echo json_encode($output);
 		exit();
@@ -186,7 +193,7 @@ class Sales extends CI_Controller {
     		$data['dtl'] = $this->sales_dtls_model->getRowsJoin($con);
 
 			$this->load->view('sales/details', $data);
-			
+
     	}else{
 			redirect('users/login');
 		}

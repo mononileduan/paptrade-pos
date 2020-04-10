@@ -243,7 +243,8 @@ $(document).ready(function() {
 						$("#btn").button('loading');
 					},
 					success : function(data) {
-						if(data != ''){
+						var obj = JSON.parse(data);
+						if(obj['ref_no'] != null && obj['ref_no'] != ''){
 							transactionComplete = true;
 			 				var total = parseFloat(total_amount);
 			 			 	var d = new Date();
@@ -257,10 +258,10 @@ $(document).ready(function() {
 							//Fill In Receipt 
 							$("#r-payment").text( formatCurrencyVal(payment));
 							$("#r-change").text( formatCurrencyVal(change.substring(1)));
-							$("#r-cashier").text(user); 
+							$("#r-cashier").text(obj['cashier']); 
 							$("#r-total-amount").text( formatCurrencyVal(total_amount))
-							$("#r-id").text(data);
-							$("#r-time").text(d.toLocaleTimeString());
+							$("#r-id").text(obj['ref_no']);
+							$("#r-date").text(obj['txn_dt']);
 
 						 	$("#cart tbody").empty();
 						 	$("#payment").val('');
