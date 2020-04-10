@@ -127,7 +127,7 @@
 					<table class="table">
 						<tr>
 							<td>
-								<span class="glyphicon glyphicon-usd"></span><a href="">&nbsp;Sales</a>
+								<span class="glyphicon glyphicon-usd"></span><a href="<?= site_url('/sales') ?>">&nbsp;Sales</a>
 							</td>
 						</tr>
 					</table>

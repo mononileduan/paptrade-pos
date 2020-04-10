@@ -62,3 +62,27 @@ Content
 .row-pad {
     height: 20px;
 }
+
+table.dataTable th.dt-right,
+table.dataTable td.dt-right {
+  text-align: right;
+}
+
+.dataTables_wrapper .dataTables_length {
+	float: left;
+	margin-right:20px;
+}
+
+.dataTables_wrapper .dataTables_filter {
+	float: right;
+}
+
+.dataTables_wrapper .dataTables_info {
+	clear: both;
+    float: left;
+}
+
+.dataTables_wrapper .dataTables_paginate {
+    float: right;
+    padding-top: 0.25em;
+}

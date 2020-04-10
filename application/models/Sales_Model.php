@@ -43,6 +43,7 @@ class Sales_Model extends CI_Model {
 
 	public function getRowsJoin($params = array()){
 		$sql = "SELECT ". 
+			"SALES.ID as ID, ".
 			"BRANCHES.BRANCH_NAME as BRANCH, ". 
 			"SALES.ref_no as REF_NO, ". 
 			"SALES.CREATED_DT as CREATED_DT, ". 

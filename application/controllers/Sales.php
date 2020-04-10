@@ -18,7 +18,7 @@ class Sales extends CI_Controller {
 
 	public function index(){
 		if($this->isLoggedIn){
-			redirect('sales/view');
+			$this->load->view('sales/index');
 		}else{
 			redirect('users/login');
 		}
@@ -137,7 +137,7 @@ class Sales extends CI_Controller {
 	}
 
 
-	public function sales_page(){
+	public function list(){
 		// Datatables Variables
 		$draw = intval($this->input->get("draw"));
 		$start = intval($this->input->get("start"));
@@ -157,8 +157,10 @@ class Sales extends CI_Controller {
 		foreach($salesList->result_array() as $r) {
 
 		   $data[] = array(
-		        $r['REF_NO'],
+		        $r['ID'],
+		        $r['BRANCH'],
 		        $r['CREATED_DT'],
+		        $r['REF_NO'],
 		        $r['GRAND_TOTAL'],
 		        $r['CREATED_BY']
 		   );
