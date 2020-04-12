@@ -3,6 +3,7 @@ CREATE TABLE BRANCHES (
 	VERSION int(11) not null default 0,
 	DEL boolean not null default false,
 	BRANCH_NAME varchar(100) not null,
+	ADDRESS varchar(255) not null,
 	CREATED_BY varchar(50) not null,
 	CREATED_DT timestamp not null default current_timestamp(),
 	UPDATED_BY varchar(50),
@@ -29,51 +30,10 @@ CREATE TABLE USERS (
 	UPDATED_BY varchar(50),
 	UPDATED_DT timestamp null,
 	CONSTRAINT USERS_ID_uk UNIQUE KEY (ID),
+	CONSTRAINT USERS_USERNAME_uk UNIQUE KEY (USERNAME),
 	CONSTRAINT USERS_BRANCH_ID_fk FOREIGN KEY (BRANCH_ID) REFERENCES BRANCHES (ID)
 );
 
-
-CREATE TABLE SUPPLIERS (
-	ID varchar(50) not null,
-	VERSION int(11) not null default 0,
-	DEL boolean not null default false,
-	SUPPLIER_NAME varchar(100) not null,
-	CONTACT_PERSON varchar(100) not null,
-	ADDRESS varchar(255) not null,
-	CONTACT_NO varchar(50) not null,
-	EMAIL varchar(50) not null,
-	WEBSITE varchar(100) not null,
-	NOTES varchar(255) null,
-	CREATED_BY varchar(50) not null,
-	CREATED_DT timestamp not null default current_timestamp(),
-	UPDATED_BY varchar(50) null,
-	UPDATED_DT timestamp null,
-	CONSTRAINT SUPPLIERS_ID_uk UNIQUE KEY (ID)
-);
-
-CREATE TABLE UNIT_TYPES (
-	ID varchar(50) not null,
-	VERSION int(11) not null default 0,
-	DEL boolean not null default false,
-	UNIT_TYPE varchar (50) not null,
-	CREATED_BY varchar(50) not null,
-	CREATED_DT timestamp not null default current_timestamp(),
-	UPDATED_BY varchar(50) null,
-	UPDATED_DT timestamp null,
-	CONSTRAINT UNITS_OF_MEASURE_ID_uk UNIQUE KEY (ID)
-);
-
-CREATE TABLE CATEGORIES (
-	ID varchar(50) not null,
-	VERSION int(11) not null default 0,
-	DEL boolean not null default false,
-	CATEGORY varchar (50) not null,
-	CREATED_BY varchar(50) not null,
-	CREATED_DT timestamp not null default current_timestamp(),
-	UPDATED_BY varchar(50) null,
-	UPDATED_DT timestamp null,
-	CONSTRAINT CATEGORIES_ID_uk UNIQUE KEY (ID)
-);
 
 CREATE TABLE BRANDS (
 	ID varchar(50) not null,
@@ -84,91 +44,145 @@ CREATE TABLE BRANDS (
 	CREATED_DT timestamp not null default current_timestamp(),
 	UPDATED_BY varchar(50) null,
 	UPDATED_DT timestamp null,
-	CONSTRAINT BRANDS_ID_uk UNIQUE KEY (ID)
+	CONSTRAINT BRANDS_ID_uk UNIQUE KEY (ID),
+	CONSTRAINT BRANDS_BRAND_uk UNIQUE KEY (BRAND)
 );
 
-CREATE TABLE MODELS (
+
+CREATE TABLE CATEGORIES (
+	ID varchar(50) not null,
+	VERSION int(11) not null default 0,
+	DEL boolean not null default false,
+	CATEGORY varchar (50) not null,
+	CREATED_BY varchar(50) not null,
+	CREATED_DT timestamp not null default current_timestamp(),
+	UPDATED_BY varchar(50) null,
+	UPDATED_DT timestamp null,
+	CONSTRAINT CATEGORIES_ID_uk UNIQUE KEY (ID),
+	CONSTRAINT CATEGORIES_CATEGORY_uk UNIQUE KEY (CATEGORY)
+);
+
+
+CREATE TABLE STOCK_TYPES (
+	ID varchar(50) not null,
+	VERSION int(11) not null default 0,
+	DEL boolean not null default false,
+	STOCK_TYPE varchar(50) not null,
+	CREATED_BY varchar(50) not null,
+	CREATED_DT timestamp not null default current_timestamp(),
+	UPDATED_BY varchar(50) null,
+	UPDATED_DT timestamp null,
+	CONSTRAINT STOCK_TYPES_ID_uk UNIQUE KEY (ID),
+	CONSTRAINT STOCK_TYPES_STOCK_TYPE_uk UNIQUE KEY (STOCK_TYPE)
+);
+
+
+CREATE TABLE ITEMS (
 	ID varchar(50) not null,
 	VERSION int(11) not null default 0,
 	DEL boolean not null default false,
 	BRAND_ID varchar (50) not null,
-	MODEL varchar (50) not null,
+	DSCP varchar (50) not null,
 	CATEGORY_ID varchar (50) not null,
+	PRICE decimal(10,2) not null,
+	CRITICAL_QTY int(11) not null,
+	STOCK_TYPE_ID varchar(50) not null,
+	STOCK_TYPE_CONTENT int(11) not null,
 	CREATED_BY varchar(50) not null,
 	CREATED_DT timestamp not null default current_timestamp(),
 	UPDATED_BY varchar(50) null,
 	UPDATED_DT timestamp null,
-	CONSTRAINT MODELS_ID_uk UNIQUE KEY (ID),
-	CONSTRAINT MODELS_BRAND_ID_fk FOREIGN KEY (BRAND_ID) REFERENCES BRANDS (ID),
-	CONSTRAINT MODELS_CATEGORY_ID_fk FOREIGN KEY (CATEGORY_ID) REFERENCES CATEGORIES (ID)
+	CONSTRAINT ITEMS_ID_uk UNIQUE KEY (ID),
+	CONSTRAINT ITEMS_BRAND_ID_DSCP_uk UNIQUE KEY (BRAND_ID, DSCP),
+	CONSTRAINT ITEMS_BRAND_ID_fk FOREIGN KEY (BRAND_ID) REFERENCES BRANDS (ID),
+	CONSTRAINT ITEMS_CATEGORY_ID_fk FOREIGN KEY (CATEGORY_ID) REFERENCES CATEGORIES (ID),
+	CONSTRAINT ITEMS_STOCK_TYPE_ID_fk FOREIGN KEY (STOCK_TYPE_ID) REFERENCES STOCK_TYPES (ID)
 );
 
-CREATE TABLE INVENTORIES (
+
+CREATE TABLE WAREHOUSE_INVENTORY (
 	ID varchar(50) not null,
 	VERSION int(11) not null default 0,
 	DEL boolean not null default false,
-	SKU varchar (50) not null,
-	ITEM_ID varchar (50) not null,
-	DSCP varchar (50) not null,
-	UNIT_TYPE varchar (50) not null,
-	QUANTITY int(11) not null,
-	BUYING_PRICE decimal(18,2) not null,
-	SELLING_PRICE decimal(18,2) not null,
-	PO_REF_NO varchar (50) null,
-	CREATED_BY varchar(50) not null,
-	CREATED_DT timestamp not null default current_timestamp(),
-	UPDATED_BY varchar(50) null,
-	UPDATED_DT timestamp null,
-	CONSTRAINT INVENTORIES_ID_uk UNIQUE KEY (ID),
-	CONSTRAINT INVENTORIES_ITEM_ID_fk FOREIGN KEY (ITEM_ID) REFERENCES MODELS (ID)
+	ITEM_ID varchar(50) not null,
+	CURRENT_QTY int(11) not null,
+	AVAILABLE_QTY int(11) not null,
+	CRITICAL_QTY int(11) not null,
+	CONSTRAINT WAREHOUSE_INVENTORY_ID_uk UNIQUE KEY (ID),
+	CONSTRAINT WAREHOUSE_INVENTORY_ITEM_ID_uk UNIQUE KEY (ITEM_ID),
+	CONSTRAINT WAREHOUSE_INVENTORY_ITEM_ID_fk FOREIGN KEY (ITEM_ID) REFERENCES ITEMS (ID)
 );
 
-CREATE TABLE INVENTORIES_BRANCH (
+
+CREATE TABLE WAREHOUSE_INVENTORY_HIST (
+	ID varchar(50) not null,
+	VERSION int(11) not null default 0,
+	DEL boolean not null default false,
+	INVENTORY_ID varchar(50) not null,
+	ITEM varchar(255) not null,
+	QTY int(11) not null,
+	QTY_RUNNING int(11) not null,
+	MOVEMENT varchar(10) not null,
+	UPDATED_BY varchar(50) not null,
+	UPDATED_DT timestamp not null default current_timestamp(),
+	REMARKS varchar(100) null,
+	CONSTRAINT WAREHOUSE_INVENTORY_HIST_ID_uk UNIQUE KEY (ID),
+	CONSTRAINT WAREHOUSE_INVENTORY_HIST_INVENTORY_ID_fk FOREIGN KEY (INVENTORY_ID) REFERENCES WAREHOUSE_INVENTORY (ID)
+);
+
+
+CREATE TABLE BRANCH_INVENTORY (
 	ID varchar(50) not null,
 	VERSION int(11) not null default 0,
 	DEL boolean not null default false,
 	BRANCH_ID varchar (50) not null,
-	INVENTORY_ID varchar (50) not null,
-	ITEM_ID varchar (50) not null,
-	QUANTITY int(11) not null,
-	SELLING_PRICE decimal(18,2) not null,
-	CREATED_BY varchar(50) not null,
-	CREATED_DT timestamp not null default current_timestamp(),
-	UPDATED_BY varchar(50) null,
-	UPDATED_DT timestamp null,
-	CONSTRAINT INVENTORIES_BRANCH_ID_uk UNIQUE KEY (ID)
+	ITEM_ID varchar(50) not null,
+	QTY int(11) not null,
+	CRITICAL_QTY int(11) not null,
+	CONSTRAINT BRANCH_INVENTORY_ID_uk UNIQUE KEY (ID),
+	CONSTRAINT BRANCH_INVENTORY_BRANCH_ID_ITEM_ID_uk UNIQUE KEY (BRANCH_ID, ITEM_ID),
+	CONSTRAINT BRANCH_INVENTORY_BRANCH_ID_fk FOREIGN KEY (BRANCH_ID) REFERENCES BRANCHES (ID),
+	CONSTRAINT BRANCH_INVENTORY_ITEM_ID_fk FOREIGN KEY (ITEM_ID) REFERENCES ITEMS (ID)
 );
 
-CREATE TABLE PURCHASE_ORDERS (
+
+CREATE TABLE BRANCH_INVENTORY_HIST (
 	ID varchar(50) not null,
 	VERSION int(11) not null default 0,
 	DEL boolean not null default false,
-	REF_NO varchar(50) not null,
-	STATUS varchar(10) not null,
-	ORDERED_DT datetime not null,
-	EXPECTED_DT datetime not null,
-	ORDERED_BY varchar(50) not null,
-	SUPPLIER_ID varchar(50) not null,
-	NOTES varchar(255) null,
-	CREATED_BY varchar(50) not null,
-	CREATED_DT timestamp not null default current_timestamp(),
-	UPDATED_BY varchar(50) null,
-	UPDATED_DT timestamp null,
-	CONSTRAINT PURCHASE_ORDERS_ID_uk UNIQUE KEY (ID),
-	CONSTRAINT PURCHASE_ORDERS_SUPPLIER_ID_fk FOREIGN KEY (SUPPLIER_ID) REFERENCES SUPPLIERS (ID)
+	BRANCH_ID varchar (50) not null,
+	INVENTORY_ID varchar(50) not null,
+	ITEM varchar(255) not null,
+	QTY int(11) not null,
+	QTY_RUNNING int(11) not null,
+	MOVEMENT varchar(10) not null,
+	UPDATED_BY varchar(50) not null,
+	UPDATED_DT timestamp not null default current_timestamp(),
+	REMARKS varchar(100) null,
+	CONSTRAINT BRANCH_INVENTORY_HIST_ID_uk UNIQUE KEY (ID),
+	CONSTRAINT BRANCH_INVENTORY_HIST_BRANCH_ID_fk FOREIGN KEY (BRANCH_ID) REFERENCES BRANCHES (ID),
+	CONSTRAINT BRANCH_INVENTORY_HIST_INVENTORY_ID_fk FOREIGN KEY (INVENTORY_ID) REFERENCES BRANCH_INVENTORY (ID)
 );
 
-CREATE TABLE PURCHASE_ORDERS_DTL (
+
+CREATE TABLE SUPPLY_REQUESTS (
 	ID varchar(50) not null,
 	VERSION int(11) not null default 0,
 	DEL boolean not null default false,
-	PURCHASE_ORDER_ID varchar(50) not null,
-	MODEL_ID varchar(50) not null,
-	QUANTITY int(11) not null,
-	UNIT_PRICE decimal(18,2) not null,
-	CONSTRAINT PURCHASE_ORDERS_DTL_ID_uk UNIQUE KEY (ID),
-	CONSTRAINT PURCHASE_ORDERS_DTL_PURCHASE_ORDER_ID_fk FOREIGN KEY (PURCHASE_ORDER_ID) REFERENCES PURCHASE_ORDERS (ID),
-	CONSTRAINT PURCHASE_ORDERS_DTL_MODEL_ID_fk FOREIGN KEY (MODEL_ID) REFERENCES MODELS (ID)
+	ITEM_ID varchar(50) not null,
+	QTY int(11) not null,
+	BRANCH_ID varchar (50) not null,
+	REQUESTED_BY varchar(50) not null,
+	REQUESTED_DT timestamp not null default current_timestamp(),
+	STATUS varchar(20) not null,
+	PROCESSED_BY varchar(50) null,
+	PROCESSED_DT timestamp null,
+	APPROVED_QTY int(11) null,
+	RECEIVED_BY varchar(50) null,
+	RECEIVED_DT timestamp null,
+	CONSTRAINT SUPPLY_REQUESTS_ID_uk UNIQUE KEY (ID),
+	CONSTRAINT SUPPLY_REQUESTS_ITEM_ID_fk FOREIGN KEY (ITEM_ID) REFERENCES ITEMS (ID),
+	CONSTRAINT SUPPLY_REQUESTS_BRANCH_ID_fk FOREIGN KEY (BRANCH_ID) REFERENCES BRANCHES (ID)
 );
 
 
@@ -179,10 +193,12 @@ CREATE TABLE SALES (
 	BRANCH_ID varchar (50) not null,
 	REF_NO varchar (50) not null,
 	GRAND_TOTAL decimal(18,2) not null,
+	PAYMENT decimal(18,2) not null,
 	CREATED_BY varchar(50) not null,
 	CREATED_DT timestamp not null default current_timestamp(),
 	CONSTRAINT SALES_ID_uk UNIQUE KEY (ID),
-	CONSTRAINT SALES_BRANCH_ID_fk FOREIGN KEY (BRANCH_ID) REFERENCES BRANCH (ID)
+	CONSTRAINT SALES_REF_NO_uk UNIQUE KEY (REF_NO),
+	CONSTRAINT SALES_BRANCH_ID_fk FOREIGN KEY (BRANCH_ID) REFERENCES BRANCHES (ID)
 );
 
 
@@ -191,56 +207,39 @@ CREATE TABLE SALES_DTLS (
 	VERSION int(11) not null default 0,
 	DEL boolean not null default false,
 	SALES_ID varchar (50) not null,
-	INVENTORIES_BRANCH_ID varchar (50) not null,
+	BRANCH_INVENTORY_ID varchar (50) not null,
 	UNIT_PRICE decimal(18,2) not null,
 	QUANTITY int(11) not null,
 	CONSTRAINT SALES_DTLS_ID_uk UNIQUE KEY (ID),
 	CONSTRAINT SALES_DTLS_SALES_ID_fk FOREIGN KEY (SALES_ID) REFERENCES SALES (ID),
-	CONSTRAINT SALES_DTLS_INV_BRANCH_ID_fk FOREIGN KEY (INVENTORIES_BRANCH_ID) REFERENCES INVENTORIES_BRANCH (ID)
+	CONSTRAINT SALES_DTLS_BRANCH_INVENTORY_ID_fk FOREIGN KEY (BRANCH_INVENTORY_ID) REFERENCES BRANCH_INVENTORY (ID)
 );
 
 
-CREATE TABLE SALES_ON_HOLD (
+
+CREATE TABLE SALES_TEMP (
 	ID varchar(50) not null,
 	VERSION int(11) not null default 0,
 	DEL boolean not null default false,
 	BRANCH_ID varchar (50) not null,
 	CUST_NAME varchar (50) not null,
-	GRAND_TOTAL decimal(18,2) not null,
+	ITEM_CNT int(11) not null,
 	CREATED_BY varchar(50) not null,
 	CREATED_DT timestamp not null default current_timestamp(),
-	CONSTRAINT SALES_ON_HOLD_ID_uk UNIQUE KEY (ID),
-	CONSTRAINT SALES_ON_HOLD_BRANCH_ID_fk FOREIGN KEY (BRANCH_ID) REFERENCES BRANCH (ID)
+	CONSTRAINT SALES_TEMP_ID_uk UNIQUE KEY (ID),
+	CONSTRAINT SALES_TEMP_BRANCH_ID_fk FOREIGN KEY (BRANCH_ID) REFERENCES BRANCHES (ID)
 );
 
 
-CREATE TABLE SALES_ON_HOLD_DTLS (
+CREATE TABLE SALES_TEMP_DTLS (
 	ID varchar(50) not null,
 	VERSION int(11) not null default 0,
 	DEL boolean not null default false,
-	SALES_ON_HOLD_ID varchar (50) not null,
-	INVENTORY_ID varchar (50) not null,
-	ITEM_NAME varchar (50) not null,
-	UNIT_PRICE decimal(18,2) not null,
+	SALES_TEMP_ID varchar (50) not null,
+	BRANCH_INVENTORY_ID varchar (50) not null,
 	QUANTITY int(11) not null,
-	SUB_TOTAL decimal(18,2) not null,
-	CONSTRAINT SALES_ON_HOLD_DTLS_ID_uk UNIQUE KEY (ID),
-	CONSTRAINT SALES_ON_HOLD_DTLS_SALES_ON_HOLD_ID_fk FOREIGN KEY (SALES_ON_HOLD_ID) REFERENCES SALES_ON_HOLD (ID)
+	CONSTRAINT SALES_TEMP_DTLS_ID_uk UNIQUE KEY (ID),
+	CONSTRAINT SALES_TEMP_DTLS_SALES_TEMP_ID_fk FOREIGN KEY (SALES_TEMP_ID) REFERENCES SALES_TEMP (ID),
+	CONSTRAINT SALES_TEMP_DTLS_BRANCH_INVENTORY_ID_fk FOREIGN KEY (BRANCH_INVENTORY_ID) REFERENCES BRANCH_INVENTORY (ID)
 );
 
-CREATE TABLE BRANCH_SUPPLY_REQUESTS (
-	ID varchar(50) not null,
-	VERSION int(11) not null default 0,
-	DEL boolean not null default false,
-	BRANCH_ID varchar (50) not null,
-	ITEM_ID varchar (50) not null,
-	DSCP varchar (100) not null,
-	QUANTITY int(11) not null,
-	STATUS varchar(10) not null,
-	CREATED_BY varchar(50) not null,
-	CREATED_DT timestamp not null default current_timestamp(),
-	UPDATED_BY varchar(50) null,
-	UPDATED_DT timestamp null,
-	CONSTRAINT BRANCH_SUPPLY_REQUESTS_ID_uk UNIQUE KEY (ID),
-	CONSTRAINT BRANCH_SUPPLY_REQUESTS_BRANCH_ID_fk FOREIGN KEY (BRANCH_ID) REFERENCES BRANCHES (ID)
-);
