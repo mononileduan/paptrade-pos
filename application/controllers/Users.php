@@ -14,7 +14,7 @@ class Users extends CI_Controller {
 	}
 
 	public function index(){
-		if($this->isLoggedIn){
+		if($this->isLoggedIn && $this->session->userdata('status') == 'Active'){
 			$data = array();
 
 			if($this->session->userdata('success_msg')){
@@ -172,7 +172,6 @@ class Users extends CI_Controller {
 						if(password_verify($this->input->post('password'), $checkLogin['PASSWORD'])){
 							$loginUpdt = array(
 								'retry_cnt' => 0,
-								'status' => 'Active',
 								'last_login_dt' => date("Y-m-d H:i:s")
 							);
 							$this->user->update($checkLogin['ID'], $loginUpdt);
@@ -183,6 +182,7 @@ class Users extends CI_Controller {
 							$this->session->set_userdata('branch', $checkLogin['BRANCH_NAME']);
 							$this->session->set_userdata('last_login_dt', $checkLogin['LAST_LOGIN_DT']);
 							$this->session->set_userdata('user_role', $checkLogin['ROLE']);
+							$this->session->set_userdata('status', $checkLogin['STATUS']);
 							if($checkLogin['ROLE'] == 'CASHIER'){
 								$this->session->set_userdata('user_role_dscp', 'Cashier');
 							}else if($checkLogin['ROLE'] == 'SYS_ADMIN'){
@@ -195,7 +195,11 @@ class Users extends CI_Controller {
 							if($checkLogin['ROLE'] == 'Cashier'){
 								redirect('pos/dashboard');
 							}else{
-								redirect('users/dashboard');
+								if($checkLogin['STATUS'] !== 'Active'){
+									redirect('users/chpass');
+								}else{
+									redirect('users/dashboard');
+								}
 							}
 						}else{
 							$data['error_msg'] = 'Invalid login.';
@@ -227,8 +231,23 @@ class Users extends CI_Controller {
 	}
 
 	public function dashboard(){
-		$data = array();
-		$this->load->view('dashboard/dashboard');
+		if($this->isLoggedIn && $this->session->userdata('status') == 'Active'){
+			$data = array();
+
+			if($this->session->userdata('success_msg')){
+				$data['success_msg'] = $this->session->userdata('success_msg');
+				$this->session->unset_userdata('success_msg');
+			}
+			if($this->session->userdata('error_msg')){
+				$data['error_msg'] = $this->session->userdata('error_msg');
+				$this->session->unset_userdata('error_msg');
+			}
+
+			$this->load->view('dashboard/dashboard', $data);
+
+		}else{
+			redirect('users/login');
+		}
 	}
 
 	public function logout(){
@@ -238,50 +257,141 @@ class Users extends CI_Controller {
 		redirect('users/login/');
 	}
 
-
 	public function list(){
-		// Datatables Variables
-		$draw = intval($this->input->get("draw"));
-		$start = intval($this->input->get("start"));
-		$length = intval($this->input->get("length"));
+		if($this->isLoggedIn && $this->session->userdata('status') == 'Active'){
+			// Datatables Variables
+			$draw = intval($this->input->get("draw"));
+			$start = intval($this->input->get("start"));
+			$length = intval($this->input->get("length"));
 
-		$con = array(
-			'returnType' => 'list',
-			'conditions' => array(
-				'u.del' => false
-			)
-		);
+			$con = array(
+				'returnType' => 'list',
+				'conditions' => array(
+					'u.del' => false
+				)
+			);
 
-		if($this->session->userdata('user_role') == 'Branch Administrator'){
-			$con['conditions']['branch_id'] = $this->session->userdata('branch_id');
+			if($this->session->userdata('user_role') == 'Branch Administrator'){
+				$con['conditions']['branch_id'] = $this->session->userdata('branch_id');
+			}
+
+			$user = $this->user->getRowsJoin($con);
+
+			$data = array();
+			
+			foreach($user->result_array() as $r) {
+
+			   $data[] = array(
+			        $r['ID'],
+			        $r['BRANCH_ID'],
+			        $r['LAST_NAME'],
+			        $r['FIRST_NAME'],
+			        $r['BRANCH_NAME'],
+			        $r['ROLE'],
+			        $r['STATUS'],
+			        $r['USERNAME'],
+			        $r['LAST_LOGIN_DT']
+			   );
+			}
+
+			$output = array(
+			   "draw" => $draw,
+			     "recordsTotal" => $user->num_rows(),
+			     "recordsFiltered" => $user->num_rows(),
+			     "data" => $data
+			);
+			echo json_encode($output);
+			exit();
 		}
+    }
 
-		$user = $this->user->getRowsJoin($con);
+	public function chpass(){
+		if($this->isLoggedIn){
+			$data = array();
 
-		$data = array();
-		
-		foreach($user->result_array() as $r) {
+			if($this->session->userdata('success_msg')){
+				$data['success_msg'] = $this->session->userdata('success_msg');
+				$this->session->unset_userdata('success_msg');
+			}
+			if($this->session->userdata('error_msg')){
+				$data['error_msg'] = $this->session->userdata('error_msg');
+				$this->session->unset_userdata('error_msg');
+			}
 
-		   $data[] = array(
-		        $r['ID'],
-		        $r['BRANCH_ID'],
-		        $r['LAST_NAME'],
-		        $r['FIRST_NAME'],
-		        $r['BRANCH_NAME'],
-		        $r['ROLE'],
-		        $r['STATUS'],
-		        $r['USERNAME'],
-		        $r['LAST_LOGIN_DT']
-		   );
+			if($this->input->post('submit')){
+				$this->form_validation->set_rules('old_password', 'Old Password', 'required|trim');
+				$this->form_validation->set_rules('new_password', 'New Password', 'required|trim');
+				$this->form_validation->set_rules('confirm_password', 'Confirm Password', 'required|trim');
+
+				if($this->form_validation->run() == true){
+					if($this->input->post('new_password') != $this->input->post('confirm_password')){
+						$data['error_msg'] = 'New Password does not match Confirm Password';
+					}else{
+						$con = array(
+							'returnType' => 'single',
+							'conditions' => array(
+								'del' 	=> false,
+								'username'	=> $this->session->userdata('username')
+							)
+						);
+						$user = $this->user->getRows($con);
+						if(password_verify($this->input->post('old_password'), $user['PASSWORD'])){
+							$userUpdt = array(
+								'retry_cnt' => 0,
+								'status' => 'Active',
+								'password' => password_hash($this->input->post('new_password'), PASSWORD_DEFAULT)
+							);
+							$this->user->update($user['ID'], $userUpdt);
+
+							$this->session->set_flashdata('success_msg', 'Password successfully updated!');
+							if($this->session->userdata('status') !== 'Active'){
+								$this->session->set_userdata('status', 'Active');
+								redirect('users/dashboard');
+							}else{
+								redirect(current_url());
+							}
+
+						}else{
+							$status = $user['STATUS'];
+							$retry_cnt = $user['RETRY_CNT'];
+							$retry_cnt += 1;
+							if($retry_cnt >= $this->LOGIN_MAX_RETRY){
+								$status = 'Locked';
+								$retry_cnt = 0;
+								$data['error_msg'] = 'You are locked due to multiple invalid password retries.';
+							}else if($retry_cnt == $this->LOGIN_MAX_RETRY-1){
+								$data['error_msg'] = 'Invalid password. You will be locked after 1 more invalid retry.';
+							}else{
+								$max_retry = $this->LOGIN_MAX_RETRY;
+								$allowed = $max_retry - $retry_cnt;
+								$data['error_msg'] = 'Invalid password. You will be locked after '. $allowed .' more invalid retries.';
+							}
+							$userUpdt = array(
+								'retry_cnt' => $retry_cnt,
+								'status' => $status
+							);
+							$this->user->update($user['ID'], $userUpdt);
+
+							$this->session->set_flashdata('error_msg', $data['error_msg']);
+							redirect(current_url());
+						}
+					}
+
+				}else{
+					$data['error_msg'] = 'Please fill all required fields.';
+				}
+
+			}
+			
+			if($this->session->userdata('status') !== 'Active'){
+				$this->load->view('users/chpass_nomenu', $data);
+			}else{
+				$this->load->view('users/chpass', $data);
+			}
+			
+
+		}else{
+			redirect('users/login');
 		}
-
-		$output = array(
-		   "draw" => $draw,
-		     "recordsTotal" => $user->num_rows(),
-		     "recordsFiltered" => $user->num_rows(),
-		     "data" => $data
-		);
-		echo json_encode($output);
-		exit();
-     }
+	}
 }

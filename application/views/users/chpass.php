@@ -9,6 +9,7 @@
 		<link rel="shortcut icon" type="image/x-icon" href="assets/images/paptrade-icon.png" />
 
 	 	<link rel="stylesheet" type="text/css" href="assets/bootstrap/3.4.1/css/bootstrap.css">
+	 	<link rel="stylesheet" type="text/css" href="assets/datatables/datatables.min.css"/>
 	    <link rel="stylesheet" type="text/css" href="assets/materialicons/material-icons.css">
 	 	<link rel="stylesheet" type="text/css" href="assets/css/styles.css">
 		
@@ -26,16 +27,57 @@
 			        <?php $this->load->view('components/menu'); ?>
 
 			        <div class="col-sm-10 col-md-10" id="page-content">
-			            <h2 class="page-header">Dashboard</h2>
+			            <h2 class="page-header">Change Password</h2>
+	
+						<div class="row-pad"></div>
+
+			            <div class="row">
+							<div class="col-md-12">
+								<div class="container">
+									<form action="" method="post" accept-charset="utf-8" class="form-horizontal">
+										<div class="form-group">
+											<label class="control-label col-sm-2" for='old_password'>Password</label>
+											<div class="col-sm-10">
+												<input required="required" type="password" name="old_password" class="form-control">
+												<?php echo form_error('old_password', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="control-label col-sm-2" for='new_password'>New Password</label>
+											<div class="col-sm-10">
+												<input required="required" type="password" name="new_password" class="form-control">
+												<?php echo form_error('new_password', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="control-label col-sm-2" for='confirm_password'>Confirm Password</label>
+											<div class="col-sm-10">
+												<input required="required" type="password" name="confirm_password" class="form-control">
+												<?php echo form_error('confirm_password', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<div class="col-sm-offset-2 col-sm-10">
+										    	<input type="submit" name="submit" class="btn btn-sm btn-success" value="Submit">
+										    </div>
+											
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
 			            
 			        </div>
 	    		</div>
 	    	</div>
 		</div>
 
+		
 		<?php $this->load->view('components/modals'); ?>
 
 		<script type="text/javascript" src="assets/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="assets/datatables/datatables.min.js"></script>
 
 		<script type="text/javascript">
 			$(document).ready(function() {

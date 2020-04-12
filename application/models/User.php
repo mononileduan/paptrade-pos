@@ -59,7 +59,8 @@ class User extends CI_Model {
 			"u.status as STATUS, ". 
 			"u.last_login_dt as LAST_LOGIN_DT, ".
 			"u.last_name as LAST_NAME, ".
-			"u.first_name as FIRST_NAME ".
+			"u.first_name as FIRST_NAME, ".
+			"u.retry_cnt as RETRY_CNT ".
 			"FROM USERS u, BRANCHES b ". 
 			"WHERE b.id=u.branch_id ";
 
