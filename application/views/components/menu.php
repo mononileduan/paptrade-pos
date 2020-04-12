@@ -173,7 +173,7 @@
 						</tr>
 						<tr>
 							<td>
-								<a href="">Logout</a>
+								<a href="<?= site_url('/users/logout') ?>">Logout</a>
 							</td>
 						</tr>
 					</table>
