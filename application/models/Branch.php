@@ -15,6 +15,12 @@ class Branch extends CI_Model {
 			}
 		}
 
+		if(array_key_exists("not_in", $params)){
+			foreach ($params['not_in'] as $key => $val) {
+				$this->db->where_not_in($key, $val);
+			}
+		}
+
 		if(array_key_exists("returnType", $params) && $params['returnType'] == 'count'){
 			$result = $this->db->count_all_results();
 		}else{
@@ -63,6 +69,18 @@ class Branch extends CI_Model {
 			$update = $this->db->update($this->table, $data);
 
 			return $update ? $this->db->affected_rows() : false;
+		}
+
+		return false;
+	}
+
+	public function delete($id = FALSE){
+		if($id){
+
+			$this->db->where('id', $id);
+			$delete = $this->db->delete($this->table);
+
+			return $delete ? $this->db->affected_rows() : false;
 		}
 
 		return false;

@@ -145,7 +145,7 @@
 					<table class="table">
 						<tr>
 							<td>
-								<a href="">Branch</a>
+								<a href="<?= site_url('/branches') ?>">Branch</a>
 							</td>
 						</tr>
 						<tr>
