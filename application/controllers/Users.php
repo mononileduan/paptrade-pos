@@ -69,7 +69,7 @@ class Users extends CI_Controller {
 								'username'		=> strtoupper($this->input->post('username')),
 								'password'		=> password_hash($this->input->post('password'), PASSWORD_DEFAULT),
 								'role'			=> $this->input->post('role'),
-								'status'		=> 'Active'
+								'status'		=> $this->config->item('USER_STATUS_ASSOC')['NEW'][0]
 								);
 							$this->user->insert($user);
 
@@ -132,6 +132,8 @@ class Users extends CI_Controller {
 			);
 
 			$data['branches'] = $this->branch->getRows($con);
+			$data['roles'] = $this->config->item('USER_ROLE');
+			$data['status'] = $this->config->item('USER_STATUS');
 			
 			$this->load->view('users/index', $data);
 

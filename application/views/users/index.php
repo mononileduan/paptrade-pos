@@ -98,11 +98,13 @@
 													<div class="col-sm-10">
 														<select required="required" name="role" class="form-control">
 															<option value=""></option>
-															<?php if($this->session->userdata('user_role') == 'System Administrator'){
-															echo '<option value="System Administrator">System Administrator</option>';
+															<?php foreach($roles as $r) {
+																if(set_value('role') === $r['0']){
+																	echo '<option value="'.$r[0].'" selected="selected">'.$r[1].'</option>';
+																}else{
+																	echo '<option value="'.$r[0].'">'.$r[1].'</option>';
+																}
 															}?>
-															<option value="Branch Administrator">Branch Administrator</option>
-															<option value="Cashier">Cashier</option>
 														</select>
 														<?php echo form_error('role', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
 													</div>
@@ -203,11 +205,13 @@
 								<div class="col-sm-9">
 									<select required="required" name="role" class="form-control">
 										<option value=""></option>
-										<?php if($this->session->userdata('user_role') == 'System Administrator'){
-											echo '<option value="System Administrator">System Administrator</option>';
+										<?php foreach($roles as $r) {
+											if(set_value('role') === $r['0']){
+												echo '<option value="'.$r[0].'" selected="selected">'.$r[1].'</option>';
+											}else{
+												echo '<option value="'.$r[0].'">'.$r[1].'</option>';
+											}
 										}?>
-										<option value="Branch Administrator">Branch Administrator</option>
-										<option value="Cashier">Cashier</option>
 									</select>
 									<?php echo form_error('role', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
 								</div>
@@ -217,8 +221,13 @@
 								<div class="col-sm-9">
 									<select required="required" name="status" class="form-control">
 										<option value=""></option>
-										<option value="Active">Active</option>
-										<option value="Blocked">Blocked</option>
+										<?php foreach($status as $r) {
+											if(set_value('status') === $r['0']){
+												echo '<option value="'.$r[0].'" selected="selected">'.$r[1].'</option>';
+											}else{
+												echo '<option value="'.$r[0].'">'.$r[1].'</option>';
+											}
+										}?>
 									</select>
 									<?php echo form_error('status', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
 								</div>
@@ -255,6 +264,24 @@
 						"columnDefs": [
 							{className: "dt-right", "targets": [] },
 							{render: $.fn.dataTable.render.number( ',', '.', 2, '' ), "targets": [] },
+							{"render": function ( data, type, row ) {
+				                	var status = <?php echo json_encode($status); ?>;
+				                	for(i=0; i<status.length; i++){
+				                		if(status[i][0] == data){
+				                			return status[i][1];
+				                		}
+				                	}
+				                },
+				                "targets": -4 },
+							{"render": function ( data, type, row ) {
+				                	var role = <?php echo json_encode($roles); ?>;
+				                	for(i=0; i<role.length; i++){
+				                		if(role[i][0] == data){
+				                			return role[i][1];
+				                		}
+				                	}
+				                },
+				                "targets": -5 },
 							{"targets": -1, "data": null, "defaultContent": 
 								"<a class=\'action-edit\' title=\'Edit\'><i class=\'glyphicon glyphicon-pencil\'></i></a>&nbsp; "},
 							{"targets": [ 0, 1 ], "visible": false, "searchable": false}
