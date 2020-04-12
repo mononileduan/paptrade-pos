@@ -150,7 +150,7 @@
 						</tr>
 						<tr>
 							<td>
-								<a href="">User</a>
+								<a href="<?= site_url('/users') ?>">User</a>
 							</td>
 						</tr>
 					</table>

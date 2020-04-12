@@ -16,6 +16,12 @@ class User extends CI_Model {
 			}
 		}
 
+		if(array_key_exists("not_in", $params)){
+			foreach ($params['not_in'] as $key => $val) {
+				$this->db->where_not_in($key, $val);
+			}
+		}
+
 		if(array_key_exists("returnType", $params) && $params['returnType'] == 'count'){
 			$result = $this->db->count_all_results();
 		}else{
