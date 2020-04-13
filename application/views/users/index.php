@@ -66,13 +66,7 @@
 																if(set_value('branch_id') === $r['ID']){
 																	echo '<option value="'.$r['ID'].'" selected="selected">'.$r['BRANCH_NAME'].'</option>';
 																}else{
-																	if($this->session->userdata('user_role') == 'Branch Administrator'){
-																		if($this->session->userdata('branch_id') === $r['ID']){
-																			echo '<option value="'.$r['ID'].'" selected="selected">'.$r['BRANCH_NAME'].'</option>';
-																		}
-																	}else{
-																		echo '<option value="'.$r['ID'].'">'.$r['BRANCH_NAME'].'</option>';
-																	}
+																	echo '<option value="'.$r['ID'].'">'.$r['BRANCH_NAME'].'</option>';
 																}
 															} ?>
 														</select>
@@ -187,13 +181,7 @@
 											if(set_value('branch_id') === $r['ID']){
 												echo '<option value="'.$r['ID'].'" selected="selected">'.$r['BRANCH_NAME'].'</option>';
 											}else{
-												if($this->session->userdata('user_role') == 'Branch Administrator'){
-													if($this->session->userdata('branch_id') === $r['ID']){
-														echo '<option value="'.$r['ID'].'" selected="selected">'.$r['BRANCH_NAME'].'</option>';
-													}
-												}else{
-													echo '<option value="'.$r['ID'].'">'.$r['BRANCH_NAME'].'</option>';
-												}
+												echo '<option value="'.$r['ID'].'">'.$r['BRANCH_NAME'].'</option>';
 											}
 										} ?>
 									</select>
