@@ -14,7 +14,7 @@ class Users extends CI_Controller {
 	}
 
 	public function index(){
-		if($this->isLoggedIn && $this->session->userdata('status') == 'Active'){
+		if($this->isLoggedIn && $this->session->userdata('status') == $this->config->item('USER_STATUS_ASSOC')['ACTIVE'][0]){
 			$data = array();
 
 			if($this->session->userdata('success_msg')){
@@ -138,7 +138,7 @@ class Users extends CI_Controller {
 			$this->load->view('users/index', $data);
 
 		}else{
-			redirect('users/login');
+			redirect('users/logout');
 		}
 	}
 
@@ -167,10 +167,10 @@ class Users extends CI_Controller {
 				);
 				$checkLogin = $this->user->getRowsJoin($con)->row_array();
 				if($checkLogin){
-					if($checkLogin['STATUS'] === 'Locked'){
+					if($checkLogin['STATUS'] === $this->config->item('USER_STATUS_ASSOC')['LOCKED'][0]){
 						$data['error_msg'] = 'User is locked.';
 
-					}elseif($checkLogin['STATUS'] === 'Active' || $checkLogin['STATUS'] === 'New'){
+					}elseif($checkLogin['STATUS'] === $this->config->item('USER_STATUS_ASSOC')['ACTIVE'][0] || $checkLogin['STATUS'] === $this->config->item('USER_STATUS_ASSOC')['NEW'][0]){
 						if(password_verify($this->input->post('password'), $checkLogin['PASSWORD'])){
 							$loginUpdt = array(
 								'retry_cnt' => 0,
@@ -185,31 +185,36 @@ class Users extends CI_Controller {
 							$this->session->set_userdata('last_login_dt', $checkLogin['LAST_LOGIN_DT']);
 							$this->session->set_userdata('user_role', $checkLogin['ROLE']);
 							$this->session->set_userdata('status', $checkLogin['STATUS']);
-							if($checkLogin['ROLE'] == 'CASHIER'){
-								$this->session->set_userdata('user_role_dscp', 'Cashier');
-							}else if($checkLogin['ROLE'] == 'SYS_ADMIN'){
-								$this->session->set_userdata('user_role_dscp', 'System Administrator');
-							}else if($checkLogin['ROLE'] == 'BRANCH_ADMIN'){
-								$this->session->set_userdata('user_role_dscp', 'Branch Administrator');
+
+							if($checkLogin['ROLE'] == $this->config->item('USER_ROLE_ASSOC')['SYS_ADMIN'][0]){
+								$this->session->set_userdata('user_role_dscp', $this->config->item('USER_ROLE_ASSOC')['SYS_ADMIN'][1]);
+							}else if($checkLogin['ROLE'] == $this->config->item('USER_ROLE_ASSOC')['WHOUSE_USER'][0]){
+								$this->session->set_userdata('user_role_dscp', $this->config->item('USER_ROLE_ASSOC')['WHOUSE_USER'][1]);
+							}else if($checkLogin['ROLE'] == $this->config->item('USER_ROLE_ASSOC')['BRANCH_USER'][0]){
+								$this->session->set_userdata('user_role_dscp', $this->config->item('USER_ROLE_ASSOC')['BRANCH_USER'][1]);
+							}else if($checkLogin['ROLE'] == $this->config->item('USER_ROLE_ASSOC')['CASHIER'][0]){
+								$this->session->set_userdata('user_role_dscp', $this->config->item('USER_ROLE_ASSOC')['CASHIER'][1]);
 							}
 
-							
-							if($checkLogin['ROLE'] == 'Cashier'){
-								redirect('pos/dashboard');
+							if($checkLogin['STATUS'] !== $this->config->item('USER_STATUS_ASSOC')['ACTIVE'][0]){
+								redirect('users/chpass');
 							}else{
-								if($checkLogin['STATUS'] !== 'Active'){
-									redirect('users/chpass');
+								if($checkLogin['ROLE'] == $this->config->item('USER_ROLE_ASSOC')['CASHIER'][0]){
+									redirect('pos/index');
 								}else{
 									redirect('users/dashboard');
 								}
 							}
+
+							
+							
 						}else{
 							$data['error_msg'] = 'Invalid login.';
 							$status = $checkLogin['STATUS'];
 							$retry_cnt = $checkLogin['RETRY_CNT'];
 							$retry_cnt += 1;
 							if($retry_cnt >= $this->LOGIN_MAX_RETRY){
-								$status = 'Locked';
+								$status = $this->config->item('USER_STATUS_ASSOC')['LOCKED'][0];
 								$retry_cnt = 0;
 								$data['error_msg'] = 'User is locked due to multiple invalid login.';
 							}
@@ -233,7 +238,7 @@ class Users extends CI_Controller {
 	}
 
 	public function dashboard(){
-		if($this->isLoggedIn && $this->session->userdata('status') == 'Active'){
+		if($this->isLoggedIn && $this->session->userdata('status') == $this->config->item('USER_STATUS_ASSOC')['ACTIVE'][0]){
 			$data = array();
 
 			if($this->session->userdata('success_msg')){
@@ -248,19 +253,26 @@ class Users extends CI_Controller {
 			$this->load->view('dashboard/dashboard', $data);
 
 		}else{
-			redirect('users/login');
+			redirect('users/logout');
 		}
 	}
 
 	public function logout(){
 		$this->session->unset_userdata('isLoggedIn');
 		$this->session->unset_userdata('username');
+		$this->session->unset_userdata('fullname');
+		$this->session->unset_userdata('branch_id');
+		$this->session->unset_userdata('branch');
+		$this->session->unset_userdata('last_login_dt');
+		$this->session->unset_userdata('user_role');
+		$this->session->unset_userdata('status');
+		$this->session->unset_userdata('user_role_dscp');
 		$this->session->sess_destroy();
 		redirect('users/login/');
 	}
 
 	public function list(){
-		if($this->isLoggedIn && $this->session->userdata('status') == 'Active'){
+		if($this->isLoggedIn && $this->session->userdata('status') == $this->config->item('USER_STATUS_ASSOC')['ACTIVE'][0]){
 			// Datatables Variables
 			$draw = intval($this->input->get("draw"));
 			$start = intval($this->input->get("start"));
@@ -272,10 +284,6 @@ class Users extends CI_Controller {
 					'u.del' => false
 				)
 			);
-
-			if($this->session->userdata('user_role') == 'Branch Administrator'){
-				$con['conditions']['branch_id'] = $this->session->userdata('branch_id');
-			}
 
 			$user = $this->user->getRowsJoin($con);
 
@@ -340,15 +348,19 @@ class Users extends CI_Controller {
 						if(password_verify($this->input->post('old_password'), $user['PASSWORD'])){
 							$userUpdt = array(
 								'retry_cnt' => 0,
-								'status' => 'Active',
+								'status' => $this->config->item('USER_STATUS_ASSOC')['ACTIVE'][0],
 								'password' => password_hash($this->input->post('new_password'), PASSWORD_DEFAULT)
 							);
 							$this->user->update($user['ID'], $userUpdt);
 
 							$this->session->set_flashdata('success_msg', 'Password successfully updated!');
-							if($this->session->userdata('status') !== 'Active'){
-								$this->session->set_userdata('status', 'Active');
-								redirect('users/dashboard');
+							if($this->session->userdata('status') !== $this->config->item('USER_STATUS_ASSOC')['ACTIVE'][0]){
+								$this->session->set_userdata('status', $this->config->item('USER_STATUS_ASSOC')['ACTIVE'][0]);
+								if($this->session->userdata('user_role') == $this->config->item('USER_ROLE_ASSOC')['CASHIER'][0]){
+									redirect('pos/index');
+								}else{
+									redirect('users/dashboard');
+								}
 							}else{
 								redirect(current_url());
 							}
@@ -358,7 +370,7 @@ class Users extends CI_Controller {
 							$retry_cnt = $user['RETRY_CNT'];
 							$retry_cnt += 1;
 							if($retry_cnt >= $this->LOGIN_MAX_RETRY){
-								$status = 'Locked';
+								$status = $this->config->item('USER_STATUS_ASSOC')['LOCKED'][0];
 								$retry_cnt = 0;
 								$data['error_msg'] = 'You are locked due to multiple invalid password retries.';
 							}else if($retry_cnt == $this->LOGIN_MAX_RETRY-1){
@@ -385,7 +397,7 @@ class Users extends CI_Controller {
 
 			}
 			
-			if($this->session->userdata('status') !== 'Active'){
+			if($this->session->userdata('status') !== $this->config->item('USER_STATUS_ASSOC')['ACTIVE'][0]){
 				$this->load->view('users/chpass_nomenu', $data);
 			}else{
 				$this->load->view('users/chpass', $data);
@@ -393,7 +405,7 @@ class Users extends CI_Controller {
 			
 
 		}else{
-			redirect('users/login');
+			redirect('users/logout');
 		}
 	}
 }
