@@ -23,7 +23,7 @@
 	<body>
 		<div>
 
-			<?php $this->load->view('components/navbar'); ?>
+			<?php $this->load->view('components/navbar_pos'); ?>
 			
 			<div class="container-fluid" style="margin-top:0px;">
 				<div class="row">
