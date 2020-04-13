@@ -106,6 +106,10 @@
 			    	}
 				});
 
+			    $('#success_modal').on('hide.bs.modal', function () {
+			    	window.location.replace('<?= site_url('users/dashboard') ?>');
+				});
+
 			});
 		</script>
 	</body>
