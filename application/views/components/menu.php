@@ -134,29 +134,43 @@
 				</div>
 			</div>
 		</div>
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h4 class="panel-title">
-					<a data-toggle="collapse" data-parent="#accordion" href="#collapseFive"><span class="glyphicon glyphicon-cog"></span>&nbsp;Administration</a>
-				</h4>
-			</div>
-			<div id="collapseFive" class="panel-collapse collapse">
-				<div class="panel-body">
-					<table class="table">
-						<tr>
-							<td>
-								<a href="<?= site_url('/branches') ?>">Branch</a>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<a href="<?= site_url('/users') ?>">User</a>
-							</td>
-						</tr>
-					</table>
-				</div>
-			</div>
-		</div>
+
+		<?php 
+		if(in_array('ADMIN', $this->config->item('USER_ROLE_ASSOC_MENU')[$this->session->userdata('user_role')])){
+			echo '	<div class="panel panel-default">';
+			echo '		<div class="panel-heading">';
+			echo '			<h4 class="panel-title">';
+			echo '				<a data-toggle="collapse" data-parent="#accordion" href="#collapseFive"><span class="glyphicon glyphicon-cog"></span>&nbsp;Administration</a>';
+			echo '			</h4>';
+			echo '		</div>';
+			echo '		<div id="collapseFive" class="panel-collapse collapse">';
+			echo '			<div class="panel-body">';
+			echo '				<table class="table">';
+			
+			if(in_array('BRANCH', $this->config->item('USER_ROLE_ASSOC_MENU')[$this->session->userdata('user_role')])){
+				echo '					<tr>';
+				echo '						<td>';
+				echo '							<a href="'.site_url('/branches').'">Branch</a>';
+				echo '						</td>';
+				echo '					</tr>';
+			}
+
+			if(in_array('USER', $this->config->item('USER_ROLE_ASSOC_MENU')[$this->session->userdata('user_role')])){
+				echo '					<tr>';
+				echo '						<td>';
+				echo '							<a href="'.site_url('/users').'">User</a>';
+				echo '						</td>';
+				echo '					</tr>';
+			}
+
+			echo '				</table>';
+			echo '			</div>';
+			echo '		</div>';
+			echo '	</div>';
+		}
+
+		?>
+		
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h4 class="panel-title">

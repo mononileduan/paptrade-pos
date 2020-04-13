@@ -28,13 +28,13 @@ $config['USER_STATUS'] = array(
 $config['USER_ROLE_ASSOC'] = array(
 	//key						database key		Description 
 	'SYS_ADMIN'		=> array('SYS_ADMIN', 		'System Administrator'),
-	'WHOUSE_USER'	=> array('WH_USER', 		'Warehouse User'),
+	'WHOUSE_USER'	=> array('WHOUSE_USER', 		'Warehouse User'),
 	'BRANCH_USER'	=> array('BRANCH_USER', 	'Branch User'),
 	'CASHIER'		=> array('CASHIER', 		'Cashier')
 );
 
 $config['USER_ROLE_ASSOC_MENU'] = array(
-	'SYS_ADMIN'		=> array('POS', 'BRAND', 'CATEGORY', 'STOCK_TYPE', 'ITEM', 'WH_INVENTORY', 'WH_SUPPLY_REQUEST', 'BR_INVENTORY', 'BR_SUPPLY_REQUEST', 'SALES', 'BRANCH', 'USER'),
+	'SYS_ADMIN'		=> array('POS', 'BRAND', 'CATEGORY', 'STOCK_TYPE', 'ITEM', 'WH_INVENTORY', 'WH_SUPPLY_REQUEST', 'BR_INVENTORY', 'BR_SUPPLY_REQUEST', 'SALES', 'ADMIN', 'BRANCH', 'USER'),
 	'WHOUSE_USER'	=> array('WH_INVENTORY', 'WH_SUPPLY_REQUEST'),
 	'BRANCH_USER'	=> array('POS', 'BR_INVENTORY', 'BR_SUPPLY_REQUEST', 'SALES'),
 	'CASHIER'		=> array('POS')
