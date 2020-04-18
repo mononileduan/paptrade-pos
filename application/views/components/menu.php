@@ -37,105 +37,164 @@
 				</h4>
 			</div>
 		</div>
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h4 class="panel-title">
-					<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><span class="glyphicon glyphicon-wrench"></span>&nbsp;Maintenance</a>
-				</h4>
-			</div>
-			<div id="collapseOne" class="panel-collapse collapse">
-				<div class="panel-body">
-					<table class="table">
-						<tr>
-							<td>
-								<a href="<?= site_url('/brands') ?>">Brand</a>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<a href="<?= site_url('/categories') ?>">Category</a>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<a href="<?= site_url('/stock_types') ?>">Stock Type</a>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<a href="<?= site_url('/items') ?>">Item</a>
-							</td>
-						</tr>
-					</table>
-				</div>
-			</div>
-		</div>
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h4 class="panel-title">
-					<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;Warehouse</a>
-				</h4>
-			</div>
-			<div id="collapseTwo" class="panel-collapse collapse">
-				<div class="panel-body">
-					<table class="table">
-						<tr>
-							<td>
-								<a href="<?= site_url('/warehouse_inventories') ?>">Inventory</a>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<a href="<?= site_url('/supply_requests/warehouse') ?>">Supply Request</a>
-							</td>
-						</tr>
-					</table>
-				</div>
-			</div>
-		</div>
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h4 class="panel-title">
-					<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree"><span class="glyphicon glyphicon-map-marker"></span>&nbsp;Branch</a>
-				</h4>
-			</div>
-			<div id="collapseThree" class="panel-collapse collapse">
-				<div class="panel-body">
-					<table class="table">
-						<tr>
-							<td>
-								<a href="<?= site_url('/branch_inventories') ?>">Inventory</a>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<a href="<?= site_url('/supply_requests/branch') ?>">Supply Request</a>
-							</td>
-						</tr>
-					</table>
-				</div>
-			</div>
-		</div>
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h4 class="panel-title">
-					<a data-toggle="collapse" data-parent="#accordion" href="#collapseFour"><span class="glyphicon glyphicon-file"></span>&nbsp;Reports</a>
-				</h4>
-			</div>
-			<div id="collapseFour" class="panel-collapse collapse">
-				<div class="panel-body">
-					<table class="table">
-						<tr>
-							<td>
-								<span class="glyphicon glyphicon-usd"></span><a href="<?= site_url('/sales') ?>">&nbsp;Sales</a>
-							</td>
-						</tr>
-					</table>
-				</div>
-			</div>
-		</div>
 
-		<?php 
+		<?php
+		if(in_array('MAINTENANCE', $this->config->item('USER_ROLE_ASSOC_MENU')[$this->session->userdata('user_role')])){
+			echo '	<div class="panel panel-default">';
+			echo '		<div class="panel-heading">';
+			echo '			<h4 class="panel-title">';
+			echo '				<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><span class="glyphicon glyphicon-wrench"></span>&nbsp;Maintenance</a>';
+			echo '			</h4>';
+			echo '		</div>';
+			echo '		<div id="collapseOne" class="panel-collapse collapse">';
+			echo '			<div class="panel-body">';
+			echo '				<table class="table">';
+
+			if(in_array('BRAND', $this->config->item('USER_ROLE_ASSOC_MENU')[$this->session->userdata('user_role')])){
+				echo '					<tr>';
+				echo '						<td>';
+				echo '							<a href="'. site_url('/brands') .'">Brand</a>';
+				echo '						</td>';
+				echo '					</tr>';
+			}
+
+			if(in_array('CATEGORY', $this->config->item('USER_ROLE_ASSOC_MENU')[$this->session->userdata('user_role')])){
+				echo '					<tr>';
+				echo '						<td>';
+				echo '							<a href="'. site_url('/categories') .'">Category</a>';
+				echo '						</td>';
+				echo '					</tr>';
+			}
+
+			if(in_array('STOCK_TYPE', $this->config->item('USER_ROLE_ASSOC_MENU')[$this->session->userdata('user_role')])){
+				echo '					<tr>';
+				echo '						<td>';
+				echo '							<a href="'. site_url('/stock_types') .'">Stock Type</a>';
+				echo '						</td>';
+				echo '					</tr>';
+			}
+
+			if(in_array('ITEM', $this->config->item('USER_ROLE_ASSOC_MENU')[$this->session->userdata('user_role')])){
+				echo '					<tr>';
+				echo '						<td>';
+				echo '							<a href="'. site_url('/items') .'">Item</a>';
+				echo '						</td>';
+				echo '					</tr>';
+			}
+			
+			echo '				</table>';
+			echo '			</div>';
+			echo '		</div>';
+			echo '	</div>';
+
+		}
+		
+
+
+		if(in_array('WAREHOUSE_FXN', $this->config->item('USER_ROLE_ASSOC_MENU')[$this->session->userdata('user_role')])){
+			echo '	<div class="panel panel-default">';
+			echo '		<div class="panel-heading">';
+			echo '			<h4 class="panel-title">';
+			echo '				<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;Warehouse</a>';
+			echo '			</h4>';
+			echo '		</div>';
+			echo '		<div id="collapseTwo" class="panel-collapse collapse">';
+			echo '			<div class="panel-body">';
+			echo '				<table class="table">';
+
+			if(in_array('WH_INVENTORY', $this->config->item('USER_ROLE_ASSOC_MENU')[$this->session->userdata('user_role')])){
+				echo '					<tr>';
+				echo '						<td>';
+				echo '							<a href="'. site_url('/warehouse_inventories') .'">Inventory</a>';
+				echo '						</td>';
+				echo '					</tr>';
+			}
+
+			if(in_array('WH_SUPPLY_REQUEST', $this->config->item('USER_ROLE_ASSOC_MENU')[$this->session->userdata('user_role')])){
+				echo '					<tr>';
+				echo '						<td>';
+				echo '							<a href="'. site_url('/supply_requests/warehouse') .'">Supply Request</a>';
+				echo '						</td>';
+				echo '					</tr>';
+			}
+
+			echo '				</table>';
+			echo '			</div>';
+			echo '		</div>';
+			echo '	</div>';
+		}
+
+
+ 
+
+
+		if(in_array('BRANCH_FXN', $this->config->item('USER_ROLE_ASSOC_MENU')[$this->session->userdata('user_role')])){
+			echo '	<div class="panel panel-default">';
+			echo '		<div class="panel-heading">';
+			echo '			<h4 class="panel-title">';
+			echo '				<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree"><span class="glyphicon glyphicon-map-marker"></span>&nbsp;Branch</a>';
+			echo '			</h4>';
+			echo '		</div>';
+			echo '		<div id="collapseThree" class="panel-collapse collapse">';
+			echo '			<div class="panel-body">';
+			echo '				<table class="table">';
+
+			if(in_array('BR_INVENTORY', $this->config->item('USER_ROLE_ASSOC_MENU')[$this->session->userdata('user_role')])){
+				echo '					<tr>';
+				echo '						<td>';
+				echo '							<a href="'. site_url('/branch_inventories') .'">Inventory</a>';
+				echo '						</td>';
+				echo '					</tr>';
+			}
+
+			if(in_array('BR_SUPPLY_REQUEST', $this->config->item('USER_ROLE_ASSOC_MENU')[$this->session->userdata('user_role')])){
+				echo '					<tr>';
+				echo '						<td>';
+				echo '							<a href="'. site_url('/supply_requests/branch') .'">Supply Request</a>';
+				echo '						</td>';
+				echo '					</tr>';
+			}
+
+			echo '				</table>';
+			echo '			</div>';
+			echo '		</div>';
+			echo '	</div>';
+
+		}
+
+		
+
+		
+
+		if(in_array('REPORTS', $this->config->item('USER_ROLE_ASSOC_MENU')[$this->session->userdata('user_role')])){
+			echo '	<div class="panel panel-default">';
+			echo '		<div class="panel-heading">';
+			echo '			<h4 class="panel-title">';
+			echo '				<a data-toggle="collapse" data-parent="#accordion" href="#collapseFour"><span class="glyphicon glyphicon-file"></span>&nbsp;Reports</a>';
+			echo '			</h4>';
+			echo '		</div>';
+			echo '		<div id="collapseFour" class="panel-collapse collapse">';
+			echo '			<div class="panel-body">';
+			echo '				<table class="table">';
+
+			if(in_array('SALES', $this->config->item('USER_ROLE_ASSOC_MENU')[$this->session->userdata('user_role')])){
+				echo '					<tr>';
+				echo '						<td>';
+				echo '							<span class="glyphicon glyphicon-usd"></span><a href="'. site_url('/sales') .'">&nbsp;Sales</a>';
+				echo '						</td>';
+				echo '					</tr>';
+			}
+
+			echo '				</table>';
+			echo '			</div>';
+			echo '		</div>';
+			echo '	</div>';
+
+		}
+
+		
+
+		
 		if(in_array('ADMIN', $this->config->item('USER_ROLE_ASSOC_MENU')[$this->session->userdata('user_role')])){
 			echo '	<div class="panel panel-default">';
 			echo '		<div class="panel-heading">';
