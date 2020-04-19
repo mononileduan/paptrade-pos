@@ -9,6 +9,7 @@
 		<link rel="shortcut icon" type="image/x-icon" href="assets/images/paptrade-icon.png" />
 
 	 	<link rel="stylesheet" type="text/css" href="assets/bootstrap/3.4.1/css/bootstrap.css">
+	 	<link rel="stylesheet" type="text/css" href="assets/datatables/datatables.min.css"/>
 	    <link rel="stylesheet" type="text/css" href="assets/materialicons/material-icons.css">
 	 	<link rel="stylesheet" type="text/css" href="assets/css/styles.css">
 		
@@ -28,6 +29,12 @@
 			        <div class="col-sm-10 col-md-10" id="page-content">
 			            <h2 class="page-header">Dashboard</h2>
 			            
+			            <?php 
+						if($this->session->userdata('user_role') == $this->config->item('USER_ROLE_ASSOC')['BRANCH_USER'][0]){
+					        $this->load->view('dashboard/branch'); 
+					    }
+					    ?>
+			            
 			        </div>
 	    		</div>
 	    	</div>
@@ -36,11 +43,12 @@
 		<?php $this->load->view('components/modals'); ?>
 
 		<script type="text/javascript" src="assets/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="assets/datatables/datatables.min.js"></script>
 
 		<script type="text/javascript">
 			$(document).ready(function() {
 				
-			    var success_msg = "<?php if(isset($success_msg)){ echo $success_msg; } else {echo '';} ?>";
+				var success_msg = "<?php if(isset($success_msg)){ echo $success_msg; } else {echo '';} ?>";
 			    var error_msg = "<?php if(isset($error_msg)){ echo $error_msg; } else {echo '';} ?>";
 
 			    if(success_msg){
@@ -61,8 +69,14 @@
 						window.location.replace('<?= site_url('/users/logout') ?>');
 			    	}
 				});
-
-			});
+			}
 		</script>
+
+        <?php 
+		if($this->session->userdata('user_role') == $this->config->item('USER_ROLE_ASSOC')['BRANCH_USER'][0]){
+	        $this->load->view('dashboard/branch_js'); 
+	    }
+	    ?>
+		
 	</body>
 </html>

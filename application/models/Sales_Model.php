@@ -75,6 +75,20 @@ class Sales_Model extends CI_Model {
 
 	}
 
+	public function getDashboardSummary($params = array()){
+		$sql = "SELECT date_format(CREATED_DT, '%M %Y') as MONTH, COUNT(*) as CNT, sum(GRAND_TOTAL) as TOTAL FROM sales WHERE DATE_SUB(CURDATE(),INTERVAL 6 MONTH) <= CREATED_DT  ";
+
+		if(array_key_exists("conditions", $params)){
+			foreach ($params['conditions'] as $key => $val) {
+				$sql = $sql . " AND " . $key . "='" . $val . "'"; 
+			}
+		}
+		$sql .= " group by date_format(CREATED_DT, '%M %Y') ORDER BY CREATED_DT desc";
+		$result = $this->db->query($sql);
+		return $result;
+
+	}
+
 	public function insert($data = array()){
 		if(!empty($data)){
 			if(!array_key_exists("created_by", $data)){

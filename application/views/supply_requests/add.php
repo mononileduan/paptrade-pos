@@ -42,7 +42,7 @@
 											<select required="required" name="item" id="item_select" class="form-control">
 												<option value=""></option>
 												<?php foreach($items->result_array() as $r) {
-													if(set_value('item_id') === $r['ITEM_ID']){
+													if((set_value('item_id') === $r['ITEM_ID']) || (isset($item_id) && $item_id != null && $item_id === $r['ITEM_ID'])){
 														echo '<option value="'.$r['ITEM_ID'].'" selected="selected">'.$r['ITEM'].'</option>';
 													}else{
 														echo '<option value="'.$r['ITEM_ID'].'">'.$r['ITEM'].'</option>';

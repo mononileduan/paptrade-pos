@@ -170,10 +170,10 @@ class Sales extends CI_Controller {
 		);
 		echo json_encode($output);
 		exit();
-     }
+    }
 
 
-     public function details($id = null){
+    public function details($id = null){
     	if($this->isLoggedIn){
     		$data = array();
 

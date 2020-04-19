@@ -201,10 +201,17 @@ class Branch_Inventories extends CI_Controller {
 		$start = intval($this->input->get("start"));
 		$length = intval($this->input->get("length"));
 
-		$con = array(
-			'returnType' => 'list',
-			'conditions' => array()
-		);
+		$con = array('returnType' => 'list');
+
+		if($this->session->userdata('user_role') != $this->config->item('USER_ROLE_ASSOC')['SYS_ADMIN'][0]){
+			$con = array(
+				'returnType' => 'list',
+				'conditions' => array(
+					'inv.branch_id' => $this->session->userdata('branch_id')
+				)
+			);
+		}
+		
 		$inventoryList = $this->branch_inventory->getRowsJoin($con);
 
 		$data = array();
@@ -231,16 +238,64 @@ class Branch_Inventories extends CI_Controller {
 		exit();
     }
 
+	public function lowstocks(){
+		// Datatables Variables
+		$draw = intval($this->input->get("draw"));
+		$start = intval($this->input->get("start"));
+		$length = intval($this->input->get("length"));
+
+		$con = array('returnType' => 'list');
+
+		if($this->session->userdata('user_role') != $this->config->item('USER_ROLE_ASSOC')['SYS_ADMIN'][0]){
+			$con = array(
+				'returnType' => 'list',
+				'conditions' => array(
+					'inv.branch_id' => $this->session->userdata('branch_id')
+				)
+			);
+		}
+		$inventoryList = $this->branch_inventory->getLowStocks($con);
+
+		$data = array();
+		
+		foreach($inventoryList->result_array() as $r) {
+
+		   $data[] = array(
+		   		$r['ID'],
+		        $r['BRANCH'],
+		        $r['ITEM_ID'],
+		        $r['ITEM'],
+		        $r['CRITICAL_QTY'],
+		        $r['QTY']
+		   );
+		}
+
+		$output = array(
+		   "draw" => $draw,
+		     "recordsTotal" => $inventoryList->num_rows(),
+		     "recordsFiltered" => $inventoryList->num_rows(),
+		     "data" => $data
+		);
+		echo json_encode($output);
+		exit();
+    }
+
 	public function pos_list(){
 		// Datatables Variables
 		$draw = intval($this->input->get("draw"));
 		$start = intval($this->input->get("start"));
 		$length = intval($this->input->get("length"));
 
-		$con = array(
-			'returnType' => 'list',
-			'conditions' => array()
-		);
+		$con = array('returnType' => 'list');
+
+		if($this->session->userdata('user_role') != $this->config->item('USER_ROLE_ASSOC')['SYS_ADMIN'][0]){
+			$con = array(
+				'returnType' => 'list',
+				'conditions' => array(
+					'inv.branch_id' => $this->session->userdata('branch_id')
+				)
+			);
+		}
 		$inventoryList = $this->branch_inventory->getRowsJoin($con);
 
 		$data = array();

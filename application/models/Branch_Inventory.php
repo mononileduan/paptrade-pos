@@ -64,6 +64,30 @@ class Branch_Inventory extends CI_Model {
 
 	}
 
+	public function getLowStocks($params = array()){
+		$sql = "SELECT ". 
+			"inv.id as ID, ".
+			"inv.item_id as ITEM_ID, ".
+			"concat(b.BRAND, ' ', i.DSCP) as ITEM, ". 
+			"c.category as CATEGORY, ".
+			"i.PRICE as PRICE, ".
+			"br.BRANCH_NAME as BRANCH, ".
+			"inv.QTY as QTY, ".
+			"inv.CRITICAL_QTY as CRITICAL_QTY ".
+			"FROM branch_inventory inv, items i, brands b, categories c, branches br ".
+			"WHERE i.id=inv.item_id and b.id=i.brand_id and c.id=i.category_id and br.id=inv.branch_id and inv.del=false and i.del=false ".
+			"and inv.QTY < inv.CRITICAL_QTY ";
+
+		if(array_key_exists("conditions", $params)){
+			foreach ($params['conditions'] as $key => $val) {
+				$sql = $sql . " AND " . $key . "='" . $val . "'"; 
+			}
+		}
+		$result = $this->db->query($sql);
+		return $result;
+
+	}
+
 	public function insert($data = array()){
 		if(!empty($data)){
 

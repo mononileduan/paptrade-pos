@@ -8,6 +8,7 @@ class Users extends CI_Controller {
 		$this->load->library('form_validation');
 		$this->load->model('user');
 		$this->load->model('branch');
+		$this->load->model('sales_model');
 
 		$this->isLoggedIn = $this->session->userdata('isLoggedIn');
 		$this->LOGIN_MAX_RETRY = 3;
@@ -261,6 +262,31 @@ class Users extends CI_Controller {
 				if($this->session->userdata('error_msg')){
 					$data['error_msg'] = $this->session->userdata('error_msg');
 					$this->session->unset_userdata('error_msg');
+				}
+
+
+				if($this->session->userdata('user_role') == $this->config->item('USER_ROLE_ASSOC')['SYS_ADMIN'][0]){
+					$con = array('returnType' => 'list');
+					$data['sales_monthly'] = $this->sales_model->getDashboardSummary($con);
+
+				}else if($this->session->userdata('user_role') == $this->config->item('USER_ROLE_ASSOC')['BRANCH_USER'][0]){
+					$con = array(
+						'conditions' => array(
+							'branch_id' => $this->session->userdata('branch_id')
+						)
+					);
+					$result = $this->sales_model->getSummary($con)->row_array();
+					$data['daily_sales_cnt'] = $result['CNT'];
+					$data['daily_total_sales'] = $result['TOTAL'];
+
+					$con = array(
+						'returnType' => 'list',
+						'conditions' => array(
+							'del' => false,
+							'branch_id' => $this->session->userdata('branch_id')
+						)
+					);
+					$data['sales_monthly'] = $this->sales_model->getDashboardSummary($con);
 				}
 
 				$this->load->view('dashboard/dashboard', $data);

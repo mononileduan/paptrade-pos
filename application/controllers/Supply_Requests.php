@@ -238,7 +238,7 @@ class Supply_Requests extends CI_Controller {
 	}
 
 
-	public function add(){
+	public function add($item_id = null){
 		$data = array();
 		$data['success_msg'] = $this->session->flashdata('success_msg');
 
@@ -264,6 +264,7 @@ class Supply_Requests extends CI_Controller {
 			'conditions' => array()
 		);
 		$data['items'] = $this->warehouse_inventory->getRowsJoin($con);
+		$data['item_id'] = $item_id;
 		
 		$this->load->view('supply_requests/add', $data);
 	}
