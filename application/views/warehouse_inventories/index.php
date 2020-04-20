@@ -128,7 +128,8 @@
 				var item_id = "<?php if(isset($item_id)){ echo $item_id; } else {echo '';} ?>";
 				var datatable = $('#view-data-table').DataTable({
 						"ajax": {
-						   url : "<?= site_url('warehouse_inventories/list'); ?>" + "/" + item_id,
+							url : "<?= site_url('warehouse_inventories/list'); ?>",
+							data : {'item_id' : item_id},
 						    type : 'GET'
 						},
 						"columnDefs": [

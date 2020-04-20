@@ -13,7 +13,7 @@ class Warehouse_Inventories extends CI_Controller {
 		$this->isLoggedIn = $this->session->userdata('isLoggedIn');
 	}
 
-	public function index($item_id = null){
+	public function index(){
 		if($this->isLoggedIn){
 			$data = array();
 			$data['success_msg'] = $this->session->flashdata('success_msg');
@@ -188,7 +188,7 @@ class Warehouse_Inventories extends CI_Controller {
 				)
 			);
 			$data['items'] = $this->item->getRowsJoin($con);
-			$data['item_id'] = $item_id;
+			$data['item_id'] = $this->input->get('item_id');
 
 			$this->load->view('warehouse_inventories/index', $data);
 			
@@ -197,7 +197,7 @@ class Warehouse_Inventories extends CI_Controller {
 		}
 	}
 
-	public function list($item_id = null){
+	public function list(){
 		// Datatables Variables
 		$draw = intval($this->input->get("draw"));
 		$start = intval($this->input->get("start"));
@@ -205,8 +205,8 @@ class Warehouse_Inventories extends CI_Controller {
 
 		$con = array();
 
-		if($item_id != null){
-			$con = array('conditions' => array('item_id' => $item_id));
+		if($this->input->get('item_id') !== null && $this->input->get('item_id') !== ''){
+			$con = array('conditions' => array('item_id' => $this->input->get('item_id')));
 		}
 		$inventoryList = $this->warehouse_inventory->getRowsJoin($con);
 

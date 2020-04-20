@@ -294,7 +294,7 @@ class Supply_Requests extends CI_Controller {
 			$array_cond['sr.status'] = $this->input->get('status');
 		}
 
-		if($this->input->get('id') !== null){
+		if($this->input->get('id') !== null && $this->input->get('id') !== ''){
 			$array_cond['sr.id'] = $this->input->get('id');
 		}
 

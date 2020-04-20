@@ -18,7 +18,7 @@
 		$('#lowstocks-whouse-data-table tbody').on( 'click', 'a.action-add', function (id) {
 			var data = $("#lowstocks-whouse-data-table").DataTable().row( $(this).parents('tr') ).data();
 	       	var item_id = data[1];
-	       	window.location.replace('<?= site_url('warehouse_inventories/index') ?>' + '/' + item_id);
+	       	window.location.replace('<?= site_url('warehouse_inventories/index') ?>' + '?item_id=' + item_id);
 	    } );
 
 
