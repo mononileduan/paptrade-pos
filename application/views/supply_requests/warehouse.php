@@ -66,9 +66,11 @@
 
 		<script type="text/javascript">
 			$(document).ready(function() {
+				var id = "<?php if(isset($id)){ echo $id; } else {echo '';} ?>";
 				var datatable = $('#view-data-table').DataTable({
 						"ajax": {
-						   url : "<?= site_url('supply_requests/warehouse_list'); ?>",
+							url : "<?= site_url('supply_requests/warehouse_list'); ?>",
+							data: {'id' : id},
 						    type : 'GET'
 						},
 						"columnDefs": [

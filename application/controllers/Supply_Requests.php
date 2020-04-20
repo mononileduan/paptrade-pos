@@ -276,6 +276,8 @@ class Supply_Requests extends CI_Controller {
 	public function warehouse(){
 		$data = array();
 		$data['success_msg'] = $this->session->flashdata('success_msg');
+
+		$data['id'] = $this->input->get('id');
 		
 		$this->load->view('supply_requests/warehouse', $data);
 	}
@@ -286,10 +288,18 @@ class Supply_Requests extends CI_Controller {
 		$start = intval($this->input->get("start"));
 		$length = intval($this->input->get("length"));
 
-		$con = array(
-			'returnType' => 'list',
-			'conditions' => array()
-		);
+		$array_cond = array();
+
+		if($this->input->get('status') !== null){
+			$array_cond['sr.status'] = $this->input->get('status');
+		}
+
+		if($this->input->get('id') !== null){
+			$array_cond['sr.id'] = $this->input->get('id');
+		}
+
+		$con = array('conditions' => $array_cond);
+
 		$srequestList = $this->supply_request->getRowsJoin($con);
 
 		$data = array();
