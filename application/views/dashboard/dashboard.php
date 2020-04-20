@@ -32,6 +32,9 @@
 			            <?php 
 						if($this->session->userdata('user_role') == $this->config->item('USER_ROLE_ASSOC')['BRANCH_USER'][0]){
 					        $this->load->view('dashboard/branch'); 
+
+					    }else if($this->session->userdata('user_role') == $this->config->item('USER_ROLE_ASSOC')['WHOUSE_USER'][0]){
+					        $this->load->view('dashboard/warehouse'); 
 					    }
 					    ?>
 			            
@@ -69,12 +72,15 @@
 						window.location.replace('<?= site_url('/users/logout') ?>');
 			    	}
 				});
-			}
+			})
 		</script>
 
         <?php 
 		if($this->session->userdata('user_role') == $this->config->item('USER_ROLE_ASSOC')['BRANCH_USER'][0]){
 	        $this->load->view('dashboard/branch_js'); 
+
+	    }else if($this->session->userdata('user_role') == $this->config->item('USER_ROLE_ASSOC')['WHOUSE_USER'][0]){
+	        $this->load->view('dashboard/warehouse_js'); 
 	    }
 	    ?>
 		

@@ -65,6 +65,31 @@ class Warehouse_Inventory extends CI_Model {
 
 	}
 
+	public function getLowStocks($params = array()){
+		$sql = "SELECT ". 
+			"inv.id as ID, ".
+			"inv.item_id as ITEM_ID, ".
+			"concat(b.BRAND, ' ', i.DSCP) as ITEM, ". 
+			"c.category as CATEGORY, ".
+			"i.price as PRICE, ".
+			"inv.CURRENT_QTY as CURRENT_QTY, ".
+			"inv.AVAILABLE_QTY as AVAILABLE_QTY, ".
+			"inv.CRITICAL_QTY as CRITICAL_QTY, ".
+			"i.CRITICAL_QTY as ITEM_CRIT_QTY ".
+			"FROM warehouse_inventory inv, items i, brands b, categories c ".
+			"WHERE i.id=inv.item_id and b.id=i.brand_id and c.id=i.category_id and inv.del=false and i.del=false ".
+			"and inv.AVAILABLE_QTY < inv.CRITICAL_QTY ";
+
+		if(array_key_exists("conditions", $params)){
+			foreach ($params['conditions'] as $key => $val) {
+				$sql = $sql . " AND " . $key . "='" . $val . "'"; 
+			}
+		}
+		$result = $this->db->query($sql);
+		return $result;
+
+	}
+
 	public function insert($data = array()){
 		if(!empty($data)){
 

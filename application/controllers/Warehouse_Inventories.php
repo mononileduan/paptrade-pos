@@ -13,7 +13,7 @@ class Warehouse_Inventories extends CI_Controller {
 		$this->isLoggedIn = $this->session->userdata('isLoggedIn');
 	}
 
-	public function index(){
+	public function index($item_id = null){
 		if($this->isLoggedIn){
 			$data = array();
 			$data['success_msg'] = $this->session->flashdata('success_msg');
@@ -188,6 +188,7 @@ class Warehouse_Inventories extends CI_Controller {
 				)
 			);
 			$data['items'] = $this->item->getRowsJoin($con);
+			$data['item_id'] = $item_id;
 
 			$this->load->view('warehouse_inventories/index', $data);
 			
@@ -196,16 +197,17 @@ class Warehouse_Inventories extends CI_Controller {
 		}
 	}
 
-	public function list(){
+	public function list($item_id = null){
 		// Datatables Variables
 		$draw = intval($this->input->get("draw"));
 		$start = intval($this->input->get("start"));
 		$length = intval($this->input->get("length"));
 
-		$con = array(
-			'returnType' => 'list',
-			'conditions' => array()
-		);
+		$con = array();
+
+		if($item_id != null){
+			$con = array('conditions' => array('item_id' => $item_id));
+		}
 		$inventoryList = $this->warehouse_inventory->getRowsJoin($con);
 
 		$data = array();
@@ -220,6 +222,40 @@ class Warehouse_Inventories extends CI_Controller {
 		        $r['CURRENT_QTY'],
 		        $r['AVAILABLE_QTY'],
 		        $r['CRITICAL_QTY']
+		   );
+		}
+
+		$output = array(
+		   "draw" => $draw,
+		     "recordsTotal" => $inventoryList->num_rows(),
+		     "recordsFiltered" => $inventoryList->num_rows(),
+		     "data" => $data
+		);
+		echo json_encode($output);
+		exit();
+    }
+
+	public function lowstocks(){
+		// Datatables Variables
+		$draw = intval($this->input->get("draw"));
+		$start = intval($this->input->get("start"));
+		$length = intval($this->input->get("length"));
+
+		$con = array('returnType' => 'list');
+
+		$inventoryList = $this->warehouse_inventory->getLowStocks($con);
+
+		$data = array();
+		
+		foreach($inventoryList->result_array() as $r) {
+
+		   $data[] = array(
+		   		$r['ID'],
+		        $r['ITEM_ID'],
+		        $r['ITEM'],
+		        $r['CRITICAL_QTY'],
+		        $r['CURRENT_QTY'],
+		        $r['AVAILABLE_QTY']
 		   );
 		}
 

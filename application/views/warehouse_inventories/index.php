@@ -125,9 +125,10 @@
 
 		<script type="text/javascript">
 			$(document).ready(function() {
+				var item_id = "<?php if(isset($item_id)){ echo $item_id; } else {echo '';} ?>";
 				var datatable = $('#view-data-table').DataTable({
 						"ajax": {
-						   url : "<?= site_url('warehouse_inventories/list'); ?>",
+						   url : "<?= site_url('warehouse_inventories/list'); ?>" + "/" + item_id,
 						    type : 'GET'
 						},
 						"columnDefs": [
@@ -167,7 +168,7 @@
 				$('#view-data-table tbody').on( 'click', 'a.action-edit', function (id) {
 					var data = $("#view-data-table").DataTable().row( $(this).parents('tr') ).data();
 			       	var id = data[0];
-			       	var crit = data[5];
+			       	var crit = data[6];
 					$("#edit_modal").find('input[name="id"]').val(id);
 					$("#edit_modal").find('input[name="crit_qty"]').val(crit);
 			    	$("#edit_modal").modal('show');
@@ -177,7 +178,7 @@
 				$('#view-data-table tbody').on( 'click', 'a.action-add', function (id) {
 					var data = $("#view-data-table").DataTable().row( $(this).parents('tr') ).data();
 			       	var id = data[0];
-			       	var avail = data[4];
+			       	var avail = data[5];
 					$("#add_modal").find('input[name="id"]').val(id);
 					$("#add_modal").find('input[name="id"]').attr('data-avail', avail);
 					$("#add_modal").modal('show');
@@ -187,7 +188,7 @@
 				$('#view-data-table tbody').on( 'click', 'a.action-deduct', function (id) {
 					var data = $("#view-data-table").DataTable().row( $(this).parents('tr') ).data();
 			       	var id = data[0];
-			       	var avail = data[4];
+			       	var avail = data[5];
 					$("#deduct_modal").find('input[name="id"]').val(id);
 					$("#deduct_modal").find('input[name="id"]').attr('data-avail', avail);
 					$("#deduct_modal").modal('show');
