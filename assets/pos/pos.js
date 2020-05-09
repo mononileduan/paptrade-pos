@@ -454,7 +454,6 @@ $(document).ready(function() {
 								'<td><span class="remove" style="font-size:12px;"><i class="glyphicon glyphicon-trash" title="Remove"></i></span></td>' +
 							'</tr>'
 						);
-						recount();
 						$("payment").val('');
 						$("change").val('');
 
@@ -468,6 +467,7 @@ $(document).ready(function() {
 						item_table.draw();
 					}
 				}
+				recount();
 			$("#sales_temp_id").val(id);
 			$("#sales-tmp-modal").modal('toggle');
 			}
