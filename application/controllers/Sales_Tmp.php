@@ -79,7 +79,9 @@ class Sales_Tmp extends CI_Controller {
 
 		$con = array(
 			'returnType' => 'list',
-			'conditions' => array()
+			'conditions' => array(
+				'tmp.branch_id' => $this->session->userdata('branch_id')
+			)
 		);
 		$list = $this->sales_temp->getRowsJoin($con);
 
@@ -105,10 +107,10 @@ class Sales_Tmp extends CI_Controller {
 		);
 		echo json_encode($output);
 		exit();
-     }
+    }
 
 
-     public function details(){
+    public function details(){
 		$data = array();
      	$id = $this->input->get('id', TRUE);
 
