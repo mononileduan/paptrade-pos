@@ -102,6 +102,7 @@
 									<div class="row">
 										<div class="col-md-12">
 											<div class="form-group">
+												<input type="hidden" id="sales_temp_id" >
 												<input type="submit" class="btn btn-primary form-control" name="" value="Process" id="btn" >
 											</div>
 										</div>
@@ -242,7 +243,7 @@
 		</div>
 
 		<div class="modal" tabindex="-3" role="dialog" id="sales-tmp-modal">
-			<div class="modal-dialog modal-md">
+			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title">Saved for Later Transactions</h5>
@@ -256,8 +257,9 @@
 										<td>Branch</td>
 										<td width="40%">Customer Name</td>
 										<td width="10%">Products</td>
-										<td width="35%">Cashier</td>
+										<td width="30%">Cashier</td>
 										<td width="15%">Date</td>
+										<td width="5%"></td>
 									</tr>
 								</thead>
 								<tbody>

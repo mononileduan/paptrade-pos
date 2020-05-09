@@ -346,10 +346,58 @@ $(document).ready(function() {
             type : 'GET'
         },
         "columnDefs": [
-        	{className: "dt-right", "targets": [-3] },
+        	{className: "dt-right", "targets": [-4] },
+        	{"targets": -1, "data": null, "defaultContent": 
+        		"<a class=\'action-load\' data-mode=\'modal\' title=\'Load\'><i class=\'glyphicon glyphicon-chevron-right\'></i></a> &nbsp;" +
+        		"<a class=\'action-delete\' data-mode=\'modal\' title=\'Delete\'><i class=\'glyphicon glyphicon-trash\'></i></a>"
+        	},
         	{"targets": [ 0, 1 ], "visible": false, "searchable": false}
         ]
     });
+
+    $('#sales-tmp tbody').on( 'click', 'a.action-delete', function (id) {
+		var data = $("#sales-tmp").DataTable().row( $(this).parents('tr') ).data();
+       	var id = data[0];
+       	var dscp = data[2];
+		$("#delete_modal").find('input[name="id"]').val(id);
+		$("#delete_modal").find('p.dscp').text(dscp);
+    	$("#delete_modal").modal('show');
+    } );
+
+
+    $("#delete_modal_form").submit(function(e) {
+		e.preventDefault();
+		var id = $("#delete_modal").find('input[name="id"]').val();
+
+		if(id == ''){
+			$("#error_modal .modal-content .modal-body p.text-center").text('Could not proceed with delete. ID not found.');
+		    $("#error_modal").modal('show');
+		}
+		
+		if(id != ''){
+			var data = {};
+			data['submit_delete'] = true;
+			data['id'] = id;
+
+			$.ajax({
+				type : 'POST',
+				data : data,
+				url : index_page + '/sales_tmp/delete',
+				success : function(data) { 
+					if(data == 'OK'){
+						$("#sales-tmp-modal").modal('toggle');
+    					$("#delete_modal").modal('toggle');
+						$("#success_modal .modal-content .modal-body p.text-center").text("Record successfully deleted.");
+						$("#success_modal").modal('show');
+					}else{
+						$("#error_modal .modal-content .modal-body p.text-center").text(data);
+						$("#error_modal").modal('show');
+					}
+				}
+			})
+			return;
+		}
+	})
 
 
     $("#open-temp-txn").on('click', function(){
@@ -429,49 +477,54 @@ $(document).ready(function() {
 	});
 
 
-	$("#sales-tmp").on('click', 'tbody tr', function(event) {
-    	var data = $("#sales-tmp").DataTable().row( $(this) ).data();
+	$("#sales-tmp").on('click', 'a.action-load', function(event) {
+    	var data = $("#sales-tmp").DataTable().row( $(this).parents('tr') ).data();
 		var id = data[0];
-		$.ajax({
-			url: index_page + '/sales_tmp/details',
-			method: 'GET',
-			data: {id, id},
-			async: true,
-			dataType: 'json',
-			success: function(data){
-				for(i=0; i<data.length; i++){
-					if(data[i].STOCKS >= data[i].QTY){
-						var inv_id = data[i].ID;
-						var stocks = data[i].STOCKS;
-						var qty = data[i].QTY;
-						$("#cart tbody").append(
-							'<tr>' +
-								'<input name="id" type="hidden" value="'+ inv_id +'">' +
-								'<td>'+ data[i].ITEM +'</td>' +
-								'<td class="text-right">'+ thousands(data[i].PRICE) +'</td>' +
-								'<td class="text-right"><input data-stocks="'+stocks+'" data-remaining="'+stocks+'" data-id="'+inv_id+'" name="qty" type="text" value="'+qty+'" class="quantity-box text-right" size="5"></td>' +
-								'<td class="text-right"></td>' +
-								'<td><span class="remove" style="font-size:12px;"><i class="glyphicon glyphicon-trash" title="Remove"></i></span></td>' +
-							'</tr>'
-						);
-						$("payment").val('');
-						$("change").val('');
+		if($("#sales_temp_id").val() == id){
+			$("#error_modal .modal-content .modal-body p.text-center").text("Record already loaded");
+	    	$("#error_modal").modal('show');
+		}else{
+			$.ajax({
+				url: index_page + '/sales_tmp/details',
+				method: 'GET',
+				data: {id, id},
+				async: true,
+				dataType: 'json',
+				success: function(data){
+					for(i=0; i<data.length; i++){
+						if(data[i].STOCKS >= data[i].QTY){
+							var inv_id = data[i].ID;
+							var stocks = data[i].STOCKS;
+							var qty = data[i].QTY;
+							$("#cart tbody").append(
+								'<tr>' +
+									'<input name="id" type="hidden" value="'+ inv_id +'">' +
+									'<td>'+ data[i].ITEM +'</td>' +
+									'<td class="text-right">'+ thousands(data[i].PRICE) +'</td>' +
+									'<td class="text-right"><input data-stocks="'+stocks+'" data-remaining="'+stocks+'" data-id="'+inv_id+'" name="qty" type="text" value="'+qty+'" class="quantity-box text-right" size="5"></td>' +
+									'<td class="text-right"></td>' +
+									'<td><span class="remove" style="font-size:12px;"><i class="glyphicon glyphicon-trash" title="Remove"></i></span></td>' +
+								'</tr>'
+							);
+							$("payment").val('');
+							$("change").val('');
 
-						item_table.rows().every( function () {
-						    var d = this.data();
-						    if(d[0] == inv_id){
-							    d[3] = stocks - qty; // update data source for the row
-							    this.invalidate(); // invalidate the data DataTables has cached for this row
-							}
-						} );
-						item_table.draw();
+							item_table.rows().every( function () {
+							    var d = this.data();
+							    if(d[0] == inv_id){
+								    d[3] = stocks - qty; // update data source for the row
+								    this.invalidate(); // invalidate the data DataTables has cached for this row
+								}
+							} );
+							item_table.draw();
+						}
 					}
+					recount();
+				$("#sales_temp_id").val(id);
+				$("#sales-tmp-modal").modal('toggle');
 				}
-				recount();
-			$("#sales_temp_id").val(id);
-			$("#sales-tmp-modal").modal('toggle');
-			}
-		});
+			});
+		}
 	});
 
 

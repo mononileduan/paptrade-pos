@@ -70,6 +70,20 @@ class Sales_Tmp extends CI_Controller {
 		}
 	}
 
+	public function delete(){
+		if($this->input->post('submit_delete')){
+			$this->form_validation->set_rules('id', 'Temp Sales', 'required|trim');
+
+			if($this->form_validation->run() == true){
+				$con = array( 'conditions' => array( 'sales_temp_id' => $this->input->post('id') ) );
+				$this->sales_temp_dtls->delete($con);
+				$this->sales_temp->delete($this->input->post('id'));
+				echo 'OK';
+				exit();
+			}
+		}
+	}
+
 
 	public function list(){
 		// Datatables Variables
