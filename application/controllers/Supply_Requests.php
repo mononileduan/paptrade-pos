@@ -59,10 +59,16 @@ class Supply_Requests extends CI_Controller {
 
 		$con = array(
 			'returnType' => 'list',
-			'conditions' => array(
-				'sr.branch_id' => $this->session->userdata('branch_id')
-			)
+			'conditions' => array()
 		);
+		if($this->session->userdata('user_role') != $this->config->item('USER_ROLE_ASSOC')['SYS_ADMIN'][0]){
+			$con = array(
+				'returnType' => 'list',
+				'conditions' => array(
+					'sr.branch_id' => $this->session->userdata('branch_id')
+				)
+			);
+		}
 		$srequestList = $this->supply_request->getRowsJoin($con);
 
 		$data = array();
