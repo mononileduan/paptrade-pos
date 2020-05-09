@@ -139,7 +139,13 @@ class Supply_Requests extends CI_Controller {
 									);
 								$this->warehouse_inventory_hist->insert($inventory_hist);
 
-
+								$con = array(
+									'returnType' => 'single',
+									'conditions' => array(
+										'item_id' => $request['ITEM_ID'],
+										'branch_id' => $request['BRANCH_ID']
+									)
+								);
 								$br_item = $this->branch_inventory->getRowsJoin($con)->row_array(); //get item from branch inventory
 								if($br_item){ //update
 									$newVal = array(
