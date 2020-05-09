@@ -74,13 +74,19 @@ class Items extends CI_Controller {
 				$this->form_validation->set_rules('id', 'Item', 'required|trim');
 
 				if($this->form_validation->run() == true){
-					if($this->item->delete($this->input->post('id'))){
-						echo 'OK';
+					$delete = $this->item->delete($this->input->post('id'));
+					if($delete){
+						if($delete == 1451){
+							echo 'Could not delete. Item exists in Warehouse/Branch inventory';
+						}else{
+							echo 'OK';
+						}
 						exit();
 					}else{
 						echo 'Could not delete Item. ID does not exist.';
 						exit();
 					}
+					
 				}
 			}
 
@@ -226,6 +232,6 @@ class Items extends CI_Controller {
 		);
 		echo json_encode($output);
 		exit();
-     }
+    }
 
 }

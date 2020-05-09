@@ -102,6 +102,9 @@ class Item extends CI_Model {
 
 			$this->db->where('id', $id);
 			$delete = $this->db->delete($this->table);
+			if($this->db->error()){
+				return $this->db->error()['code'];
+			}
 
 			return $delete ? $this->db->affected_rows() : false;
 		}
