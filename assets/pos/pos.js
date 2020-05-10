@@ -409,7 +409,14 @@ $(document).ready(function() {
 	$("#save-temp-txn").on('click', function(){
 		var row = $("#cart tbody tr").length;
 		if (row) {
-			$("#customer-name-modal").modal('toggle');
+			if($("#sales_temp_id").val() == ''){
+				$("#customer-name-modal").modal('toggle');
+			}else{
+				$("#update_modal_form").find('input[name="id"]').val($("#sales_temp_id").val());
+				$("#confirm_update_modal .modal-content .modal-body p.dscp").text($("#sales_temp_custname").val());
+	    		$("#confirm_update_modal").modal('show');
+			}
+			
 		}else{
 			$("#error_modal .modal-content .modal-body p.text-center").text('Please add some items');
 	    	$("#error_modal").modal('show');
@@ -480,10 +487,21 @@ $(document).ready(function() {
 	$("#sales-tmp").on('click', 'a.action-load', function(event) {
     	var data = $("#sales-tmp").DataTable().row( $(this).parents('tr') ).data();
 		var id = data[0];
+		var customer_name = data[2];
 		if($("#sales_temp_id").val() == id){
 			$("#error_modal .modal-content .modal-body p.text-center").text("Record already loaded");
 	    	$("#error_modal").modal('show');
 		}else{
+			if($("#sales_temp_id").val() != ''){
+				$("#cart tbody").empty();
+			 	$("#payment").val('');
+			 	$("#change").val('');
+			 	$("#amount-due").text(''); 
+			 	$("#amount-total").text('');
+				item_table.ajax.reload();
+			}
+
+
 			$.ajax({
 				url: index_page + '/sales_tmp/details',
 				method: 'GET',
@@ -521,11 +539,80 @@ $(document).ready(function() {
 					}
 					recount();
 				$("#sales_temp_id").val(id);
+				$("#sales_temp_custname").val(customer_name);
 				$("#sales-tmp-modal").modal('toggle');
 				}
 			});
 		}
 	});
+
+
+	$("#update_modal_form").submit(function(e) {
+		e.preventDefault();
+		var id = $("#update_modal_form").find('input[name="id"]').val();
+
+		if(id == ''){
+			$("#error_modal .modal-content .modal-body p.text-center").text('Could not proceed with update. ID not found.');
+		    $("#error_modal").modal('show');
+		}
+		
+		if(id != ''){
+			var row = $("#cart tbody tr").length;
+			if (row) {
+	 			var sales = [];
+				for (i = 0; i < row; i++) {
+					var r = $("#cart tbody tr").eq(i).find('td');
+					var quantity = r.eq(2).find('input').val();
+					var price = r.eq(1).text().replace(',','');
+					var arr = {
+							inventory_id : $("#cart tbody tr").eq(i).find('input[name="id"]').val(), 
+							item : r.eq(0).text(),
+							unit_price : price,
+							quantity : quantity, 
+							subtotal : parseFloat(price) * parseInt(quantity)
+						};
+					sales.push(arr);
+				}
+
+				var data = {};
+				data['update_sales_temp'] = true;
+				data['sales_temp_id'] = id;
+				data['item_cnt'] = row;
+				data['sales'] = sales;
+				$.ajax({
+					type : 'POST',
+					data : data,
+					url : index_page + '/sales_tmp/update',
+					success : function(data) { 
+						if(data == 'OK'){
+							$("#sales_temp_id").val('');
+							$("#sales_temp_custname").val('');
+
+							$("#update_modal_form").find('input[name="id"]').val('');
+				    		$("#confirm_update_modal").modal('toggle');
+
+			 				$("#cart tbody").empty();
+						 	$("#payment").val('');
+						 	$("#change").val('');
+						 	$("#amount-due").text(''); 
+						 	$("#amount-total").text('');
+
+						 	item_table.ajax.reload();
+						 	$("#btn").button('reset');
+
+						 	$("#success_modal .modal-content .modal-body p.text-center").text('Transaction successfully updated');
+			    			$("#success_modal").modal('show');
+						
+						}else{
+							$("#error_modal .modal-content .modal-body p.text-center").text(data);
+	    					$("#error_modal").modal('show');
+						}
+					}
+				})
+			}
+			return;
+		}
+	})
 
 
 	thousands($("#daily_sales_cnt"));

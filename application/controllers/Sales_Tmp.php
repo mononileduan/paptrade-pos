@@ -70,6 +70,36 @@ class Sales_Tmp extends CI_Controller {
 		}
 	}
 
+
+	public function update(){
+		if($this->input->post('update_sales_temp')){
+			$sales_temp_ = array(
+				'item_cnt' => $this->input->post('item_cnt'),
+				'created_by' => $this->session->userdata('username'),
+				'created_dt' => date('YmdHis')
+			);
+			$this->sales_temp->update($this->input->post('sales_temp_id'), $sales_temp_);
+
+			$con = array( 'conditions' => array( 'sales_temp_id' => $this->input->post('sales_temp_id') ) );
+			$this->sales_temp_dtls->delete($con);
+
+			foreach($this->input->post('sales') as $item) {				
+				$sales_tmp_dtl = array(
+					'id'		=> uniqid('', true),
+					'sales_temp_id' => $this->input->post('sales_temp_id'),
+					'branch_inventory_id' => $item['inventory_id'],
+					'quantity' => $item['quantity']
+				);
+
+				$this->sales_temp_dtls->insert($sales_tmp_dtl);
+			}
+
+			echo 'OK';
+			exit();
+		}
+	}
+
+
 	public function delete(){
 		if($this->input->post('submit_delete')){
 			$this->form_validation->set_rules('id', 'Temp Sales', 'required|trim');

@@ -103,6 +103,7 @@
 										<div class="col-md-12">
 											<div class="form-group">
 												<input type="hidden" id="sales_temp_id" >
+												<input type="hidden" id="sales_temp_custname" >
 												<input type="submit" class="btn btn-primary form-control" name="" value="Process" id="btn" >
 											</div>
 										</div>

@@ -132,7 +132,7 @@
 			<div class="modal-footer">
 				<form action="" id="delete_modal_form" method="post" accept-charset="utf-8">
 					<input type="hidden" name="id">
-					<input type="submit" name="submit_deletet" class="btn btn-error btn-success btn-block" value="Yes">
+					<input type="submit" name="submit_delete" class="btn btn-error btn-success btn-block" value="Yes">
 					<button class="btn btn-info btn-block" data-dismiss="modal">No</button>
 				</form>
 			</div>
@@ -145,7 +145,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<div class="icon-box">
-					<i class="material-icons">help-circle</i>
+					<i class="material-icons">help</i>
 				</div>	
 				<div>		
 					<h4>Confirm</h4>	
@@ -156,6 +156,32 @@
 			</div>
 			<div class="modal-footer">
 				<button class="btn btn-success btn-block" data-dismiss="modal">OK</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="confirm_update_modal" class="modal fade">
+	<div class="modal-dialog modal-confirm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="icon-box">
+					<i class="material-icons">help</i>
+				</div>	
+				<div>		
+					<h4>Confirm</h4>	
+				</div>	
+			</div>
+			<div class="modal-body">
+				<p class="text-center">Are you sure you want to update this record?</p>
+				<p class="dscp text-center"></p>
+			</div>
+			<div class="modal-footer">
+				<form action="" id="update_modal_form" method="post" accept-charset="utf-8">
+					<input type="hidden" name="id">
+					<input type="submit" name="submit_update" class="btn btn-error btn-success btn-block" value="Yes">
+					<button class="btn btn-info btn-block" data-dismiss="modal">No</button>
+				</form>
 			</div>
 		</div>
 	</div>

@@ -76,6 +76,18 @@ class Sales_Temp extends CI_Model {
 		return false;
 	}
 
+	public function update($id = FALSE, $data = array()){
+		if($id && !empty($data)){
+
+			$this->db->where('id', $id);
+			$update = $this->db->update($this->table, $data);
+
+			return $update ? $this->db->affected_rows() : false;
+		}
+
+		return false;
+	}
+
 	public function delete($id = FALSE){
 		if($id){
 
