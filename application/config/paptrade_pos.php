@@ -34,10 +34,41 @@ $config['USER_ROLE_ASSOC'] = array(
 );
 
 $config['USER_ROLE_ASSOC_MENU'] = array(
-	'SYS_ADMIN'		=> array('POS', 'MAINTENANCE', 'BRAND', 'CATEGORY', 'STOCK_TYPE', 'ITEM', 'WAREHOUSE_FXN', 'WH_INVENTORY', 'WH_SUPPLY_REQUEST', 'BRANCH_FXN', 'BR_INVENTORY', 'BR_SUPPLY_REQUEST', 'REPORTS', 'SALES', 'ADMIN', 'BRANCH', 'USER'),
-	'WHOUSE_USER'	=> array('WAREHOUSE_FXN', 'WH_INVENTORY', 'WH_SUPPLY_REQUEST'),
-	'BRANCH_USER'	=> array('POS', 'BRANCH_FXN', 'BR_INVENTORY', 'BR_SUPPLY_REQUEST', 'REPORTS', 'SALES'),
-	'CASHIER'		=> array('POS')
+	'SYS_ADMIN'		=> array(
+						'POS', 
+						'MAINTENANCE', 
+							'BRAND', 
+							'CATEGORY', 
+							'STOCK_TYPE', 
+							'ITEM', 
+						'WAREHOUSE_FXN', 
+							'WH_INVENTORY', 
+							'WH_SUPPLY_REQUEST', 
+						'BRANCH_FXN', 
+							'BR_INVENTORY', 
+							'BR_SUPPLY_REQUEST', 
+						'REPORTS', 
+							'SALES', 
+						'ADMIN', 
+							'BRANCH', 
+							'USER'
+						),
+	'WHOUSE_USER'	=> array(
+						'WAREHOUSE_FXN', 
+							'WH_INVENTORY', 
+							'WH_SUPPLY_REQUEST'
+						),
+	'BRANCH_USER'	=> array(
+						'POS', 
+						'BRANCH_FXN', 
+							'BR_INVENTORY', 
+							'BR_SUPPLY_REQUEST', 
+						'REPORTS', 
+							'SALES'
+					),
+	'CASHIER'		=> array(
+						'POS'
+					)
 );
 
 
