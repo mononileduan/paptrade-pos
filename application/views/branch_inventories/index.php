@@ -97,8 +97,9 @@
 								<table id="view-data-table" class="table table-bordered table-striped table-hover" style="width:100%">
 									<thead>
 										<tr>
-											<td></td>
-											<td width="40%">Item</td>
+											<td>ID</td>
+											<td width="25%">Item</td>
+											<td width="15%">Branch</td>
 											<td width="15%">Category</td>
 											<td width="15%">Unit Price</td>
 											<td width="10%">Quantity</td>

@@ -228,6 +228,7 @@ class Branch_Inventories extends CI_Controller {
 			   $data[] = array(
 			   		$r['ID'],
 			        $r['ITEM'],
+			        $r['BRANCH'],
 			        $r['CATEGORY'],
 			        $r['PRICE'],
 			        $r['QTY'],
