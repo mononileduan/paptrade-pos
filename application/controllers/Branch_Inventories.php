@@ -288,14 +288,12 @@ class Branch_Inventories extends CI_Controller {
 
 		$con = array('returnType' => 'list');
 
-		if($this->session->userdata('user_role') != $this->config->item('USER_ROLE_ASSOC')['SYS_ADMIN'][0]){
-			$con = array(
-				'returnType' => 'list',
-				'conditions' => array(
-					'inv.branch_id' => $this->session->userdata('branch_id')
-				)
-			);
-		}
+		$con = array(
+			'returnType' => 'list',
+			'conditions' => array(
+				'inv.branch_id' => $this->session->userdata('branch_id')
+			)
+		);
 		$inventoryList = $this->branch_inventory->getRowsJoin($con);
 
 		$data = array();
