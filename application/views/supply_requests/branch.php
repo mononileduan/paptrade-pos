@@ -49,9 +49,10 @@
 									<thead>
 										<tr>
 											<td></td>
-											<td width="30%">Item</td>
+											<td width="20%">Item</td>
 											<td width="10%">Quantity</td>
-											<td width="20%">Requested By</td>
+											<td width="15%">Branch</td>
+											<td width="15%">Requested By</td>
 											<td width="15%">Request Date</td>
 											<td width="15%">Status</td>
 											<td width="10%">Action</td>
@@ -80,6 +81,7 @@
 						   url : "<?= site_url('supply_requests/branch_list'); ?>",
 						    type : 'GET'
 						},
+						"order": [[ 1, "asc" ]],
 						"columnDefs": [
 							{"targets": -1, "data": null, "defaultContent": 
 							"<a class=\'action-view\' data-mode=\'modal\' title=\'View\'><i class=\'glyphicon glyphicon-eye-open\'></i></a>&nbsp; " +
