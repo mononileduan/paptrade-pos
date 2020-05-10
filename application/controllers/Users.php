@@ -266,7 +266,17 @@ class Users extends CI_Controller {
 
 
 				if($this->session->userdata('user_role') == $this->config->item('USER_ROLE_ASSOC')['SYS_ADMIN'][0]){
-					$con = array('returnType' => 'list');
+					$con = array();
+					$result = $this->sales_model->getSummary($con)->row_array();
+					$data['daily_sales_cnt'] = $result['CNT'];
+					$data['daily_total_sales'] = $result['TOTAL'];
+
+					$con = array(
+						'returnType' => 'list',
+						'conditions' => array(
+							'del' => false
+						)
+					);
 					$data['sales_monthly'] = $this->sales_model->getDashboardSummary($con);
 
 				}else if($this->session->userdata('user_role') == $this->config->item('USER_ROLE_ASSOC')['BRANCH_USER'][0]){

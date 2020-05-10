@@ -35,6 +35,9 @@
 
 					    }else if($this->session->userdata('user_role') == $this->config->item('USER_ROLE_ASSOC')['WHOUSE_USER'][0]){
 					        $this->load->view('dashboard/warehouse'); 
+					        
+					    }else if($this->session->userdata('user_role') == $this->config->item('USER_ROLE_ASSOC')['SYS_ADMIN'][0]){
+					        $this->load->view('dashboard/sysadmin'); 
 					    }
 					    ?>
 			            
@@ -81,6 +84,9 @@
 
 	    }else if($this->session->userdata('user_role') == $this->config->item('USER_ROLE_ASSOC')['WHOUSE_USER'][0]){
 	        $this->load->view('dashboard/warehouse_js'); 
+	        
+	    }else if($this->session->userdata('user_role') == $this->config->item('USER_ROLE_ASSOC')['SYS_ADMIN'][0]){
+	        $this->load->view('dashboard/sysadmin_js'); 
 	    }
 	    ?>
 		
