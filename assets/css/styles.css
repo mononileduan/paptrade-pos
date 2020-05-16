@@ -142,3 +142,7 @@ table.dataTable td.dt-right {
 a {
     cursor: pointer;
 }
+
+a:focus {
+    outline: none;
+}
