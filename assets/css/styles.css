@@ -30,6 +30,10 @@ body {
     height: 40px;
 }
 
+#login-info-container{
+	margin-top: 10px;
+}
+
 .login-info-panel {
 	padding-top: 0;
 	padding-bottom: 0;

@@ -1,34 +1,41 @@
 <div class="col-sm-2 col-md-2">
-	
-	<div class="panel-group">
+	<div id="login-info-container">
 		<div class="panel panel-default">
-			<div class="panel-body login-info-panel">
-				<table class="table login-info-table">
-					<tr>
-						<td>
-							<small><span class="glyphicon glyphicon-user"></span>&nbsp;<?=$this->session->userdata('fullname')?></small>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<small><span class="glyphicon glyphicon-briefcase"></span>&nbsp;<?=$this->session->userdata('user_role_dscp')?></small>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<small><span class="glyphicon glyphicon-map-marker"></span>&nbsp;<?=$this->session->userdata('branch')?></small>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<small><span class="glyphicon glyphicon-calendar"></span>&nbsp;<?=date($this->session->userdata('last_login_dt'))?></small>
-						</td>
-					</tr>
-				</table>
+			<div class="panel-heading">
+				<h4 class="panel-title">
+					<a data-toggle="collapse" data-parent="#accordion" href="#collapse-login-info"><span class="glyphicon glyphicon-info-sign"></span>&nbsp;Login Information</a>
+				</h4>
 			</div>
+			<div id="collapse-login-info" class="panel-collapse collapse in">
+				<div class="panel-body login-info-panel">
+					<table class="table login-info-table">
+						<tr>
+							<td>
+								<small><span class="glyphicon glyphicon-user"></span>&nbsp;<?=$this->session->userdata('fullname')?></small>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<small><span class="glyphicon glyphicon-briefcase"></span>&nbsp;<?=$this->session->userdata('user_role_dscp')?></small>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<small><span class="glyphicon glyphicon-map-marker"></span>&nbsp;<?=$this->session->userdata('branch')?></small>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<small><span class="glyphicon glyphicon-calendar"></span>&nbsp;<?=date($this->session->userdata('last_login_dt'))?></small>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			
 		</div>
-	</div>
-    
+    </div>
+
     <div class="panel-group" id="accordion">
 		<div class="panel panel-default">
 			<div class="panel-heading">
