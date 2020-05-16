@@ -54,7 +54,7 @@ body {
 
 .btn-primary:focus {
     color: #fff;
-    background-color: #c0010c;
+    background-color: #d3010f;
     border: none;
 }
 
@@ -74,6 +74,6 @@ body {
 .btn-primary.active.focus,
 .open > .dropdown-toggle.btn-primary.focus {
   color: #fff;
-  background-color: #c0010c !important;
-  border-color: #122b40;
+  background-color: #ad0101 !important;
+  border-color: #280002 !important;
 }
