@@ -9,7 +9,7 @@
 				"columnDefs": [
 					{className: "dt-right", "targets": [-2, -3] },
 					{render: $.fn.dataTable.render.number( ',', '.', 2, '' ), "targets": [-4] },
-					{"targets": -1, "data": null, "defaultContent": 
+					{"targets": -1, "data": null, "orderable": false, "defaultContent": 
 						"<a class=\'action-add\' data-mode=\'modal\' title=\'Add Supply Request\'><i class=\'glyphicon glyphicon-plus\'></i></a>&nbsp; "},
 					{"targets": [ 0, 1, 2 ], "visible": false, "searchable": false}
 				]
