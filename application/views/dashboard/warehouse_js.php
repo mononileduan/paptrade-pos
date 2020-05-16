@@ -9,7 +9,7 @@
 				"columnDefs": [
 					{className: "dt-right", "targets": [-2, -3, -4] },
 					{render: $.fn.dataTable.render.number( ',', '.', 0, '' ), "targets": [-2, -3, -4] },
-					{"targets": -1, "data": null, "defaultContent": 
+					{"targets": -1, "data": null, "orderable": false, "defaultContent": 
 						"<a class=\'action-add\' data-mode=\'modal\' title=\'Add Stocks\'><i class=\'glyphicon glyphicon-plus\'></i></a>&nbsp; "},
 					{"targets": [ 0, 1 ], "visible": false, "searchable": false}
 				]
@@ -32,7 +32,7 @@
 				"columnDefs": [
 					{className: "dt-right", "targets": [2] },
 					{render: $.fn.dataTable.render.number( ',', '.', 0, '' ), "targets": [] },
-					{"targets": -1, "data": null, "defaultContent": 
+					{"targets": -1, "data": null, "orderable": false, "defaultContent": 
 						"<a class=\'action-view\' data-mode=\'modal\' title=\'View\'><i class=\'glyphicon glyphicon-eye-open\'></i></a>&nbsp; "},
 					{"targets": [0, 4, -2], "visible": false, "searchable": false}
 				]
