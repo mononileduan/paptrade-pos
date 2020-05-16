@@ -28,7 +28,7 @@
 								<div class="col-md-6">
 									<div class="login-box">
 										<h3>Login to your account</h3>
-										<form action="" method="post" id="loginform" class="form-horizontal" role="form">
+										<form action="" method="post" id="loginform" class="form-horizontal" role="form" autocomplete="off">
 
 											<div class="input-group">
 												<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
