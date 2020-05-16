@@ -10,6 +10,8 @@
 
 	 	<link rel="stylesheet" type="text/css" href="assets/bootstrap/3.4.1/css/bootstrap.css">
 	 	<link rel="stylesheet" type="text/css" href="assets/login/login.css">
+	 	
+    	<script src="assets/jquery/3.4.1/jquery.min.js"></script>
 	</head>
 	<body>
 		<div class="container-fluid">
