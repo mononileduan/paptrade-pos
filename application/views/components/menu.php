@@ -12,22 +12,22 @@
 						<table class="table login-info-table">
 							<tr>
 								<td>
-									<small><span class="glyphicon glyphicon-user"></span>&nbsp;<?=$this->session->userdata('fullname')?></small>
+									<small><span class="glyphicon glyphicon-user"></span>&nbsp; <?=$this->session->userdata('fullname')?></small>
 								</td>
 							</tr>
 							<tr>
 								<td>
-									<small><span class="glyphicon glyphicon-briefcase"></span>&nbsp;<?=$this->session->userdata('user_role_dscp')?></small>
+									<small><span class="glyphicon glyphicon-briefcase"></span>&nbsp; <?=$this->session->userdata('user_role_dscp')?></small>
 								</td>
 							</tr>
 							<tr>
 								<td>
-									<small><span class="glyphicon glyphicon-map-marker"></span>&nbsp;<?=$this->session->userdata('branch')?></small>
+									<small><span class="glyphicon glyphicon-map-marker"></span>&nbsp; <?=$this->session->userdata('branch')?></small>
 								</td>
 							</tr>
 							<tr>
 								<td>
-									<small><span class="glyphicon glyphicon-calendar"></span>&nbsp;<?=date($this->session->userdata('last_login_dt'))?></small>
+									<small><span class="glyphicon glyphicon-calendar"></span>&nbsp; <?=date($this->session->userdata('last_login_dt'))?></small>
 								</td>
 							</tr>
 						</table>
