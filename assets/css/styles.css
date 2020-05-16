@@ -75,22 +75,51 @@ table.dataTable td.dt-right {
 .dataTables_wrapper .dataTables_length {
 	float: left;
 	margin-right:20px;
+    font-size: 10px;
+    font-style: italic;
+}
+
+.dataTables_wrapper .dataTables_length select.input-sm {
+	height: 25px;
+	line-height: 25px;
+	font-size: 10px;
+    font-style: normal;
+}
+
+.dataTables_wrapper .dt-buttons .btn {
+    font-size: 10px;
+    padding: 5px 12px;
 }
 
 .dataTables_wrapper .dataTables_filter {
 	float: right;
+    font-size: 10px;
+    font-style: italic;
+}
+
+.dataTables_wrapper .dataTables_filter .input-sm {
+	height: 25px;
+	line-height: 25px;
+	font-size: 10px;
+    font-style: normal;
 }
 
 .dataTables_wrapper .dataTables_info {
 	clear: both;
     float: left;
+    font-size: 10px;
+    font-style: italic;
 }
 
 .dataTables_wrapper .dataTables_paginate {
     float: right;
     padding-top: 0.25em;
+    font-size: 9px;
 }
 
+.dataTables_wrapper .dataTables_empty {
+    font-style: italic;
+}
 
 .dataview-val {
 	margin-bottom: 5px;
