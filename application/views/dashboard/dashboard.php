@@ -17,33 +17,40 @@
 	</head>
 
 	<body>
+
 		<div>
 
 			<?php $this->load->view('components/navbar'); ?>
 			
 			<div class="container-fluid">
+
 				<div class="row">
-			        
+
 			        <?php $this->load->view('components/menu'); ?>
 
-			        <div class="col-sm-10 col-md-10" id="page-content">
+			        <div class="col-sm-9 col-md-10" id="page-content">
 			            <h2 class="page-header">Dashboard</h2>
-			            
-			            <?php 
-						if($this->session->userdata('user_role') == $this->config->item('USER_ROLE_ASSOC')['BRANCH_USER'][0]){
-					        $this->load->view('dashboard/branch'); 
+			            <div class="row">
+			            	<div div class="col-sm-12 col-md-12" id="content-container">
+					            <?php
+								if($this->session->userdata('user_role') == $this->config->item('USER_ROLE_ASSOC')['BRANCH_USER'][0]){
+							        $this->load->view('dashboard/branch');
 
-					    }else if($this->session->userdata('user_role') == $this->config->item('USER_ROLE_ASSOC')['WHOUSE_USER'][0]){
-					        $this->load->view('dashboard/warehouse'); 
-					        
-					    }else if($this->session->userdata('user_role') == $this->config->item('USER_ROLE_ASSOC')['SYS_ADMIN'][0]){
-					        $this->load->view('dashboard/sysadmin'); 
-					    }
-					    ?>
-			            
+							    }else if($this->session->userdata('user_role') == $this->config->item('USER_ROLE_ASSOC')['WHOUSE_USER'][0]){
+							        $this->load->view('dashboard/warehouse');
+							        
+							    }else if($this->session->userdata('user_role') == $this->config->item('USER_ROLE_ASSOC')['SYS_ADMIN'][0]){
+							        $this->load->view('dashboard/sysadmin');
+							    }
+							    ?>
+						    </div>
+			            </div>
 			        </div>
+
 	    		</div>
+
 	    	</div>
+
 		</div>
 
 		<?php $this->load->view('components/modals'); ?>
@@ -53,6 +60,19 @@
 
 		<script type="text/javascript">
 			$(document).ready(function() {
+
+				var dHeight = parseInt($(document).height());
+			 	
+				dHeight = dHeight - 150;
+				$("#content-container").css('height', dHeight + 'px');
+				$("#content-container").css('overflow-y', 'auto');
+
+				dHeight = parseInt($(document).height());
+			 	
+				dHeight = dHeight - 60;
+				$("#left-menu-container").css('height', dHeight + 'px');
+				$("#left-menu-container").css('overflow-y', 'auto');
+
 				
 				var success_msg = "<?php if(isset($success_msg)){ echo $success_msg; } else {echo '';} ?>";
 			    var error_msg = "<?php if(isset($error_msg)){ echo $error_msg; } else {echo '';} ?>";
