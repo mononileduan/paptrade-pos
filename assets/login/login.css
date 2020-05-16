@@ -1,21 +1,53 @@
-.wrapper {
-	margin: 0;
+body {
+	font-size: 12px;
+	background-image: linear-gradient(135deg, #ffd4d6 25%, #ffffff 25%, #ffffff 50%, #ffd4d6 50%, #ffd4d6 75%, #ffffff 75%, #ffffff 100%);
+	background-size: 2.83px 2.83px;
 }
 
-.top-logo-container {
+.login-panel {
+	margin-top: 100px;
+	height: 360px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.logo-container {
 	margin-top:50px; 
 	text-align: center;
 }
 
-.top-logo {
+.logo {
     max-width:100%;
     height:auto;
 }
 
-.login-box-container {
-	margin-top:40px;
+.login-box {
+	padding: 20px 70px 20px 20px;
 }
 
-.login-box {
-	
+.login-box h3 {
+	margin-top: 0px;
+	margin-bottom: 20px;
+	font-size: 20px;
+}
+
+.alert {
+	padding-top: 7px;
+	padding-bottom: 7px;
+	margin-bottom: 10px;
+}
+
+.form-control {
+	height: 40px;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #c0010c;
+    border: none;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #d3010f;
+    border: none;
 }
