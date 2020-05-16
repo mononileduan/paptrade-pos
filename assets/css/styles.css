@@ -60,8 +60,12 @@ Content
 
 .page-header {
 	padding-bottom: 9px;
-    margin: 10px 0 20px;
+    margin: 20px 0 20px;
     border-bottom: 1px solid #eee;
+}
+
+.margin-left-20px {
+	margin-left: 20px;
 }
 
 .row-pad {

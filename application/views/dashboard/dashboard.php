@@ -30,20 +30,22 @@
 
 			        <div class="col-sm-9 col-md-10" id="page-content">
 			            <h2 class="page-header">Dashboard</h2>
-			            <div class="row">
-			            	<div div class="col-sm-12 col-md-12" id="content-container">
-					            <?php
-								if($this->session->userdata('user_role') == $this->config->item('USER_ROLE_ASSOC')['BRANCH_USER'][0]){
-							        $this->load->view('dashboard/branch');
+			            <div class="margin-left-20px">
+				            <div class="row">
+				            	<div div class="col-sm-12 col-md-12" id="content-container">
+						            <?php
+									if($this->session->userdata('user_role') == $this->config->item('USER_ROLE_ASSOC')['BRANCH_USER'][0]){
+								        $this->load->view('dashboard/branch');
 
-							    }else if($this->session->userdata('user_role') == $this->config->item('USER_ROLE_ASSOC')['WHOUSE_USER'][0]){
-							        $this->load->view('dashboard/warehouse');
-							        
-							    }else if($this->session->userdata('user_role') == $this->config->item('USER_ROLE_ASSOC')['SYS_ADMIN'][0]){
-							        $this->load->view('dashboard/sysadmin');
-							    }
-							    ?>
-						    </div>
+								    }else if($this->session->userdata('user_role') == $this->config->item('USER_ROLE_ASSOC')['WHOUSE_USER'][0]){
+								        $this->load->view('dashboard/warehouse');
+								        
+								    }else if($this->session->userdata('user_role') == $this->config->item('USER_ROLE_ASSOC')['SYS_ADMIN'][0]){
+								        $this->load->view('dashboard/sysadmin');
+								    }
+								    ?>
+							    </div>
+				            </div>
 			            </div>
 			        </div>
 
