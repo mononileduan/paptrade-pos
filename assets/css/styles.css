@@ -139,10 +139,25 @@ table.dataTable td.dt-right {
     font-size: 12px;
 }
 
+.panel-title .collapsed {
+    color: inherit;
+}
+
+.panel-title a:active {
+    color: #c0010c;
+}
+
+.login-info-table .glyphicon,
+.panel-title .glyphicon {
+    color: #c0010c;
+}
+
 a {
     cursor: pointer;
 }
 
-a:focus {
+a:hover, a:focus {
     outline: none;
+    text-decoration: none;
+    color: #c0010c;
 }
