@@ -17,74 +17,76 @@
 	</head>
 
 	<body>
+
 		<div>
 
 			<?php $this->load->view('components/navbar'); ?>
 			
 			<div class="container-fluid">
+
 				<div class="row">
 			        
 			        <?php $this->load->view('components/menu'); ?>
 
 			        <div class="col-sm-10 col-md-10" id="page-content">
-			            <h2 class="page-header">Brands</h2>
-
-			            <div class="row">
-							<div class="col-md-12">
-								<div class="row">
-									<div class="col-md-12">
-										<a href="#add_container" class="btn btn-primary btn-sm" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class='glyphicon glyphicon-plus'></i> Add New</a>
-									</div>
-								</div>
-
-								<div class="row-pad"></div>
-
-								<div class="row collapse <?php if(!empty($error_msg)){echo 'show';} ?> border border-primary rounded" id="add_container" style="padding-top: 10px;">
-									<div class="col-md-12">
-										<div class="container">
-											<form action="" method="post" accept-charset="utf-8" class="form-horizontal">
-												<div class="form-group">
-													<label class="control-label col-sm-2" for='brand'>Brand</label>
-													<div class="col-sm-10">
-														<input required="required" type="text" value="<?php echo set_value('brand'); ?>" name="brand" class="form-control">
-														<?php echo form_error('brand', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
-													</div>
+			        	<h2 class="page-header">Brands</h2>
+			            <div class="margin-left-20px">
+				            <div class="row">
+								<div class="col-md-12">
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h4 class="panel-title">
+												<a data-toggle="collapse" data-parent="#accordion" href="#collapse-add-new"><span class="glyphicon glyphicon-plus"></span>&nbsp; Add New</a>
+											</h4>
+										</div>
+										<div id="collapse-add-new" class="panel-collapse collapse <?php if(!empty($error_msg)){echo 'in';} ?>">
+											<div class="panel-body">
+												<div class="container">
+													<form action="" method="post" accept-charset="utf-8" class="form-horizontal">
+														<div class="form-group">
+															<label class="control-label col-md-2 col-sm-1" for='brand'>Brand Name</label>
+															<div class="col-md-4 col-sm-11">
+																<input required="required" type="text" value="<?php echo set_value('brand'); ?>" name="brand" class="form-control">
+																<?php echo form_error('brand', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
+															</div>
+															<div class="col-md-offset-3"></div>
+														</div>
+														<div class="form-group">
+															<div class="col-sm-offset-2 col-sm-10">
+														    	<input type="submit" name="submit_brand" class="btn btn-sm btn-primary" value="Submit">
+														    </div>
+														</div>
+													</form>
 												</div>
-												
-												<div class="form-group">
-													<div class="col-sm-offset-2 col-sm-10">
-												    	<input type="submit" name="submit_brand" class="btn btn-sm btn-success" value="Submit">
-												    </div>
-													
-												</div>
-											</form>
+											</div>
 										</div>
 									</div>
 								</div>
-
 							</div>
-						</div>
 
-						<div class="row-pad"></div>
-
-						<div class="row-pad"></div>
-
-					    <div class="row">
-						    <div class="col-md-12">
-								<table id="view-data-table" class="table table-bordered table-striped table-hover" style="width:100%">
-									<thead>
-										<tr>
-											<td></td>
-											<td width="90%">Brands</td>
-											<td width="10%">Action</td>
-										</tr>
-									</thead>
-									<tbody>
-									</tbody>
-								</table>
+						    <div class="row">
+							    <div class="col-md-12">
+							    	<div class="panel panel-default">
+										<div class="panel-heading">
+											<span class="panel-title">List</span>
+										</div>
+										<div class="panel-body">
+											<table id="view-data-table" class="table table-bordered table-striped table-hover" style="width:100%">
+												<thead>
+													<tr>
+														<td></td>
+														<td width="90%">Brand Name</td>
+														<td width="10%">Action</td>
+													</tr>
+												</thead>
+												<tbody>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
 							</div>
-						</div>
-			            
+			            </div>
 			        </div>
 	    		</div>
 	    	</div>
@@ -95,6 +97,8 @@
 		<script type="text/javascript" src="assets/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="assets/datatables/datatables.min.js"></script>
 
+		<script type="text/javascript" src="assets/js/page.height.setter.js"></script>
+
 		<script type="text/javascript">
 			$(document).ready(function() {
 				var datatable = $('#view-data-table').DataTable({
@@ -103,7 +107,8 @@
 						    type : 'GET'
 						},
 						"columnDefs": [
-							{"targets": -1, "data": null, "defaultContent": "<a class=\'action-delete\' data-mode=\'modal\' title=\'Delete\'><i class=\'glyphicon glyphicon-trash\'></i></a>"},
+							{"targets": -1, "data": null, "orderable": false, "defaultContent": 
+								"<a class=\'action-delete\' data-mode=\'modal\' title=\'Delete\'><i class=\'glyphicon glyphicon-trash\'></i></a>"},
 							{"targets": [ 0 ], "visible": false, "searchable": false}
 						]
 				});
