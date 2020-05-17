@@ -161,3 +161,9 @@ a:hover, a:focus {
     text-decoration: none;
     color: #c0010c;
 }
+
+.form-control {
+    height: 32px;
+    line-height: 32px;
+    font-size: 12px;
+}

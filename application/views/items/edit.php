@@ -17,118 +17,102 @@
 	</head>
 
 	<body>
+
 		<div>
 
 			<?php $this->load->view('components/navbar'); ?>
 			
 			<div class="container-fluid">
+
 				<div class="row">
 			        
 			        <?php $this->load->view('components/menu'); ?>
 
 			        <div class="col-sm-10 col-md-10" id="page-content">
-			            <h2 class="page-header">Edit Items</h2>
-
-			            <div class="row">
-							<div class="col-md-12">
-								
-								<div class="row">
-									<div class="col-md-12">
-										<div class="container">
-											<form action="" method="post" accept-charset="utf-8" class="form-horizontal">
+			            <h2 class="page-header">Items</h2>
+			            <div class="margin-left-20px">
+				            <div class="row">
+								<div class="col-md-4">
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h4 class="panel-title">
+												<span class="panel-title"><span class="glyphicon glyphicon-edit"></span>&nbsp; Edit</span>
+											</h4>
+										</div>
+										<div class="panel-body">
+											<form action="" method="post" accept-charset="utf-8" autocomplete="off">
 												<div class="form-group">
-													<label class="control-label col-sm-2" for='brand_id'>Brand</label>
-													<div class="col-sm-10">
-														<select required="required" name="brand_id" class="form-control">
-															<option value=""></option>
-															<?php foreach($brands->result_array() as $r) {
-																if((set_value('brand_id') === $r['ID']) || ($item['BRAND_ID'] === $r['ID'])){
-																	echo '<option value="'.$r['ID'].'" selected="selected">'.$r['BRAND'].'</option>';
-																}else{
-																	echo '<option value="'.$r['ID'].'">'.$r['BRAND'].'</option>';
-																}
-															} ?>
-														</select>
-														<?php echo form_error('brand_id', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
-													</div>
+													<label for='brand_id'>Brand</label>
+													<select required="required" id="brand_id" name="brand_id" class="form-control">
+														<option value=""></option>
+														<?php foreach($brands->result_array() as $r) {
+															if((set_value('brand_id') === $r['ID']) || ($item['BRAND_ID'] === $r['ID'])){
+																echo '<option value="'.$r['ID'].'" selected="selected">'.$r['BRAND'].'</option>';
+															}else{
+																echo '<option value="'.$r['ID'].'">'.$r['BRAND'].'</option>';
+															}
+														} ?>
+													</select>
+													<?php echo form_error('brand_id', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
 												</div>
 												<div class="form-group">
-													<label class="control-label col-sm-2" for='dscp'>Description</label>
-													<div class="col-sm-10">
-														<input required="required" type="text" value="<?php echo (set_value('dscp') != null) ? set_value('dscp') : $item['DSCP']; ?>" name="dscp" class="form-control">
-														<?php echo form_error('dscp', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
-													</div>
+													<label for='dscp'>Description</label>
+													<input required="required" type="text" value="<?php echo (set_value('dscp') != null) ? set_value('dscp') : $item['DSCP']; ?>" id="dscp" name="dscp" class="form-control" maxlength="50">
+													<?php echo form_error('dscp', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
 												</div>
 												<div class="form-group">
-													<label class="control-label col-sm-2" for='category_id'>Category</label>
-													<div class="col-sm-10">
-														<select required="required" name="category_id" class="form-control">
-															<option value=""></option>
-															<?php foreach($categories->result_array() as $r) {
-																if((set_value('category_id') === $r['ID']) || ($item['CATEGORY_ID'] === $r['ID'])){
-																	echo '<option value="'.$r['ID'].'" selected="selected">'.$r['CATEGORY'].'</option>';
-																}else{
-																	echo '<option value="'.$r['ID'].'">'.$r['CATEGORY'].'</option>';
-																}
-															} ?>
-														</select>
-														<?php echo form_error('category_id', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
-													</div>
+													<label for='category_id'>Category</label>
+													<select required="required" id="category_id" name="category_id" class="form-control">
+														<option value=""></option>
+														<?php foreach($categories->result_array() as $r) {
+															if((set_value('category_id') === $r['ID']) || ($item['CATEGORY_ID'] === $r['ID'])){
+																echo '<option value="'.$r['ID'].'" selected="selected">'.$r['CATEGORY'].'</option>';
+															}else{
+																echo '<option value="'.$r['ID'].'">'.$r['CATEGORY'].'</option>';
+															}
+														} ?>
+													</select>
+													<?php echo form_error('category_id', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
 												</div>
 												<div class="form-group">
-													<label class="control-label col-sm-2" for='price'>Price</label>
-													<div class="col-sm-10">
-														<input required="required" type="text" value="<?php echo (set_value('price') != null) ? set_value('price') : $item['PRICE']; ?>" name="price" class="form-control">
-														<?php echo form_error('price', '<small class="has-error"><italics><p class="help-block">','</p></italics></small>'); ?>
-													</div>
+													<label for='price'>Price</label>
+													<input required="required" type="text" value="<?php echo (set_value('price') != null) ? set_value('price') : $item['PRICE']; ?>" id="price" name="price" class="form-control" maxlength="10">
+													<?php echo form_error('price', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
 												</div>
 												<div class="form-group">
-													<label class="control-label col-sm-2" for='critical_qty'>Critical Quantity</label>
-													<div class="col-sm-10">
-														<input required="required" type="text" value="<?php echo (set_value('critical_qty') != null) ? set_value('critical_qty') : $item['CRITICAL_QTY']; ?>" name="critical_qty" class="form-control">
-														<?php echo form_error('critical_qty', '<small class="has-error"><italics><p class="help-block">','</p></italics></small>'); ?>
-													</div>
+													<label for='critical_qty'>Critical Quantity</label>
+													<input required="required" type="text" value="<?php echo (set_value('critical_qty') != null) ? set_value('critical_qty') : $item['CRITICAL_QTY']; ?>" id="critical_qty" name="critical_qty" class="form-control" maxlength="10">
+													<?php echo form_error('critical_qty', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
 												</div>
 												<div class="form-group">
-													<label class="control-label col-sm-2" for='stock_type_id'>Stock Type</label>
-													<div class="col-sm-10">
-														<select required="required" name="stock_type_id" class="form-control">
-															<option value=""></option>
-															<?php foreach($stock_types->result_array() as $r) {
-																if((set_value('stock_type_id') === $r['ID']) || ($item['STOCK_TYPE_ID'] === $r['ID'])){
-																	echo '<option value="'.$r['ID'].'" selected="selected">'.$r['STOCK_TYPE'].'</option>';
-																}else{
-																	echo '<option value="'.$r['ID'].'">'.$r['STOCK_TYPE'].'</option>';
-																}
-															} ?>
-														</select>
-														<?php echo form_error('stock_type_id', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
-													</div>
+													<label for='stock_type_id'>Stock Type</label>
+													<select required="required" id="stock_type_id" name="stock_type_id" class="form-control">
+														<option value=""></option>
+														<?php foreach($stock_types->result_array() as $r) {
+															if((set_value('stock_type_id') === $r['ID']) || ($item['STOCK_TYPE_ID'] === $r['ID'])){
+																echo '<option value="'.$r['ID'].'" selected="selected">'.$r['STOCK_TYPE'].'</option>';
+															}else{
+																echo '<option value="'.$r['ID'].'">'.$r['STOCK_TYPE'].'</option>';
+															}
+														} ?>
+													</select>
+													<?php echo form_error('stock_type_id', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
 												</div>
 												<div class="form-group">
-													<label class="control-label col-sm-2" for='stock_type_content'>Stock Type Content</label>
-													<div class="col-sm-10">
-														<input required="required" type="text" value="<?php echo (set_value('stock_type_content') != null) ? set_value('stock_type_content') : $item['STOCK_TYPE_CONTENT']; ?>" name="stock_type_content" class="form-control">
-														<?php echo form_error('stock_type_content', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
-													</div>
+													<label for='stock_type_content'>Stock Type Content</label>
+													<input required="required" type="text" value="<?php echo (set_value('stock_type_content') != null) ? set_value('stock_type_content') : $item['STOCK_TYPE_CONTENT']; ?>" id="stock_type_content" name="stock_type_content" class="form-control" maxlength="10">
+													<?php echo form_error('stock_type_content', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
 												</div>
-												
-												<div class="form-group">
-													<div class="col-sm-offset-2 col-sm-10">
-														<input type="hidden" name="id" value="<?= $item['ID']; ?>">
-														<input type="button" class="btn btn-secondary back-btn" value="Back">
-												    	<input type="submit" name="submit_item_edit" class="btn btn-sm btn-success" value="Submit">
-												    </div>
-													
-												</div>
+												<input type="hidden" name="id" value="<?= $item['ID']; ?>">
+												<input type="button" class="btn btn-secondary back-btn" value="Back">
+												<input type="submit" name="submit_item_edit" class="btn btn-sm btn-primary" value="Submit">
 											</form>
 										</div>
 									</div>
 								</div>
-
+								<div class="col-md-8"></div>
 							</div>
-						</div>
-			            
+			            </div>
 			        </div>
 	    		</div>
 	    	</div>
@@ -139,6 +123,8 @@
 		<script type="text/javascript" src="assets/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="assets/datatables/datatables.min.js"></script>
 
+		<script type="text/javascript" src="assets/js/page.height.setter.js"></script>
+
 		<script type="text/javascript">
 			$(document).ready(function() {
 			    var success_msg = "<?php if(isset($success_msg)){ echo $success_msg; } else {echo '';} ?>";
@@ -146,6 +132,7 @@
 
 			    if(success_msg){
 			    	$("#success_modal .modal-content .modal-body p.text-center").text(success_msg);
+					$("#success_modal").attr('data-trigger', 'not-new');
 			    	$("#success_modal").modal('show');
 			    }
 
