@@ -29,19 +29,18 @@
 			        </div>
 
 			        <div class="col-sm-10 col-md-10" id="page-content">
-			            <h2 class="page-header"><i class="glyphicon glyphicon-warning-sign text-warning"></i>&nbsp; Access Denied</h2>
-	
-						<div class="row-pad"></div>
-
-			            <div class="row">
-							<div class="col-md-12">
-								<span>You are not authorized to view this page</span>
-							</div>
-						</div>
-			            
+			        	<h2 class="page-header"><i class="glyphicon glyphicon-warning-sign text-warning"></i>&nbsp; Access Denied</h2>
+			            <div class="margin-left-20px">
+				            <div class="row">
+				            	<div div class="col-sm-12 col-md-12" id="content-container">
+						           <p class="alert alert-danger col-sm-12"><i class="glyphicon glyphicon-exclamation-sign"></i>&nbsp; You are not authorized to view this page</p>
+							    </div>
+				            </div>
+			            </div>
 			        </div>
 	    		</div>
 	    	</div>
 		</div>
+		<script type="text/javascript" src="assets/js/page.height.setter.js"></script>
 	</body>
 </html>
