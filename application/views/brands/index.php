@@ -42,7 +42,7 @@
 										<div id="collapse-add-new" class="panel-collapse collapse <?php if(!empty($error_msg)){echo 'in';} ?>">
 											<div class="panel-body">
 												<div class="container">
-													<form action="" method="post" accept-charset="utf-8" class="form-horizontal">
+													<form action="" method="post" accept-charset="utf-8" class="form-horizontal" autocomplete="off">
 														<div class="form-group">
 															<label class="control-label col-md-2 col-sm-1" for='brand'>Brand Name</label>
 															<div class="col-md-4 col-sm-11">
