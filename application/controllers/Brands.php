@@ -13,7 +13,7 @@ class Brands extends CI_Controller {
 
 	public function index(){
 		if($this->isLoggedIn && $this->session->userdata('status') == $this->config->item('USER_STATUS_ASSOC')['ACTIVE'][0]){
-			if(in_array('USER', $this->config->item('USER_ROLE_ASSOC_MENU')[$this->session->userdata('user_role')])){
+			if(in_array('BRAND', $this->config->item('USER_ROLE_ASSOC_MENU')[$this->session->userdata('user_role')])){
 				$data = array();
 				$data['success_msg'] = $this->session->flashdata('success_msg');
 
