@@ -4,7 +4,7 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h4 class="panel-title">
-						<a data-toggle="collapse" data-parent="#accordion" href="#collapse-login-info"><span class="glyphicon glyphicon-info-sign"></span>&nbsp;Login Info</a>
+						<a data-toggle="collapse" data-parent="#accordion" href="#collapse-login-info"><span class="glyphicon glyphicon-info-sign"></span>&nbsp; Login Info</a>
 					</h4>
 				</div>
 				<div id="collapse-login-info" class="panel-collapse collapse in">
@@ -42,7 +42,7 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h4 class="panel-title">
-						<a href="<?= site_url('/users/dashboard') ?>"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;Dashboard</a>
+						<a href="<?= site_url('/users/dashboard') ?>"><span class="glyphicon glyphicon-dashboard"></span>&nbsp; Dashboard</a>
 					</h4>
 				</div>
 			</div>
@@ -52,7 +52,7 @@
 				echo '	<div class="panel panel-default">';
 				echo '		<div class="panel-heading">';
 				echo '			<h4 class="panel-title">';
-				echo '				<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><span class="glyphicon glyphicon-wrench"></span>&nbsp;Maintenance</a>';
+				echo '				<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><span class="glyphicon glyphicon-wrench"></span>&nbsp; Maintenance</a>';
 				echo '			</h4>';
 				echo '		</div>';
 				echo '		<div id="collapseOne" class="panel-collapse collapse">';
@@ -104,7 +104,7 @@
 				echo '	<div class="panel panel-default">';
 				echo '		<div class="panel-heading">';
 				echo '			<h4 class="panel-title">';
-				echo '				<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;Warehouse</a>';
+				echo '				<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"><span class="glyphicon glyphicon-list-alt"></span>&nbsp; Warehouse</a>';
 				echo '			</h4>';
 				echo '		</div>';
 				echo '		<div id="collapseTwo" class="panel-collapse collapse">';
@@ -141,7 +141,7 @@
 				echo '	<div class="panel panel-default">';
 				echo '		<div class="panel-heading">';
 				echo '			<h4 class="panel-title">';
-				echo '				<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree"><span class="glyphicon glyphicon-map-marker"></span>&nbsp;Branch</a>';
+				echo '				<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree"><span class="glyphicon glyphicon-map-marker"></span>&nbsp; Branch</a>';
 				echo '			</h4>';
 				echo '		</div>';
 				echo '		<div id="collapseThree" class="panel-collapse collapse">';
@@ -179,7 +179,7 @@
 				echo '	<div class="panel panel-default">';
 				echo '		<div class="panel-heading">';
 				echo '			<h4 class="panel-title">';
-				echo '				<a data-toggle="collapse" data-parent="#accordion" href="#collapseFour"><span class="glyphicon glyphicon-file"></span>&nbsp;Reports</a>';
+				echo '				<a data-toggle="collapse" data-parent="#accordion" href="#collapseFour"><span class="glyphicon glyphicon-file"></span>&nbsp; Reports</a>';
 				echo '			</h4>';
 				echo '		</div>';
 				echo '		<div id="collapseFour" class="panel-collapse collapse">';
@@ -189,7 +189,7 @@
 				if(in_array('SALES', $this->config->item('USER_ROLE_ASSOC_MENU')[$this->session->userdata('user_role')])){
 					echo '					<tr>';
 					echo '						<td>';
-					echo '							<span class="glyphicon glyphicon-usd"></span><a href="'. site_url('/sales') .'">&nbsp;Sales</a>';
+					echo '							<a href="'. site_url('/sales') .'">&nbsp; Sales</a>';
 					echo '						</td>';
 					echo '					</tr>';
 				}
@@ -208,7 +208,7 @@
 				echo '	<div class="panel panel-default">';
 				echo '		<div class="panel-heading">';
 				echo '			<h4 class="panel-title">';
-				echo '				<a data-toggle="collapse" data-parent="#accordion" href="#collapseFive"><span class="glyphicon glyphicon-cog"></span>&nbsp;Administration</a>';
+				echo '				<a data-toggle="collapse" data-parent="#accordion" href="#collapseFive"><span class="glyphicon glyphicon-cog"></span>&nbsp; Administration</a>';
 				echo '			</h4>';
 				echo '		</div>';
 				echo '		<div id="collapseFive" class="panel-collapse collapse">';
@@ -242,7 +242,7 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h4 class="panel-title">
-						<a data-toggle="collapse" data-parent="#accordion" href="#collapseSix"><span class="glyphicon glyphicon-user"></span>&nbsp;Account</a>
+						<a data-toggle="collapse" data-parent="#accordion" href="#collapseSix"><span class="glyphicon glyphicon-user"></span>&nbsp; Account</a>
 					</h4>
 				</div>
 				<div id="collapseSix" class="panel-collapse collapse">
