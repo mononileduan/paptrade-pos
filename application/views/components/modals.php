@@ -130,7 +130,7 @@
 				<p class="dscp text-center"></p>
 			</div>
 			<div class="modal-footer">
-				<form action="" id="delete_modal_form" method="post" accept-charset="utf-8">
+				<form action="" id="delete_modal_form" method="post" accept-charset="utf-8" autocomplete="off">
 					<input type="hidden" name="id">
 					<input type="submit" name="submit_delete" class="btn btn-error btn-success btn-block" value="Yes">
 					<button class="btn btn-info btn-block" data-dismiss="modal">No</button>
@@ -177,7 +177,7 @@
 				<p class="dscp text-center"></p>
 			</div>
 			<div class="modal-footer">
-				<form action="" id="update_modal_form" method="post" accept-charset="utf-8">
+				<form action="" id="update_modal_form" method="post" accept-charset="utf-8" autocomplete="off">
 					<input type="hidden" name="id">
 					<input type="submit" name="submit_update" class="btn btn-error btn-success btn-block" value="Yes">
 					<button class="btn btn-info btn-block" data-dismiss="modal">No</button>
@@ -242,7 +242,7 @@
 					<h4>Update</h4>	
 				</div>	
 			</div>
-			<form action="" id="edit_modal_form" method="post" accept-charset="utf-8">
+			<form action="" id="edit_modal_form" method="post" accept-charset="utf-8" autocomplete="off">
 				<div class="modal-body">
 					<div class="form-group">
 						<label for='crit_qty'>Critical Quantity</label>
@@ -271,7 +271,7 @@
 					<h4>Add Stocks</h4>	
 				</div>	
 			</div>
-			<form action="" id="add_modal_form" method="post" accept-charset="utf-8">
+			<form action="" id="add_modal_form" method="post" accept-charset="utf-8" autocomplete="off">
 				<div class="modal-body">
 					<div class="form-group">
 						<label for='adjust_qty'>No. of Stocks to Add</label>
@@ -300,7 +300,7 @@
 					<h4>Deduct Stocks</h4>	
 				</div>	
 			</div>
-			<form action="" id="deduct_modal_form" method="post" accept-charset="utf-8">
+			<form action="" id="deduct_modal_form" method="post" accept-charset="utf-8" autocomplete="off">
 				<div class="modal-body">
 					<div class="form-group">
 						<label for='adjust_qty'>No. of Stocks to Deduct</label>
