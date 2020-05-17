@@ -12,102 +12,113 @@ class Categories extends CI_Controller {
 	}
 
 	public function index(){
-		if($this->isLoggedIn){
-			$data = array();
-			$data['success_msg'] = $this->session->flashdata('success_msg');
+		if($this->isLoggedIn && $this->session->userdata('status') == $this->config->item('USER_STATUS_ASSOC')['ACTIVE'][0]){
+			if(in_array('CATEGORY', $this->config->item('USER_ROLE_ASSOC_MENU')[$this->session->userdata('user_role')])){
+				$data = array();
+				$data['success_msg'] = $this->session->flashdata('success_msg');
 
-			if($this->session->userdata('success_msg')){
-				$data['success_msg'] = $this->session->userdata('success_msg');
-				$this->session->unset_userdata('success_msg');
-			}
-			if($this->session->userdata('error_msg')){
-				$data['error_msg'] = $this->session->userdata('error_msg');
-				$this->session->unset_userdata('error_msg');
-			}
-
-			if($this->input->post('submit_category')){
-				$this->form_validation->set_rules('category', 'Category', 'required|trim');
-
-				if($this->form_validation->run() == true){
-					$con = array(
-						'returnType' => 'count',
-						'conditions' => array(
-							'del' => false,
-							'category' => strtoupper($this->input->post('category'))
-						)
-					);
-
-					$categoryCnt = $this->category->getRows($con);
-					if($categoryCnt > 0){
-						$data['error_msg'] = 'Category already exists';
-					}else{
-						$category = array(
-							'id'		=> uniqid('', true),
-							'category'	=> strtoupper($this->input->post('category'))
-							);
-						$this->category->insert($category);
-
-						$this->session->set_flashdata('success_msg', 'Category successfully added!');
-						redirect(current_url());
-					}
-
-				}else{
-					$data['error_msg'] = 'Please fill all required fields.';
+				if($this->session->userdata('success_msg')){
+					$data['success_msg'] = $this->session->userdata('success_msg');
+					$this->session->unset_userdata('success_msg');
+				}
+				if($this->session->userdata('error_msg')){
+					$data['error_msg'] = $this->session->userdata('error_msg');
+					$this->session->unset_userdata('error_msg');
 				}
 
-			}else if($this->input->post('submit_delete')){
-				$this->form_validation->set_rules('id', 'Category', 'required|trim');
+				if($this->input->post('submit_category')){
+					$this->form_validation->set_rules('category', 'Category', 'required|trim');
 
-				if($this->form_validation->run() == true){
-					if($this->category->delete($this->input->post('id'))){
-						echo 'OK';
-						exit();
+					if($this->form_validation->run() == true){
+						$con = array(
+							'returnType' => 'count',
+							'conditions' => array(
+								'del' => false,
+								'category' => strtoupper($this->input->post('category'))
+							)
+						);
+
+						$categoryCnt = $this->category->getRows($con);
+						if($categoryCnt > 0){
+							$data['error_msg'] = 'Category already exists';
+						}else{
+							$category = array(
+								'id'		=> uniqid('', true),
+								'category'	=> strtoupper($this->input->post('category'))
+								);
+							$this->category->insert($category);
+
+							$this->session->set_flashdata('success_msg', 'Category successfully added!');
+							redirect(current_url());
+						}
+
 					}else{
-						echo 'Could not delete Category. ID does not exist.';
-						exit();
+						$data['error_msg'] = 'Please fill all required fields.';
+					}
+
+				}else if($this->input->post('submit_delete')){
+					$this->form_validation->set_rules('id', 'Category', 'required|trim');
+
+					if($this->form_validation->run() == true){
+						if($this->category->delete($this->input->post('id'))){
+							echo 'OK';
+							exit();
+						}else{
+							echo 'Could not delete Category. ID does not exist.';
+							exit();
+						}
 					}
 				}
+
+				$this->load->view('categories/index', $data);
+
+			}else{
+				$this->load->view('components/unauthorized');
 			}
-
-			$this->load->view('categories/index', $data);
-
 		}else{
-			redirect('users/login');
+			redirect('users/logout');
 		}
 	}
 
 
 	public function list(){
-		// Datatables Variables
-		$draw = intval($this->input->get("draw"));
-		$start = intval($this->input->get("start"));
-		$length = intval($this->input->get("length"));
+		if($this->isLoggedIn && $this->session->userdata('status') == $this->config->item('USER_STATUS_ASSOC')['ACTIVE'][0] 
+			&& in_array('CATEGORY', $this->config->item('USER_ROLE_ASSOC_MENU')[$this->session->userdata('user_role')])){
 
-		$con = array(
-			'returnType' => 'list',
-			'conditions' => array(
-				'del' => false
-			)
-		);
-		$list = $this->category->getRows($con);
+			// Datatables Variables
+			$draw = intval($this->input->get("draw"));
+			$start = intval($this->input->get("start"));
+			$length = intval($this->input->get("length"));
 
-		$data = array();
-		
-		foreach($list->result_array() as $r) {
-			$data[] = array(
-				$r['ID'],
-			    $r['CATEGORY']
+			$con = array(
+				'returnType' => 'list',
+				'conditions' => array(
+					'del' => false
+				)
 			);
-		}
+			$list = $this->category->getRows($con);
 
-		$output = array(
-		   "draw" => $draw,
-		     "recordsTotal" => $list->num_rows(),
-		     "recordsFiltered" => $list->num_rows(),
-		     "data" => $data
-		);
-		echo json_encode($output);
-		exit();
+			$data = array();
+			
+			foreach($list->result_array() as $r) {
+				$data[] = array(
+					$r['ID'],
+				    $r['CATEGORY']
+				);
+			}
+
+			$output = array(
+			   "draw" => $draw,
+			     "recordsTotal" => $list->num_rows(),
+			     "recordsFiltered" => $list->num_rows(),
+			     "data" => $data
+			);
+			echo json_encode($output);
+			exit();
+			
+		}else{
+			$this->load->view('components/unauthorized');
+		}
      }
 
 
