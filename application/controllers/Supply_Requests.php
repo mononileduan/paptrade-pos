@@ -24,6 +24,41 @@ class Supply_Requests extends CI_Controller {
 		}
 	}
 
+	public function view(){
+		if($this->isLoggedIn && $this->session->userdata('status') == $this->config->item('USER_STATUS_ASSOC')['ACTIVE'][0]){
+			if(in_array('WH_SUPPLY_REQUEST', $this->config->item('USER_ROLE_ASSOC_MENU')[$this->session->userdata('user_role')])
+			|| in_array('BR_SUPPLY_REQUEST', $this->config->item('USER_ROLE_ASSOC_MENU')[$this->session->userdata('user_role')])){
+				
+				$con = array(
+					'returnType' => 'single',
+					'conditions' => array(
+						'del' => false,
+						'id' => $this->input->get('id')
+					));
+				$statusObj= $this->supply_request->getRows($con);
+
+				$con = array(
+					'returnType' => 'single',
+					'conditions' => array(
+						'sr.del' => false,
+						'sr.id' => $this->input->get('id')
+					),
+					'status' => $statusObj['STATUS']
+				);
+				$data['req'] = $this->supply_request->getRowsJoin($con)->row_array();
+				$data['return_page'] = $this->input->get('return');
+				$this->load->view('supply_requests/view', $data);
+
+			}else{
+				$this->load->view('components/unauthorized');
+			}
+		}else{
+			redirect('users/logout');
+		}
+	}
+
+
+
 
 
 	public function branch(){
@@ -379,7 +414,7 @@ class Supply_Requests extends CI_Controller {
     }
 
 
-	public function approve($id = null){
+	public function approve(){
 		if($this->isLoggedIn && $this->session->userdata('status') == $this->config->item('USER_STATUS_ASSOC')['ACTIVE'][0]){
 			if(in_array('WH_SUPPLY_REQUEST', $this->config->item('USER_ROLE_ASSOC_MENU')[$this->session->userdata('user_role')])){
 				$data = array();
@@ -445,7 +480,7 @@ class Supply_Requests extends CI_Controller {
 					'returnType' => 'single',
 					'conditions' => array(
 						'del' => false,
-						'id' => $id
+						'id' => $this->input->get('id')
 					));
 				$statusObj= $this->supply_request->getRows($con);
 
@@ -453,7 +488,7 @@ class Supply_Requests extends CI_Controller {
 					'returnType' => 'single',
 					'conditions' => array(
 						'sr.del' => false,
-						'sr.id' => $id
+						'sr.id' => $this->input->get('id')
 					),
 					'status' => $statusObj['STATUS']
 				);
