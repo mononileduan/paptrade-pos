@@ -106,6 +106,7 @@
 						   url : "<?= site_url('brands/list'); ?>",
 						    type : 'GET'
 						},
+						"order": [[ 1, "asc" ]],
 						"columnDefs": [
 							{"targets": -1, "data": null, "orderable": false, "defaultContent": 
 								"<a class=\'action-delete\' data-mode=\'modal\' title=\'Delete\'><i class=\'glyphicon glyphicon-trash\'></i></a>"},
