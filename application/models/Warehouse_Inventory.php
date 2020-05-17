@@ -60,6 +60,8 @@ class Warehouse_Inventory extends CI_Model {
 				$sql = $sql . " AND " . $key . "='" . $val . "'"; 
 			}
 		}
+
+		$sql = $sql . " ORDER BY ITEM ";
 		$result = $this->db->query($sql);
 		return $result;
 
@@ -85,6 +87,7 @@ class Warehouse_Inventory extends CI_Model {
 				$sql = $sql . " AND " . $key . "='" . $val . "'"; 
 			}
 		}
+		$sql = $sql . " ORDER BY ITEM ";
 		$result = $this->db->query($sql);
 		return $result;
 
