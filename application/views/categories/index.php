@@ -29,54 +29,42 @@
 			        <?php $this->load->view('components/menu'); ?>
 
 			        <div class="col-sm-10 col-md-10" id="page-content">
-						<h2 class="page-header">Categories</h2>
+			        	<h2 class="page-header">Categories</h2>
 			            <div class="margin-left-20px">
 				            <div class="row">
-								<div class="col-md-12">
+								<div class="col-md-4">
 									<div class="panel panel-default">
 										<div class="panel-heading">
 											<h4 class="panel-title">
-												<a data-toggle="collapse" data-parent="#accordion" href="#collapse-add-new"><span class="glyphicon glyphicon-plus"></span>&nbsp; Add New</a>
+												<span class="panel-title"><span class="glyphicon glyphicon-plus"></span>&nbsp; Add New</span>
 											</h4>
 										</div>
-										<div id="collapse-add-new" class="panel-collapse collapse <?php if(!empty($error_msg)){echo 'in';} ?>">
-											<div class="panel-body">
-												<div class="container">
-													<form action="" method="post" accept-charset="utf-8" class="form-horizontal" autocomplete="off">
-														<div class="form-group">
-															<label class="control-label col-md-2 col-sm-1" for='category'>Category</label>
-															<div class="col-md-4 col-sm-11">
-																<input required="required" type="text" value="<?php echo set_value('category'); ?>" name="category" class="form-control">
-																<?php echo form_error('category', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
-															</div>
-															<div class="col-md-offset-3"></div>
-														</div>
-														<div class="form-group">
-															<div class="col-sm-offset-2 col-sm-10">
-														    	<input type="submit" name="submit_category" class="btn btn-sm btn-primary" value="Submit">
-														    </div>
-														</div>
-													</form>
+										<div class="panel-body">
+											<form action="" method="post" accept-charset="utf-8" autocomplete="off">
+												<div class="form-group">
+													<label for='category'>Category</label>
+													<input required="required" type="text" value="<?php echo set_value('category'); ?>" id="category" name="category" class="form-control" maxlength="50">
+													<?php echo form_error('category', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
 												</div>
-											</div>
+												<input type="submit" name="submit_category" class="btn btn-sm btn-primary" value="Submit">
+											</form>
 										</div>
 									</div>
 								</div>
-							</div>
-
-						    <div class="row">
-							    <div class="col-md-12">
-							    	<div class="panel panel-default">
+								<div class="col-md-6">
+									<div class="panel panel-default">
 										<div class="panel-heading">
-											<span class="panel-title">List</span>
+											<h4 class="panel-title">
+												<span class="panel-title"><span class="glyphicon glyphicon-list"></span>&nbsp; List</span>
+											</h4>
 										</div>
 										<div class="panel-body">
 											<table id="view-data-table" class="table table-bordered table-striped table-hover" style="width:100%">
 												<thead>
 													<tr>
-														<td></td>
-														<td width="90%">Category</td>
-														<td width="10%">Action</td>
+														<th></th>
+														<th width="90%">Category</th>
+														<th width="10%">Action</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -85,6 +73,7 @@
 										</div>
 									</div>
 								</div>
+								<div class="col-md-offset-1"></div>
 							</div>
 			            </div>
 			        </div>
