@@ -60,21 +60,10 @@
 		<script type="text/javascript" src="assets/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="assets/datatables/datatables.min.js"></script>
 
+		<script type="text/javascript" src="assets/js/page.height.setter.js"></script>
+
 		<script type="text/javascript">
 			$(document).ready(function() {
-
-				var dHeight = parseInt($(document).height());
-			 	
-				dHeight = dHeight - 150;
-				$("#content-container").css('height', dHeight + 'px');
-				$("#content-container").css('overflow-y', 'auto');
-
-				dHeight = parseInt($(document).height());
-			 	
-				dHeight = dHeight - 60;
-				$("#left-menu-container").css('height', dHeight + 'px');
-				$("#left-menu-container").css('overflow-y', 'auto');
-
 				
 				var success_msg = "<?php if(isset($success_msg)){ echo $success_msg; } else {echo '';} ?>";
 			    var error_msg = "<?php if(isset($error_msg)){ echo $error_msg; } else {echo '';} ?>";
