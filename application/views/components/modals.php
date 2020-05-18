@@ -246,7 +246,7 @@
 				<div class="modal-body">
 					<div class="form-group">
 						<label for='crit_qty'>Critical Quantity</label>
-						<input required="required" type="text" value="<?php echo set_value('crit_qty'); ?>" name="crit_qty" class="form-control">
+						<input required="required" type="text" value="<?php echo set_value('crit_qty'); ?>" id="crit_qty" name="crit_qty" class="form-control">
 						<?php echo form_error('crit_qty', '<p class="help-block">','</p>'); ?>
 					</div>
 				</div>
@@ -275,7 +275,7 @@
 				<div class="modal-body">
 					<div class="form-group">
 						<label for='adjust_qty'>No. of Stocks to Add</label>
-						<input required="required" type="text" value="<?php echo set_value('adjust_qty'); ?>" name="adjust_qty" class="form-control">
+						<input required="required" type="text" value="<?php echo set_value('adjust_qty'); ?>" id="adjust_qty" name="adjust_qty" class="form-control">
 						<?php echo form_error('adjust_qty', '<p class="help-block">','</p>'); ?>
 					</div>
 				</div>
@@ -304,7 +304,7 @@
 				<div class="modal-body">
 					<div class="form-group">
 						<label for='adjust_qty'>No. of Stocks to Deduct</label>
-						<input required="required" type="text" value="<?php echo set_value('adjust_qty'); ?>" name="adjust_qty" class="form-control">
+						<input required="required" type="text" value="<?php echo set_value('adjust_qty'); ?>" id="adjust_qty" name="adjust_qty" class="form-control">
 						<?php echo form_error('adjust_qty', '<p class="help-block">','</p>'); ?>
 					</div>
 				</div>
