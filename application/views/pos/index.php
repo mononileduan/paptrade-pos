@@ -104,7 +104,7 @@
 											<div class="form-group">
 												<input type="hidden" id="sales_temp_id" >
 												<input type="hidden" id="sales_temp_custname" >
-												<input type="submit" class="btn btn-primary form-control" name="" value="Process" id="btn" >
+												<input type="submit" class="btn btn-sm btn-primary form-control" name="" value="Process" id="btn" >
 											</div>
 										</div>
 									</div>
@@ -209,7 +209,7 @@
 
 					</div>
 					<div class="modal-footer"> 
-						<button type="button" class="btn btn-secondary" data-dismiss="modal" id="payment-modal-close">Close</button>
+						<button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal" id="payment-modal-close">Close</button>
 					</div>
 
 				</div>
@@ -234,8 +234,8 @@
 
 					</div>
 					<div class="modal-footer"> 
-						<button type="button" class="btn btn-primary" id="customer-name-confirm-btn">Confirm</button>
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+						<button type="button" class="btn btn-sm btn-primary" id="customer-name-confirm-btn">Confirm</button>
+						<button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancel</button>
 					</div>
 
 				</div>
@@ -271,7 +271,7 @@
 
 					</div>
 					<div class="modal-footer"> 
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
 					</div>
 
 				</div>
