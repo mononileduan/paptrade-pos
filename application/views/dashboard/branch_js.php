@@ -18,7 +18,7 @@
 		$('#lowstocks-branch-data-table tbody').on( 'click', 'a.action-add', function (id) {
 			var data = $("#lowstocks-branch-data-table").DataTable().row( $(this).parents('tr') ).data();
 	       	var item_id = data[2];
-	       	window.location.replace('<?= site_url('supply_requests/add') ?>' + '/' + item_id);
+	       	window.location.replace('<?= site_url('supply_requests/add?item_id=') ?>' + item_id);
 	    } );
 
 

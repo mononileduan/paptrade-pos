@@ -300,7 +300,7 @@ class Supply_Requests extends CI_Controller {
 	}
 
 
-	public function add($item_id = null){
+	public function add(){
 		if($this->isLoggedIn && $this->session->userdata('status') == $this->config->item('USER_STATUS_ASSOC')['ACTIVE'][0]){
 			if(in_array('BR_SUPPLY_REQUEST', $this->config->item('USER_ROLE_ASSOC_MENU')[$this->session->userdata('user_role')])){
 
@@ -329,7 +329,7 @@ class Supply_Requests extends CI_Controller {
 					'conditions' => array()
 				);
 				$data['items'] = $this->warehouse_inventory->getRowsJoin($con);
-				$data['item_id'] = $item_id;
+				$data['item_id'] = $this->input->get('item_id');
 				
 				$this->load->view('supply_requests/add', $data);
 
