@@ -25,7 +25,7 @@
 
 			<?php $this->load->view('components/navbar_pos'); ?>
 			
-			<div class="container-fluid" style="margin-top:0px;">
+			<div class="container-fluid with-color-accent" style="margin-top:0px;">
 				<div class="row">
 					<div class="col-md-7 box-container rightnone" style="height: 694px; overflow-y: auto;">
 						<h3>List of Items</h3>
@@ -202,7 +202,7 @@
 									<td id="summary-change" class="text-right"></td>
 								</tr>
 							</table>
-							<button class="btn btn-default btn-sm" id="print">Print Receipt</button>
+							<button class="btn btn-primary btn-sm" id="print">Print Receipt</button>
 						</div>
 
 						<div class="clearfix"></div>

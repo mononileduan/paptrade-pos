@@ -8,7 +8,7 @@
 	margin: 0;
 	padding: 10px;
 	text-align: center;
-	background: #337ab7;
+	background: #a7010a;
 	color: #ffffff;
 }
 
@@ -63,6 +63,11 @@
 .remove:hover {
 	cursor: pointer;
 }
+
+.form-control {
+    line-height: 5px;
+}
+
 
 /******************
 	RECEIPT
