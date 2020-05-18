@@ -348,7 +348,7 @@ $(document).ready(function() {
         "columnDefs": [
         	{className: "dt-right", "targets": [-4] },
         	{"targets": -1, "data": null, "defaultContent": 
-        		"<a class=\'action-load\' data-mode=\'modal\' title=\'Load\'><i class=\'glyphicon glyphicon-chevron-right\'></i></a> &nbsp;" +
+        		"<a class=\'action-load\' data-mode=\'modal\' title=\'Load\'><i class=\'glyphicon glyphicon-download-alt\'></i></a> &nbsp;" +
         		"<a class=\'action-delete\' data-mode=\'modal\' title=\'Delete\'><i class=\'glyphicon glyphicon-trash\'></i></a>"
         	},
         	{"targets": [ 0, 1 ], "visible": false, "searchable": false}
