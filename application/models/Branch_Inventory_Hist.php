@@ -25,7 +25,7 @@ class Branch_Inventory_Hist extends CI_Model {
 				$query = $this->db->get();
 				$result = $query->row_array();
 			}else{
-				$this->db->order_by('ID', 'desc');
+				$this->db->order_by('UPDATED_DT', 'desc');
 				if(array_key_exists("start", $params) && array_key_exists("limit", $params)){
 					$this->db->limit($params['limit'], $params['start']);
 				}elseif(!array_key_exists("start", $params) && array_key_exists("limit", $params)){
@@ -61,6 +61,7 @@ class Branch_Inventory_Hist extends CI_Model {
 				$sql = $sql . " AND " . $key . "='" . $val . "'"; 
 			}
 		}
+		$sql = $sql . " ORDER BY UPDATED_DT desc ";
 		$result = $this->db->query($sql);
 		return $result;
 

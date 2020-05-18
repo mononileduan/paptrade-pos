@@ -343,21 +343,6 @@ class Branch_Inventories extends CI_Controller {
 
 
 
-    public function hist($id = null){
-    	if($this->isLoggedIn && $this->session->userdata('status') == $this->config->item('USER_STATUS_ASSOC')['ACTIVE'][0]){
-    		if(in_array('BR_INVENTORY', $this->config->item('USER_ROLE_ASSOC_MENU')[$this->session->userdata('user_role')])){
-	    		$data = array();
-	    		$data['inventory_id'] = $id;
-				$this->load->view('branch_inventories/hist', $data);
-
-    		}else{
-				$this->load->view('components/unauthorized');
-			}
-		}else{
-			redirect('users/logout');
-		}
-    }
-
     public function hist_list(){
     	if($this->isLoggedIn && $this->session->userdata('status') == $this->config->item('USER_STATUS_ASSOC')['ACTIVE'][0] 
 			&& in_array('BR_INVENTORY', $this->config->item('USER_ROLE_ASSOC_MENU')[$this->session->userdata('user_role')])){
@@ -380,12 +365,12 @@ class Branch_Inventories extends CI_Controller {
 
 			   $data[] = array(
 			   		$r['ID'],
+			        $r['UPDATED_DT'],
 			        $r['ITEM'],
 			        $r['QTY'],
 			        $r['QTY_RUNNING'],
 			        $r['MOVEMENT'],
 			        $r['UPDATED_BY'],
-			        $r['UPDATED_DT'],
 			        $r['REMARKS']
 			   );
 			}

@@ -17,111 +17,142 @@
 	</head>
 
 	<body>
+
 		<div>
 
 			<?php $this->load->view('components/navbar'); ?>
 			
 			<div class="container-fluid">
+
 				<div class="row">
 			        
 			        <?php $this->load->view('components/menu'); ?>
 
 			        <div class="col-sm-10 col-md-10" id="page-content">
 			            <h2 class="page-header">Inventory</h2>
+						<div class="margin-left-20px">
+							<div class="row">
+								<div class="col-md-3">
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h4 class="panel-title">
+												<span class="panel-title"><span class="glyphicon glyphicon-plus"></span>&nbsp; Add New</span>
+											</h4>
+										</div>
+										<div class="panel-body">
+											<form action="" method="post" accept-charset="utf-8" autocomplete="off">
+												<div class="form-group">
+													<label for='item_select'>Item</label>
+													<select required="required" name="item_id" id="item_select" class="form-control">
+														<option value=""></option>
+														<?php foreach($items->result_array() as $r) {
+															if(set_value('item_id') === $r['ITEM_ID']){
+																echo '<option value="'.$r['ITEM_ID'].'"data-critqty="'.$r['ITEM_CRIT_QTY'].'" selected="selected">'.$r['ITEM'].'</option>';
+															}else{
+																echo '<option value="'.$r['ITEM_ID'].'"data-critqty="'.$r['ITEM_CRIT_QTY'].'">'.$r['ITEM'].'</option>';
+															}
+														} ?>
+													</select>
+													<?php echo form_error('item_id', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
+												</div>
+												<div class="form-group">
+													<label for='init_qty'>Initial Quantity</label>
+													<input required="required" type="text" value="<?php echo set_value('init_qty'); ?>" id="init_qty" name="init_qty" class="form-control" maxlength="50">
+													<?php echo form_error('init_qty', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
+												</div>
+												<div class="form-group">
+													<label for='crit_qty'>Critical Quantity</label>
+													<input required="required" type="text" value="<?php echo set_value('crit_qty'); ?>" id="crit_qty" name="crit_qty" class="form-control" maxlength="50">
+													<?php echo form_error('crit_qty', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
+												</div>
 
-			            <div class="row">
-							<div class="col-md-12">
-								<div class="row">
-									<div class="col-md-12">
-										<a href="#add_container" class="btn btn-primary btn-sm" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class='glyphicon glyphicon-plus'></i> Add New</a>
-									</div>
-								</div>
-
-								<div class="row-pad"></div>
-
-								<div class="row collapse <?php if(!empty($error_msg)){echo 'show';} ?> border border-primary rounded" id="add_container" style="padding-top: 10px;">
-									<div class="col-md-12">
-										<div class="container">
-											<form action="" method="post" accept-charset="utf-8" class="form-horizontal">
-												<div class="form-group">
-													<label class="control-label col-sm-2" for='item_id'>Item</label>
-													<div class="col-sm-10">
-														<select required="required" name="item_id" id="item_select" class="form-control">
-															<option value=""></option>
-															<?php foreach($items->result_array() as $r) {
-																if(set_value('item_id') === $r['ITEM_ID']){
-																	echo '<option value="'.$r['ITEM_ID'].'"data-critqty="'.$r['ITEM_CRIT_QTY'].'" selected="selected">'.$r['ITEM'].'</option>';
-																}else{
-																	echo '<option value="'.$r['ITEM_ID'].'"data-critqty="'.$r['ITEM_CRIT_QTY'].'">'.$r['ITEM'].'</option>';
-																}
-															} ?>
-														</select>
-														<?php echo form_error('item_id', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
-													</div>
-												</div>
-												<div class="form-group">
-													<label class="control-label col-sm-2" for='init_qty'>Initial Quantity</label>
-													<div class="col-sm-10">
-														<input required="required" type="text" value="<?php echo set_value('init_qty'); ?>" name="init_qty" class="form-control">
-														<?php echo form_error('init_qty', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
-													</div>
-												</div>
-												<div class="form-group">
-													<label class="control-label col-sm-2" for='crit_qty'>Critical Quantity</label>
-													<div class="col-sm-10">
-														<input required="required" type="text" value="<?php echo set_value('crit_qty'); ?>" name="crit_qty" class="form-control">
-														<?php echo form_error('crit_qty', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
-													</div>
-												</div>
-												
-												<div class="form-group">
-													<div class="col-sm-offset-2 col-sm-10">
-												    	<input type="submit" name="submit_new_inventory" class="btn btn-sm btn-success" value="Submit">
-												    </div>
-													
-												</div>
+												<input type="submit" name="submit_new_inventory" class="btn btn-sm btn-primary" value="Submit">
 											</form>
 										</div>
 									</div>
 								</div>
-
+								<div class="col-md-9">
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h4 class="panel-title">
+												<span class="panel-title"><span class="glyphicon glyphicon-list"></span>&nbsp; List</span>
+											</h4>
+										</div>
+										<div class="panel-body">
+											<table id="view-data-table" class="table table-bordered table-striped table-hover" style="width:100%">
+												<thead>
+													<tr>
+														<th>ID</th>
+														<th width="25%">Item</th>
+														<th width="15%">Branch</th>
+														<th width="15%">Category</th>
+														<th width="15%">Unit Price</th>
+														<th width="10%">Quantity</th>
+														<th width="10%">Critical Quantity</th>
+														<th width="10%">Action</th>
+													</tr>
+												</thead>
+												<tbody>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
 							</div>
-						</div>
-
-						<div class="row-pad"></div>
-
-						<div class="row-pad"></div>
-
-					    <div class="row">
-						    <div class="col-md-12">
-								<table id="view-data-table" class="table table-bordered table-striped table-hover" style="width:100%">
-									<thead>
-										<tr>
-											<td>ID</td>
-											<td width="25%">Item</td>
-											<td width="15%">Branch</td>
-											<td width="15%">Category</td>
-											<td width="15%">Unit Price</td>
-											<td width="10%">Quantity</td>
-											<td width="10%">Critical Quantity</td>
-											<td width="10%">Action</td>
-										</tr>
-									</thead>
-									<tbody>
-									</tbody>
-								</table>
-							</div>
-						</div>
-			            
+			            </div>
 			        </div>
 	    		</div>
 	    	</div>
+		</div>
+
+		<div class="modal" tabindex="-1" role="dialog" id="hist-modal">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Inventory History</h5>
+					</div>
+					<div class="modal-body">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<span class="panel-title"><span class="glyphicon glyphicon-list"></span>&nbsp; List</span>
+								</h4>
+							</div>
+							<div class="panel-body">
+								<div id="hist-container" style="min-height: 300px;">
+			            			<table id="hist-view-data-table" class="table table-bordered table-striped table-hover" style="width:100%">
+										<thead>
+											<tr>
+												<th></th>
+												<th width="16%">Updated Date</th>
+												<th width="27%">Item</th>
+												<th width="8%">Quantity</th>
+												<th width="9%">Running Quantity</th>
+												<th width="5%">Mvt</th>
+												<th width="15%">Updated By</th>
+												<th width="20%">Remarks</th>
+											</tr>
+										</thead>
+										<tbody>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer"> 
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
 		</div>
 
 		<?php $this->load->view('components/modals'); ?>
 
 		<script type="text/javascript" src="assets/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="assets/datatables/datatables.min.js"></script>
+
+		<script type="text/javascript" src="assets/js/page.height.setter.js"></script>
 
 		<script type="text/javascript">
 			$(document).ready(function() {
@@ -133,14 +164,23 @@
 						"columnDefs": [
 							{className: "dt-right", "targets": [-2, -3, -4] },
 							{render: $.fn.dataTable.render.number( ',', '.', 2, '' ), "targets": [-4] },
-							{"targets": -1, "data": null, "defaultContent": 
-								"<a class=\'action-add\' data-mode=\'modal\' title=\'Add\'><i class=\'glyphicon glyphicon-plus\'></i></a>&nbsp; " + 
-								"<a class=\'action-deduct\' data-mode=\'modal\' title=\'Deduct\'><i class=\'glyphicon glyphicon-minus\'></i></a>&nbsp; " + 
-								"<a class=\'action-edit\' data-mode=\'modal\' title=\'Edit\'><i class=\'glyphicon glyphicon-pencil\'></i></a>&nbsp; " +
+							{"targets": -1, "data": null, "orderable": false, "defaultContent": 
+								"<a class=\'action-add\' data-mode=\'modal\' title=\'Add\'><i class=\'glyphicon glyphicon-plus\'></i></a>&nbsp;" + 
+								"<a class=\'action-deduct\' data-mode=\'modal\' title=\'Deduct\'><i class=\'glyphicon glyphicon-minus\'></i></a>&nbsp;" + 
+								"<a class=\'action-edit\' data-mode=\'modal\' title=\'Edit\'><i class=\'glyphicon glyphicon-pencil\'></i></a>&nbsp;" +
 								"<a class=\'action-hist\' data-mode=\'modal\' title=\'History\'><i class=\'glyphicon glyphicon-calendar\'></i></a>"},
 							{"targets": [ 0 ], "visible": false, "searchable": false}
 						]
 				});
+
+				var hist_tbl = $('#hist-view-data-table').DataTable({
+					"ordering": false,
+			        "columnDefs": [
+						{className: "dt-right", "targets": [-5, -4] },
+						{render: $.fn.dataTable.render.number( ',', '.', 0, '' ), "targets": [-5, -4] },
+						{"targets": [ 0 ], "visible": false, "searchable": false}
+					]
+			    });
 
 
 			    var success_msg = "<?php if(isset($success_msg)){ echo $success_msg; } else {echo '';} ?>";
@@ -164,7 +204,7 @@
 				$('#view-data-table tbody').on( 'click', 'a.action-edit', function (id) {
 					var data = $("#view-data-table").DataTable().row( $(this).parents('tr') ).data();
 			       	var id = data[0];
-			       	var crit = data[4];
+			       	var crit = data[6];
 					$("#edit_modal").find('input[name="id"]').val(id);
 					$("#edit_modal").find('input[name="crit_qty"]').val(crit);
 			    	$("#edit_modal").modal('show');
@@ -174,7 +214,7 @@
 				$('#view-data-table tbody').on( 'click', 'a.action-add', function (id) {
 					var data = $("#view-data-table").DataTable().row( $(this).parents('tr') ).data();
 			       	var id = data[0];
-			       	var avail = data[4];
+			       	var avail = data[5];
 					$("#add_modal").find('input[name="id"]').val(id);
 					$("#add_modal").find('input[name="id"]').attr('data-avail', avail);
 					$("#add_modal").modal('show');
@@ -184,7 +224,7 @@
 				$('#view-data-table tbody').on( 'click', 'a.action-deduct', function (id) {
 					var data = $("#view-data-table").DataTable().row( $(this).parents('tr') ).data();
 			       	var id = data[0];
-			       	var avail = data[4];
+			       	var avail = data[5];
 					$("#deduct_modal").find('input[name="id"]').val(id);
 					$("#deduct_modal").find('input[name="id"]').attr('data-avail', avail);
 					$("#deduct_modal").modal('show');
@@ -192,10 +232,17 @@
 
 
 			    $('#view-data-table tbody').on( 'click', 'a.action-hist', function (id) {
-					var data = $("#view-data-table").DataTable().row( $(this).parents('tr') ).data();
+			    	var data = $("#view-data-table").DataTable().row( $(this).parents('tr') ).data();
 			       	var id = data[0];
-			        window.location.replace('<?= site_url('branch_inventories/hist/') ?>' + id);
+			       	hist_tbl.ajax.url( '<?= site_url('branch_inventories/hist_list'); ?>?inventory_id='+id ).load();
+			       	hist_tbl.ajax.reload();
+					$("#hist-modal").modal('show');
 			    } );
+
+
+				$('#hist-modal').on('shown.bs.modal', function () {
+			       	hist_tbl.columns.adjust();
+				});
 
 
 			    $('#success_modal').on('hide.bs.modal', function () {
