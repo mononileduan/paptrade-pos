@@ -28,7 +28,7 @@ $config['USER_STATUS'] = array(
 $config['USER_ROLE_ASSOC'] = array(
 	//key						database key		Description 
 	'SYS_ADMIN'		=> array('SYS_ADMIN', 		'System Administrator'),
-	'WHOUSE_USER'	=> array('WHOUSE_USER', 		'Warehouse User'),
+	'WHOUSE_USER'	=> array('WHOUSE_USER', 	'Warehouse User'),
 	'BRANCH_USER'	=> array('BRANCH_USER', 	'Branch User'),
 	'CASHIER'		=> array('CASHIER', 		'Cashier')
 );
