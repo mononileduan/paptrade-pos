@@ -124,8 +124,8 @@
 							<div class="form-group">
 								<div class="col-sm-offset-2 col-sm-10">
 									<input type="hidden" name="id">
-									<button type="button" class="btn btn-secondary" data-dismiss="modal" id="payment-modal-close">Close</button>
 							    	<input type="submit" name="submit_branch" class="btn btn-sm btn-primary" value="Submit">
+									<button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal" id="edit-modal-close">Close</button>
 							    </div>
 							</div>
 						</div>
