@@ -20,39 +20,53 @@
 	</head>
 
 	<body>
+
 		<div>
 
 			<?php $this->load->view('components/navbar'); ?>
 			
-			<div class="container-fluid">
+			<div class="container-fluid with-color-accent">
+
 				<div class="row">
 			        
 			        <?php $this->load->view('components/menu'); ?>
 
 			        <div class="col-sm-10 col-md-10" id="page-content">
 			            <h2 class="page-header">Sales</h2>
-
-					    <div class="row">
-						    <div class="col-md-12">
-								<table id="view-data-table" class="table table-bordered table-striped table-hover" style="width:100%">
-									<thead>
-										<tr>
-											<td>ID</td>
-											<td>BRANCH</td>
-											<td width="20%">Transaction Date</td>
-											<td width="20%">Reference No.</td>
-											<td width="15%">Transaction Amount</td>
-											<td width="15%">Payment Amount</td>
-											<td width="20%">Cashier</td>
-											<td width="10%">Action</td>
-										</tr>
-									</thead>
-									<tbody>
-									</tbody>
-								</table>
+			            <div class="margin-left-20px">
+				            <div class="row">
+								<div class="col-md-12">
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h4 class="panel-title">
+												<span class="panel-title"><span class="glyphicon glyphicon-list"></span>&nbsp; List</span>
+											</h4>
+										</div>
+										<div class="panel-body">
+											<div div class="col-sm-12 col-md-12" id="content-table-container_">
+												<table id="view-data-table" class="table table-bordered table-striped table-hover" style="width:100%">
+													<thead>
+														<tr>
+															<td>ID</td>
+															<td width="15%">Branch</td>
+															<td width="15%">Transaction Date</td>
+															<td width="10%">Reference No.</td>
+															<td width="15%">Transaction Amount</td>
+															<td width="15%">Payment Amount</td>
+															<td width="20%">Cashier</td>
+															<td width="10%">Action</td>
+														</tr>
+													</thead>
+													<tbody>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-offset-1"></div>
 							</div>
-						</div>
-			            
+			            </div>
 			        </div>
 	    		</div>
 	    	</div>
@@ -74,6 +88,8 @@
 		<script type="text/javascript" src="assets/datatables/Buttons-1.6.1/js/buttons.html5.min.js"></script>
 		<script type="text/javascript" src="assets/datatables/Buttons-1.6.1/js/buttons.print.min.js"></script>
 		
+		<script type="text/javascript" src="assets/js/page.height.setter.js"></script>
+
 		<script type="text/javascript">
 			$(document).ready(function() {
 				var datatable = $('#view-data-table').DataTable({
@@ -85,33 +101,34 @@
 						"columnDefs": [
 							{className: "dt-right", "targets": [-3, -4] },
 							{render: $.fn.dataTable.render.number( ',', '.', 2, '' ), "targets": [-3, -4] },
-							{"targets": -1, "data": null, "defaultContent": "<a class=\'action-view\' data-mode=\'modal\' title=\'View\'><i class=\'glyphicon glyphicon-eye-open\'></i></a>&nbsp; "},
-							{"targets": [ 0, 1 ], "visible": false, "searchable": false}
+							{"targets": -1, "data": null, "orderable": false, "defaultContent": 
+								"<a class=\'action-view\' data-mode=\'modal\' title=\'View\'><i class=\'glyphicon glyphicon-eye-open\'></i></a>&nbsp; "},
+							{"targets": [ 0 ], "visible": false, "searchable": false}
 						],
 						dom: 'lBftipr',
 						buttons: [
 								{
 					                extend: 'copyHtml5',
 					                exportOptions: {
-					                    columns: [ 2, 3, 4, 5 ]
+					                    columns: [ 1, 2, 3, 4, 5, 6 ]
 					                }
 					            },
 								{
 					                extend: 'excelHtml5',
 					                exportOptions: {
-					                    columns: [ 2, 3, 4, 5 ]
+					                    columns: [ 1, 2, 3, 4, 5, 6 ]
 				                	}
 				            	},
 					            {
 					                extend: 'pdfHtml5',
 					                exportOptions: {
-					                    columns: [ 2, 3, 4, 5 ]
+					                    columns: [ 1, 2, 3, 4, 5, 6 ]
 					                }
 					            },
 					            {
 					                extend: 'print',
 					                exportOptions: {
-					                    columns: [ 2, 3, 4, 5 ]
+					                    columns: [ 1, 2, 3, 4, 5, 6 ]
 					                }
 					            }]
 				});
@@ -119,7 +136,7 @@
 				 $('#view-data-table tbody').on( 'click', 'a.action-view', function (id) {
 					var data = $("#view-data-table").DataTable().row( $(this).parents('tr') ).data();
 			       	var id = data[0];
-			        window.location.replace('<?= site_url('sales/details/') ?>' + id);
+			        window.location.replace('<?= site_url('sales/details?id=') ?>' + id);
 			    } );
 			});
 		</script>
