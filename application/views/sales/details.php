@@ -20,90 +20,97 @@
 	</head>
 
 	<body>
+
 		<div>
 
 			<?php $this->load->view('components/navbar'); ?>
 			
 			<div class="container-fluid">
+
 				<div class="row">
 			        
 			        <?php $this->load->view('components/menu'); ?>
 
 			        <div class="col-sm-10 col-md-10" id="page-content">
-			            <h2 class="page-header">Transaction Details</h2>
+			            <h2 class="page-header">Sales</h2>
+			            <div class="margin-left-20px">
+				            <div class="row">
+								<div class="col-md-8">
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h4 class="panel-title">
+												<span class="panel-title"><span class="glyphicon glyphicon-list"></span>&nbsp; Transaction Details</span>
+											</h4>
+										</div>
+										<div class="panel-body">
+											<div class="row">
+											    <div class="col-sm-12 col-md-12">
+													<div class="row">
+														<div class="col-sm-4 col-md-4 text-right">
+															<div><label>Reference No.:</label></div>
+															<div><label>Date:</label></div>
+															<div><label>Cashier:</label></div>
+														</div>
+														<div class="col-sm-8 col-md-8 text-left">
+															<div class="dataview-val"><span><?= $hdr['REF_NO']; ?></span></div>
+															<div class="dataview-val"><span><?= $hdr['CREATED_DT']; ?></span></div>
+															<div class="dataview-val"><span><?= $hdr['CREATED_BY']; ?></span></div>
+														</div>
+													</div>
 
-						<div class="row-pad"></div>
+													<div class="row-pad"></div>
 
-						<div class="row-pad"></div>
-
-					    <div class="row">
-						    <div class="col-sm-12 col-md-12">
-								<div class="row">
-									<div class="col-sm-4 col-md-4 text-right">
-										<div><label>Reference No.:</label></div>
-										<div><label>Date:</label></div>
-										<div><label>Cashier:</label></div>
-									</div>
-									<div class="col-sm-8 col-md-8 text-left">
-										<div class="dataview-val"><span><?= $hdr['REF_NO']; ?></span></div>
-										<div class="dataview-val"><span><?= $hdr['CREATED_DT']; ?></span></div>
-										<div class="dataview-val"><span><?= $hdr['CREATED_BY']; ?></span></div>
+											    	<div class="row">
+											    		<div class="col-md-12">
+											    			<div id="sales-dtls-tbl-container">
+													    		<table id="view-data-table" class="table table-bordered table-striped table-hover" style="width:100%">
+																	<thead>
+																		<tr>
+																			<th width="50%">Item</th>
+																			<th width="20%" class="text-right">Unit Price</th>
+																			<th width="10%" class="text-right">Quantity</th>
+																			<th width="20%" class="text-right">Sub-Total</th>
+																		</tr>
+																	</thead>
+																	<tbody>
+																		<?php
+																			foreach($dtl->result_array() as $r){
+																				echo '<tr>';
+																				echo '	<td>'.$r['ITEM'].'</td>';
+																				echo '	<td class="text-right"><span class="ccy">'.$r['UNIT_PRICE'].'</span></td>';
+																				echo '	<td class="text-right numeric">'.$r['QUANTITY'].'</td>';
+																				echo '	<td class="text-right"><span class="ccy">'.$r['SUB_TOTAL'].'</span></td>';
+																				echo '</tr>';
+																			}
+																		?>
+																	</tbody>
+																</table>
+															</div>
+														</div>
+											    	</div>
+											    	<div class="row">
+														<div class="col-sm-8 col-md-9 text-right">
+															<div><label>Grand Total:</label></div>
+															<div><label>Payment:</label></div>
+															<div><label>Change:</label></div>
+														</div>
+														<div class="col-sm-4 col-md-2 text-right">
+															<div class="dataview-val"><span class="text-right ccy"><?= $hdr['GRAND_TOTAL']; ?></span></div>
+															<div class="dataview-val"><span class="text-right ccy"><?= $hdr['PAYMENT']; ?></span></div>
+															<div class="dataview-val"><span class="text-right ccy"><?= $hdr['PAYMENT'] - $hdr['GRAND_TOTAL']; ?></span></div> 
+														</div>
+														<div class="col-md-1"></div>
+													</div>
+												</div>
+											</div>
+										</div>
 									</div>
 								</div>
-
-								<div class="row-pad"></div>
-
-						    	<div class="row">
-						    		<div class="col-md-12">
-							    		<table id="view-data-table" class="table table-bordered table-striped table-hover" style="width:100%">
-											<thead>
-												<tr>
-													<th width="50%">Item</th>
-													<th width="20%" class="text-right">Unit Price</th>
-													<th width="10%" class="text-right">Quantity</th>
-													<th width="20%" class="text-right">Sub-Total</th>
-												</tr>
-											</thead>
-											<tbody>
-												<?php
-													foreach($dtl->result_array() as $r){
-														echo '<tr>';
-														echo '	<td>'.$r['ITEM'].'</td>';
-														echo '	<td class="text-right"><span class="ccy">'.$r['UNIT_PRICE'].'</span></td>';
-														echo '	<td class="text-right numeric">'.$r['QUANTITY'].'</td>';
-														echo '	<td class="text-right"><span class="ccy">'.$r['SUB_TOTAL'].'</span></td>';
-														echo '</tr>';
-													}
-												?>
-											</tbody>
-										</table>
-									</div>
-						    	</div>
-						    	<div class="row">
-									<div class="col-sm-8 col-md-9 text-right">
-										<div><label>Grand Total:</label></div>
-										<div><label>Payment:</label></div>
-										<div><label>Change:</label></div>
-									</div>
-									<div class="col-sm-4 col-md-2 text-right">
-										<div class="dataview-val"><span class="text-right ccy"><?= $hdr['GRAND_TOTAL']; ?></span></div>
-										<div class="dataview-val"><span class="text-right ccy"><?= $hdr['PAYMENT']; ?></span></div>
-										<div class="dataview-val"><span class="text-right ccy"><?= $hdr['PAYMENT'] - $hdr['GRAND_TOTAL']; ?></span></div> 
-									</div>
-									<div class="col-md-1"></div>
-								</div>
+								<div class="col-md-offset-2"></div>
 							</div>
-						</div>
-
-						<div class="row-pad"></div>
-
-						<div class="row form-group">
-							<div class="col-sm-12">
-								<input type="button" class="btn btn-secondary back-btn" value="Back">
-								<input type="button" class="btn btn-secondary" value="View Receipt" id="btn-view-receipt">
-							</div>
-						</div>
-			            
+							<input type="button" class="btn btn-sm btn-secondary back-btn" value="Back">
+							<input type="button" class="btn btn-sm btn-primary" value="View Receipt" id="btn-view-receipt">
+			            </div>
 			        </div>
 	    		</div>
 	    	</div>
@@ -195,7 +202,7 @@
 									<td id="summary-change" class="text-right ccy"><?= $hdr['PAYMENT'] - $hdr['GRAND_TOTAL']; ?></td>
 								</tr>
 							</table>
-							<button class="btn btn-default btn-sm" id="print">Print Receipt</button>
+							<button class="btn btn-primary btn-sm" id="print">Print Receipt</button>
 						</div>
 
 						<div class="clearfix"></div>
@@ -213,6 +220,8 @@
 		<script type="text/javascript" src="assets/datatables/datatables.min.js"></script>
 		<script type="text/javascript" src="assets/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="assets/pos/jQuery.print.js"></script>
+
+		<script type="text/javascript" src="assets/js/page.height.setter.js"></script>
 
 		<script type="text/javascript">
 			$(document).ready(function() {
@@ -261,7 +270,7 @@
 				}
 
 				$('.back-btn').on('click', function () {
-			        window.location.replace('<?= site_url('sales/index') ?>');
+			        window.location.replace('<?= site_url('sales') ?>');
 			    } );
 
 

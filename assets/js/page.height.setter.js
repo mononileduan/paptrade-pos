@@ -10,6 +10,11 @@ $(document).ready(function() {
 	$("#content-container").css('height', contentContainerHeight + 'px');
 	$("#content-container").css('overflow-y', 'auto');
 
+
+	var salesDtlsTblContainer = dHeight - 600;
+	$("#sales-dtls-tbl-container").css('height', salesDtlsTblContainer + 'px');
+	$("#sales-dtls-tbl-container").css('overflow-y', 'auto');
+
  	
 	var leftMenuContainerHeight = dHeight - 60;
 	$("#left-menu-container").css('height', leftMenuContainerHeight + 'px');
