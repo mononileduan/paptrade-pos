@@ -17,11 +17,13 @@
 	</head>
 
 	<body>
+
 		<div>
 
 			<?php $this->load->view('components/navbar'); ?>
 			
 			<div class="container-fluid with-color-accent">
+
 				<div class="row">
 			        
 			        <div class="col-sm-2 col-md-2">
@@ -30,46 +32,39 @@
 
 			        <div class="col-sm-10 col-md-10" id="page-content">
 			            <h2 class="page-header">Change Password</h2>
-	
-						<div class="row-pad"></div>
-
-			            <div class="row">
-							<div class="col-md-12">
-								<div class="container">
-									<form action="" method="post" accept-charset="utf-8" class="form-horizontal">
-										<div class="form-group">
-											<label class="control-label col-sm-2" for='old_password'>Password</label>
-											<div class="col-sm-10">
-												<input required="required" type="password" name="old_password" class="form-control">
-												<?php echo form_error('old_password', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
-											</div>
+						<div class="margin-left-20px">
+				            <div class="row">
+								<div class="col-md-4">
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h4 class="panel-title">
+												<span class="panel-title"><span class="glyphicon glyphicon-edit"></span>&nbsp; Details</span>
+											</h4>
 										</div>
-										<div class="form-group">
-											<label class="control-label col-sm-2" for='new_password'>New Password</label>
-											<div class="col-sm-10">
-												<input required="required" type="password" name="new_password" class="form-control">
-												<?php echo form_error('new_password', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
-											</div>
+										<div class="panel-body">
+											<form action="" method="post" accept-charset="utf-8" autocomplete="off">
+												<div class="form-group">
+													<label for='old_password'>Password</label>
+													<input required="required" type="password" id="old_password" name="old_password" class="form-control">
+													<?php echo form_error('old_password', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
+												</div>
+												<div class="form-group">
+													<label for='new_password'>New Password</label>
+													<input required="required" type="password" id="new_password" name="new_password" class="form-control" maxlength="50">
+													<?php echo form_error('new_password', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
+												</div>
+												<div class="form-group">
+													<label for='confirm_password'>Confirm Password</label>
+													<input required="required" type="password" id="confirm_password" name="confirm_password" class="form-control" maxlength="50">
+													<?php echo form_error('confirm_password', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
+												</div>
+												<input type="submit" name="submit" class="btn btn-sm btn-primary" value="Submit">
+											</form>
 										</div>
-										<div class="form-group">
-											<label class="control-label col-sm-2" for='confirm_password'>Confirm Password</label>
-											<div class="col-sm-10">
-												<input required="required" type="password" name="confirm_password" class="form-control">
-												<?php echo form_error('confirm_password', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
-											</div>
-										</div>
-										
-										<div class="form-group">
-											<div class="col-sm-offset-2 col-sm-10">
-										    	<input type="submit" name="submit" class="btn btn-sm btn-success" value="Submit">
-										    </div>
-											
-										</div>
-									</form>
+									</div>
 								</div>
 							</div>
-						</div>
-			            
+			            </div>
 			        </div>
 	    		</div>
 	    	</div>
@@ -80,6 +75,8 @@
 
 		<script type="text/javascript" src="assets/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="assets/datatables/datatables.min.js"></script>
+
+		<script type="text/javascript" src="assets/js/page.height.setter.js"></script>
 
 		<script type="text/javascript">
 			$(document).ready(function() {
