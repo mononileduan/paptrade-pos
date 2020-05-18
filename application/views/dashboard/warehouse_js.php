@@ -41,7 +41,7 @@
 		$('#supplyrequest-data-table tbody').on( 'click', 'a.action-view', function (id) {
 			var data = $("#supplyrequest-data-table").DataTable().row( $(this).parents('tr') ).data();
 	       	var id = data[0];
-	       	window.location.replace('<?= site_url('supply_requests/warehouse') ?>' + '?id=' + id);
+	       	window.location.replace('<?= site_url('supply_requests/approve') ?>' + '?id=' + id);
 	    } );
 
 
