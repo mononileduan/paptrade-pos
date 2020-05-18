@@ -2,7 +2,7 @@
 	<div class="col-md-6">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<span class="panel-title">Low on Stocks</span>
+				<span class="panel-title"><i class="glyphicon glyphicon-exclamation-sign"></i>&nbsp; Low on Stocks</span>
 			</div>
 			<div class="panel-body">
 				<table id="lowstocks-whouse-data-table" class="table table-bordered table-striped table-hover" style="width:100%">
@@ -27,7 +27,7 @@
 	<div class="col-md-6">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<span class="panel-title">New Supply Requests</span>
+				<span class="panel-title"><i class="glyphicon glyphicon-plus"></i>&nbsp; New Supply Requests</span>
 			</div>
 			<div class="panel-body">
 				<table id="supplyrequest-data-table" class="table table-bordered table-striped table-hover" style="width:100%">

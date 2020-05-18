@@ -2,7 +2,7 @@
 	<div class="col-md-7">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<span class="panel-title">Low on Stocks</span>
+				<span class="panel-title"><i class="glyphicon glyphicon-exclamation-sign"></i>&nbsp; Low on Stocks</span>
 			</div>
 			<div class="panel-body">
 				<div class="row">
@@ -63,7 +63,7 @@
 	<div class="col-md-5">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<span class="panel-title">Sales</span>
+				<span class="panel-title"><i class="glyphicon glyphicon-barcode"></i>&nbsp; Sales</span>
 			</div>
 			<div class="panel-body">
 				<div class="row" style="margin-top: 20px; margin-bottom: 30px;">
