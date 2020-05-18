@@ -104,7 +104,7 @@
 													<?php echo form_error('stock_type_content', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
 												</div>
 												<input type="hidden" name="id" value="<?= $item['ID']; ?>">
-												<input type="button" class="btn btn-secondary back-btn" value="Back">
+												<input type="button" class="btn btn-sm btn-secondary back-btn" value="Back">
 												<input type="submit" name="submit_item_edit" class="btn btn-sm btn-primary" value="Submit">
 											</form>
 										</div>
