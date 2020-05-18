@@ -31,7 +31,7 @@ class Branch extends CI_Model {
 				$query = $this->db->get();
 				$result = $query->row_array();
 			}else{
-				$this->db->order_by('ID', 'desc');
+				$this->db->order_by('branch_name', 'asc');
 				if(array_key_exists("start", $params) && array_key_exists("limit", $params)){
 					$this->db->limit($params['limit'], $params['start']);
 				}elseif(!array_key_exists("start", $params) && array_key_exists("limit", $params)){

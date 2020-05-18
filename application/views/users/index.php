@@ -17,134 +17,114 @@
 	</head>
 
 	<body>
+
 		<div>
 
 			<?php $this->load->view('components/navbar'); ?>
 			
 			<div class="container-fluid with-color-accent">
+
 				<div class="row">
 			        
 			        <?php $this->load->view('components/menu'); ?>
 
 			        <div class="col-sm-10 col-md-10" id="page-content">
 			            <h2 class="page-header">Users</h2>
-
-			            <div class="row">
-							<div class="col-md-12">
-								<div class="row">
-									<div class="col-md-12">
-										<a href="#add_container" class="btn btn-primary btn-sm" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class='glyphicon glyphicon-plus'></i> Add New</a>
-									</div>
-								</div>
-
-								<div class="row-pad"></div>
-
-								<div class="row collapse <?php if(!empty($error_msg)){echo 'show';} ?> border border-primary rounded" id="add_container" style="padding-top: 10px;">
-									<div class="col-md-12">
-										<div class="container">
-											<form action="" method="post" accept-charset="utf-8" class="form-horizontal">
+			            <div class="margin-left-20px">
+				            <div class="row">
+				            	<div class="col-md-2">
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h4 class="panel-title">
+												<span class="panel-title"><span class="glyphicon glyphicon-plus"></span>&nbsp; Add New</span>
+											</h4>
+										</div>
+										<div class="panel-body">
+											<form action="" method="post" accept-charset="utf-8" autocomplete="off">
 												<div class="form-group">
-													<label class="control-label col-sm-2" for='last_name'>Last Name</label>
-													<div class="col-sm-10">
-														<input required="required" type="text" value="<?php echo set_value('last_name'); ?>" name="last_name" class="form-control">
-														<?php echo form_error('last_name', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
-													</div>
+													<label for='last_name'>Last Name</label>
+													<input required="required" type="text" value="<?php echo set_value('last_name'); ?>" id="last_name" name="last_name" class="form-control" maxlength="50">
+													<?php echo form_error('last_name', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
 												</div>
 												<div class="form-group">
-													<label class="control-label col-sm-2" for='first_name'>First Name</label>
-													<div class="col-sm-10">
-														<input required="required" type="text" value="<?php echo set_value('first_name'); ?>" name="first_name" class="form-control">
-														<?php echo form_error('first_name', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
-													</div>
+													<label for='first_name'>First Name</label>
+													<input required="required" type="text" value="<?php echo set_value('first_name'); ?>" id="first_name" name="first_name" class="form-control" maxlength="50">
+													<?php echo form_error('first_name', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
 												</div>
 												<div class="form-group">
-													<label class="control-label col-sm-2" for='branch_id'>Branch</label>
-													<div class="col-sm-10">
-														<select required="required" name="branch_id" class="form-control">
-															<option value=""></option>
-															<?php foreach($branches->result_array() as $r) {
-																if(set_value('branch_id') === $r['ID']){
-																	echo '<option value="'.$r['ID'].'" selected="selected">'.$r['BRANCH_NAME'].'</option>';
-																}else{
-																	echo '<option value="'.$r['ID'].'">'.$r['BRANCH_NAME'].'</option>';
-																}
-															} ?>
-														</select>
-														<?php echo form_error('branch_id', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
-													</div>
+													<label for='branch_id'>Branch</label>
+													<select required="required" id="branch_id" name="branch_id" class="form-control">
+														<option value=""></option>
+														<?php foreach($branches->result_array() as $r) {
+															if(set_value('branch_id') === $r['ID']){
+																echo '<option value="'.$r['ID'].'" selected="selected">'.$r['BRANCH_NAME'].'</option>';
+															}else{
+																echo '<option value="'.$r['ID'].'">'.$r['BRANCH_NAME'].'</option>';
+															}
+														} ?>
+													</select>
+													<?php echo form_error('branch_id', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
 												</div>
 												<div class="form-group">
-													<label class="control-label col-sm-2" for='username'>Username</label>
-													<div class="col-sm-10">
-														<input required="required" type="text" value="<?php echo set_value('username'); ?>" name="username" class="form-control">
-														<?php echo form_error('username', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
-													</div>
+													<label for='username'>Username</label>
+													<input required="required" type="text" value="<?php echo set_value('username'); ?>" id="username" name="username" class="form-control" maxlength="50">
+													<?php echo form_error('username', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
 												</div>
 												<div class="form-group">
-													<label class="control-label col-sm-2" for='password'>Password</label>
-													<div class="col-sm-10">
-														<input required="required" type="password" value="<?php echo set_value('password'); ?>" name="password" class="form-control">
-														<?php echo form_error('password', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
-													</div>
+													<label for='password'>Password</label>
+													<input required="required" type="password" value="<?php echo set_value('password'); ?>" id="password" name="password" class="form-control" maxlength="50">
+													<?php echo form_error('password', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
 												</div>
 												<div class="form-group">
-													<label class="control-label col-sm-2" for='role'>Role</label>
-													<div class="col-sm-10">
-														<select required="required" name="role" class="form-control">
-															<option value=""></option>
-															<?php foreach($roles as $r) {
-																if(set_value('role') === $r['0']){
-																	echo '<option value="'.$r[0].'" selected="selected">'.$r[1].'</option>';
-																}else{
-																	echo '<option value="'.$r[0].'">'.$r[1].'</option>';
-																}
-															}?>
-														</select>
-														<?php echo form_error('role', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
-													</div>
+													<label for='role'>Role</label>
+													<select required="required" id="role" name="role" class="form-control">
+														<option value=""></option>
+														<?php foreach($roles as $r) {
+															if(set_value('role') === $r['0']){
+																echo '<option value="'.$r[0].'" selected="selected">'.$r[1].'</option>';
+															}else{
+																echo '<option value="'.$r[0].'">'.$r[1].'</option>';
+															}
+														}?>
+													</select>
+													<?php echo form_error('role', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
 												</div>
-												
-												<div class="form-group">
-													<div class="col-sm-offset-2 col-sm-10">
-												    	<input type="submit" name="submit_user" class="btn btn-sm btn-success" value="Submit">
-												    </div>
-													
-												</div>
+												<input type="submit" name="submit_user" class="btn btn-sm btn-primary" value="Submit">
 											</form>
 										</div>
 									</div>
 								</div>
-
+								<div class="col-md-10">
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h4 class="panel-title">
+												<span class="panel-title"><span class="glyphicon glyphicon-list"></span>&nbsp; List</span>
+											</h4>
+										</div>
+										<div class="panel-body">
+											<table id="view-data-table" class="table table-bordered table-striped table-hover" style="width:100%">
+												<thead>
+													<tr>
+														<td>ID</td>
+														<td>BRANCH ID</td>
+														<td width="15%">Last Name</td>
+														<td width="15%">First Name</td>
+														<td width="15%">Branch Name</td>
+														<td width="15%">Role</td>
+														<td width="5%">Status</td>
+														<td width="15%">Username</td>
+														<td width="15%">Last Login Date</td>
+														<td width="5%">Action</td>
+													</tr>
+												</thead>
+												<tbody>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
 							</div>
-						</div>
-
-						<div class="row-pad"></div>
-
-						<div class="row-pad"></div>
-
-					    <div class="row">
-						    <div class="col-md-12">
-								<table id="view-data-table" class="table table-bordered table-striped table-hover" style="width:100%">
-									<thead>
-										<tr>
-											<td>ID</td>
-											<td>BRANCH ID</td>
-											<td width="15%">Last Name</td>
-											<td width="15%">First Name</td>
-											<td width="15%">Branch Name</td>
-											<td width="10%">Role</td>
-											<td width="10%">Status</td>
-											<td width="15%">Username</td>
-											<td width="15%">Last Login Date</td>
-											<td width="5%">Action</td>
-										</tr>
-									</thead>
-									<tbody>
-									</tbody>
-								</table>
-							</div>
-						</div>
-			            
+			            </div>
 			        </div>
 	    		</div>
 	    	</div>
@@ -158,66 +138,71 @@
 					</div>
 					<form action="" method="post" accept-charset="utf-8" class="form-horizontal" id="update_modal_form">
 						<div class="modal-body">
-							<div class="form-group">
-								<label class="control-label col-sm-3" for='last_name'>Last Name</label>
-								<div class="col-sm-9">
-									<input required="required" type="text" value="<?php echo set_value('last_name'); ?>" name="last_name" class="form-control">
-									<?php echo form_error('last_name', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<span class="panel-title"><span class="glyphicon glyphicon-edit"></span>&nbsp; Edit</span>
+									</h4>
 								</div>
-							</div>
-							<div class="form-group">
-								<label class="control-label col-sm-3" for='first_name'>First Name</label>
-								<div class="col-sm-9">
-									<input required="required" type="text" value="<?php echo set_value('first_name'); ?>" name="first_name" class="form-control">
-									<?php echo form_error('first_name', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="control-label col-sm-3" for='branch_id'>Branch</label>
-								<div class="col-sm-9">
-									<select required="required" name="branch_id" class="form-control">
-										<option value=""></option>
-										<?php foreach($branches->result_array() as $r) {
-											if(set_value('branch_id') === $r['ID']){
-												echo '<option value="'.$r['ID'].'" selected="selected">'.$r['BRANCH_NAME'].'</option>';
-											}else{
-												echo '<option value="'.$r['ID'].'">'.$r['BRANCH_NAME'].'</option>';
-											}
-										} ?>
-									</select>
-									<?php echo form_error('branch_id', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="control-label col-sm-3" for='role'>Role</label>
-								<div class="col-sm-9">
-									<select required="required" name="role" class="form-control">
-										<option value=""></option>
-										<?php foreach($roles as $r) {
-											if(set_value('role') === $r['0']){
-												echo '<option value="'.$r[0].'" selected="selected">'.$r[1].'</option>';
-											}else{
-												echo '<option value="'.$r[0].'">'.$r[1].'</option>';
-											}
-										}?>
-									</select>
-									<?php echo form_error('role', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="control-label col-sm-3" for='status'>Status</label>
-								<div class="col-sm-9">
-									<select required="required" name="status" class="form-control">
-										<option value=""></option>
-										<?php foreach($status as $r) {
-											if(set_value('status') === $r['0']){
-												echo '<option value="'.$r[0].'" selected="selected">'.$r[1].'</option>';
-											}else{
-												echo '<option value="'.$r[0].'">'.$r[1].'</option>';
-											}
-										}?>
-									</select>
-									<?php echo form_error('status', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
+								<div class="panel-body">
+									<div class="container-fluid">
+									 <div class="row">
+										<div class="col-md-12">
+											<div class="form-group">
+												<label for='last_name'>Last Name</label>
+												<input required="required" type="text" value="<?php echo set_value('last_name'); ?>" id="last_name" name="last_name" class="form-control" maxlength="50">
+												<?php echo form_error('last_name', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
+											</div>
+											<div class="form-group">
+												<label for='first_name'>First Name</label>
+												<input required="required" type="text" value="<?php echo set_value('first_name'); ?>" id="first_name" name="first_name" class="form-control" maxlength="50">
+												<?php echo form_error('first_name', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
+											</div>
+											<div class="form-group">
+												<label for='branch_id'>Branch</label>
+												<select required="required" id="branch_id" name="branch_id" class="form-control">
+													<option value=""></option>
+													<?php foreach($branches->result_array() as $r) {
+														if(set_value('branch_id') === $r['ID']){
+															echo '<option value="'.$r['ID'].'" selected="selected">'.$r['BRANCH_NAME'].'</option>';
+														}else{
+															echo '<option value="'.$r['ID'].'">'.$r['BRANCH_NAME'].'</option>';
+														}
+													} ?>
+												</select>
+												<?php echo form_error('branch_id', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
+											</div>
+											<div class="form-group">
+												<label for='role'>Role</label>
+												<select required="required" id="role" name="role" class="form-control">
+													<option value=""></option>
+													<?php foreach($roles as $r) {
+														if(set_value('role') === $r['0']){
+															echo '<option value="'.$r[0].'" selected="selected">'.$r[1].'</option>';
+														}else{
+															echo '<option value="'.$r[0].'">'.$r[1].'</option>';
+														}
+													}?>
+												</select>
+												<?php echo form_error('role', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
+											</div>
+											<div class="form-group">
+												<label for='status'>Status</label>
+												<select required="required" id="status" name="status" class="form-control">
+													<option value=""></option>
+													<?php foreach($status as $r) {
+														if(set_value('status') === $r['0']){
+															echo '<option value="'.$r[0].'" selected="selected">'.$r[1].'</option>';
+														}else{
+															echo '<option value="'.$r[0].'">'.$r[1].'</option>';
+														}
+													}?>
+												</select>
+												<?php echo form_error('status', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
+											</div>
+										</div>
+									</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -226,7 +211,7 @@
 								<div class="col-sm-offset-2 col-sm-10">
 									<input type="hidden" name="id">
 									<button type="button" class="btn btn-secondary" data-dismiss="modal" id="payment-modal-close">Close</button>
-							    	<input type="submit" name="submit_edit" class="btn btn-sm btn-success" value="Submit">
+							    	<input type="submit" name="submit_edit" class="btn btn-sm btn-primary" value="Submit">
 							    </div>
 							</div>
 						</div>
@@ -240,6 +225,8 @@
 
 		<script type="text/javascript" src="assets/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="assets/datatables/datatables.min.js"></script>
+
+		<script type="text/javascript" src="assets/js/page.height.setter.js"></script>
 
 		<script type="text/javascript">
 			$(document).ready(function() {
@@ -270,7 +257,7 @@
 				                	}
 				                },
 				                "targets": -5 },
-							{"targets": -1, "data": null, "defaultContent": 
+							{"targets": -1, "data": null, "orderable": false, "defaultContent": 
 								"<a class=\'action-edit\' title=\'Edit\'><i class=\'glyphicon glyphicon-pencil\'></i></a>&nbsp; "},
 							{"targets": [ 0, 1 ], "visible": false, "searchable": false}
 						]
