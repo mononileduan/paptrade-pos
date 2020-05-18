@@ -17,82 +17,70 @@
 	</head>
 
 	<body>
+
 		<div>
 
 			<?php $this->load->view('components/navbar'); ?>
 			
-			<div class="container-fluid">
+			<div class="container-fluid with-color-accent">
+
 				<div class="row">
 			        
 			        <?php $this->load->view('components/menu'); ?>
 
 			        <div class="col-sm-10 col-md-10" id="page-content">
 			            <h2 class="page-header">Branches</h2>
-
-			            <div class="row">
-							<div class="col-md-12">
-								<div class="row">
-									<div class="col-md-12">
-										<a href="#add_container" class="btn btn-primary btn-sm" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class='glyphicon glyphicon-plus'></i> Add New</a>
-									</div>
-								</div>
-
-								<div class="row-pad"></div>
-
-								<div class="row collapse <?php if(!empty($error_msg)){echo 'show';} ?> border border-primary rounded" id="add_container" style="padding-top: 10px;">
-									<div class="col-md-12">
-										<div class="container">
-											<form action="" method="post" accept-charset="utf-8" class="form-horizontal">
+			            <div class="margin-left-20px">
+				            <div class="row">
+								<div class="col-md-4">
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h4 class="panel-title">
+												<span class="panel-title"><span class="glyphicon glyphicon-plus"></span>&nbsp; Add New</span>
+											</h4>
+										</div>
+										<div class="panel-body">
+											<form action="" method="post" accept-charset="utf-8" autocomplete="off">
 												<div class="form-group">
-													<label class="control-label col-sm-2" for='branch_name'>Branch Name</label>
-													<div class="col-sm-10">
-														<input required="required" type="text" value="<?php echo set_value('branch_name'); ?>" name="branch_name" class="form-control">
-														<?php echo form_error('branch_name', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
-													</div>
+													<label for='branch_name'>Branch Name</label>
+													<input required="required" type="text" value="<?php echo set_value('branch_name'); ?>" id="branch_name" name="branch_name" class="form-control" maxlength="50">
+													<?php echo form_error('branch_name', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
 												</div>
 												<div class="form-group">
-													<label class="control-label col-sm-2" for='address'>Address</label>
-													<div class="col-sm-10">
-														<input required="required" type="text" value="<?php echo set_value('address'); ?>" name="address" class="form-control">
-														<?php echo form_error('address', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
-													</div>
+													<label for='address'>Address</label>
+													<input required="required" type="text" value="<?php echo set_value('address'); ?>" id="address" name="address" class="form-control" maxlength="50">
+													<?php echo form_error('address', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
 												</div>
-												
-												<div class="form-group">
-													<div class="col-sm-offset-2 col-sm-10">
-												    	<input type="submit" name="submit_branch" class="btn btn-sm btn-success" value="Submit">
-												    </div>
-													
-												</div>
+												<input type="submit" name="submit_branch" class="btn btn-sm btn-primary" value="Submit">
 											</form>
 										</div>
 									</div>
 								</div>
-
+								<div class="col-md-8">
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h4 class="panel-title">
+												<span class="panel-title"><span class="glyphicon glyphicon-list"></span>&nbsp; List</span>
+											</h4>
+										</div>
+										<div class="panel-body">
+											<table id="view-data-table" class="table table-bordered table-striped table-hover" style="width:100%">
+												<thead>
+													<tr>
+														<td></td>
+														<td width="40%">Branch Name</td>
+														<td width="50%">Address</td>
+														<td width="10%">Action</td>
+													</tr>
+												</thead>
+												<tbody>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
 							</div>
-						</div>
-
-						<div class="row-pad"></div>
-
-						<div class="row-pad"></div>
-
-					    <div class="row">
-						    <div class="col-md-12">
-								<table id="view-data-table" class="table table-bordered table-striped table-hover" style="width:100%">
-									<thead>
-										<tr>
-											<td></td>
-											<td width="40%">Branch Name</td>
-											<td width="50%">Address</td>
-											<td width="10%">Action</td>
-										</tr>
-									</thead>
-									<tbody>
-									</tbody>
-								</table>
-							</div>
-						</div>
-			            
+			            </div>
 			        </div>
 	    		</div>
 	    	</div>
@@ -106,18 +94,29 @@
 					</div>
 					<form action="" method="post" accept-charset="utf-8" class="form-horizontal" id="update_modal_form">
 						<div class="modal-body">
-							<div class="form-group">
-								<label class="control-label col-sm-3" for='branch_name'>Branch Name</label>
-								<div class="col-sm-9">
-									<input required="required" type="text" value="<?php echo set_value('branch_name'); ?>" name="branch_name" class="form-control">
-									<?php echo form_error('branch_name', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<span class="panel-title"><span class="glyphicon glyphicon-edit"></span>&nbsp; Edit</span>
+									</h4>
 								</div>
-							</div>
-							<div class="form-group">
-								<label class="control-label col-sm-3" for='address'>Address</label>
-								<div class="col-sm-9">
-									<input required="required" type="text" value="<?php echo set_value('address'); ?>" name="address" class="form-control">
-									<?php echo form_error('address', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
+								<div class="panel-body">
+									<div class="container-fluid">
+									 <div class="row">
+										<div class="col-md-12">
+											<div class="form-group">
+												<label for='branch_name'>Branch Name</label>
+												<input required="required" type="text" value="<?php echo set_value('branch_name'); ?>" id="branch_name" name="branch_name" class="form-control" maxlength="50">
+												<?php echo form_error('branch_name', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
+											</div>
+											<div class="form-group">
+												<label for='address'>Address</label>
+												<input required="required" type="text" value="<?php echo set_value('address'); ?>" id="address" name="address" class="form-control" maxlength="50">
+												<?php echo form_error('address', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
+											</div>
+										</div>
+									</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -126,7 +125,7 @@
 								<div class="col-sm-offset-2 col-sm-10">
 									<input type="hidden" name="id">
 									<button type="button" class="btn btn-secondary" data-dismiss="modal" id="payment-modal-close">Close</button>
-							    	<input type="submit" name="submit_branch" class="btn btn-sm btn-success" value="Submit">
+							    	<input type="submit" name="submit_branch" class="btn btn-sm btn-primary" value="Submit">
 							    </div>
 							</div>
 						</div>
@@ -141,6 +140,8 @@
 		<script type="text/javascript" src="assets/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="assets/datatables/datatables.min.js"></script>
 
+		<script type="text/javascript" src="assets/js/page.height.setter.js"></script>
+
 		<script type="text/javascript">
 			$(document).ready(function() {
 				var datatable = $('#view-data-table').DataTable({
@@ -152,7 +153,7 @@
 						"columnDefs": [
 							{className: "dt-right", "targets": [] },
 							{render: $.fn.dataTable.render.number( ',', '.', 2, '' ), "targets": [] },
-							{"targets": -1, "data": null, "defaultContent": 
+							{"targets": -1, "data": null, "orderable": false, "defaultContent": 
 								"<a class=\'action-edit\' title=\'Edit\'><i class=\'glyphicon glyphicon-pencil\'></i></a>&nbsp; " +
 								"<a class=\'action-delete\' data-mode=\'modal\' title=\'Delete\'><i class=\'glyphicon glyphicon-trash\'></i></a>"},
 							{"targets": [ 0 ], "visible": false, "searchable": false}
