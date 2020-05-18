@@ -21,7 +21,7 @@
 
 			<?php $this->load->view('components/navbar'); ?>
 			
-			<div class="container-fluid">
+			<div class="container-fluid with-color-accent">
 				<div class="row">
 			        
 			        <?php $this->load->view('components/menu'); ?>
