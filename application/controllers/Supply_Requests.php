@@ -142,7 +142,7 @@ class Supply_Requests extends CI_Controller {
     }
 
 
-	public function receive($id = null){
+	public function receive(){
 		if($this->isLoggedIn && $this->session->userdata('status') == $this->config->item('USER_STATUS_ASSOC')['ACTIVE'][0]){
 			if(in_array('BR_SUPPLY_REQUEST', $this->config->item('USER_ROLE_ASSOC_MENU')[$this->session->userdata('user_role')])){
 				$data = array();
@@ -275,7 +275,7 @@ class Supply_Requests extends CI_Controller {
 					'returnType' => 'single',
 					'conditions' => array(
 						'del' => false,
-						'id' => $id
+						'id' => $this->input->get('id')
 					));
 				$statusObj= $this->supply_request->getRows($con);
 
@@ -283,7 +283,7 @@ class Supply_Requests extends CI_Controller {
 					'returnType' => 'single',
 					'conditions' => array(
 						'sr.del' => false,
-						'sr.id' => $id
+						'sr.id' => $this->input->get('id')
 					),
 					'status' => $statusObj['STATUS']
 				);

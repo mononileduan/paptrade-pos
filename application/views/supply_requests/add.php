@@ -17,89 +17,88 @@
 	</head>
 
 	<body>
+
 		<div>
 
 			<?php $this->load->view('components/navbar'); ?>
 			
 			<div class="container-fluid">
+
 				<div class="row">
 			        
 			        <?php $this->load->view('components/menu'); ?>
 
 			        <div class="col-sm-10 col-md-10" id="page-content">
-			            <h2 class="page-header">Add Supply Request</h2>
-
-						<div class="row-pad"></div>
-
-						<div class="row-pad"></div>
-
-					    <div class="row">
-						    <div class="col-md-12">
-								<div id="add-req-item-container" class="container form-horizontal">
-									<div class="form-group">
-										<label class="control-label col-sm-2" for='item'>Item</label>
-										<div class="col-sm-10">
-											<select required="required" name="item" id="item_select" class="form-control">
-												<option value=""></option>
-												<?php foreach($items->result_array() as $r) {
-													if((set_value('item_id') === $r['ITEM_ID']) || (isset($item_id) && $item_id != null && $item_id === $r['ITEM_ID'])){
-														echo '<option value="'.$r['ITEM_ID'].'" selected="selected">'.$r['ITEM'].'</option>';
-													}else{
-														echo '<option value="'.$r['ITEM_ID'].'">'.$r['ITEM'].'</option>';
-													}
-												} ?>
-											</select>
-											<?php echo form_error('item', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
+			            <h2 class="page-header">Supply Request</h2>
+			            <div class="margin-left-20px">
+				            <div class="row">
+								<div class="col-md-4">
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h4 class="panel-title">
+												<span class="panel-title"><span class="glyphicon glyphicon-plus"></span>&nbsp; Add New</span>
+											</h4>
+										</div>
+										<div class="panel-body">
+											<form accept-charset="utf-8" autocomplete="off" id="add-req-item-container">
+												<div class="form-group">
+													<label for='item_select'>Item</label>
+													<select required="required" name="item" id="item_select" class="form-control">
+														<option value=""></option>
+														<?php foreach($items->result_array() as $r) {
+															if((set_value('item_id') === $r['ITEM_ID']) || (isset($item_id) && $item_id != null && $item_id === $r['ITEM_ID'])){
+																echo '<option value="'.$r['ITEM_ID'].'" selected="selected">'.$r['ITEM'].'</option>';
+															}else{
+																echo '<option value="'.$r['ITEM_ID'].'">'.$r['ITEM'].'</option>';
+															}
+														} ?>
+													</select>
+													<?php echo form_error('item', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
+												</div>
+												<div class="form-group">
+													<label for='qty'>Quantity</label>
+													<input required="required" type="text" value="<?php echo set_value('qty'); ?>" id="qty" name="qty" class="form-control" maxlength="10">
+													<?php echo form_error('qty', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
+												</div>
+												<input type="button" id="add-req-item-btn" class="btn btn-secondary btn-sm" value="Add to List">
+											</form>
 										</div>
 									</div>
-									<div class="form-group">
-										<label class="control-label col-sm-2" for='qty'>Quantity</label>
-										<div class="col-sm-10">
-											<input required="required" type="text" value="<?php echo set_value('qty'); ?>" name="qty" class="form-control">
-											<?php echo form_error('qty', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
+								</div>
+								<div class="col-md-8">
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h4 class="panel-title">
+												<span class="panel-title"><span class="glyphicon glyphicon-list"></span>&nbsp; List</span>
+											</h4>
 										</div>
-									</div>
-									<div class="form-group">
-										<div class="col-sm-offset-2 col-sm-10">
-									    	<input type="button" id="add-req-item-btn" class="btn btn-primary btn-sm" value="Add to List">
-									    </div>
+										<div class="panel-body">
+											<div class="row">
+											    <div class="col-md-12">
+													<div id="request-container">
+														<table id="requests-tbl" class="table table-bordered table-hover" style="width:100%">
+															<thead>
+																<tr>
+																	<th width="70%">Item</th>
+																	<th width="20%" class="text-right">Quantity</th>
+																	<th width="10%"> </th>
+																</tr>
+															</thead>
+															<tbody>
+															</tbody>
+														</table>
+														<form id="process-submit-request" class="form-horizontal">
+															<input type="submit" name="submit_request" class="btn btn-sm btn-primary" value="Submit">
+														</form>
+													</div>
+												</div>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-
-
-						<div class="row-pad"></div>
-
-						<div class="row-pad"></div>
-
-
-						<div class="row">
-						    <div class="col-md-12">
-								<div id="request-container" class="container">
-									<h4>Request Details</h4>
-									<table id="requests-tbl" class="table table-bordered table-striped table-hover" style="width:100%">
-										<thead>
-											<tr>
-												<th width="70%">Item</th>
-												<th width="20%">Quantity</th>
-												<th width="10%"> </th>
-											</tr>
-										</thead>
-										<tbody>
-										</tbody>
-									</table>
-									<form id="process-submit-request" class="form-horizontal">
-										<div class="form-group">
-											<div class="col-sm-offset-5 col-sm-5">
-												<input type="button" class="btn btn-secondary back-btn" value="Back">
-										    	<input type="submit" name="submit_request" class="btn btn-sm btn-success" value="Submit">
-										    </div>
-										</div>
-									</form>
-								</div>
-							</div>
-						</div>
+							<input type="button" class="btn btn-sm btn-secondary back-btn" value="Back">
+			            </div>
 			        </div>
 	    		</div>
 	    	</div>
@@ -109,6 +108,8 @@
 
 		<script type="text/javascript" src="assets/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="assets/datatables/datatables.min.js"></script>
+
+		<script type="text/javascript" src="assets/js/page.height.setter.js"></script>
 
 		<script type="text/javascript">
 			$(document).ready(function() {
@@ -129,7 +130,7 @@
 							'<tr>' +
 								'<input name="id" type="hidden" value="'+ item_id +'">' +
 								'<td>'+ item_dscp +'</td>' +
-								'<td><input name="qty" type="text" value="'+qty+'" class="quantity-box" size="5"></td>' +
+								'<td class="text-right"><input name="qty" type="text" value="'+qty+'" class="quantity-box text-right" size="5"></td>' +
 								'<td><span class="remove" style="font-size:12px;"><i class="glyphicon glyphicon-trash" title="Remove"></i></span></td>' +
 							'</tr>'
 							);

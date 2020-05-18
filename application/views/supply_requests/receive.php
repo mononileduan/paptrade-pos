@@ -27,89 +27,142 @@
 			        <?php $this->load->view('components/menu'); ?>
 
 			        <div class="col-sm-10 col-md-10" id="page-content">
-			            <h2 class="page-header">View Supply Request</h2>
-
-						<div class="row-pad"></div>
-
-						<div class="row-pad"></div>
-
-						<div class="form-horizontal">
-						    <div class="row form-group">
-								<div class="col-sm-2"><label>Item</label></div>
-								<div class="col-sm-10"><?= $req['ITEM']; ?></div>
-							</div>
-							 <div class="row form-group">
-								<div class="col-sm-2"><label>Quantity</label></div>
-								<div class="col-sm-10"><?= $req['QTY']; ?></div>
-							</div>
-							 <div class="row form-group">
-								<div class="col-sm-2"><label>Branch</label></div>
-								<div class="col-sm-10"><?= $req['BRANCH']; ?></div>
-							</div>
-							 <div class="row form-group">
-								<div class="col-sm-2"><label>Requested By</label></div>
-								<div class="col-sm-10"><?= $req['REQUESTED_BY']; ?></div>
-							</div>
-							<div class="row form-group">
-								<div class="col-sm-2"><label>Requested Date</label></div>
-								<div class="col-sm-10"><?= $req['REQUESTED_DT']; ?></div>
-							</div>
-							<?php 
-							if($req['STATUS'] == 'APPROVED' || $req['STATUS'] == 'RECEIVED'){
-								echo '<div class="row form-group">';
-								echo '<div class="col-sm-2"><label>Approved Quantity</label></div>';
-								echo '<div class="col-sm-10">'.$req['APPROVED_QTY'].'</div>';
-								echo '</div>';
-
-								echo '<div class="row form-group">';
-								echo '<div class="col-sm-2"><label>Processed By</label></div>';
-								echo '<div class="col-sm-10">'.$req['PROCESSED_BY'].'</div>';
-								echo '</div>';
-
-								echo '<div class="row form-group">';
-								echo '<div class="col-sm-2"><label>Date Processed</label></div>';
-								echo '<div class="col-sm-10">'.$req['PROCESSED_DT'].'</div>';
-								echo '</div>';
-							}
-
-							if($req['STATUS'] == 'RECEIVED'){
-								echo '<div class="row form-group">';
-								echo '<div class="col-sm-2"><label>Received By</label></div>';
-								echo '<div class="col-sm-10">'.$req['RECEIVED_BY'].'</div>';
-								echo '</div>';
-
-								echo '<div class="row form-group">';
-								echo '<div class="col-sm-2"><label>Date Received</label></div>';
-								echo '<div class="col-sm-10">'.$req['RECEIVED_DT'].'</div>';
-								echo '</div>';
-							}
-							?>
-						</div>
-
-						<div class="row-pad"></div>
-
-						<div class="row-pad"></div>
-
-
-						<div class="row">
-						    <div class="col-md-12">
-						    	<form action="" method="post" accept-charset="utf-8" class="form-horizontal">
-									<div class="row form-group">
-										<div class="col-sm-12">
-											<input type="hidden" name="id" value="<?= $req['ID']; ?>">
-											<input type="hidden" name="approved_qty" value="<?= $req['APPROVED_QTY']; ?>">
-											<input type="hidden" name="branch" value="<?= $req['BRANCH']; ?>">
-											<input type="button" class="btn btn-secondary back-btn" value="Back">
-											<?php
-											if($req['STATUS'] == 'APPROVED'){
-												echo '<input type="submit" name="submit_receive_request" class="btn btn-success" value="Receive">';
-											}
-											?>
+			        	<h2 class="page-header">Supply Request</h2>
+			            <div class="margin-left-20px">
+			            	<div class="row">
+			            		<div class="col-md-10">
+			            			<div class="row">
+										<div class="col-md-12">
+									    	<div class="panel panel-default">
+												<div class="panel-heading">
+													<h4 class="panel-title">
+														<span class="panel-title"><span class="glyphicon glyphicon-tasks"></span>&nbsp; Request Status</span>
+													</h4>
+												</div>
+												<div class="panel-body">
+													<form class="form-horizontal">
+														<div class="row">
+															<label class="col-sm-2 control-label">Status</label>
+															<div class="col-sm-10">
+																<p class="form-control-static"><?= $req['STATUS']; ?></p>
+															</div>
+														</div>
+													</form>
+												</div>
+											</div>
 										</div>
 									</div>
-								</form>
-							</div>
-						</div>
+					            	<div class="row">
+					            		<div class="col-md-7">
+					            			<div class="panel panel-default">
+												<div class="panel-heading">
+													<h4 class="panel-title">
+														<span class="panel-title"><span class="glyphicon glyphicon-tasks"></span>&nbsp; Request Details</span>
+													</h4>
+												</div>
+												<div class="panel-body">
+													<form class="form-horizontal">
+														<div class="row">
+															<label class="col-sm-4 control-label">Item</label>
+															<div class="col-sm-8">
+																<p class="form-control-static"><?= $req['ITEM']; ?></p>
+															</div>
+														</div>
+														<div class="row">
+															<label class="col-sm-4 control-label">Quantity</label>
+															<div class="col-sm-8">
+																<p class="form-control-static"><?= $req['QTY']; ?></p>
+															</div>
+														</div>
+														<div class="row">
+															<label class="col-sm-4 control-label">Branch</label>
+															<div class="col-sm-8">
+																<p class="form-control-static"><?= $req['BRANCH']; ?></p>
+															</div>
+														</div>
+														<div class="row">
+															<label class="col-sm-4 control-label">Requested By</label>
+															<div class="col-sm-8">
+																<p class="form-control-static"><?= $req['REQUESTED_BY']; ?></p>
+															</div>
+														</div>
+														<div class="row">
+															<label class="col-sm-4 control-label">Requested Date</label>
+															<div class="col-sm-8">
+																<p class="form-control-static"><?= $req['REQUESTED_DT']; ?></p>
+															</div>
+														</div>
+													</form>
+												</div>
+											</div>
+					            		</div>
+					            		<div class="col-md-5">
+					            			<div class="row">
+												<div class="col-md-12">
+											    	<div class="panel panel-default">
+														<div class="panel-heading">
+															<h4 class="panel-title">
+																<span class="panel-title"><span class="glyphicon glyphicon-tasks"></span>&nbsp; Approval Details</span>
+															</h4>
+														</div>
+														<div class="panel-body">
+															<form class="form-horizontal">
+																<div class="row">
+																	<label class="col-sm-5 control-label">Approved Quantity</label>
+																	<div class="col-sm-7">
+																		<p class="form-control-static"><?= isset($req['APPROVED_QTY']) ? $req['APPROVED_QTY'] : ''; ?></p>
+																	</div>
+																</div>
+
+																<div class="row">
+																	<label class="col-sm-5 control-label">Processed By</label>
+																	<div class="col-sm-7">
+																		<p class="form-control-static"><?= isset($req['PROCESSED_BY']) ? $req['PROCESSED_BY'] : ''; ?></p>
+																	</div>
+																</div>
+
+																<div class="row">
+																	<label class="col-sm-5 control-label">Date Processed</label>
+																	<div class="col-sm-7">
+																		<p class="form-control-static"><?= isset($req['PROCESSED_DT']) ? $req['PROCESSED_DT'] : ''; ?></p>
+																	</div>
+																</div>
+															</form>
+														</div>
+													</div>
+												</div>
+											</div>
+
+											<div class="row">
+												<div class="col-md-12">
+											    	<div class="panel panel-default">
+														<div class="panel-heading">
+															<h4 class="panel-title">
+																<span class="panel-title"><span class="glyphicon glyphicon-tasks"></span>&nbsp; Receiving Details</span>
+															</h4>
+														</div>
+														<div class="panel-body">
+															<form action="" method="post" accept-charset="utf-8" class="form-horizontal">
+																<div class="row form-group">
+																	<div class="col-sm-12">
+																		<input type="hidden" name="id" value="<?= $req['ID']; ?>">
+																		<input type="hidden" name="approved_qty" value="<?= $req['APPROVED_QTY']; ?>">
+																		<input type="hidden" name="branch" value="<?= $req['BRANCH']; ?>">
+																		<input type="submit" name="submit_receive_request" class="btn btn-sm btn-primary" value="Receive">
+																	</div>
+																</div>
+															</form>
+														</div>
+													</div>
+												</div>
+											</div>
+					            		</div>
+					            	</div>
+			            		</div>
+			            		<div class="col-md-offset-1"></div>
+			            	</div>
+							<input type="button" class="btn btn-sm btn-secondary back-btn" value="Back">
+			            </div>
 			        </div>
 	    		</div>
 	    	</div>
@@ -119,6 +172,8 @@
 
 		<script type="text/javascript" src="assets/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="assets/datatables/datatables.min.js"></script>
+
+		<script type="text/javascript" src="assets/js/page.height.setter.js"></script>
 
 		<script type="text/javascript">
 			$(document).ready(function() {

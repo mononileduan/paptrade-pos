@@ -29,7 +29,7 @@
 			        <?php $this->load->view('components/menu'); ?>
 
 			        <div class="col-sm-10 col-md-10" id="page-content">
-			            <h2 class="page-header">Approve Supply Request</h2>
+			            <h2 class="page-header">Supply Request</h2>
 			            <div class="margin-left-20px">
 				            <div class="row">
 				            	<div class="col-md-4">

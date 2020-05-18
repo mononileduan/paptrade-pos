@@ -84,6 +84,8 @@
 						},
 						"order": [[ 1, "asc" ]],
 						"columnDefs": [
+							{className: "dt-right", "targets": [2] },
+        					{render: $.fn.dataTable.render.number( ',', '.', 0, '' ), "targets": [2] },
 							{"targets": -1, "data": null, "orderable": false, "defaultContent": 
 								"<a class=\'action-view\' data-mode=\'modal\' title=\'View\'><i class=\'glyphicon glyphicon-eye-open\'></i></a>"},
 							{"targets": [ 0 ], "visible": false, "searchable": false}

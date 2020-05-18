@@ -167,3 +167,8 @@ a:hover, a:focus {
     line-height: 32px;
     font-size: 12px;
 }
+
+.quantity-box {
+    border: none;
+    max-width: 50px;
+}
