@@ -126,7 +126,8 @@
 						<div class="col-md-8">
 							<div id="receipt">
 								<div class="r-header text-center">
-									<h3>Receipt</h3>
+									<h3>PAPTRADE ENTERPRISES</h3>
+									<h4>Receipt</h4>
 									<div class="row">
 										<div class="col-md-4 text-right">
 											<div>Reference No.:</div>
