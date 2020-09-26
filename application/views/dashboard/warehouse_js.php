@@ -35,7 +35,7 @@
 					{render: $.fn.dataTable.render.number( ',', '.', 0, '' ), "targets": [] },
 					{"targets": -1, "data": null, "orderable": false, "defaultContent": 
 						"<a class=\'action-view\' data-mode=\'modal\' title=\'View\'><i class=\'glyphicon glyphicon-eye-open\'></i></a>&nbsp; "},
-					{"targets": [0, 4, -2], "visible": false, "searchable": false}
+					{"targets": [0, -2], "visible": false, "searchable": false}
 				]
 		});
 
