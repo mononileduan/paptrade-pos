@@ -47,14 +47,14 @@
 												<table id="view-data-table" class="table table-bordered table-striped table-hover" style="width:100%">
 													<thead>
 														<tr>
-															<td>ID</td>
-															<td width="15%">Branch</td>
-															<td width="15%">Transaction Date</td>
-															<td width="10%">Reference No.</td>
-															<td width="15%">Transaction Amount</td>
-															<td width="15%">Payment Amount</td>
-															<td width="20%">Cashier</td>
-															<td width="10%">Action</td>
+															<th>ID</th>
+															<th width="15%">Branch</th>
+															<th width="15%">Transaction Date</th>
+															<th width="15%">Reference No.</th>
+															<th width="15%">Transaction Amount</th>
+															<th width="15%">Payment Amount</th>
+															<th width="20%">Cashier</th>
+															<th width="5%">Action</th>
 														</tr>
 													</thead>
 													<tbody>
