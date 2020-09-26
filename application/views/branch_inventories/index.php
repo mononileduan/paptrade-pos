@@ -172,6 +172,7 @@
 						   url : "<?= site_url('branch_inventories/list'); ?>",
 						    type : 'GET'
 						},
+						"order": [[ 1, "asc" ]],
 						"columnDefs": [
 							{className: "dt-right", "targets": [-2, -3, -4] },
 							{render: $.fn.dataTable.render.number( ',', '.', 2, '' ), "targets": [-4] },
