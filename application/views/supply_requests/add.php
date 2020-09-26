@@ -143,7 +143,7 @@
 									'<input name="id" type="hidden" value="'+ item_id +'">' +
 									'<td>'+ item +'</td>' +
 									'<td class="text-right"><input name="qty" type="text" value="'+qty+'" class="quantity-box text-right" size="5"></td>' +
-									'<td><span class="remove" style="font-size:12px;"><i class="glyphicon glyphicon-trash" title="Remove"></i></span></td>' +
+									'<td><a class="remove" style="font-size:12px;"><i class="glyphicon glyphicon-trash" title="Remove"></i></a></td>' +
 								'</tr>'
 								);
 							}
