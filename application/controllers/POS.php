@@ -20,7 +20,8 @@ class POS extends CI_Controller {
 					
 					$con = array(
 						'conditions' => array(
-							'branch_id' => $this->session->userdata('branch_id')
+							'branch_id' => $this->session->userdata('branch_id'),
+							'sales.created_by' => $this->session->userdata('username')
 						)
 					);
 					$result = $this->sales_model->getSummary($con)->row_array();
