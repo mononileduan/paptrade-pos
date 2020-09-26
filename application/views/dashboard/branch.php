@@ -8,13 +8,13 @@
 				<table id="lowstocks-branch-data-table" class="table table-bordered table-striped table-hover" style="width:100%">
 					<thead>
 						<tr>
-							<td>ID</td>
-							<td>BRANCH</td>
-							<td>ITEM_ID</td>
-							<td width="50%">Item</td>
-							<td width="20%">Critical No. of Stocks</td>
-							<td width="20%">Available Stocks</td>
-							<td width="10%">Action</td>
+							<th>ID</th>
+							<th>BRANCH</th>
+							<th>ITEM_ID</th>
+							<th width="50%">Item</th>
+							<th width="20%">Critical No. of Stocks</th>
+							<th width="20%">Available Stocks</th>
+							<th width="10%">Action</th>
 						</tr>
 					</thead>
 					<tbody>

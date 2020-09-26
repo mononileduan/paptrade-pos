@@ -15,12 +15,12 @@
 								<table id="lowstocks-whouse-data-table" class="table table-bordered table-striped table-hover" style="width:100%">
 									<thead>
 										<tr>
-											<td>ID</td>
-											<td>ITEM_ID</td>
-											<td width="55%">Item</td>
-											<td width="15%">Critical Stocks</td>
-											<td width="15%">Current Stocks</td>
-											<td width="15%">Available Stocks</td>
+											<th>ID</th>
+											<th>ITEM_ID</th>
+											<th width="55%">Item</th>
+											<th width="15%">Critical Stocks</th>
+											<th width="15%">Current Stocks</th>
+											<th width="15%">Available Stocks</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -41,12 +41,12 @@
 								<table id="lowstocks-branch-data-table" class="table table-bordered table-striped table-hover" style="width:100%">
 									<thead>
 										<tr>
-											<td>ID</td>
-											<td width="35%">BRANCH</td>
-											<td>ITEM_ID</td>
-											<td width="45%">Item</td>
-											<td width="10%">Critical Stocks</td>
-											<td width="10%">Available Stocks</td>
+											<th>ID</th>
+											<th width="35%">Branch</th>
+											<th>ITEM_ID</th>
+											<th width="45%">Item</th>
+											<th width="10%">Critical Stocks</th>
+											<th width="10%">Available Stocks</th>
 										</tr>
 									</thead>
 									<tbody>
