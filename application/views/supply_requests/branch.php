@@ -45,7 +45,7 @@
 										<div class="panel-body">
 											<div class="row">
 												<div class="col-md-12">
-													<a href="<?= site_url('supply_requests/add') ?>" class="btn btn-primary btn-sm"><i class='glyphicon glyphicon-plus'></i> Add New</a>
+													<a href="<?= site_url('supply_requests/add') ?>" class="btn btn-primary btn-sm"><i class='glyphicon glyphicon-plus'></i> New Request</a>
 													<div class="row-pad"></div>
 												</div>
 											</div>
