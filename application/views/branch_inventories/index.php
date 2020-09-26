@@ -149,9 +149,20 @@
 
 		<?php $this->load->view('components/modals'); ?>
 
-		<script type="text/javascript" src="assets/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="assets/datatables/datatables.min.js"></script>
+		<script type="text/javascript" src="assets/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+
+		<script type="text/javascript" src="assets/datatables/Buttons-1.6.1/js/dataTables.buttons.min.js"></script>
+
+		<script type="text/javascript" src="assets/datatables/JSZip-3.1.3/js/jszip.min.js"></script>
+
+		<script type="text/javascript" src="assets/datatables/PDFMake-0.1.53/js/pdfmake.min.js"></script>
+		<script type="text/javascript" src="assets/datatables/PDFMake-0.1.53/js/vfs_fonts.js"></script>
+
+		<script type="text/javascript" src="assets/datatables/Buttons-1.6.1/js/buttons.html5.min.js"></script>
+		<script type="text/javascript" src="assets/datatables/Buttons-1.6.1/js/buttons.print.min.js"></script>
+		
 		<script type="text/javascript" src="assets/js/page.height.setter.js"></script>
 
 		<script type="text/javascript">
@@ -171,7 +182,33 @@
 								"<a class=\'action-edit\' data-mode=\'modal\' title=\'Edit\'><i class=\'glyphicon glyphicon-pencil\'></i></a>&nbsp;" +
 								"<a class=\'action-hist\' data-mode=\'modal\' title=\'History\'><i class=\'glyphicon glyphicon-calendar\'></i></a>"},
 							{"targets": [ 0 ], "visible": false, "searchable": false}
-						]
+						],
+						dom: 'lBftipr',
+						buttons: [
+								{
+					                extend: 'copyHtml5',
+					                exportOptions: {
+					                    columns: [ 1, 2, 3, 4, 5, 6 ]
+					                }
+					            },
+								{
+					                extend: 'excelHtml5',
+					                exportOptions: {
+					                    columns: [ 1, 2, 3, 4, 5, 6 ]
+				                	}
+				            	},
+					            {
+					                extend: 'pdfHtml5',
+					                exportOptions: {
+					                    columns: [ 1, 2, 3, 4, 5, 6 ]
+					                }
+					            },
+					            {
+					                extend: 'print',
+					                exportOptions: {
+					                    columns: [ 1, 2, 3, 4, 5, 6 ]
+					                }
+					            }]
 				});
 
 				var hist_tbl = $('#hist-view-data-table').DataTable({
