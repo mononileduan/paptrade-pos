@@ -5,6 +5,9 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="base_url" content="<?= base_url() ?>">
+		<meta name="index_page" content="<?= index_page() ?>">
+		<meta name="user" content="<?=$this->session->userdata('fullname')?>">
 		<base href="<?= site_url() ?>">
 		<link rel="shortcut icon" type="image/x-icon" href="assets/images/paptrade-icon.png" />
 
@@ -78,9 +81,20 @@
 
 		<?php $this->load->view('components/modals'); ?>
 
-		<script type="text/javascript" src="assets/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="assets/datatables/datatables.min.js"></script>
+		<script type="text/javascript" src="assets/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+
+		<script type="text/javascript" src="assets/datatables/Buttons-1.6.1/js/dataTables.buttons.min.js"></script>
+
+		<script type="text/javascript" src="assets/datatables/JSZip-3.1.3/js/jszip.min.js"></script>
+
+		<script type="text/javascript" src="assets/datatables/PDFMake-0.1.53/js/pdfmake.min.js"></script>
+		<script type="text/javascript" src="assets/datatables/PDFMake-0.1.53/js/vfs_fonts.js"></script>
+
+		<script type="text/javascript" src="assets/datatables/Buttons-1.6.1/js/buttons.html5.min.js"></script>
+		<script type="text/javascript" src="assets/datatables/Buttons-1.6.1/js/buttons.print.min.js"></script>
+		
 		<script type="text/javascript" src="assets/js/page.height.setter.js"></script>
 
 		<script type="text/javascript">
@@ -98,7 +112,33 @@
 							"<a class=\'action-view\' data-mode=\'modal\' title=\'View\'><i class=\'glyphicon glyphicon-eye-open\'></i></a>&nbsp; " +
 							"<a class=\'action-delete\' data-mode=\'modal\' title=\'Delete\'><i class=\'glyphicon glyphicon-trash\'></i></a>"},
 							{"targets": [ 0 ], "visible": false, "searchable": false}
-						]
+						],
+						dom: 'lBftipr',
+						buttons: [
+								{
+					                extend: 'copyHtml5',
+					                exportOptions: {
+					                    columns: [ 1, 2, 3, 4, 5, 6 ]
+					                }
+					            },
+								{
+					                extend: 'excelHtml5',
+					                exportOptions: {
+					                    columns: [ 1, 2, 3, 4, 5, 6 ]
+				                	}
+				            	},
+					            {
+					                extend: 'pdfHtml5',
+					                exportOptions: {
+					                    columns: [ 1, 2, 3, 4, 5, 6 ]
+					                }
+					            },
+					            {
+					                extend: 'print',
+					                exportOptions: {
+					                    columns: [ 1, 2, 3, 4, 5, 6 ]
+					                }
+					            }]
 				});
 
 
