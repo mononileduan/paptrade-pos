@@ -29,8 +29,9 @@
 					data: {'status' : 'NEW'},
 				    type : 'GET'
 				},
+				"order": [[ 1, "desc" ]],
 				"columnDefs": [
-					{className: "dt-right", "targets": [2] },
+					{className: "dt-right", "targets": [3] },
 					{render: $.fn.dataTable.render.number( ',', '.', 0, '' ), "targets": [] },
 					{"targets": -1, "data": null, "orderable": false, "defaultContent": 
 						"<a class=\'action-view\' data-mode=\'modal\' title=\'View\'><i class=\'glyphicon glyphicon-eye-open\'></i></a>&nbsp; "},

@@ -34,11 +34,11 @@
 					<thead>
 						<tr>
 							<th></th>
+							<th width="15%">Request Date</th>
 							<th width="30%">Item</th>
 							<th width="5%">Quantity</th>
 							<th width="20%">Branch</th>
 							<th width="15%">Requested By</th>
-							<th width="15%">Request Date</th>
 							<th width="10%">Status</th>
 							<th width="5%">Action</th>
 						</tr>
