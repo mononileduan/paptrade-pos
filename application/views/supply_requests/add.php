@@ -198,9 +198,9 @@
 							data : data,
 							url : '<?= site_url('/supply_requests/add') ?>',
 							success : function(data) { 
-								if(data == 'OK'){
+								if(data.startsWith('OK')){
 									$("#requests-tbl tbody").empty();
-									$("#success_modal .modal-content .modal-body p.text-center").text("Successfully submitted request.");
+									$("#success_modal .modal-content .modal-body p.text-center").text("Successfully submitted request. Ref. No.: " + data.substring(2));
 									$("#success_modal").modal('show');
 								}
 							}

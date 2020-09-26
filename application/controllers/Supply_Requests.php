@@ -325,7 +325,7 @@ class Supply_Requests extends CI_Controller {
 						);
 						$this->supply_request->insert($req);			 
 					}
-					echo 'OK';
+					echo 'OK'.$ref_no;
 					exit();
 				}
 
@@ -592,7 +592,7 @@ class Supply_Requests extends CI_Controller {
 					)
 				);
 				$data['wh_item'] = $this->warehouse_inventory->getRowsJoin($con)->row_array();
-				
+
 				$data['ref_no'] = $this->input->get('ref_no');
 				
 				$this->load->view('supply_requests/approve', $data);

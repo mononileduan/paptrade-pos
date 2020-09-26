@@ -35,7 +35,7 @@
 			            <h2 class="page-header">Supply Requests</h2>
 						<div class="margin-left-20px">
 						    <div class="row">
-							    <div class="col-md-12">
+							    <div class="col-md-12" id="content-container">
 							    	<div class="panel panel-default">
 										<div class="panel-heading">
 											<h4 class="panel-title">
@@ -55,13 +55,14 @@
 														<thead>
 															<tr>
 																<th>ID</th>
+																<th>Ref. No.</th>
 																<th width="15%">Request Date</th>
-																<th width="20%">Item</th>
+																<th width="25%">Item</th>
 																<th width="10%">Quantity</th>
 																<th width="15%">Branch</th>
 																<th width="15%">Requested By</th>
 																<th width="15%">Status</th>
-																<th width="10%">Action</th>
+																<th width="5%">Action</th>
 															</tr>
 														</thead>
 														<tbody>
@@ -106,13 +107,28 @@
 						},
 						"order": [[ 1, "desc" ]],
 						"columnDefs": [
-							{className: "dt-right", "targets": [3] },
-        					{render: $.fn.dataTable.render.number( ',', '.', 0, '' ), "targets": [2] },
+							{className: "dt-right", "targets": [4] },
+        					{render: $.fn.dataTable.render.number( ',', '.', 0, '' ), "targets": [4] },
 							{"targets": -1, "data": null, "orderable": false, "defaultContent": 
 							"<a class=\'action-view\' data-mode=\'modal\' title=\'View\'><i class=\'glyphicon glyphicon-eye-open\'></i></a>&nbsp; " +
 							"<a class=\'action-delete\' data-mode=\'modal\' title=\'Delete\'><i class=\'glyphicon glyphicon-trash\'></i></a>"},
-							{"targets": [ 0 ], "visible": false, "searchable": false}
+							{"targets": [ 0 ], "visible": false, "searchable": false},
+							{"targets": [ 1 ], "visible": false, "searchable": true}
 						],
+				        "drawCallback": function ( settings ) {
+				            var api = this.api();
+				            var rows = api.rows( {page:'current'} ).nodes();
+				            var last=null;
+				 
+				            api.column(1, {page:'current'} ).data().each( function ( group, i ) {
+				                if ( last !== group ) {
+				                    $(rows).eq( i ).before(
+				                        '<tr class="group"><td colspan="7">'+group+'</td></tr>'
+				                    );
+				                    last = group;
+				                }
+				            } );
+				        },
 						dom: 'lBftipr',
 						buttons: [
 								{
@@ -140,6 +156,17 @@
 					                }
 					            }]
 				});
+    
+    			// Order by the grouping column
+			    $('#view-data-table tbody').on( 'dblclick', 'tr.group', function () {
+			        var currentOrder = datatable.order()[0];
+			        if ( currentOrder[0] === 1 && currentOrder[1] === 'asc' ) {
+			            datatable.order( [ 1, 'desc' ] ).draw();
+			        }
+			        else {
+			            datatable.order( [ 1, 'asc' ] ).draw();
+			        }
+			    } );
 
 
 

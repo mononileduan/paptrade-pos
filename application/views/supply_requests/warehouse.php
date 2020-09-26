@@ -32,7 +32,7 @@
 			            <h2 class="page-header">Supply Requests</h2>
 			            <div class="margin-left-20px">
 						    <div class="row">
-							    <div class="col-md-12">
+							    <div class="col-md-12" id="content-container">
 							    	<div class="panel panel-default">
 										<div class="panel-heading">
 											<h4 class="panel-title">
