@@ -34,11 +34,11 @@
 	            			<table id="item-table" class="table table-bordered table-striped table-hover" style="width:100%">
 								<thead>
 									<tr>
-										<td></td>
-										<td>Item</td>
-										<td>Category</td>
-										<td>Stocks</td>
-										<td>Unit Price</td>
+										<th></th>
+										<th>Item</th>
+										<th>Category</th>
+										<th>Stocks</th>
+										<th>Unit Price</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -56,7 +56,7 @@
 										<a id="save-temp-txn"><span class="save" style="font-size:14px;"><i class="glyphicon glyphicon-floppy-disk" title="Save for Later"></i></span></a>
 									</td>
 									<td width="30%" class="text-right" style="vertical-align: middle;">
-										<label style="margin-bottom: 0px;">Sales Count:&nbsp;</label><span id="daily_sales_cnt"><?= $daily_sales_cnt ?></span>
+										<label style="margin-bottom: 0px;">Sales Count:&nbsp;</label><a id="open-txn-hist"><span id="daily_sales_cnt"><?= $daily_sales_cnt ?></span></a>
 									</td>
 									<td width="50%" class="text-right" style="vertical-align: middle;">
 										<label style="margin-bottom: 0px;">Total Sales:&nbsp;</label><span id="daily_total_sales"><?= $daily_total_sales ?></span>
@@ -254,13 +254,47 @@
 	            			<table id="sales-tmp" class="table table-bordered table-striped table-hover" style="width:100%">
 								<thead>
 									<tr>
-										<td>ID</td>
-										<td>Branch</td>
-										<td width="40%">Customer Name</td>
-										<td width="10%">Products</td>
-										<td width="30%">Cashier</td>
-										<td width="15%">Date</td>
-										<td width="5%"></td>
+										<th>ID</th>
+										<th>Branch</th>
+										<th width="40%">Customer Name</th>
+										<th width="10%">Products</th>
+										<th width="30%">Cashier</th>
+										<th width="15%">Date</th>
+										<th width="5%"></th>
+									</tr>
+								</thead>
+								<tbody>
+								</tbody>
+							</table>
+						</div>
+						<div class="clearfix"></div>
+
+					</div>
+					<div class="modal-footer"> 
+						<button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+
+		<div class="modal" tabindex="-4" role="dialog" id="sales-hist-modal">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Sales Transactions</h5>
+					</div>
+					<div class="modal-body">
+						<div id="sales-hist-container" style="min-height: 310px; max-height: 185px;">
+	            			<table id="sales-hist-table" class="table table-bordered table-striped table-hover" style="width:100%">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th width="25%">Reference No.</th>
+										<th width="25%">Transaction Amount</th>
+										<th width="25%">Payment Amount</th>
+										<th width="25%">Transaction Date</th>
 									</tr>
 								</thead>
 								<tbody>

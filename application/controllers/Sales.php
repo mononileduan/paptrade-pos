@@ -190,6 +190,53 @@ class Sales extends CI_Controller {
     }
 
 
+	public function pos_list(){
+		if($this->isLoggedIn && $this->session->userdata('status') == $this->config->item('USER_STATUS_ASSOC')['ACTIVE'][0] 
+			&& in_array('POS', $this->config->item('USER_ROLE_ASSOC_MENU')[$this->session->userdata('user_role')])){
+
+			// Datatables Variables
+			$draw = intval($this->input->get("draw"));
+			$start = intval($this->input->get("start"));
+			$length = intval($this->input->get("length"));
+
+			$con = array(
+				'returnType' => 'list',
+				'conditions' => array(
+					'sales.del' => false,
+					'sales.branch_id' => $this->session->userdata('branch_id'),
+					'sales.created_by' => $this->session->userdata('username')
+				)
+			);
+			$salesList = $this->sales_model->getPosViewSales($con);
+
+			$data = array();
+			
+			foreach($salesList->result_array() as $r) {
+
+			   $data[] = array(
+			        $r['ID'],
+			        $r['REF_NO'],
+			        $r['GRAND_TOTAL'],
+			        $r['PAYMENT'],
+			        $r['CREATED_DT']
+			   );
+			}
+
+			$output = array(
+				"draw" => $draw,
+				"recordsTotal" => $salesList->num_rows(),
+				"recordsFiltered" => $salesList->num_rows(),
+				"data" => $data
+			);
+			echo json_encode($output);
+			exit();
+
+		}else{
+			$this->load->view('components/unauthorized');
+		}
+    }
+
+
     public function details($id = null){
     	if($this->isLoggedIn && $this->session->userdata('status') == $this->config->item('USER_STATUS_ASSOC')['ACTIVE'][0]){
 			if(in_array('SALES', $this->config->item('USER_ROLE_ASSOC_MENU')[$this->session->userdata('user_role')])){

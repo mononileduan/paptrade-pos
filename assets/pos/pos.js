@@ -351,7 +351,8 @@ $(document).ready(function() {
         		"<a class=\'action-load\' data-mode=\'modal\' title=\'Load\'><i class=\'glyphicon glyphicon-download-alt\'></i></a> &nbsp;" +
         		"<a class=\'action-delete\' data-mode=\'modal\' title=\'Delete\'><i class=\'glyphicon glyphicon-trash\'></i></a>"
         	},
-        	{"targets": [ 0, 1 ], "visible": false, "searchable": false}
+        	{"targets": [ 0, 1 ], "visible": false, "searchable": false},
+        	{"targets": [ -1 ], "orderable": false, "searchable": false}
         ]
     });
 
@@ -421,6 +422,25 @@ $(document).ready(function() {
 			$("#error_modal .modal-content .modal-body p.text-center").text('Please add some items');
 	    	$("#error_modal").modal('show');
 		}
+	});
+
+
+	var sales_hist_tbl = $('#sales-hist-table').DataTable({
+        "ajax": {
+            url : index_page + '/sales/pos_list',
+            type : 'GET'
+        },
+        "columnDefs": [
+        	{className: "dt-right", "targets": [-3, -2] },
+			{render: $.fn.dataTable.render.number( ',', '.', 2, '' ), "targets": [-3, -2] },
+        	{"targets": [ 0  ], "visible": false, "searchable": false}
+        ]
+    });
+
+
+    $("#open-txn-hist").on('click', function(){
+		$("#sales-hist-modal").modal('toggle');
+		sales_hist_tbl.ajax.reload();
 	});
 
 

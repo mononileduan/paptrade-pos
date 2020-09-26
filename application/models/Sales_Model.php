@@ -62,6 +62,28 @@ class Sales_Model extends CI_Model {
 
 	}
 
+	public function getPosViewSales($params = array()){
+		$sql = "SELECT ". 
+			"SALES.ID as ID, ".
+			"BRANCHES.BRANCH_NAME as BRANCH, ". 
+			"SALES.ref_no as REF_NO, ". 
+			"SALES.CREATED_DT as CREATED_DT, ". 
+			"SALES.GRAND_TOTAL as GRAND_TOTAL, ". 
+			"SALES.PAYMENT as PAYMENT, ".
+			"concat(USERS.FIRST_NAME, ' ', USERS.LAST_NAME) as CREATED_BY ". 
+			"from SALES, BRANCHES, USERS  where USERS.USERNAME=sales.CREATED_BY and BRANCHES.id=sales.BRANCH_ID ";
+
+		if(array_key_exists("conditions", $params)){
+			foreach ($params['conditions'] as $key => $val) {
+				$sql = $sql . " AND " . $key . "='" . $val . "'"; 
+			}
+		}
+		$sql = $sql . " AND DATE_SUB(CURDATE(),INTERVAL 0 DAY) <= SALES.CREATED_DT "; 
+		$result = $this->db->query($sql);
+		return $result;
+
+	}
+
 	public function getSummary($params = array()){
 		$sql = "SELECT COUNT(*) as CNT, sum(GRAND_TOTAL) as TOTAL FROM sales WHERE DATE_SUB(CURDATE(),INTERVAL 0 DAY) <= CREATED_DT ";
 
