@@ -105,16 +105,16 @@
 											<table id="view-data-table" class="table table-bordered table-striped table-hover" style="width:100%">
 												<thead>
 													<tr>
-														<td>ID</td>
-														<td>BRANCH ID</td>
-														<td width="15%">Last Name</td>
-														<td width="15%">First Name</td>
-														<td width="15%">Branch Name</td>
-														<td width="15%">Role</td>
-														<td width="5%">Status</td>
-														<td width="15%">Username</td>
-														<td width="15%">Last Login Date</td>
-														<td width="5%">Action</td>
+														<th>ID</th>
+														<th>BRANCH ID</th>
+														<th width="15%">Last Name</th>
+														<th width="15%">First Name</th>
+														<th width="15%">Branch Name</th>
+														<th width="15%">Role</th>
+														<th width="5%">Status</th>
+														<th width="15%">Username</th>
+														<th width="15%">Last Login Date</th>
+														<th width="5%">Action</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -223,9 +223,20 @@
 
 		<?php $this->load->view('components/modals'); ?>
 
-		<script type="text/javascript" src="assets/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="assets/datatables/datatables.min.js"></script>
+		<script type="text/javascript" src="assets/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+
+		<script type="text/javascript" src="assets/datatables/Buttons-1.6.1/js/dataTables.buttons.min.js"></script>
+
+		<script type="text/javascript" src="assets/datatables/JSZip-3.1.3/js/jszip.min.js"></script>
+
+		<script type="text/javascript" src="assets/datatables/PDFMake-0.1.53/js/pdfmake.min.js"></script>
+		<script type="text/javascript" src="assets/datatables/PDFMake-0.1.53/js/vfs_fonts.js"></script>
+
+		<script type="text/javascript" src="assets/datatables/Buttons-1.6.1/js/buttons.html5.min.js"></script>
+		<script type="text/javascript" src="assets/datatables/Buttons-1.6.1/js/buttons.print.min.js"></script>
+		
 		<script type="text/javascript" src="assets/js/page.height.setter.js"></script>
 
 		<script type="text/javascript">
@@ -260,7 +271,33 @@
 							{"targets": -1, "data": null, "orderable": false, "defaultContent": 
 								"<a class=\'action-edit\' title=\'Edit\'><i class=\'glyphicon glyphicon-pencil\'></i></a>&nbsp; "},
 							{"targets": [ 0, 1 ], "visible": false, "searchable": false}
-						]
+						],
+						dom: 'lBftipr',
+						buttons: [
+								{
+					                extend: 'copyHtml5',
+					                exportOptions: {
+					                    columns: [ 2, 3, 4, 5, 6, 7, 8 ]
+					                }
+					            },
+								{
+					                extend: 'excelHtml5',
+					                exportOptions: {
+					                    columns: [ 2, 3, 4, 5, 6, 7, 8 ]
+				                	}
+				            	},
+					            {
+					                extend: 'pdfHtml5',
+					                exportOptions: {
+					                    columns: [ 2, 3, 4, 5, 6, 7, 8 ]
+					                }
+					            },
+					            {
+					                extend: 'print',
+					                exportOptions: {
+					                    columns: [ 2, 3, 4, 5, 6, 7, 8 ]
+					                }
+					            }]
 				});
 
 
