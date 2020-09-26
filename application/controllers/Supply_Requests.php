@@ -342,7 +342,48 @@ class Supply_Requests extends CI_Controller {
 	}
 
 
+	public function wh_item_list(){
+		if($this->isLoggedIn && $this->session->userdata('status') == $this->config->item('USER_STATUS_ASSOC')['ACTIVE'][0] 
+			&& in_array('BR_SUPPLY_REQUEST', $this->config->item('USER_ROLE_ASSOC_MENU')[$this->session->userdata('user_role')])){
 
+			// Datatables Variables
+			$draw = intval($this->input->get("draw"));
+			$start = intval($this->input->get("start"));
+			$length = intval($this->input->get("length"));
+
+			$con = array();
+
+			if($this->input->get('item_id') !== null && $this->input->get('item_id') !== ''){
+				$con = array('conditions' => array('item_id' => $this->input->get('item_id')));
+			}
+			$inventoryList = $this->warehouse_inventory->getRowsJoin($con);
+
+			$data = array();
+			
+			foreach($inventoryList->result_array() as $r) {
+
+			   $data[] = array(
+			   		$r['ID'],
+			   		$r['ITEM_ID'],
+			        $r['ITEM'],
+			        $r['CATEGORY'],
+			        $r['AVAILABLE_QTY']
+			   );
+			}
+
+			$output = array(
+			   "draw" => $draw,
+			     "recordsTotal" => $inventoryList->num_rows(),
+			     "recordsFiltered" => $inventoryList->num_rows(),
+			     "data" => $data
+			);
+			echo json_encode($output);
+			exit();
+
+		}else{
+			$this->load->view('components/unauthorized');
+		}
+    }
 
 
 	public function warehouse(){

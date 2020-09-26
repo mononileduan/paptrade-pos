@@ -5,6 +5,9 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="base_url" content="<?= base_url() ?>">
+		<meta name="index_page" content="<?= index_page() ?>">
+		<meta name="user" content="<?=$this->session->userdata('fullname')?>">
 		<base href="<?= site_url() ?>">
 		<link rel="shortcut icon" type="image/x-icon" href="assets/images/paptrade-icon.png" />
 
@@ -32,40 +35,31 @@
 			            <h2 class="page-header">Supply Request</h2>
 			            <div class="margin-left-20px">
 				            <div class="row">
-								<div class="col-md-4">
+								<div class="col-md-5">
 									<div class="panel panel-default">
 										<div class="panel-heading">
 											<h4 class="panel-title">
-												<span class="panel-title"><span class="glyphicon glyphicon-plus"></span>&nbsp; Add New</span>
+												<span class="panel-title"><span class="glyphicon glyphicon-list-alt"></span>&nbsp; Select Item</span>
 											</h4>
 										</div>
 										<div class="panel-body">
-											<form accept-charset="utf-8" autocomplete="off" id="add-req-item-container">
-												<div class="form-group">
-													<label for='item_select'>Item</label>
-													<select required="required" name="item" id="item_select" class="form-control">
-														<option value=""></option>
-														<?php foreach($items->result_array() as $r) {
-															if((set_value('item_id') === $r['ITEM_ID']) || (isset($item_id) && $item_id != null && $item_id === $r['ITEM_ID'])){
-																echo '<option value="'.$r['ITEM_ID'].'" selected="selected">'.$r['ITEM'].'</option>';
-															}else{
-																echo '<option value="'.$r['ITEM_ID'].'">'.$r['ITEM'].'</option>';
-															}
-														} ?>
-													</select>
-													<?php echo form_error('item', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
-												</div>
-												<div class="form-group">
-													<label for='qty'>Quantity</label>
-													<input required="required" type="text" value="<?php echo set_value('qty'); ?>" id="qty" name="qty" class="form-control" maxlength="10">
-													<?php echo form_error('qty', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
-												</div>
-												<input type="button" id="add-req-item-btn" class="btn btn-secondary btn-sm" value="Add to List">
-											</form>
+											<table id="item-table" class="table table-bordered table-striped table-hover" style="width:100%">
+												<thead>
+													<tr>
+														<th>ID</th>
+														<th>Item ID</th>
+														<th>Item</th>
+														<th>Category</th>
+														<th>Avail. Qty</th>
+													</tr>
+												</thead>
+												<tbody>
+												</tbody>
+											</table>
 										</div>
 									</div>
 								</div>
-								<div class="col-md-8">
+								<div class="col-md-7">
 									<div class="panel panel-default">
 										<div class="panel-heading">
 											<h4 class="panel-title">
@@ -113,33 +107,65 @@
 
 		<script type="text/javascript">
 			$(document).ready(function() {
-	    		$('#add-req-item-btn').on('click', function () {
-				    var item_id = $('#add-req-item-container').find('select[name="item"]').val();
-				    var item_dscp = $('#add-req-item-container').find('select[name="item"] option:selected').text();
-					var qty = $('#add-req-item-container').find('input[name="qty"]').val();
+				var base_url = $("meta[name='base_url']").attr('content');
+				var index_page = $("meta[name='index_page']").attr('content');
+				var user = $("meta[name='user']").attr('content');
 
-					if(item_id == ''){
-						$("#error_modal .modal-content .modal-body p.text-center").text("Please select an item");
-						$("#error_modal").modal('show');
-					}else if(qty == ''){
-						$("#error_modal .modal-content .modal-body p.text-center").text("Please specify quantity");
-						$("#error_modal").modal('show');
-					}else{
-						if (itemExist(item_id, qty) == false) {
-							$("#requests-tbl tbody").append(
-							'<tr>' +
-								'<input name="id" type="hidden" value="'+ item_id +'">' +
-								'<td>'+ item_dscp +'</td>' +
-								'<td class="text-right"><input name="qty" type="text" value="'+qty+'" class="quantity-box text-right" size="5"></td>' +
-								'<td><span class="remove" style="font-size:12px;"><i class="glyphicon glyphicon-trash" title="Remove"></i></span></td>' +
-							'</tr>'
-							);
-						}
-						$('#add-req-item-container').find('select[name="item"]').val('');
-						$('#add-req-item-container').find('select[name="item"] option:selected').text('');
-						$('#add-req-item-container').find('input[name="qty"]').val('');
-					}
+				var item_table = $('#item-table').DataTable({
+			        "ajax": {
+			            url : index_page + '/supply_requests/wh_item_list',
+			            type : 'GET'
+			        },
+					"order": [[ 2, "asc" ]],
+			        "columnDefs": [
+			        	{className: "dt-right", "targets": [-1, -2] },
+			        	{render: $.fn.dataTable.render.number( ',', '.', 0, '' ), "targets": [-1] },
+			        	{"targets": [ 0, 1 ], "visible": false, "searchable": false},
+			        	{"targets": [ -1 ], "orderable": false}
+			        ]
+			    });
+
+
+		        $("#item-table").on('click', 'tbody tr', function(event) {
+			    	var data = $("#item-table").DataTable().row( $(this) ).data();
+					var item_id = data[1];
+					var item = data[2];
+					var category = data[3];
+					var stockCol = $(this).find('td').eq(2);
+					var stocks = stockCol.text();
+					var qty = 1;
+					
+				 	if ( parseInt(stocks.split(' ').join('')) > 0 ) {
+				 		if (item_id && item && stocks) {
+							if (itemExist(item_id, qty) == false) {
+								$("#requests-tbl tbody").append(
+								'<tr>' +
+									'<input name="id" type="hidden" value="'+ item_id +'">' +
+									'<td>'+ item +'</td>' +
+									'<td class="text-right"><input name="qty" type="text" value="'+qty+'" class="quantity-box text-right" size="5"></td>' +
+									'<td><span class="remove" style="font-size:12px;"><i class="glyphicon glyphicon-trash" title="Remove"></i></span></td>' +
+								'</tr>'
+								);
+							}
+				  	 	}
+				 	}
 				});
+
+
+				function itemExist(itemID, qty) {
+					var table = $("#requests-tbl tbody tr");
+				 	var exist = false;
+					$.each(table, function(index) {
+						id = ($(this).find('[name="id"]').val());
+						if (id == itemID) {
+							qtyCol = $(this).find('[name="qty"]');
+							qtyCol.val(parseInt(qtyCol.val()) + parseInt(qty));
+							exist = true;
+						}
+					})
+
+					return exist;
+				}
 
 
 				$("#requests-tbl").on('click', '.remove',function() {
@@ -189,20 +215,6 @@
 				});
 
 
-				function itemExist(itemID, qty) {
-					var table = $("#requests-tbl tbody tr");
-				 	var exist = false;
-					$.each(table, function(index) {
-						id = ($(this).find('[name="id"]').val());
-						if (id == itemID) {
-							qtyCol = $(this).find('[name="qty"]');
-							qtyCol.val(parseInt(qtyCol.val()) + parseInt(qty));
-							exist = true;
-						}
-					})
-
-					return exist;
-				}
 
 				$('.back-btn').on('click', function () {
 			        window.location.replace('<?= site_url('supply_requests/branch') ?>');
