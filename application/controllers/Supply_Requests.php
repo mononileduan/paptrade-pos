@@ -47,6 +47,7 @@ class Supply_Requests extends CI_Controller {
 				);
 				$data['req'] = $this->supply_request->getRowsJoin($con)->row_array();
 				$data['return_page'] = $this->input->get('return');
+				$data['ref_no'] = $this->input->get('ref_no');
 				$this->load->view('supply_requests/view', $data);
 
 			}else{
@@ -119,6 +120,7 @@ class Supply_Requests extends CI_Controller {
 
 			   $data[] = array(
 			   		$r['ID'],
+			   		$r['REF_NO'],
 			        $r['REQUESTED_DT'],
 			        $r['ITEM'],
 			        $r['QTY'],
@@ -309,9 +311,12 @@ class Supply_Requests extends CI_Controller {
 
 
 				if($this->input->post('submit_requests')){
+					$ref_no = date('YmdHis');
+
 					foreach($this->input->post('requests') as $item) {
 						$req = array(
 							'id'		=> uniqid('', true),
+							'ref_no'	=> $ref_no,
 							'item_id'	=> $item['item_id'],
 							'qty'		=> $item['quantity'],
 							'requested_by'	=> $this->session->userdata('username'),
@@ -393,6 +398,7 @@ class Supply_Requests extends CI_Controller {
 				$data['success_msg'] = $this->session->flashdata('success_msg');
 
 				$data['id'] = $this->input->get('id');
+				$data['ref_no'] = $this->input->get('ref_no');
 				
 				$this->load->view('supply_requests/warehouse', $data);
 
@@ -422,6 +428,10 @@ class Supply_Requests extends CI_Controller {
 				$array_cond['sr.id'] = $this->input->get('id');
 			}
 
+			if($this->input->get('ref_no') !== null && $this->input->get('ref_no') !== ''){
+				$array_cond['sr.ref_no'] = $this->input->get('ref_no');
+			}
+
 			$con = array('conditions' => $array_cond);
 
 			$srequestList = $this->supply_request->getRowsJoin($con);
@@ -432,10 +442,50 @@ class Supply_Requests extends CI_Controller {
 
 			   $data[] = array(
 			   		$r['ID'],
+			   		$r['REF_NO'],
 			        $r['REQUESTED_DT'],
 			        $r['ITEM'],
 			        $r['QTY'],
 			        $r['BRANCH'],
+			        $r['REQUESTED_BY'],
+			        $r['STATUS']
+			   );
+			}
+
+			$output = array(
+			   "draw" => $draw,
+			     "recordsTotal" => $srequestList->num_rows(),
+			     "recordsFiltered" => $srequestList->num_rows(),
+			     "data" => $data
+			);
+			echo json_encode($output);
+			exit();
+		}else{
+			$this->load->view('components/unauthorized');
+		}
+    }
+
+	public function warehouse_list_dash(){
+		if($this->isLoggedIn && $this->session->userdata('status') == $this->config->item('USER_STATUS_ASSOC')['ACTIVE'][0] 
+			&& in_array('WH_SUPPLY_REQUEST', $this->config->item('USER_ROLE_ASSOC_MENU')[$this->session->userdata('user_role')])){
+			// Datatables Variables
+			$draw = intval($this->input->get("draw"));
+			$start = intval($this->input->get("start"));
+			$length = intval($this->input->get("length"));
+
+			$con = array();
+
+			$srequestList = $this->supply_request->getWhDashboardData($con);
+
+			$data = array();
+			
+			foreach($srequestList->result_array() as $r) {
+
+			   $data[] = array(
+			   		$r['ID'],
+			   		$r['REF_NO'],
+			        $r['BRANCH'],
+			        $r['QTY'],
 			        $r['REQUESTED_BY'],
 			        $r['STATUS']
 			   );
@@ -542,6 +592,8 @@ class Supply_Requests extends CI_Controller {
 					)
 				);
 				$data['wh_item'] = $this->warehouse_inventory->getRowsJoin($con)->row_array();
+				
+				$data['ref_no'] = $this->input->get('ref_no');
 				
 				$this->load->view('supply_requests/approve', $data);
 				

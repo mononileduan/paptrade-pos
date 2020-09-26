@@ -132,8 +132,11 @@
 
 		<script type="text/javascript">
 			$(document).ready(function() {
+				var ref_no = "<?php if(isset($ref_no)){ echo $ref_no; } else {echo '';} ?>";
+				var params = "?ref_no=" + ref_no;
+				
 	    		$('.back-btn').on('click', function () {
-			        window.location.replace('<?= site_url('supply_requests/warehouse') ?>');
+			        window.location.replace('<?= site_url('supply_requests/warehouse') ?>' + params);
 			    } );
 
 			    var success_msg = "<?php if(isset($success_msg)){ echo $success_msg; } else {echo '';} ?>";

@@ -27,7 +27,7 @@ class Supply_Request extends CI_Model {
 				$query = $this->db->get();
 				$result = $query->row_array();
 			}else{
-				$this->db->order_by('ID', 'desc');
+				$this->db->order_by('REF_NO', 'desc');
 				if(array_key_exists("start", $params) && array_key_exists("limit", $params)){
 					$this->db->limit($params['limit'], $params['start']);
 				}elseif(!array_key_exists("start", $params) && array_key_exists("limit", $params)){
@@ -47,6 +47,7 @@ class Supply_Request extends CI_Model {
 	public function getRowsJoin($params = array()){
 		$sql = "SELECT ". 
 			"sr.ID as ID, ". 
+			"sr.REF_NO as REF_NO, ". 
 			"b.BRANCH_NAME as BRANCH, ". 
 			"concat(br.BRAND, ' ', i.DSCP) as ITEM, ". 
 			"sr.ITEM_ID as ITEM_ID, ". 
@@ -95,6 +96,29 @@ class Supply_Request extends CI_Model {
 				$sql = $sql . " AND " . $key . "='" . $val . "'"; 
 			}
 		}
+		$sql = $sql . " ORDER BY REF_NO DESC";
+		$result = $this->db->query($sql);
+		return $result;
+
+	}
+
+
+	public function getWhDashboardData($params = array()){
+		$sql = "SELECT ". 
+			"sr.ID as ID, ". 
+			"sr.REF_NO as REF_NO, ". 
+			"b.BRANCH_NAME as BRANCH, ". 
+			"sum(sr.QTY) as QTY, ". 
+			"concat(rqu.FIRST_NAME, ' ', rqu.LAST_NAME) as REQUESTED_BY, ". 
+			"sr.STATUS as STATUS "; 
+						
+		$sql .= " FROM supply_requests sr, brands br, items i, branches b, users rqu";
+		
+		$sql .= " WHERE sr.del=false AND i.id=sr.item_id AND br.id=i.brand_id AND b.id=sr.branch_id AND rqu.username=sr.requested_by AND sr.STATUS='NEW'";
+			
+		$sql .= " GROUP BY sr.REF_NO, sr.BRANCH_ID, REQUESTED_BY ";
+
+		$sql = $sql . " ORDER BY REF_NO DESC";
 		$result = $this->db->query($sql);
 		return $result;
 

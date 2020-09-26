@@ -44,10 +44,11 @@
 												<thead>
 													<tr>
 														<th>ID</th>
+														<th width="10%">Ref. No.</th>
 														<th width="15%">Request Date</th>
-														<th width="30%">Item</th>
+														<th width="25%">Item</th>
 														<th width="5%">Quantity</th>
-														<th width="20%">Branch</th>
+														<th width="15%">Branch</th>
 														<th width="15%">Requested By</th>
 														<th width="10%">Status</th>
 														<th width="5%">Action</th>
@@ -87,20 +88,36 @@
 		<script type="text/javascript">
 			$(document).ready(function() {
 				var id = "<?php if(isset($id)){ echo $id; } else {echo '';} ?>";
+				var ref_no = "<?php if(isset($ref_no)){ echo $ref_no; } else {echo '';} ?>";
 				var datatable = $('#view-data-table').DataTable({
 						"ajax": {
 							url : "<?= site_url('supply_requests/warehouse_list'); ?>",
-							data: {'id' : id},
+							data: {'id' : id, 'ref_no' : ref_no},
 						    type : 'GET'
 						},
 						"order": [[ 1, "desc" ]],
 						"columnDefs": [
-							{className: "dt-right", "targets": [3] },
-        					{render: $.fn.dataTable.render.number( ',', '.', 0, '' ), "targets": [2] },
+							{className: "dt-right", "targets": [4] },
+        					{render: $.fn.dataTable.render.number( ',', '.', 0, '' ), "targets": [4] },
 							{"targets": -1, "data": null, "orderable": false, "defaultContent": 
 								"<a class=\'action-view\' data-mode=\'modal\' title=\'View\'><i class=\'glyphicon glyphicon-eye-open\'></i></a>"},
-							{"targets": [ 0 ], "visible": false, "searchable": false}
+							{"targets": [ 0 ], "visible": false, "searchable": false},
+							{"targets": [ 1 ], "visible": false, "searchable": true}
 						],
+				        "drawCallback": function ( settings ) {
+				            var api = this.api();
+				            var rows = api.rows( {page:'current'} ).nodes();
+				            var last=null;
+				 
+				            api.column(1, {page:'current'} ).data().each( function ( group, i ) {
+				                if ( last !== group ) {
+				                    $(rows).eq( i ).before(
+				                        '<tr class="group"><td colspan="7">'+group+'</td></tr>'
+				                    );
+				                    last = group;
+				                }
+				            } );
+				        },
 						dom: 'lBftipr',
 						buttons: [
 								{
@@ -128,7 +145,17 @@
 					                }
 					            }]
 				});
-
+    
+    			// Order by the grouping column
+			    $('#view-data-table tbody').on( 'dblclick', 'tr.group', function () {
+			        var currentOrder = datatable.order()[0];
+			        if ( currentOrder[0] === 1 && currentOrder[1] === 'asc' ) {
+			            datatable.order( [ 1, 'desc' ] ).draw();
+			        }
+			        else {
+			            datatable.order( [ 1, 'asc' ] ).draw();
+			        }
+			    } );
 
 
 			    var success_msg = "<?php if(isset($success_msg)){ echo $success_msg; } else {echo '';} ?>";
@@ -147,13 +174,14 @@
 	    		$('#view-data-table tbody').on( 'click', 'a.action-view', function (id) {
 					var data = $("#view-data-table").DataTable().row( $(this).parents('tr') ).data();
 			       	var id = data[0];
-			       	var status = data[6];
+			       	var status = data[7];
 			       	var isWarehouse = <?= ($this->session->userdata('user_role') == $this->config->item('USER_ROLE_ASSOC')['WHOUSE_USER'][0]) ? 'true' : 'false' ?>;
+					var params = "id=" + id + "&ref_no=" + ref_no;
 
 			       	if(status == 'NEW' && isWarehouse){
-			       		window.location.replace('<?= site_url('supply_requests/approve?id=') ?>' + id);
+			       		window.location.replace('<?= site_url('supply_requests/approve?') ?>' + params);
 			       	}else{
-			       		window.location.replace('<?= site_url('supply_requests/view?return=warehouse&id=') ?>' + id);
+			       		window.location.replace('<?= site_url('supply_requests/view?return=warehouse&') ?>' + params);
 			       	}
 			    } );
 			});

@@ -175,6 +175,7 @@ CREATE TABLE SUPPLY_REQUESTS (
 	ID varchar(50) not null,
 	VERSION int(11) not null default 0,
 	DEL boolean not null default false,
+	REF_NO varchar(50) not null,
 	ITEM_ID varchar(50) not null,
 	QTY int(11) not null,
 	BRANCH_ID varchar (50) not null,
@@ -263,3 +264,5 @@ ALTER TABLE SALES_TEMP_DTLS ADD INDEX SALES_TEMP_DTLS_idx (SALES_TEMP_ID);
 
 INSERT INTO `branches` (`ID`, `VERSION`, `DEL`, `BRANCH_NAME`, `ADDRESS`, `CREATED_BY`, `CREATED_DT`, `UPDATED_BY`, `UPDATED_DT`) VALUES ('init_branch',0,false,'INITIAL BRANCH','INITIAL BRANCH ADDRESS','INITIAL_USER','2020-03-29',null,null);
 INSERT INTO `users` (`ID`, `VERSION`, `DEL`, `USERNAME`, `PASSWORD`, `STATUS`, `RETRY_CNT`, `LAST_LOGIN_DT`, `ROLE`, `BRANCH_ID`, `LAST_NAME`, `FIRST_NAME`, `CREATED_BY`, `CREATED_DT`) VALUES ('init_user',0,false,'INITUSER','$2y$10$8vKsIWEeyMQOzDvBWJ2wneN6BS4s1VTav7v4kof7jiFwmDhOBI8aq','ACTIVE',0,null,'SYS_ADMIN','init_branch','USER','INITIAL','DEFAULT','2020-03-29')
+
+---ALTER TABLE SUPPLY_REQUESTS ADD COLUMN REF_NO varchar(50) not null; ---already added in DDL above. But for existing installation, remove the --- before ALTER

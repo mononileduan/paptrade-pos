@@ -181,8 +181,11 @@
 
 		<script type="text/javascript">
 			$(document).ready(function() {
+				var ref_no = "<?php if(isset($ref_no)){ echo $ref_no; } else {echo '';} ?>";
+				var params = "?ref_no=" + ref_no;
+
 	    		$('.back-btn').on('click', function () {
-			        window.location.replace('<?= site_url('supply_requests/'.$return_page) ?>');
+			        window.location.replace('<?= site_url('supply_requests/'.$return_page) ?>' + params);
 			    } );
 			});
 		</script>
