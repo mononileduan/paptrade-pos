@@ -67,10 +67,10 @@
 											<table id="view-data-table" class="table table-bordered table-striped table-hover" style="width:100%">
 												<thead>
 													<tr>
-														<td></td>
-														<td width="40%">Branch Name</td>
-														<td width="50%">Address</td>
-														<td width="10%">Action</td>
+														<th></th>
+														<th width="40%">Branch Name</th>
+														<th width="50%">Address</th>
+														<th width="10%">Action</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -137,9 +137,20 @@
 
 		<?php $this->load->view('components/modals'); ?>
 
-		<script type="text/javascript" src="assets/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="assets/datatables/datatables.min.js"></script>
+		<script type="text/javascript" src="assets/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+
+		<script type="text/javascript" src="assets/datatables/Buttons-1.6.1/js/dataTables.buttons.min.js"></script>
+
+		<script type="text/javascript" src="assets/datatables/JSZip-3.1.3/js/jszip.min.js"></script>
+
+		<script type="text/javascript" src="assets/datatables/PDFMake-0.1.53/js/pdfmake.min.js"></script>
+		<script type="text/javascript" src="assets/datatables/PDFMake-0.1.53/js/vfs_fonts.js"></script>
+
+		<script type="text/javascript" src="assets/datatables/Buttons-1.6.1/js/buttons.html5.min.js"></script>
+		<script type="text/javascript" src="assets/datatables/Buttons-1.6.1/js/buttons.print.min.js"></script>
+		
 		<script type="text/javascript" src="assets/js/page.height.setter.js"></script>
 
 		<script type="text/javascript">
@@ -157,7 +168,33 @@
 								"<a class=\'action-edit\' title=\'Edit\'><i class=\'glyphicon glyphicon-pencil\'></i></a>&nbsp; " +
 								"<a class=\'action-delete\' data-mode=\'modal\' title=\'Delete\'><i class=\'glyphicon glyphicon-trash\'></i></a>"},
 							{"targets": [ 0 ], "visible": false, "searchable": false}
-						]
+						],
+						dom: 'lBftipr',
+						buttons: [
+								{
+					                extend: 'copyHtml5',
+					                exportOptions: {
+					                    columns: [ 1, 2 ]
+					                }
+					            },
+								{
+					                extend: 'excelHtml5',
+					                exportOptions: {
+					                    columns: [ 1, 2 ]
+				                	}
+				            	},
+					            {
+					                extend: 'pdfHtml5',
+					                exportOptions: {
+					                    columns: [ 1, 2 ]
+					                }
+					            },
+					            {
+					                extend: 'print',
+					                exportOptions: {
+					                    columns: [ 1, 2 ]
+					                }
+					            }]
 				});
 
 
