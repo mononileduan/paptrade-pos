@@ -54,12 +54,12 @@
 													<table id="view-data-table" class="table table-bordered table-striped table-hover" style="width:100%">
 														<thead>
 															<tr>
-																<td></td>
+																<td>ID</td>
+																<td width="15%">Request Date</td>
 																<td width="20%">Item</td>
 																<td width="10%">Quantity</td>
 																<td width="15%">Branch</td>
 																<td width="15%">Requested By</td>
-																<td width="15%">Request Date</td>
 																<td width="15%">Status</td>
 																<td width="10%">Action</td>
 															</tr>
@@ -104,9 +104,9 @@
 						   url : "<?= site_url('supply_requests/branch_list'); ?>",
 						    type : 'GET'
 						},
-						"order": [[ 1, "asc" ]],
+						"order": [[ 1, "desc" ]],
 						"columnDefs": [
-							{className: "dt-right", "targets": [2] },
+							{className: "dt-right", "targets": [3] },
         					{render: $.fn.dataTable.render.number( ',', '.', 0, '' ), "targets": [2] },
 							{"targets": -1, "data": null, "orderable": false, "defaultContent": 
 							"<a class=\'action-view\' data-mode=\'modal\' title=\'View\'><i class=\'glyphicon glyphicon-eye-open\'></i></a>&nbsp; " +

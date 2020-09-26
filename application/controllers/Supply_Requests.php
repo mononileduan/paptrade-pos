@@ -119,11 +119,11 @@ class Supply_Requests extends CI_Controller {
 
 			   $data[] = array(
 			   		$r['ID'],
+			        $r['REQUESTED_DT'],
 			        $r['ITEM'],
 			        $r['QTY'],
 			        $r['BRANCH'],
 			        $r['REQUESTED_BY'],
-			        $r['REQUESTED_DT'],
 			        $r['STATUS']
 			   );
 			}
