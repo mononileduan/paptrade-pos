@@ -43,14 +43,14 @@
 											<table id="view-data-table" class="table table-bordered table-striped table-hover" style="width:100%">
 												<thead>
 													<tr>
-														<td></td>
-														<td width="30%">Item</td>
-														<td width="5%">Quantity</td>
-														<td width="20%">Branch</td>
-														<td width="15%">Requested By</td>
-														<td width="15%">Request Date</td>
-														<td width="10%">Status</td>
-														<td width="5%">Action</td>
+														<th>ID</th>
+														<th width="15%">Request Date</th>
+														<th width="30%">Item</th>
+														<th width="5%">Quantity</th>
+														<th width="20%">Branch</th>
+														<th width="15%">Requested By</th>
+														<th width="10%">Status</th>
+														<th width="5%">Action</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -68,9 +68,20 @@
 
 		<?php $this->load->view('components/modals'); ?>
 
-		<script type="text/javascript" src="assets/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="assets/datatables/datatables.min.js"></script>
+		<script type="text/javascript" src="assets/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+
+		<script type="text/javascript" src="assets/datatables/Buttons-1.6.1/js/dataTables.buttons.min.js"></script>
+
+		<script type="text/javascript" src="assets/datatables/JSZip-3.1.3/js/jszip.min.js"></script>
+
+		<script type="text/javascript" src="assets/datatables/PDFMake-0.1.53/js/pdfmake.min.js"></script>
+		<script type="text/javascript" src="assets/datatables/PDFMake-0.1.53/js/vfs_fonts.js"></script>
+
+		<script type="text/javascript" src="assets/datatables/Buttons-1.6.1/js/buttons.html5.min.js"></script>
+		<script type="text/javascript" src="assets/datatables/Buttons-1.6.1/js/buttons.print.min.js"></script>
+		
 		<script type="text/javascript" src="assets/js/page.height.setter.js"></script>
 
 		<script type="text/javascript">
@@ -82,14 +93,40 @@
 							data: {'id' : id},
 						    type : 'GET'
 						},
-						"order": [[ 1, "asc" ]],
+						"order": [[ 1, "desc" ]],
 						"columnDefs": [
-							{className: "dt-right", "targets": [2] },
+							{className: "dt-right", "targets": [3] },
         					{render: $.fn.dataTable.render.number( ',', '.', 0, '' ), "targets": [2] },
 							{"targets": -1, "data": null, "orderable": false, "defaultContent": 
 								"<a class=\'action-view\' data-mode=\'modal\' title=\'View\'><i class=\'glyphicon glyphicon-eye-open\'></i></a>"},
 							{"targets": [ 0 ], "visible": false, "searchable": false}
-						]
+						],
+						dom: 'lBftipr',
+						buttons: [
+								{
+					                extend: 'copyHtml5',
+					                exportOptions: {
+					                    columns: [ 1, 2, 3, 4, 5, 6 ]
+					                }
+					            },
+								{
+					                extend: 'excelHtml5',
+					                exportOptions: {
+					                    columns: [ 1, 2, 3, 4, 5, 6 ]
+				                	}
+				            	},
+					            {
+					                extend: 'pdfHtml5',
+					                exportOptions: {
+					                    columns: [ 1, 2, 3, 4, 5, 6 ]
+					                }
+					            },
+					            {
+					                extend: 'print',
+					                exportOptions: {
+					                    columns: [ 1, 2, 3, 4, 5, 6 ]
+					                }
+					            }]
 				});
 
 
