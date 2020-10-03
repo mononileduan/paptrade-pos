@@ -186,7 +186,7 @@
 			    $('#view-data-table tbody').on( 'click', 'a.action-view', function (id) {
 					var data = $("#view-data-table").DataTable().row( $(this).parents('tr') ).data();
 			       	var id = data[0];
-			       	var status = data[6];
+			       	var status = data[7];
 
 			       	var isBranch = <?= ($this->session->userdata('user_role') == $this->config->item('USER_ROLE_ASSOC')['BRANCH_USER'][0]) ? 'true' : 'false' ?>;
 
@@ -201,7 +201,7 @@
 					var data = $("#view-data-table").DataTable().row( $(this).parents('tr') ).data();
 			       	var id = data[0];
 			       	var dscp = data[1];
-			       	var status = data[6];
+			       	var status = data[7];
 			       	if(status != 'NEW'){
 						$("#error_modal .modal-content .modal-body p.text-center").text('You cannot delete this request.');
 					    $("#error_modal").modal('show');
