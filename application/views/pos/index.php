@@ -292,10 +292,44 @@
 								<thead>
 									<tr>
 										<th>ID</th>
-										<th width="25%">Reference No.</th>
+										<th width="20%">Reference No.</th>
 										<th width="25%">Transaction Amount</th>
 										<th width="25%">Payment Amount</th>
 										<th width="25%">Transaction Date</th>
+										<th width="5%">Action</th>
+									</tr>
+								</thead>
+								<tbody>
+								</tbody>
+							</table>
+						</div>
+						<div class="clearfix"></div>
+
+					</div>
+					<div class="modal-footer"> 
+						<button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+
+		<div class="modal" tabindex="-5" role="dialog" id="sales-hist-dtl-modal">
+			<div class="modal-dialog modal-md">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Sales Transaction Details</h5>
+					</div>
+					<div class="modal-body">
+						<div id="sales-hist-dtls-container" style="min-height: 310px; max-height: 185px;">
+	            			<table id="sales-hist-dtls-table" class="table table-bordered table-striped table-hover" style="width:100%">
+								<thead>
+									<tr>
+										<th width="50%">Item</th>
+										<th width="20%" class="text-right">Unit Price</th>
+										<th width="10%" class="text-right">Quantity</th>
+										<th width="20%" class="text-right">Sub-Total</th>
 									</tr>
 								</thead>
 								<tbody>

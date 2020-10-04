@@ -431,11 +431,34 @@ $(document).ready(function() {
             type : 'GET'
         },
         "columnDefs": [
-        	{className: "dt-right", "targets": [-3, -2] },
-			{render: $.fn.dataTable.render.number( ',', '.', 2, '' ), "targets": [-3, -2] },
-        	{"targets": [ 0  ], "visible": false, "searchable": false}
+        	{className: "dt-right", "targets": [-4, -3] },
+			{render: $.fn.dataTable.render.number( ',', '.', 2, '' ), "targets": [-4, -3] },
+        	{"targets": [ 0  ], "visible": false, "searchable": false},
+			{"targets": -1, "data": null, "orderable": false, "defaultContent": 
+			"<a class=\'action-view\' data-mode=\'modal\' title=\'View\'><i class=\'glyphicon glyphicon-eye-open\'></i></a>&nbsp; "}
         ]
     });
+
+
+	var sales_hist_dtl_tbl = $('#sales-hist-dtls-table').DataTable({
+        "ajax": {
+            url : index_page + '/sales/dtls_list',
+            type : 'GET'
+        },
+        "columnDefs": [
+        	{className: "dt-right", "targets": [-3, -2, -1] },
+			{render: $.fn.dataTable.render.number( ',', '.', 2, '' ), "targets": [-3, -1] }
+        ]
+    });
+
+    $('#sales-hist-table').on( 'click', 'a.action-view', function (id) {
+		var data = $('#sales-hist-table').DataTable().row( $(this).parents('tr') ).data();
+       	var id = data[0];
+
+		$("#sales-hist-dtl-modal").modal('toggle');
+		sales_hist_dtl_tbl.ajax.url(index_page + '/sales/dtls_list?id=' + id);
+		sales_hist_dtl_tbl.ajax.reload();
+    } );
 
 
     $("#open-txn-hist").on('click', function(){

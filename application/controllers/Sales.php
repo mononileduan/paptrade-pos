@@ -237,9 +237,53 @@ class Sales extends CI_Controller {
     }
 
 
+	public function dtls_list(){
+		if($this->isLoggedIn && $this->session->userdata('status') == $this->config->item('USER_STATUS_ASSOC')['ACTIVE'][0] 
+			&& in_array('POS', $this->config->item('USER_ROLE_ASSOC_MENU')[$this->session->userdata('user_role')])){
+
+			// Datatables Variables
+			$draw = intval($this->input->get("draw"));
+			$start = intval($this->input->get("start"));
+			$length = intval($this->input->get("length"));
+
+    		$con = array(
+				'conditions' => array(
+					'dtl.sales_id' => $this->input->get("id")
+				)
+			);
+			$salesList = $this->sales_dtls_model->getRowsJoin($con);
+
+			$data = array();
+			
+			foreach($salesList->result_array() as $r) {
+
+			   $data[] = array(
+			        $r['ITEM'],
+			        $r['UNIT_PRICE'],
+			        $r['QUANTITY'],
+			        $r['SUB_TOTAL']
+			   );
+			}
+
+			$output = array(
+				"draw" => $draw,
+				"recordsTotal" => $salesList->num_rows(),
+				"recordsFiltered" => $salesList->num_rows(),
+				"data" => $data
+			);
+			echo json_encode($output);
+			exit();
+
+		}else{
+			$this->load->view('components/unauthorized');
+		}
+    }
+
+
     public function details($id = null){
     	if($this->isLoggedIn && $this->session->userdata('status') == $this->config->item('USER_STATUS_ASSOC')['ACTIVE'][0]){
-			if(in_array('SALES', $this->config->item('USER_ROLE_ASSOC_MENU')[$this->session->userdata('user_role')])){
+			if(in_array('SALES', $this->config->item('USER_ROLE_ASSOC_MENU')[$this->session->userdata('user_role')])
+				|| in_array('POS', $this->config->item('USER_ROLE_ASSOC_MENU')[$this->session->userdata('user_role')])){
 	    		$data = array();
 
 	    		$con = array(
