@@ -50,7 +50,8 @@
 														<th>Item ID</th>
 														<th>Item</th>
 														<th>Category</th>
-														<th>Avail. Qty</th>
+														<th>Warehouse Avail. Qty</th>
+														<th>Warehouse Crit. Qty</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -122,7 +123,12 @@
 			        	{render: $.fn.dataTable.render.number( ',', '.', 0, '' ), "targets": [-1] },
 			        	{"targets": [ 0, 1 ], "visible": false, "searchable": false},
 			        	{"targets": [ -1 ], "orderable": false}
-			        ]
+			        ],
+			        "createdRow": function( row, data, dataIndex){
+		                if( data[4] < data[5] ){
+		                    $(row).addClass('critical');
+		                }
+		            }
 			    });
 
 
@@ -131,6 +137,8 @@
 					var item_id = data[1];
 					var item = data[2];
 					var category = data[3];
+					var avail = data[4];
+					var crit = data[5];
 					var stockCol = $(this).find('td').eq(2);
 					var stocks = stockCol.text();
 					var qty = 1;
@@ -138,14 +146,26 @@
 				 	if ( parseInt(stocks.split(' ').join('')) > 0 ) {
 				 		if (item_id && item && stocks) {
 							if (itemExist(item_id, qty) == false) {
-								$("#requests-tbl tbody").append(
-								'<tr>' +
-									'<input name="id" type="hidden" value="'+ item_id +'">' +
-									'<td>'+ item +'</td>' +
-									'<td class="text-right"><input name="qty" type="text" value="'+qty+'" class="quantity-box text-right" size="5"></td>' +
-									'<td><a class="remove" style="font-size:12px;"><i class="glyphicon glyphicon-trash" title="Remove"></i></a></td>' +
-								'</tr>'
-								);
+								if(avail < crit){
+									$("#requests-tbl tbody").append(
+									'<tr class="critical">' +
+										'<input name="id" type="hidden" value="'+ item_id +'">' +
+										'<td>'+ item +'</td>' +
+										'<td class="text-right"><input name="qty" type="text" value="'+qty+'" class="quantity-box text-right" size="5"></td>' +
+										'<td><a class="remove" style="font-size:12px;"><i class="glyphicon glyphicon-trash" title="Remove"></i></a></td>' +
+									'</tr>'
+									);
+								}else{
+									$("#requests-tbl tbody").append(
+									'<tr>' +
+										'<input name="id" type="hidden" value="'+ item_id +'">' +
+										'<td>'+ item +'</td>' +
+										'<td class="text-right"><input name="qty" type="text" value="'+qty+'" class="quantity-box text-right" size="5"></td>' +
+										'<td><a class="remove" style="font-size:12px;"><i class="glyphicon glyphicon-trash" title="Remove"></i></a></td>' +
+									'</tr>'
+									);
+								}
+								
 							}
 				  	 	}
 				 	}

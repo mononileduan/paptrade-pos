@@ -372,7 +372,8 @@ class Supply_Requests extends CI_Controller {
 			   		$r['ITEM_ID'],
 			        $r['ITEM'],
 			        $r['CATEGORY'],
-			        $r['AVAILABLE_QTY']
+			        $r['AVAILABLE_QTY'],
+			        $r['CRITICAL_QTY']
 			   );
 			}
 
