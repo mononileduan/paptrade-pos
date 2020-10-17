@@ -36,7 +36,7 @@
 									<div class="panel panel-default">
 										<div class="panel-heading">
 											<h4 class="panel-title">
-												<span class="panel-title"><span class="glyphicon glyphicon-plus"></span>&nbsp; Add New</span>
+												<span class="panel-title"><span class="glyphicon glyphicon-plus"></span>&nbsp; New Inventory Item</span>
 											</h4>
 										</div>
 										<div class="panel-body">
