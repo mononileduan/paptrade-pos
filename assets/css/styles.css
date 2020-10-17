@@ -181,5 +181,6 @@ a:hover, a:focus {
 
 
 .critical {
+    font-weight: bold;
     color: #c0010c;
 }

@@ -125,8 +125,9 @@
 			        	{"targets": [ -1 ], "orderable": false}
 			        ],
 			        "createdRow": function( row, data, dataIndex){
-		                if( data[4] < data[5] ){
+		                if( parseInt(data[4]) < parseInt(data[5]) ){
 		                    $(row).addClass('critical');
+		                    $(row).attr('title', "This item's warehouse stock count is in critical level.");
 		                }
 		            }
 			    });
@@ -148,7 +149,7 @@
 							if (itemExist(item_id, qty) == false) {
 								if(avail < crit){
 									$("#requests-tbl tbody").append(
-									'<tr class="critical">' +
+									'<tr class="critical" title="This item\'s warehouse stock count is in critical level.">' +
 										'<input name="id" type="hidden" value="'+ item_id +'">' +
 										'<td>'+ item +'</td>' +
 										'<td class="text-right"><input name="qty" type="text" value="'+qty+'" class="quantity-box text-right" size="5"></td>' +
