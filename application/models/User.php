@@ -69,6 +69,12 @@ class User extends CI_Model {
 				$sql = $sql . " AND " . $key . "='" . $val . "'"; 
 			}
 		}
+		if(array_key_exists("sort", $params)){
+			$sql .= "ORDER BY ";
+			foreach ($params['sort'] as $val) {
+				$sql .= $val; 
+			}
+		}
 		$result = $this->db->query($sql);
 		return $result;
 

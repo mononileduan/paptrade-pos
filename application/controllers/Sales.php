@@ -12,6 +12,8 @@ class Sales extends CI_Controller {
 		$this->load->model('branch_inventory_hist');
 		$this->load->model('sales_temp');
 		$this->load->model('sales_temp_dtls');
+		$this->load->model('branch');
+		$this->load->model('user');
 
 		$this->isLoggedIn = $this->session->userdata('isLoggedIn');
 	}
@@ -20,7 +22,37 @@ class Sales extends CI_Controller {
 		if($this->isLoggedIn && $this->session->userdata('status') == $this->config->item('USER_STATUS_ASSOC')['ACTIVE'][0]){
 			if(in_array('SALES', $this->config->item('USER_ROLE_ASSOC_MENU')[$this->session->userdata('user_role')])){
 
-				$this->load->view('sales/index');
+				$con = array(
+					'returnType' => 'list',
+					'conditions' => array(
+						'del' => false
+					)
+				);
+
+				$data['branches'] = $this->branch->getRows($con);
+
+				if($this->config->item('USER_ROLE_ASSOC')[$this->session->userdata('user_role')][0] == 'BRANCH_USER'){
+					$con = array(
+						'returnType' => 'list',
+						'conditions' => array(
+							'u.del' => false,
+							'branch_id' => $this->session->userdata('branch_id')
+						),
+						'sort' => array('b.branch_name')
+					);
+					$data['cashiers'] = $this->user->getRowsJoin($con);
+				}else{
+					$con = array(
+						'returnType' => 'list',
+						'conditions' => array(
+							'u.del' => false
+						),
+						'sort' => array('b.branch_name')
+					);
+					$data['cashiers'] = $this->user->getRowsJoin($con);
+				}
+
+				$this->load->view('sales/index', $data);
 	
 			}else{
 				$this->load->view('components/unauthorized');
@@ -154,10 +186,29 @@ class Sales extends CI_Controller {
 			$con = array(
 				'returnType' => 'list',
 				'conditions' => array(
-					'sales.del' => false,
-					'sales.branch_id' => $this->session->userdata('branch_id')
+					'sales.del' => false
 				)
 			);
+
+			if($this->input->get("branchId") !== null){
+				$con['conditions']['sales.branch_id'] = $this->input->get("branchId");
+			}
+			if($this->input->get("refno") !== null){
+				$con['conditions']['sales.ref_no'] = $this->input->get("refno");
+			}
+			if($this->input->get("tranDtFrom") !== null){
+				$con['conditions']['tranDtFrom'] = $this->input->get("tranDtFrom") . ' 00:00:00';
+			}
+			if($this->input->get("tranDtTo") !== null){
+				$con['conditions']['tranDtTo'] = $this->input->get("tranDtTo") . ' 23:59:59';
+			}
+			if($this->input->get("tranAmt") !== null){
+				$con['conditions']['sales.GRAND_TOTAL'] = $this->input->get("tranAmt");
+			}
+			if($this->input->get("cashier") !== null){
+				$con['conditions']['sales.CREATED_BY'] = $this->input->get("cashier");
+			}
+
 			$salesList = $this->sales_model->getRowsJoin($con);
 
 			$data = array();
@@ -170,7 +221,6 @@ class Sales extends CI_Controller {
 			        $r['CREATED_DT'],
 			        $r['REF_NO'],
 			        $r['GRAND_TOTAL'],
-			        $r['PAYMENT'],
 			        $r['CREATED_BY']
 			   );
 			}

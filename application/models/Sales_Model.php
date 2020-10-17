@@ -54,7 +54,20 @@ class Sales_Model extends CI_Model {
 
 		if(array_key_exists("conditions", $params)){
 			foreach ($params['conditions'] as $key => $val) {
-				$sql = $sql . " AND " . $key . "='" . $val . "'"; 
+				if($key == 'tranDtFrom'){
+					$sql .= " AND SALES.CREATED_DT >= '" . $val . "'";
+				} else if($key == 'tranDtTo'){
+					$sql .= " AND SALES.CREATED_DT <= '" . $val . "'";
+				}else{
+					$sql .= " AND " . $key . "='" . $val . "'";
+				}
+			}
+		}
+		
+		if(array_key_exists("sort", $params)){
+			$sql .= "ORDER BY ";
+			foreach ($params['sort'] as $val) {
+				$sql .= $val; 
 			}
 		}
 		$result = $this->db->query($sql);
