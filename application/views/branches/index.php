@@ -233,7 +233,7 @@
 			       	$("#update_branch_modal_form").find('input[name="branch_name"]').val(name);
 			       	$("#update_branch_modal_form").find('input[name="address"]').val(address);
 			       	$("#update_branch_modal_form").find('input[name="contact"]').val(contact);
-					$("#update_branch_modal_form").modal('show');
+					$("#update_modal").modal('show');
 			    } );
 
 			    $("#update_branch_modal_form").submit(function(e) {
