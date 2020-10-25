@@ -74,7 +74,7 @@
 *******************/
 #receipt {
 	box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5);
-	padding: 20px 50px;
+	padding: 5px 50px;
 	max-height: 400px;
 	overflow: auto;
 	font-size: 12px;
@@ -92,4 +92,16 @@
 
 .r-header h3 {
 	margin-bottom: 30px;
+}
+
+#r-items-table {
+	border-top: solid 2px #eee;
+}
+
+#r-items-table tbody tr {
+	border-top: solid 1px #eee;
+}
+
+.r-body .dtl-header {
+	margin-bottom: 15px;
 }

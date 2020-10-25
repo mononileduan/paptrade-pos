@@ -259,6 +259,7 @@ $(document).ready(function() {
 							$("#r-payment").text( formatCurrencyVal(payment));
 							$("#r-change").text( formatCurrencyVal(change.substring(1)));
 							$("#r-cashier").text(obj['cashier']); 
+							$("#r-branch").text(obj['branch']); 
 							$("#r-total-amount").text( formatCurrencyVal(total_amount))
 							$("#r-id").text(obj['ref_no']);
 							$("#r-date").text(obj['txn_dt']);

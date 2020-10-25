@@ -50,11 +50,13 @@
 															<div><label>Reference No.:</label></div>
 															<div><label>Date:</label></div>
 															<div><label>Cashier:</label></div>
+															<div><label>Branch:</label></div>
 														</div>
 														<div class="col-sm-8 col-md-8 text-left">
 															<div class="dataview-val"><span><?= $hdr['REF_NO']; ?></span></div>
 															<div class="dataview-val"><span><?= $hdr['CREATED_DT']; ?></span></div>
 															<div class="dataview-val"><span><?= $hdr['CREATED_BY']; ?></span></div>
+															<div class="dataview-val"><?= $hdr['BRANCH']; ?></div>
 														</div>
 													</div>
 
@@ -126,29 +128,32 @@
 						<div class="col-md-8">
 							<div id="receipt">
 								<div class="r-header text-center">
-									<h3>PAPTRADE ENTERPRISES</h3>
+									<img class="logo" src="assets/images/paptrade-receipt.png">
+									<div class="clearfix"></div>
 									<h4>Receipt</h4>
-									<div class="row">
+								</div>
+								<div class="r-body">
+									<div class="row dtl-header">
 										<div class="col-md-4 text-right">
 											<div>Reference No.:</div>
 											<div>Date: <span></span></div>
 											<div>Cashier:</div>
+											<div>Branch:</div>
 										</div>
 										<div class="col-md-8 text-left">
 											<div id="r-id"><?= $hdr['REF_NO']; ?></div>
 											<div id="r-date"><?= $hdr['CREATED_DT']; ?></div>
 											<div id="r-cashier"><?= $hdr['CREATED_BY']; ?></div>
+											<div id="r-branch"><?= $hdr['BRANCH']; ?></div>
 										</div>
 									</div>
 									<div class="clearfix"></div>
-								</div>
-								<div class="r-body">
 									<table class="table table-striped" id="r-items-table">
 										<thead>
 											<tr> 
 												<th>Item</th>
 												<th class="text-right">Unit Price</th>
-												<th class="text-right">Quantity</th>
+												<th class="text-right">Qty</th>
 												<th class="text-right">Sub Total</th>
 											</tr>
 										</thead>
