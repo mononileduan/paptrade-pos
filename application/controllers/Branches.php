@@ -30,6 +30,7 @@ class Branches extends CI_Controller {
 				if($this->input->post('submit_branch')){
 					$this->form_validation->set_rules('branch_name', 'Branch Name', 'required|trim');
 					$this->form_validation->set_rules('address', 'Address', 'required|trim');
+					$this->form_validation->set_rules('contact', 'Contact Details', 'required|trim');
 
 					if($this->form_validation->run() == true){
 						$con = array(
@@ -48,7 +49,8 @@ class Branches extends CI_Controller {
 							$branch = array(
 								'id'			=> uniqid('', true),
 								'branch_name'	=> strtoupper($this->input->post('branch_name')),
-								'address'	=> strtoupper($this->input->post('address'))
+								'address'	=> strtoupper($this->input->post('address')),
+								'contact'	=> $this->input->post('contact')
 								);
 							$this->branch->insert($branch);
 
@@ -93,6 +95,7 @@ class Branches extends CI_Controller {
 					$this->form_validation->set_rules('id', 'Branch', 'required|trim');
 					$this->form_validation->set_rules('branch_name', 'Branch Name', 'required|trim');
 					$this->form_validation->set_rules('address', 'Address', 'required|trim');
+					$this->form_validation->set_rules('contact', 'Contact Details', 'required|trim');
 
 					if($this->form_validation->run() == true){
 						$con = array(
@@ -112,7 +115,8 @@ class Branches extends CI_Controller {
 						}else{
 							$branch_ = array(
 								'branch_name'	=> strtoupper($this->input->post('branch_name')),
-								'address'	=> strtoupper($this->input->post('address'))
+								'address'	=> strtoupper($this->input->post('address')),
+								'contact'	=> $this->input->post('contact')
 								);
 							$this->branch->update($this->input->post('id'), $branch_);
 							
@@ -160,7 +164,8 @@ class Branches extends CI_Controller {
 			   $data[] = array(
 			        $r['ID'],
 			        $r['BRANCH_NAME'],
-			        $r['ADDRESS']
+			        $r['ADDRESS'],
+			        $r['CONTACT']
 			   );
 			}
 

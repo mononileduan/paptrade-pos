@@ -4,6 +4,7 @@ CREATE TABLE BRANCHES (
 	DEL boolean not null default false,
 	BRANCH_NAME varchar(100) not null,
 	ADDRESS varchar(255) not null,
+	CONTACT varchar(255) not null,
 	CREATED_BY varchar(50) not null,
 	CREATED_DT timestamp not null default current_timestamp(),
 	UPDATED_BY varchar(50),

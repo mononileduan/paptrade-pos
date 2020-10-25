@@ -51,6 +51,11 @@
 													<input required="required" type="text" value="<?php echo set_value('address'); ?>" id="address" name="address" class="form-control" maxlength="50">
 													<?php echo form_error('address', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
 												</div>
+												<div class="form-group">
+													<label for='contact'>Contact Details</label>
+													<input required="required" type="text" value="<?php echo set_value('contact'); ?>" id="contact" name="contact" class="form-control" maxlength="50">
+													<?php echo form_error('contact', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
+												</div>
 												<input type="submit" name="submit_branch" class="btn btn-sm btn-primary" value="Submit">
 											</form>
 										</div>
@@ -68,8 +73,9 @@
 												<thead>
 													<tr>
 														<th></th>
-														<th width="40%">Branch Name</th>
-														<th width="50%">Address</th>
+														<th width="30%">Branch Name</th>
+														<th width="40%">Address</th>
+														<th width="20%">Contact Details</th>
 														<th width="10%">Action</th>
 													</tr>
 												</thead>
@@ -113,6 +119,11 @@
 												<label for='address'>Address</label>
 												<input required="required" type="text" value="<?php echo set_value('address'); ?>" id="address" name="address" class="form-control" maxlength="50">
 												<?php echo form_error('address', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
+											</div>
+											<div class="form-group">
+												<label for='contact'>Contact Details</label>
+												<input required="required" type="text" value="<?php echo set_value('contact'); ?>" id="contact" name="contact" class="form-control" maxlength="50">
+												<?php echo form_error('contact', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
 											</div>
 										</div>
 									</div>
@@ -174,25 +185,25 @@
 								{
 					                extend: 'copyHtml5',
 					                exportOptions: {
-					                    columns: [ 1, 2 ]
+					                    columns: [ 1, 2, 3 ]
 					                }
 					            },
 								{
 					                extend: 'excelHtml5',
 					                exportOptions: {
-					                    columns: [ 1, 2 ]
+					                    columns: [ 1, 2, 3 ]
 				                	}
 				            	},
 					            {
 					                extend: 'pdfHtml5',
 					                exportOptions: {
-					                    columns: [ 1, 2 ]
+					                    columns: [ 1, 2, 3 ]
 					                }
 					            },
 					            {
 					                extend: 'print',
 					                exportOptions: {
-					                    columns: [ 1, 2 ]
+					                    columns: [ 1, 2, 3 ]
 					                }
 					            }]
 				});
@@ -217,9 +228,11 @@
 			       	var id = data[0];
 			       	var name = data[1];
 			       	var address = data[2];
+			       	var contact = data[3];
 			       	$("#update_modal_form").find('input[name="id"]').val(id);
 			       	$("#update_modal_form").find('input[name="branch_name"]').val(name);
 			       	$("#update_modal_form").find('input[name="address"]').val(address);
+			       	$("#update_modal_form").find('input[name="contact"]').val(contact);
 					$("#update_modal").modal('show');
 			    } );
 
@@ -241,6 +254,11 @@
 						$("#error_modal .modal-content .modal-body p.text-center").text('Address is required');
 					    $("#error_modal").modal('show');
 					}
+
+					if($("#update_modal").find('input[name="contact"]').val() == ''){
+						$("#error_modal .modal-content .modal-body p.text-center").text('Contact Details is required');
+					    $("#error_modal").modal('show');
+					}
 					
 					if(id!=''){
 						var data = {};
@@ -248,6 +266,7 @@
 						data['id'] = id;
 						data['branch_name'] = $("#update_modal").find('input[name="branch_name"]').val();
 						data['address'] = $("#update_modal").find('input[name="address"]').val();
+						data['contact'] = $("#update_modal").find('input[name="contact"]').val();
 
 						$.ajax({
 							type : 'POST',
