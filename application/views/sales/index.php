@@ -217,15 +217,20 @@
 					                    $(win.document.body)
 					                        .css( 'font-size', '10pt' )
 					                        .prepend(
-					                            '<img src="'+base_url+'assets/images/paptrade-export.png" style="display: block; margin-left: auto; margin-right: auto;" />'
+					                            '<img src="'+base_url+'assets/images/paptrade-nav.png" style="display: block; margin-left: auto; margin-right: auto; width:100px" />'
 					                        );
 
 					 					$(win.document.body).find( 'h1' )
-					 						.css( 'text-align', 'center' );
+					 						.replaceWith( '<h3>POS & Inventory System</h3>' );
+
+					 					$(win.document.body).find( 'h3' )
+					 						.css( 'text-align', 'center' )
+					 						.css( 'margin-top', '10px' );
 
 					 					
-					 					$( "<h2>Sales</h2>" ).insertAfter( $(win.document.body).find( 'h1' ) )
-					 						.css( 'text-align', 'center' );
+					 					$( "<h3>Sales</h3>" ).insertAfter( $(win.document.body).find( 'h3' ) )
+					 						.css( 'text-align', 'center' )
+					 						.css( 'margin-top', '5px' );
 
 					 					var export_dtls = '<div style="max-width:50%; float:left;">'+
 					 						'<label>Total Sales:</label> <span class="text-right ccy">'+$('#total_sales').text()+'</span> <br/>'+
