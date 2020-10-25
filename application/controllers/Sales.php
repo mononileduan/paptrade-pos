@@ -52,6 +52,13 @@ class Sales extends CI_Controller {
 					$data['cashiers'] = $this->user->getRowsJoin($con);
 				}
 
+				$con = array(
+					'returnType' => 'list',
+					'conditions' => array(
+					)
+				);
+				$data['total_sales'] = $this->sales_model->getTotalAmt($con)['GRAND_TOTAL'];
+
 				$this->load->view('sales/index', $data);
 	
 			}else{
@@ -232,6 +239,45 @@ class Sales extends CI_Controller {
 				"data" => $data
 			);
 			echo json_encode($output);
+			exit();
+
+		}else{
+			$this->load->view('components/unauthorized');
+		}
+    }
+
+
+	public function list_totalamt(){
+		if($this->isLoggedIn && $this->session->userdata('status') == $this->config->item('USER_STATUS_ASSOC')['ACTIVE'][0] 
+			&& in_array('SALES', $this->config->item('USER_ROLE_ASSOC_MENU')[$this->session->userdata('user_role')])){
+
+			$con = array(
+				'returnType' => 'list',
+				'conditions' => array(
+				)
+			);
+
+			if($this->input->get("branchId") !== null){
+				$con['conditions']['branch_id'] = $this->input->get("branchId");
+			}
+			if($this->input->get("refno") !== null){
+				$con['conditions']['ref_no'] = $this->input->get("refno");
+			}
+			if($this->input->get("tranDtFrom") !== null){
+				$con['conditions']['tranDtFrom'] = $this->input->get("tranDtFrom") . ' 00:00:00';
+			}
+			if($this->input->get("tranDtTo") !== null){
+				$con['conditions']['tranDtTo'] = $this->input->get("tranDtTo") . ' 23:59:59';
+			}
+			if($this->input->get("tranAmt") !== null){
+				$con['conditions']['GRAND_TOTAL'] = $this->input->get("tranAmt");
+			}
+			if($this->input->get("cashier") !== null){
+				$con['conditions']['CREATED_BY'] = $this->input->get("cashier");
+			}
+
+			$salesTotal = $this->sales_model->getTotalAmt($con);
+			echo json_encode($salesTotal);
 			exit();
 
 		}else{

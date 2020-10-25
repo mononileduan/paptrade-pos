@@ -44,22 +44,34 @@
 											</h4>
 										</div>
 										<div class="panel-body">
-											<div div class="col-sm-12 col-md-12" id="content-table-container_">
-												<table id="view-data-table" class="table table-bordered table-striped table-hover" style="width:100%">
-													<thead>
-														<tr>
-															<th>ID</th>
-															<th width="20%">Branch</th>
-															<th width="20%">Transaction Date</th>
-															<th width="15%">Reference No.</th>
-															<th width="15%">Transaction Amount</th>
-															<th width="25%">Cashier</th>
-															<th width="5%">Action</th>
-														</tr>
-													</thead>
-													<tbody>
-													</tbody>
-												</table>
+											<div class="col-md-12">
+												<div class="row">
+													<div class="col-sm-12 col-md-12" id="content-table-container_">
+														<table id="view-data-table" class="table table-bordered table-striped table-hover" style="width:100%">
+															<thead>
+																<tr>
+																	<th>ID</th>
+																	<th width="20%">Branch</th>
+																	<th width="20%">Transaction Date</th>
+																	<th width="15%">Reference No.</th>
+																	<th width="15%">Transaction Amount</th>
+																	<th width="25%">Cashier</th>
+																	<th width="5%">Action</th>
+																</tr>
+															</thead>
+															<tbody>
+															</tbody>
+														</table>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-md-6 text-right">
+														<label>Total Sales:</label>
+													</div>
+													<div class="col-md-6">
+														<span id="total_sales" class="text-right ccy"><?= $total_sales ?></span>
+													</div>
+												</div>
 											</div>
 										</div>
 									</div>
@@ -231,9 +243,11 @@
 					var tranAmt = $('#tranAmt').val();
 					var cashier = $('#cashier').val();
 
+					var data = {};
 					var filter = '';
 					if(branch != ''){
 						filter = "?branchId=" + branch;
+						data['branchId'] = branch;
 					}
 					if(refno != ''){
 						if(filter == ''){
@@ -242,6 +256,7 @@
 							filter += '&';
 						}
 						filter += "refno=" + refno;
+						data['refno'] = refno;
 					}
 					if(tranDtFrom != ''){
 						if(filter == ''){
@@ -250,6 +265,7 @@
 							filter += '&';
 						}
 						filter += "tranDtFrom=" + tranDtFrom;
+						data['tranDtFrom'] = tranDtFrom;
 					}
 					if(tranDtTo != ''){
 						if(filter == ''){
@@ -258,6 +274,7 @@
 							filter += '&';
 						}
 						filter += "tranDtTo=" + tranDtTo;
+						data['tranDtTo'] = tranDtTo;
 					}
 					if(tranAmt != ''){
 						if(filter == ''){
@@ -266,6 +283,7 @@
 							filter += '&';
 						}
 						filter += "tranAmt=" + tranAmt;
+						data['tranAmt'] = tranAmt;
 					}
 					if(cashier != ''){
 						if(filter == ''){
@@ -274,10 +292,52 @@
 							filter += '&';
 						}
 						filter += "cashier=" + cashier;
+						data['cashier'] = cashier;
 					}
 
 					datatable.ajax.url( '<?= site_url('sales/list'); ?>'+ filter ).load();
 			       	datatable.ajax.reload();
+
+			       	$.ajax({
+						type : 'GET',
+						data : data,
+						url : '<?= site_url('sales/list_totalamt'); ?>',
+						success : function(data) { 	
+							var json = JSON.parse(data);
+							$('#total_sales').text(formatCurrencyVal(json['GRAND_TOTAL']));
+						}
+					})
+				});
+
+
+				function formatCurrency(ccy){
+					var monetary_value = $(ccy).text();
+				    var i = new Intl.NumberFormat('en-PH', { 
+				        style: 'currency', 
+				        currency: 'PHP' 
+				    }).format(monetary_value); 
+				    $(ccy).text(i); 
+				}
+
+				function formatCurrencyVal(money){
+				    var i = new Intl.NumberFormat('en-PH', { 
+				        style: 'currency', 
+				        currency: 'PHP' 
+				    }).format(money); 
+				    return i;
+				}
+
+				function thousands(str){
+				    return str.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				}
+
+
+				$('.ccy').each(function(){
+					formatCurrency($(this));
+				});
+
+				$('.numeric').each(function(){
+					thousands($(this));
 				});
 			});
 		</script>

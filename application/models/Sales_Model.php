@@ -75,6 +75,31 @@ class Sales_Model extends CI_Model {
 
 	}
 
+	public function getTotalAmt($params = array()){
+		$this->db->select_sum('GRAND_TOTAL');
+		$this->db->from($this->table);
+
+		if(!empty($params['ID'])){
+			$this->db->where('ID', $params['ID']);
+		}
+		if(array_key_exists("conditions", $params)){
+			foreach ($params['conditions'] as $key => $val) {
+				if($key == 'tranDtFrom'){
+					$this->db->where('CREATED_DT >=', $val);
+				} else if($key == 'tranDtTo'){
+					$this->db->where('CREATED_DT <=', $val);
+				}else{
+					$this->db->where($key, $val);
+				}
+			}
+		}
+
+		$query = $this->db->get();
+		$result = $query->row_array();
+		return $result;
+
+	}
+
 	public function getPosViewSales($params = array()){
 		$sql = "SELECT ". 
 			"SALES.ID as ID, ".
