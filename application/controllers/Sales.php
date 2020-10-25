@@ -161,7 +161,8 @@ class Sales extends CI_Controller {
 						$response = array(
 							"ref_no" => $txn['REF_NO'],
 							"txn_dt" => $txn['CREATED_DT'],
-							"cashier" => $txn['CREATED_BY']
+							"cashier" => $txn['CREATED_BY'],
+							"branch" => $txn['BRANCH']
 						);
 						echo json_encode($response);
 						exit();

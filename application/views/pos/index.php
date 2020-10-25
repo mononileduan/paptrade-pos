@@ -135,29 +135,32 @@
 						<div class="col-md-8">
 							<div id="receipt">
 								<div class="r-header text-center">
-									<h3>PAPTRADE ENTERPRISES</h3>
+									<img class="logo" src="assets/images/paptrade-receipt.png">
+									<div class="clearfix"></div>
 									<h4>Receipt</h4>
-									<div class="row">
+								</div>
+								<div class="r-body">
+									<div class="row dtl-header">
 										<div class="col-md-4 text-right">
 											<div>Reference No.:</div>
 											<div>Date: <span></span></div>
 											<div>Cashier:</div>
+											<div>Branch:</div>
 										</div>
 										<div class="col-md-8 text-left">
 											<div id="r-id">005250</div>
 											<div id="r-date">01/26/2020</div>
 											<div id="r-cashier">Cashier</div>
+											<div id="r-branch">Branch</div>
 										</div>
 									</div>
 									<div class="clearfix"></div>
-								</div>
-								<div class="r-body">
 									<table class="table table-striped" id="r-items-table">
 										<thead>
 											<tr> 
 												<th>Item</th>
 												<th class="text-right">Unit Price</th>
-												<th class="text-right">Quantity</th>
+												<th class="text-right">Qty</th>
 												<th class="text-right">Sub Total</th>
 											</tr>
 										</thead>
