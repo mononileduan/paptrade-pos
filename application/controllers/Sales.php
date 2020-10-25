@@ -162,7 +162,9 @@ class Sales extends CI_Controller {
 							"ref_no" => $txn['REF_NO'],
 							"txn_dt" => $txn['CREATED_DT'],
 							"cashier" => $txn['CREATED_BY'],
-							"branch" => $txn['BRANCH']
+							"branch" => $txn['BRANCH'],
+							"branch_address" => $txn['BRANCH_ADDRESS'],
+							"branch_contact" => $txn['BRANCH_CONTACT']
 						);
 						echo json_encode($response);
 						exit();

@@ -129,6 +129,13 @@
 							<div id="receipt">
 								<div class="r-header text-center">
 									<img class="logo" src="assets/images/paptrade-receipt.png">
+									<div>
+										<small><?= $hdr['BRANCH_ADDRESS'] ?></small>
+									</div>
+									<div>
+										<small><?= $hdr['BRANCH_CONTACT'] ?></small>
+									</div>
+									<br>
 									<div class="clearfix"></div>
 									<h4>Receipt</h4>
 								</div>

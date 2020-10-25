@@ -45,6 +45,8 @@ class Sales_Model extends CI_Model {
 		$sql = "SELECT ". 
 			"SALES.ID as ID, ".
 			"BRANCHES.BRANCH_NAME as BRANCH, ". 
+			"BRANCHES.ADDRESS as BRANCH_ADDRESS, ". 
+			"BRANCHES.CONTACT as BRANCH_CONTACT, ". 
 			"SALES.ref_no as REF_NO, ". 
 			"SALES.CREATED_DT as CREATED_DT, ". 
 			"SALES.GRAND_TOTAL as GRAND_TOTAL, ". 

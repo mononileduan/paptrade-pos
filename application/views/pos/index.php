@@ -136,6 +136,13 @@
 							<div id="receipt">
 								<div class="r-header text-center">
 									<img class="logo" src="assets/images/paptrade-receipt.png">
+									<div>
+										<small id="r-branch-address"></small>
+									</div>
+									<div>
+										<small id="r-branch-contact"></small>
+									</div>
+									<br>
 									<div class="clearfix"></div>
 									<h4>Receipt</h4>
 								</div>
