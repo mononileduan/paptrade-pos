@@ -168,6 +168,7 @@
 
 		<script type="text/javascript">
 			$(document).ready(function() {
+				var base_url = $("meta[name='base_url']").attr('content');
 				var data = {};
 				if($('#branch').val() != ''){
 					data['branchId'] = $('#branch').val();
@@ -210,6 +211,40 @@
 					                extend: 'print',
 					                exportOptions: {
 					                    columns: [ 1, 2, 3, 4, 5 ]
+					                },
+               						/*autoPrint: false,*/
+	                                customize: function ( win ) {
+					                    $(win.document.body)
+					                        .css( 'font-size', '10pt' )
+					                        .prepend(
+					                            '<img src="'+base_url+'assets/images/paptrade-export.png" style="display: block; margin-left: auto; margin-right: auto;" />'
+					                        );
+
+					 					$(win.document.body).find( 'h1' )
+					 						.css( 'text-align', 'center' );
+
+					 					
+					 					$( "<h2>Sales</h2>" ).insertAfter( $(win.document.body).find( 'h1' ) )
+					 						.css( 'text-align', 'center' );
+
+					 					var export_dtls = '<div style="max-width:50%; float:left;">'+
+					 						'<label>Total Sales:</label> <span class="text-right ccy">'+$('#total_sales').text()+'</span> <br/>'+
+			 								'<label>No. of Records:</label> <span class="text-right ccy">'+$('#view-data-table').DataTable().rows().count()+'</span><br/>'+
+				 						'</div>'+
+				 						'<div style="margin-left: 60%; text-align:right;">'+
+					 						'<label>Exported By:</label> <span class="text-right"><?= $this->session->userdata('fullname') ?></span><br/>'+
+					 						'<label>Exported Date:</label> <span class="text-right"><?= date('m/d/Y H:i:s') ?></span>'+
+				 						'</div>';
+					 					$( export_dtls )
+					 						.insertBefore($(win.document.body).find( 'table' ));
+
+					                    $(win.document.body).find( 'table' )
+					                        .addClass( 'compact' )
+					                        .css( 'font-size', 'inherit' );
+
+					 					$( '<div style="text-align:center;"><label>***Nothing follows***</label></div>' )
+					 						.insertAfter($(win.document.body).find( 'table' ));
+
 					                }
 					            }]
 				});
