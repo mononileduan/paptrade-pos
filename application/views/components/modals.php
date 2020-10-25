@@ -274,8 +274,8 @@
 			<form action="" id="add_modal_form" method="post" accept-charset="utf-8" autocomplete="off">
 				<div class="modal-body">
 					<div class="form-group">
-						<label for='adjust_qty'>No. of Stocks to Add</label>
-						<input required="required" type="text" value="<?php echo set_value('adjust_qty'); ?>" id="adjust_qty" name="adjust_qty" class="form-control">
+						<label for='adjust_qty_add'>No. of Stocks to Add</label>
+						<input required="required" type="text" value="<?php echo set_value('adjust_qty'); ?>" id="adjust_qty_add" name="adjust_qty" class="form-control">
 						<?php echo form_error('adjust_qty', '<p class="help-block">','</p>'); ?>
 					</div>
 				</div>
@@ -304,7 +304,7 @@
 				<div class="modal-body">
 					<div class="form-group">
 						<label for='adjust_qty'>No. of Stocks to Deduct</label>
-						<input required="required" type="text" value="<?php echo set_value('adjust_qty'); ?>" id="adjust_qty" name="adjust_qty" class="form-control">
+						<input required="required" type="text" value="<?php echo set_value('adjust_qty'); ?>" id="adjust_qty_deduct" name="adjust_qty" class="form-control">
 						<?php echo form_error('adjust_qty', '<p class="help-block">','</p>'); ?>
 					</div>
 				</div>

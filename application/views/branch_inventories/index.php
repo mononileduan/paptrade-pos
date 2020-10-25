@@ -62,7 +62,7 @@
 												</div>
 												<div class="form-group">
 													<label for='crit_qty'>Critical Quantity</label>
-													<input required="required" type="text" value="<?php echo set_value('crit_qty'); ?>" id="crit_qty" name="crit_qty" class="form-control" maxlength="50">
+													<input required="required" type="text" value="<?php echo set_value('crit_qty'); ?>" id="crit_qty_branch" name="crit_qty" class="form-control" maxlength="50">
 													<?php echo form_error('crit_qty', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
 												</div>
 

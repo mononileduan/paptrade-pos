@@ -98,7 +98,7 @@
 					<div class="modal-header">
 						<h5 class="modal-title">Update Branch</h5>
 					</div>
-					<form action="" method="post" accept-charset="utf-8" class="form-horizontal" id="update_modal_form">
+					<form action="" method="post" accept-charset="utf-8" class="form-horizontal" id="update_branch_modal_form">
 						<div class="modal-body">
 							<div class="panel panel-default">
 								<div class="panel-heading">
@@ -111,18 +111,18 @@
 									 <div class="row">
 										<div class="col-md-12">
 											<div class="form-group">
-												<label for='branch_name'>Branch Name</label>
-												<input required="required" type="text" value="<?php echo set_value('branch_name'); ?>" id="branch_name" name="branch_name" class="form-control" maxlength="50">
+												<label for='branch_name_updt'>Branch Name</label>
+												<input required="required" type="text" value="<?php echo set_value('branch_name'); ?>" id="branch_name_updt" name="branch_name" class="form-control" maxlength="50">
 												<?php echo form_error('branch_name', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
 											</div>
 											<div class="form-group">
-												<label for='address'>Address</label>
-												<input required="required" type="text" value="<?php echo set_value('address'); ?>" id="address" name="address" class="form-control" maxlength="50">
+												<label for='address_updt'>Address</label>
+												<input required="required" type="text" value="<?php echo set_value('address'); ?>" id="address_updt" name="address" class="form-control" maxlength="50">
 												<?php echo form_error('address', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
 											</div>
 											<div class="form-group">
-												<label for='contact'>Contact Details</label>
-												<input required="required" type="text" value="<?php echo set_value('contact'); ?>" id="contact" name="contact" class="form-control" maxlength="50">
+												<label for='contact_updt'>Contact Details</label>
+												<input required="required" type="text" value="<?php echo set_value('contact'); ?>" id="contact_updt" name="contact" class="form-control" maxlength="50">
 												<?php echo form_error('contact', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
 											</div>
 										</div>
@@ -229,14 +229,14 @@
 			       	var name = data[1];
 			       	var address = data[2];
 			       	var contact = data[3];
-			       	$("#update_modal_form").find('input[name="id"]').val(id);
-			       	$("#update_modal_form").find('input[name="branch_name"]').val(name);
-			       	$("#update_modal_form").find('input[name="address"]').val(address);
-			       	$("#update_modal_form").find('input[name="contact"]').val(contact);
-					$("#update_modal").modal('show');
+			       	$("#update_branch_modal_form").find('input[name="id"]').val(id);
+			       	$("#update_branch_modal_form").find('input[name="branch_name"]').val(name);
+			       	$("#update_branch_modal_form").find('input[name="address"]').val(address);
+			       	$("#update_branch_modal_form").find('input[name="contact"]').val(contact);
+					$("#update_branch_modal_form").modal('show');
 			    } );
 
-			    $("#update_modal_form").submit(function(e) {
+			    $("#update_branch_modal_form").submit(function(e) {
 					e.preventDefault();
 					var id = $("#update_modal").find('input[name="id"]').val();
 
