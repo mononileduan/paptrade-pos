@@ -80,6 +80,11 @@
 	font-size: 12px;
 }
 
+#receipt .logo {
+	width: 125px;
+	margin-bottom: 5px;	
+}
+
 .r-header {
 	margin-bottom: 20px;	
 }

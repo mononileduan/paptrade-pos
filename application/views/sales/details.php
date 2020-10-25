@@ -128,7 +128,7 @@
 						<div class="col-md-8">
 							<div id="receipt">
 								<div class="r-header text-center">
-									<img class="logo" src="assets/images/paptrade-receipt.png">
+									<img class="logo" src="assets/images/paptrade-nav.png">
 									<div>
 										<small><?= $hdr['BRANCH_ADDRESS'] ?></small>
 									</div>
