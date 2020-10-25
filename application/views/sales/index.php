@@ -199,7 +199,14 @@
 					                extend: 'excelHtml5',
 					                exportOptions: {
 					                    columns: [ 1, 2, 3, 4, 5 ]
-				                	}
+				                	},
+				                	messageTop: 'Sales',
+				                	messageBottom: '***Nothing follows***',
+				                	customize: function ( xlsx ) {
+									    var sheet = xlsx.xl.worksheets['sheet1.xml'];
+										
+									    
+									}
 				            	},
 					            {
 					                extend: 'pdfHtml5',
