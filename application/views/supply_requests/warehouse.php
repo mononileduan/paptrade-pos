@@ -5,6 +5,9 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="base_url" content="<?= base_url() ?>">
+		<meta name="index_page" content="<?= index_page() ?>">
+		<meta name="user" content="<?=$this->session->userdata('fullname')?>">
 		<base href="<?= site_url() ?>">
 		<link rel="shortcut icon" type="image/x-icon" href="assets/images/paptrade-icon.png" />
 
@@ -84,9 +87,11 @@
 		<script type="text/javascript" src="assets/datatables/Buttons-1.6.1/js/buttons.print.min.js"></script>
 		
 		<script type="text/javascript" src="assets/js/page.height.setter.js"></script>
+		<script type="text/javascript" src="assets/js/getExportLogoImage.js"></script>
 
 		<script type="text/javascript">
 			$(document).ready(function() {
+				var base_url = $("meta[name='base_url']").attr('content');
 				var id = "<?php if(isset($id)){ echo $id; } else {echo '';} ?>";
 				var ref_no = "<?php if(isset($ref_no)){ echo $ref_no; } else {echo '';} ?>";
 				var datatable = $('#view-data-table').DataTable({
@@ -130,18 +135,139 @@
 					                extend: 'excelHtml5',
 					                exportOptions: {
 					                    columns: [ 1, 2, 3, 4, 5, 6 ]
-				                	}
+				                	},
+				                	messageTop: 'Supply Request: Warehouse',
+				                	messageBottom: '***Nothing follows***',
+				                	customize: function ( xlsx ) {
+									    var sheet = xlsx.xl.worksheets['sheet1.xml'];
+										
+									    
+									}
 				            	},
 					            {
 					                extend: 'pdfHtml5',
 					                exportOptions: {
 					                    columns: [ 1, 2, 3, 4, 5, 6 ]
+					                },
+                					orientation: 'landscape',
+					                customize: function ( doc ) {
+					                    doc.content.splice( 0, 0, {
+					                        margin: [ 0, 0, 0, 5 ],
+					                        alignment: 'center',
+											width: 100,
+					                        image: getExportLogoImage()
+					                    } );
+
+										doc.content.splice( 1, 1, {
+											text: "POS & Inventory System",
+											fontSize: 14,
+					                        margin: [ 0, 0, 0, 5 ],
+											alignment: 'center'
+										});
+
+										doc.content.splice( 2, 0, {
+											text: "Supply Request: Warehouse",
+											fontSize: 14,
+					                        margin: [ 0, 0, 0, 10 ],
+											alignment: 'center'
+										});
+
+										doc.content.splice( 3, 0, [
+											{
+												text: '',
+												fontSize: 10,
+												margin: [0,0,0,3]
+											},
+											{
+												text: 'No. of Records:	'+$('#view-data-table').DataTable().rows().count(),
+												fontSize: 10,
+												margin: [0,0,0,3]
+											},
+											{
+												text: 'Exported By:		 <?= $this->session->userdata('fullname') ?>',
+												fontSize: 10,
+												margin: [0,0,0,3]
+											},
+											{
+												text: 'Exported Date:	 <?= date('m/d/Y H:i:s') ?>',
+												fontSize: 10,
+												margin: [0,0,0,5]
+											}
+										]);
+
+										var rowCount = doc.content[4].table.body.length;
+										for (i = 0; i < rowCount; i++) {
+											doc.content[4].table.body[i][0].margin = [10, 0, 0, 0];
+											doc.content[4].table.body[i][3].alignment = 'right';
+											doc.content[4].table.body[i][5].margin = [0, 0, 10, 0];
+										};
+										doc.content[4].table.widths = [ '15%', '15%', '20%', '10%', '20%', '20%' ];
+
+										doc.content.splice( 5, 0, {
+											text: "***Nothing follows***",
+											fontSize: 10,
+					                        margin: [ 0, 0, 0, 10 ],
+											alignment: 'center'
+										});
 					                }
 					            },
 					            {
 					                extend: 'print',
 					                exportOptions: {
 					                    columns: [ 1, 2, 3, 4, 5, 6 ]
+					                },
+               						/*autoPrint: false,*/
+	                                customize: function ( win ) {
+	                                	var css = '@page { size: landscape; }',
+						                    head = win.document.head || win.document.getElementsByTagName('head')[0],
+						                    style = win.document.createElement('style');
+						 
+						                style.type = 'text/css';
+						                style.media = 'print';
+						                if (style.styleSheet){
+						                  style.styleSheet.cssText = css;
+						                }else{
+						                  style.appendChild(win.document.createTextNode(css));
+						                }
+						                head.appendChild(style);
+
+
+					                    $(win.document.body)
+					                        .css( 'font-size', '10pt' )
+					                        .prepend(
+					                            '<img src="'+base_url+'assets/images/paptrade-nav.png" style="display: block; margin-left: auto; margin-right: auto; width:100px" />'
+					                        );
+
+					 					$(win.document.body).find( 'h1' )
+					 						.replaceWith( '<h3>POS & Inventory System</h3>' );
+
+					 					$(win.document.body).find( 'h3' )
+					 						.css( 'text-align', 'center' )
+					 						.css( 'margin-top', '10px' );
+
+					 					
+					 					$( "<h3>Supply Request: Warehouse</h3>" ).insertAfter( $(win.document.body).find( 'h3' ) )
+					 						.css( 'text-align', 'center' )
+					 						.css( 'margin-top', '5px' );
+
+					 					var export_dtls = '<div style="max-width:50%; float:left;">'+
+					 						'<label></label> <span class="text-right ccy"></span> <br/>'+
+			 								'<label>No. of Records:</label> <span class="text-right ccy">'+$('#view-data-table').DataTable().rows().count()+'</span><br/>'+
+				 						'</div>'+
+				 						'<div style="margin-left: 60%; text-align:right;">'+
+					 						'<label>Exported By:</label> <span class="text-right"><?= $this->session->userdata('fullname') ?></span><br/>'+
+					 						'<label>Exported Date:</label> <span class="text-right"><?= date('m/d/Y H:i:s') ?></span>'+
+				 						'</div>';
+					 					$( export_dtls )
+					 						.insertBefore($(win.document.body).find( 'table' ));
+
+					                    $(win.document.body).find( 'table' )
+					                        .addClass( 'compact' )
+					                        .css( 'font-size', 'inherit' );
+
+					 					$( '<div style="text-align:center;"><label>***Nothing follows***</label></div>' )
+					 						.insertAfter($(win.document.body).find( 'table' ));
+
 					                }
 					            }]
 				});
