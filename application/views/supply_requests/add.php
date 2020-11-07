@@ -39,7 +39,7 @@
 									<div class="panel panel-default">
 										<div class="panel-heading">
 											<h4 class="panel-title">
-												<span class="panel-title"><span class="glyphicon glyphicon-list-alt"></span>&nbsp; Select Item</span>
+												<span class="panel-title"><span class="glyphicon glyphicon-list-alt"></span>&nbsp; Select Item from Warehouse</span>
 											</h4>
 										</div>
 										<div class="panel-body">
