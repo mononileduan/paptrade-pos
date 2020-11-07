@@ -42,18 +42,18 @@
 										<div class="panel-body">
 											<form action="" method="post" accept-charset="utf-8" autocomplete="off">
 												<div class="form-group">
-													<label for='last_name'>Last Name</label>
-													<input required="required" type="text" value="<?php echo set_value('last_name'); ?>" id="last_name" name="last_name" class="form-control" maxlength="50">
+													<label for='last_name_add'>Last Name</label>
+													<input required="required" type="text" value="<?php echo set_value('last_name'); ?>" id="last_name_add" name="last_name" class="form-control" maxlength="50">
 													<?php echo form_error('last_name', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
 												</div>
 												<div class="form-group">
-													<label for='first_name'>First Name</label>
-													<input required="required" type="text" value="<?php echo set_value('first_name'); ?>" id="first_name" name="first_name" class="form-control" maxlength="50">
+													<label for='first_name_add'>First Name</label>
+													<input required="required" type="text" value="<?php echo set_value('first_name'); ?>" id="first_name_add" name="first_name" class="form-control" maxlength="50">
 													<?php echo form_error('first_name', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
 												</div>
 												<div class="form-group">
-													<label for='branch_id'>Branch</label>
-													<select required="required" id="branch_id" name="branch_id" class="form-control">
+													<label for='branch_id_add'>Branch</label>
+													<select required="required" id="branch_id_add" name="branch_id" class="form-control">
 														<option value=""></option>
 														<?php foreach($branches->result_array() as $r) {
 															if(set_value('branch_id') === $r['ID']){
@@ -66,18 +66,18 @@
 													<?php echo form_error('branch_id', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
 												</div>
 												<div class="form-group">
-													<label for='username'>Username</label>
-													<input required="required" type="text" value="<?php echo set_value('username'); ?>" id="username" name="username" class="form-control" maxlength="50">
+													<label for='username_add'>Username</label>
+													<input required="required" type="text" value="<?php echo set_value('username'); ?>" id="username_add" name="username" class="form-control" maxlength="50">
 													<?php echo form_error('username', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
 												</div>
 												<div class="form-group">
-													<label for='password'>Password</label>
-													<input required="required" type="password" value="<?php echo set_value('password'); ?>" id="password" name="password" class="form-control" maxlength="50">
+													<label for='password_add'>Password</label>
+													<input required="required" type="password" value="<?php echo set_value('password'); ?>" id="password_add" name="password" class="form-control" maxlength="50">
 													<?php echo form_error('password', '<small class="has-error"><p class="help-block">','</p></small>'); ?>
 												</div>
 												<div class="form-group">
-													<label for='role'>Role</label>
-													<select required="required" id="role" name="role" class="form-control">
+													<label for='role_add'>Role</label>
+													<select required="required" id="role_add" name="role" class="form-control">
 														<option value=""></option>
 														<?php foreach($roles as $r) {
 															if(set_value('role') === $r['0']){
@@ -136,7 +136,7 @@
 					<div class="modal-header">
 						<h5 class="modal-title">Update User</h5>
 					</div>
-					<form action="" method="post" accept-charset="utf-8" class="form-horizontal" id="update_modal_form">
+					<form action="" method="post" accept-charset="utf-8" class="form-horizontal" id="update_user_modal_form">
 						<div class="modal-body">
 							<div class="panel panel-default">
 								<div class="panel-heading">
@@ -238,9 +238,11 @@
 		<script type="text/javascript" src="assets/datatables/Buttons-1.6.1/js/buttons.print.min.js"></script>
 		
 		<script type="text/javascript" src="assets/js/page.height.setter.js"></script>
+		<script type="text/javascript" src="assets/js/getExportLogoImage.js"></script>
 
 		<script type="text/javascript">
 			$(document).ready(function() {
+				var base_url = $("meta[name='base_url']").attr('content');
 				var datatable = $('#view-data-table').DataTable({
 						"ajax": {
 						   url : "<?= site_url('users/list'); ?>",
@@ -284,18 +286,137 @@
 					                extend: 'excelHtml5',
 					                exportOptions: {
 					                    columns: [ 2, 3, 4, 5, 6, 7, 8 ]
-				                	}
+				                	},
+				                	messageTop: 'Users',
+				                	messageBottom: '***Nothing follows***',
+				                	customize: function ( xlsx ) {
+									    var sheet = xlsx.xl.worksheets['sheet1.xml'];
+										
+									    
+									}
 				            	},
 					            {
 					                extend: 'pdfHtml5',
 					                exportOptions: {
 					                    columns: [ 2, 3, 4, 5, 6, 7, 8 ]
+					                },
+                					orientation: 'landscape',
+					                customize: function ( doc ) {
+					                    doc.content.splice( 0, 0, {
+					                        margin: [ 0, 0, 0, 5 ],
+					                        alignment: 'center',
+											width: 100,
+					                        image: getExportLogoImage()
+					                    } );
+
+										doc.content.splice( 1, 1, {
+											text: "POS & Inventory System",
+											fontSize: 14,
+					                        margin: [ 0, 0, 0, 5 ],
+											alignment: 'center'
+										});
+
+										doc.content.splice( 2, 0, {
+											text: "Users",
+											fontSize: 14,
+					                        margin: [ 0, 0, 0, 10 ],
+											alignment: 'center'
+										});
+
+										doc.content.splice( 3, 0, [
+											{
+												text: '',
+												fontSize: 10,
+												margin: [0,0,0,3]
+											},
+											{
+												text: 'No. of Records:	'+$('#view-data-table').DataTable().rows().count(),
+												fontSize: 10,
+												margin: [0,0,0,3]
+											},
+											{
+												text: 'Exported By:		 <?= $this->session->userdata('fullname') ?>',
+												fontSize: 10,
+												margin: [0,0,0,3]
+											},
+											{
+												text: 'Exported Date:	 <?= date('m/d/Y H:i:s') ?>',
+												fontSize: 10,
+												margin: [0,0,0,5]
+											}
+										]);
+
+										var rowCount = doc.content[4].table.body.length;
+										for (i = 0; i < rowCount; i++) {
+											doc.content[4].table.body[i][0].margin = [10, 0, 0, 0];
+										};
+										doc.content[4].table.widths = [ '15%', '15%', '17%', '15%', '10%', '13%', '15%' ];
+
+										doc.content.splice( 5, 0, {
+											text: "***Nothing follows***",
+											fontSize: 10,
+					                        margin: [ 0, 0, 0, 10 ],
+											alignment: 'center'
+										});
 					                }
 					            },
 					            {
 					                extend: 'print',
 					                exportOptions: {
 					                    columns: [ 2, 3, 4, 5, 6, 7, 8 ]
+					                },
+               						/*autoPrint: false,*/
+	                                customize: function ( win ) {
+	                                	var css = '@page { size: landscape; }',
+						                    head = win.document.head || win.document.getElementsByTagName('head')[0],
+						                    style = win.document.createElement('style');
+						 
+						                style.type = 'text/css';
+						                style.media = 'print';
+						                if (style.styleSheet){
+						                  style.styleSheet.cssText = css;
+						                }else{
+						                  style.appendChild(win.document.createTextNode(css));
+						                }
+						                head.appendChild(style);
+
+
+					                    $(win.document.body)
+					                        .css( 'font-size', '10pt' )
+					                        .prepend(
+					                            '<img src="'+base_url+'assets/images/paptrade-nav.png" style="display: block; margin-left: auto; margin-right: auto; width:100px" />'
+					                        );
+
+					 					$(win.document.body).find( 'h1' )
+					 						.replaceWith( '<h3>POS & Inventory System</h3>' );
+
+					 					$(win.document.body).find( 'h3' )
+					 						.css( 'text-align', 'center' )
+					 						.css( 'margin-top', '10px' );
+
+					 					
+					 					$( "<h3>Users</h3>" ).insertAfter( $(win.document.body).find( 'h3' ) )
+					 						.css( 'text-align', 'center' )
+					 						.css( 'margin-top', '5px' );
+
+					 					var export_dtls = '<div style="max-width:50%; float:left;">'+
+					 						'<label> </label> <span class="text-right ccy"> </span> <br/>'+
+			 								'<label>No. of Records:</label> <span class="text-right ccy">'+$('#view-data-table').DataTable().rows().count()+'</span><br/>'+
+				 						'</div>'+
+				 						'<div style="margin-left: 60%; text-align:right;">'+
+					 						'<label>Exported By:</label> <span class="text-right"><?= $this->session->userdata('fullname') ?></span><br/>'+
+					 						'<label>Exported Date:</label> <span class="text-right"><?= date('m/d/Y H:i:s') ?></span>'+
+				 						'</div>';
+					 					$( export_dtls )
+					 						.insertBefore($(win.document.body).find( 'table' ));
+
+					                    $(win.document.body).find( 'table' )
+					                        .addClass( 'compact' )
+					                        .css( 'font-size', 'inherit' );
+
+					 					$( '<div style="text-align:center;"><label>***Nothing follows***</label></div>' )
+					 						.insertAfter($(win.document.body).find( 'table' ));
+
 					                }
 					            }]
 				});
@@ -326,16 +447,16 @@
 			       	var status = data[6];
 
 
-			       	$("#update_modal_form").find('input[name="id"]').val(id);
-			       	$("#update_modal_form").find('input[name="last_name"]').val(lastname);
-			       	$("#update_modal_form").find('input[name="first_name"]').val(firstname);
-			       	$("#update_modal_form").find('select[name="branch_id"]').val(branch_id);
-			       	$("#update_modal_form").find('select[name="role"]').val(role);
-			       	$("#update_modal_form").find('select[name="status"]').val(status);
+			       	$("#update_user_modal_form").find('input[name="id"]').val(id);
+			       	$("#update_user_modal_form").find('input[name="last_name"]').val(lastname);
+			       	$("#update_user_modal_form").find('input[name="first_name"]').val(firstname);
+			       	$("#update_user_modal_form").find('select[name="branch_id"]').val(branch_id);
+			       	$("#update_user_modal_form").find('select[name="role"]').val(role);
+			       	$("#update_user_modal_form").find('select[name="status"]').val(status);
 					$("#update_modal").modal('show');
 			    } );
 
-			    $("#update_modal_form").submit(function(e) {
+			    $("#update_user_modal_form").submit(function(e) {
 					e.preventDefault();
 					var id = $("#update_modal").find('input[name="id"]').val();
 
