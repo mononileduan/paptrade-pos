@@ -5,6 +5,9 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="base_url" content="<?= base_url() ?>">
+		<meta name="index_page" content="<?= index_page() ?>">
+		<meta name="user" content="<?=$this->session->userdata('fullname')?>">
 		<base href="<?= site_url() ?>">
 		<link rel="shortcut icon" type="image/x-icon" href="assets/images/paptrade-icon.png" />
 
@@ -63,7 +66,8 @@
 														<input type="button" class="btn btn-sm btn-secondary back-btn" value="Back">
 														<?php 
 														if($req['STATUS'] == 'NEW'){
-															echo '<input type="submit" name="submit_approve_request" class="btn btn-sm btn-primary" value="Approve">';
+															echo '<input type="submit" name="submit_approve_request" class="btn btn-sm btn-primary" value="Approve"> ';
+															echo '<input type="button" name="submit_reject_btn" class="btn btn-sm btn-secondary" value="Reject" id="submit_reject_btn">';
 														}
 														?>
 													</div>
@@ -123,6 +127,34 @@
 	    	</div>
 		</div>
 
+		<div class="modal" tabindex="-2" role="dialog" id="reject-reason-modal">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Reject Reason</h5>
+					</div>
+					<form action="" method="post" accept-charset="utf-8" class="form-horizontal">
+						<div class="modal-body">
+							<div class="col-md-12">
+								<div class="form-group">
+									<input type="text" class="form-control" name="reject_reason" placeholder="Enter Reject Reason" id="reject_reason" autocomplete="off" max="50" maxlength="50">
+								</div>
+							</div>
+
+							<div class="clearfix"></div>
+
+						</div>
+						<div class="modal-footer"> 
+							<input type="hidden" name="id" value="<?= $req['ID']; ?>">
+							<input type="submit" name="submit_reject_request" class="btn btn-sm btn-primary" value="Submit">
+							<button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancel</button>
+						</div>
+					</form>
+				</div>
+
+			</div>
+		</div>
+
 		<?php $this->load->view('components/modals'); ?>
 
 		<script type="text/javascript" src="assets/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -132,6 +164,9 @@
 
 		<script type="text/javascript">
 			$(document).ready(function() {
+				var base_url = $("meta[name='base_url']").attr('content');
+				var index_page = $("meta[name='index_page']").attr('content');
+
 				var ref_no = "<?php if(isset($ref_no)){ echo $ref_no; } else {echo '';} ?>";
 				var params = "?ref_no=" + ref_no;
 				
@@ -152,6 +187,9 @@
 			    	$("#error_modal").modal('show');
 			    }
 
+		    	$("#submit_reject_btn").on('click', function(){
+		    		$("#reject-reason-modal").modal('show');
+				});
 
 			});
 		</script>

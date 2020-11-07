@@ -566,6 +566,40 @@ class Supply_Requests extends CI_Controller {
 					}else{
 						$data['error_msg'] = 'Please fill all required fields.';
 					}
+
+				}else if($this->input->post('submit_reject_request')){
+					$this->form_validation->set_rules('id', 'ID', 'required|trim');
+					$this->form_validation->set_rules('reject_reason', 'Reject Reason', 'required|trim');
+
+					if($this->form_validation->run() == true){
+						$con = array(
+							'returnType' => 'single',
+							'conditions' => array(
+								'del' 	=> false,
+								'id'	=> $this->input->post('id'),
+								'status' => 'NEW'
+							)
+						);
+						$request = $this->supply_request->getRows($con);
+
+						if($request){
+							$newVal = array(
+								'processed_by'	=> $this->session->userdata('username'),
+								'processed_dt'	=> date('YmdHis'),
+								'reject_reason'	=> $this->input->post('reject_reason'),
+								'status'		=> 'REJECTED'
+							);
+							$this->supply_request->update($request['ID'], $newVal); //update supply request
+
+							$this->session->set_flashdata('success_msg', 'Request successfully rejected!');
+							redirect('supply_requests/warehouse');
+
+						}else{
+							$data['error_msg'] = 'Could not find request';
+						}
+					}else{
+						$data['error_msg'] = 'Please fill all required fields.';
+					}
 				}
 
 				$con = array(

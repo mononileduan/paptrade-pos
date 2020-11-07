@@ -109,12 +109,18 @@
 														</div>
 														<div class="panel-body">
 															<form class="form-horizontal">
-																<div class="row">
-																	<label class="col-sm-5 control-label">Approved Quantity</label>
-																	<div class="col-sm-7">
-																		<p class="form-control-static"><?= isset($req['APPROVED_QTY']) ? $req['APPROVED_QTY'] : ''; ?></p>
-																	</div>
-																</div>
+																<?php
+																	if($req['STATUS'] == 'APPROVED' || $req['STATUS'] == 'RECEIVED'){
+																	echo '<div class="row">';
+																	echo '	<label class="col-sm-5 control-label">Approved Quantity</label>';
+																	echo '	<div class="col-sm-7">';
+																	echo '		<p class="form-control-static">';
+																	echo  isset($req['APPROVED_QTY']) ? $req['APPROVED_QTY'] : '';
+																	echo '		</p>';
+																	echo '	</div>';
+																	echo '</div>';
+																	}
+																?>
 
 																<div class="row">
 																	<label class="col-sm-5 control-label">Processed By</label>
@@ -129,39 +135,59 @@
 																		<p class="form-control-static"><?= isset($req['PROCESSED_DT']) ? $req['PROCESSED_DT'] : ''; ?></p>
 																	</div>
 																</div>
+																
+																<?php
+																	if($req['STATUS'] == 'REJECTED'){
+																	echo '<div class="row">';
+																	echo '	<label class="col-sm-5 control-label">Reject Reason</label>';
+																	echo '	<div class="col-sm-7">';
+																	echo '		<p class="form-control-static">';
+																	echo  isset($req['REJECT_REASON']) ? $req['REJECT_REASON'] : ''; 
+																	echo '		</p>';
+																	echo '	</div>';
+																	echo '</div>';
+																	}
+																?>
 															</form>
 														</div>
 													</div>
 												</div>
 											</div>
 
-											<div class="row">
-												<div class="col-md-12">
-											    	<div class="panel panel-default">
-														<div class="panel-heading">
-															<h4 class="panel-title">
-																<span class="panel-title"><span class="glyphicon glyphicon-tasks"></span>&nbsp; Receiving Details</span>
-															</h4>
-														</div>
-														<div class="panel-body">
-															<form class="form-horizontal">
-																<div class="row">
-																	<label class="col-sm-5 control-label">Received By</label>
-																	<div class="col-sm-7">
-																		<p class="form-control-static"><?= isset($req['RECEIVED_BY']) ? $req['RECEIVED_BY'] : ''; ?></p>
-																	</div>
-																</div>
-																<div class="row">
-																	<label class="col-sm-5 control-label" for="approved_qty">Date Received</label>
-																	<div class="col-sm-7">
-																		<p class="form-control-static"><?= isset($req['RECEIVED_DT']) ? $req['RECEIVED_DT'] : ''; ?></p>
-																	</div>
-																</div>
-															</form>
-														</div>
-													</div>
-												</div>
-											</div>
+											<?php if($req['STATUS'] != 'REJECTED'){
+											echo '<div class="row">';
+											echo '	<div class="col-md-12">';
+											echo '    	<div class="panel panel-default">';
+											echo '			<div class="panel-heading">';
+											echo '				<h4 class="panel-title">';
+											echo '					<span class="panel-title"><span class="glyphicon glyphicon-tasks"></span>&nbsp; Receiving Details</span>';
+											echo '				</h4>';
+											echo '			</div>';
+											echo '			<div class="panel-body">';
+											echo '				<form class="form-horizontal">';
+											echo '					<div class="row">';
+											echo '						<label class="col-sm-5 control-label">Received By</label>';
+											echo '						<div class="col-sm-7">';
+											echo '							<p class="form-control-static">';
+											echo  isset($req['RECEIVED_BY']) ? $req['RECEIVED_BY'] : '';
+											echo '							</p>';
+											echo '						</div>';
+											echo '					</div>';
+											echo '					<div class="row">';
+											echo '						<label class="col-sm-5 control-label" for="approved_qty">Date Received</label>';
+											echo '						<div class="col-sm-7">';
+											echo '							<p class="form-control-static">';
+											echo  isset($req['RECEIVED_DT']) ? $req['RECEIVED_DT'] : '';
+											echo '							</p>';
+											echo '						</div>';
+											echo '					</div>';
+											echo '				</form>';
+											echo '			</div>';
+											echo '		</div>';
+											echo '	</div>';
+											echo '</div>';
+											}?>
+
 					            		</div>
 					            	</div>
 			            		</div>

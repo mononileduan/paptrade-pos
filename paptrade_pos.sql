@@ -186,6 +186,7 @@ CREATE TABLE SUPPLY_REQUESTS (
 	PROCESSED_BY varchar(50) null,
 	PROCESSED_DT timestamp null,
 	APPROVED_QTY int(11) null,
+	REJECT_REASON varchar(50) null,
 	RECEIVED_BY varchar(50) null,
 	RECEIVED_DT timestamp null,
 	CONSTRAINT SUPPLY_REQUESTS_ID_uk UNIQUE KEY (ID),
