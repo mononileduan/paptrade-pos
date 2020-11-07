@@ -35,7 +35,7 @@
 					<div class="col-md-12">
 						<div class="panel panel-default">
 							<div class="panel-heading">
-								<span class="panel-title">Branch</span>
+								<span class="panel-title">Branches</span>
 							</div>
 							<div class="panel-body">
 								<table id="lowstocks-branch-data-table" class="table table-bordered table-striped table-hover" style="width:100%">
