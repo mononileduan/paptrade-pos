@@ -27,7 +27,7 @@
 			
 			<div class="container-fluid with-color-accent" style="margin-top:0px;">
 				<div class="row">
-					<div class="col-md-7 box-container rightnone" style="height: 694px; overflow-y: auto;">
+					<div class="col-md-6 box-container rightnone" style="height: 694px; overflow-y: auto;">
 						<h3>List of Items</h3>
 
 						<div class="content">
@@ -46,7 +46,7 @@
 							</table>
 	            		</div>
 					</div>
-					<div class="col-md-5 box-container">
+					<div class="col-md-6 box-container">
 						<h3>Order Details</h3>
 						<div id="sales-dtls-container">
 							<table class="table table-striped" style="width:100%; margin-bottom: 10px;">
