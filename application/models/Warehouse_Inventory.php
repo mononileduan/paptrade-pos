@@ -80,7 +80,7 @@ class Warehouse_Inventory extends CI_Model {
 			"i.CRITICAL_QTY as ITEM_CRIT_QTY ".
 			"FROM warehouse_inventory inv, items i, brands b, categories c ".
 			"WHERE i.id=inv.item_id and b.id=i.brand_id and c.id=i.category_id and inv.del=false and i.del=false ".
-			"and inv.AVAILABLE_QTY < inv.CRITICAL_QTY ";
+			"and inv.AVAILABLE_QTY <= inv.CRITICAL_QTY ";
 
 		if(array_key_exists("conditions", $params)){
 			foreach ($params['conditions'] as $key => $val) {

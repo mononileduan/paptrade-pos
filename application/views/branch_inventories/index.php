@@ -184,6 +184,12 @@
 								"<a class=\'action-hist\' data-mode=\'modal\' title=\'History\'><i class=\'glyphicon glyphicon-calendar\'></i></a>"},
 							{"targets": [ 0 ], "visible": false, "searchable": false}
 						],
+				        "createdRow": function( row, data, dataIndex){
+			                if( parseInt(data[5]) <= parseInt(data[6]) ){
+			                    $(row).addClass('critical');
+			                    $(row).attr('title', "This item's stock count is in critical level.");
+			                }
+			            },
 						dom: 'lBftipr',
 						buttons: [
 								{

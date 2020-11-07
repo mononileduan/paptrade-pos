@@ -76,7 +76,7 @@ class Branch_Inventory extends CI_Model {
 			"inv.CRITICAL_QTY as CRITICAL_QTY ".
 			"FROM branch_inventory inv, items i, brands b, categories c, branches br ".
 			"WHERE i.id=inv.item_id and b.id=i.brand_id and c.id=i.category_id and br.id=inv.branch_id and inv.del=false and i.del=false ".
-			"and inv.QTY < inv.CRITICAL_QTY ";
+			"and inv.QTY <= inv.CRITICAL_QTY ";
 
 		if(array_key_exists("conditions", $params)){
 			foreach ($params['conditions'] as $key => $val) {
