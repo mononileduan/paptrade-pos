@@ -5,6 +5,9 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="base_url" content="<?= base_url() ?>">
+		<meta name="index_page" content="<?= index_page() ?>">
+		<meta name="user" content="<?=$this->session->userdata('fullname')?>">
 		<base href="<?= site_url() ?>">
 		<link rel="shortcut icon" type="image/x-icon" href="assets/images/paptrade-icon.png" />
 
