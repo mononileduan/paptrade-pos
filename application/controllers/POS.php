@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); 
 
-class POS extends CI_Controller {
+class Pos extends CI_Controller {
 
 	public function __construct(){
 		parent::__construct();
@@ -21,7 +21,7 @@ class POS extends CI_Controller {
 					$con = array(
 						'conditions' => array(
 							'branch_id' => $this->session->userdata('branch_id'),
-							'sales.created_by' => $this->session->userdata('username')
+							'SALES.created_by' => $this->session->userdata('username')
 						)
 					);
 					$result = $this->sales_model->getSummary($con)->row_array();

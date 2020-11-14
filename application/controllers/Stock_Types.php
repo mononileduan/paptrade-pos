@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); 
 
-class Stock_Types extends CI_Controller {
+class Stock_types extends CI_Controller {
 	
 	public function __construct(){
 		parent::__construct();
