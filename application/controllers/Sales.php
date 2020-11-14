@@ -157,7 +157,7 @@ class Sales extends CI_Controller {
 						}
 
 
-						$txn = $this->sales_model->getRowsJoin(array('conditions' => array('sales.id' => $id)))->row_array();
+						$txn = $this->sales_model->getRowsJoin(array('conditions' => array('SALES.id' => $id)))->row_array();
 						$response = array(
 							"ref_no" => $txn['REF_NO'],
 							"txn_dt" => $txn['CREATED_DT'],
@@ -196,15 +196,15 @@ class Sales extends CI_Controller {
 			$con = array(
 				'returnType' => 'list',
 				'conditions' => array(
-					'sales.del' => false
+					'SALES.del' => false
 				)
 			);
 
 			if($this->input->get("branchId") !== null){
-				$con['conditions']['sales.branch_id'] = $this->input->get("branchId");
+				$con['conditions']['SALES.branch_id'] = $this->input->get("branchId");
 			}
 			if($this->input->get("refno") !== null){
-				$con['conditions']['sales.ref_no'] = $this->input->get("refno");
+				$con['conditions']['SALES.ref_no'] = $this->input->get("refno");
 			}
 			if($this->input->get("tranDtFrom") !== null){
 				$con['conditions']['tranDtFrom'] = $this->input->get("tranDtFrom") . ' 00:00:00';
@@ -213,10 +213,10 @@ class Sales extends CI_Controller {
 				$con['conditions']['tranDtTo'] = $this->input->get("tranDtTo") . ' 23:59:59';
 			}
 			if($this->input->get("tranAmt") !== null){
-				$con['conditions']['sales.GRAND_TOTAL'] = $this->input->get("tranAmt");
+				$con['conditions']['SALES.GRAND_TOTAL'] = $this->input->get("tranAmt");
 			}
 			if($this->input->get("cashier") !== null){
-				$con['conditions']['sales.CREATED_BY'] = $this->input->get("cashier");
+				$con['conditions']['SALES.CREATED_BY'] = $this->input->get("cashier");
 			}
 
 			$salesList = $this->sales_model->getRowsJoin($con);
@@ -301,9 +301,9 @@ class Sales extends CI_Controller {
 			$con = array(
 				'returnType' => 'list',
 				'conditions' => array(
-					'sales.del' => false,
-					'sales.branch_id' => $this->session->userdata('branch_id'),
-					'sales.created_by' => $this->session->userdata('username')
+					'SALES.del' => false,
+					'SALES.branch_id' => $this->session->userdata('branch_id'),
+					'SALES.created_by' => $this->session->userdata('username')
 				)
 			);
 			$salesList = $this->sales_model->getPosViewSales($con);
@@ -388,7 +388,7 @@ class Sales extends CI_Controller {
 	    		$con = array(
 					'returnType' => 'single',
 					'conditions' => array(
-						'sales.id' => $this->input->get("id")
+						'SALES.id' => $this->input->get("id")
 					)
 				);
 	    		$data['hdr'] = $this->sales_model->getRowsJoin($con)->row_array();

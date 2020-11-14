@@ -52,7 +52,7 @@ class Sales_model extends CI_Model {
 			"SALES.GRAND_TOTAL as GRAND_TOTAL, ". 
 			"SALES.PAYMENT as PAYMENT, ".
 			"concat(USERS.FIRST_NAME, ' ', USERS.LAST_NAME) as CREATED_BY ". 
-			"from SALES, BRANCHES, USERS  where USERS.USERNAME=sales.CREATED_BY and BRANCHES.id=sales.BRANCH_ID ";
+			"from SALES, BRANCHES, USERS where USERS.USERNAME=SALES.CREATED_BY and BRANCHES.id=SALES.BRANCH_ID ";
 
 		if(array_key_exists("conditions", $params)){
 			foreach ($params['conditions'] as $key => $val) {
@@ -111,7 +111,7 @@ class Sales_model extends CI_Model {
 			"SALES.GRAND_TOTAL as GRAND_TOTAL, ". 
 			"SALES.PAYMENT as PAYMENT, ".
 			"concat(USERS.FIRST_NAME, ' ', USERS.LAST_NAME) as CREATED_BY ". 
-			"from SALES, BRANCHES, USERS  where USERS.USERNAME=sales.CREATED_BY and BRANCHES.id=sales.BRANCH_ID ";
+			"from SALES, BRANCHES, USERS where USERS.USERNAME=SALES.CREATED_BY and BRANCHES.id=SALES.BRANCH_ID ";
 
 		if(array_key_exists("conditions", $params)){
 			foreach ($params['conditions'] as $key => $val) {
