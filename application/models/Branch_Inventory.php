@@ -2,7 +2,7 @@
 
 class Branch_Inventory extends CI_Model {
 	public function __construct(){
-		$this->table = 'branch_inventory';
+		$this->table = 'BRANCH_INVENTORY';
 	}
 
 	public function getRows($params = array()){
@@ -51,7 +51,7 @@ class Branch_Inventory extends CI_Model {
 			"br.BRANCH_NAME as BRANCH, ".
 			"inv.QTY as QTY, ".
 			"inv.CRITICAL_QTY as CRITICAL_QTY ".
-			"FROM branch_inventory inv, items i, brands b, categories c, branches br ".
+			"FROM BRANCH_INVENTORY inv, ITEMS i, BRANDS b, CATEGORIES c, BRANCHES br ".
 			"WHERE i.id=inv.item_id and b.id=i.brand_id and c.id=i.category_id and br.id=inv.branch_id and inv.del=false and i.del=false ";
 
 		if(array_key_exists("conditions", $params)){
@@ -74,7 +74,7 @@ class Branch_Inventory extends CI_Model {
 			"br.BRANCH_NAME as BRANCH, ".
 			"inv.QTY as QTY, ".
 			"inv.CRITICAL_QTY as CRITICAL_QTY ".
-			"FROM branch_inventory inv, items i, brands b, categories c, branches br ".
+			"FROM BRANCH_INVENTORY inv, ITEMS i, BRANDS b, CATEGORIES c, BRANCHES br ".
 			"WHERE i.id=inv.item_id and b.id=i.brand_id and c.id=i.category_id and br.id=inv.branch_id and inv.del=false and i.del=false ".
 			"and inv.QTY <= inv.CRITICAL_QTY ";
 

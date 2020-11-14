@@ -2,7 +2,7 @@
 
 class Warehouse_Inventory extends CI_Model {
 	public function __construct(){
-		$this->table = 'warehouse_inventory';
+		$this->table = 'WAREHOUSE_INVENTORY';
 	}
 
 	public function getRows($params = array()){
@@ -52,7 +52,7 @@ class Warehouse_Inventory extends CI_Model {
 			"inv.AVAILABLE_QTY as AVAILABLE_QTY, ".
 			"inv.CRITICAL_QTY as CRITICAL_QTY, ".
 			"i.CRITICAL_QTY as ITEM_CRIT_QTY ".
-			"FROM warehouse_inventory inv, items i, brands b, categories c ".
+			"FROM WAREHOUSE_INVENTORY inv, ITEMS i, BRANDS b, CATEGORIES c ".
 			"WHERE i.id=inv.item_id and b.id=i.brand_id and c.id=i.category_id and inv.del=false and i.del=false ";
 
 		if(array_key_exists("conditions", $params)){
@@ -78,7 +78,7 @@ class Warehouse_Inventory extends CI_Model {
 			"inv.AVAILABLE_QTY as AVAILABLE_QTY, ".
 			"inv.CRITICAL_QTY as CRITICAL_QTY, ".
 			"i.CRITICAL_QTY as ITEM_CRIT_QTY ".
-			"FROM warehouse_inventory inv, items i, brands b, categories c ".
+			"FROM WAREHOUSE_INVENTORY inv, ITEMS i, BRANDS b, CATEGORIES c ".
 			"WHERE i.id=inv.item_id and b.id=i.brand_id and c.id=i.category_id and inv.del=false and i.del=false ".
 			"and inv.AVAILABLE_QTY <= inv.CRITICAL_QTY ";
 

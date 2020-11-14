@@ -2,7 +2,7 @@
 
 class Sales_Dtls_Model extends CI_Model {
 	public function __construct(){
-		$this->table = 'sales_dtls';
+		$this->table = 'SALES_DTLS';
 	}
 
 	public function getRows($params = array()){

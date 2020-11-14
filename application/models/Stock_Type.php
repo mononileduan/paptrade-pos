@@ -3,7 +3,7 @@
 class Stock_Type extends CI_Model {
 
 	public function __construct(){
-		$this->table = 'stock_types';
+		$this->table = 'STOCK_TYPES';
 	}
 
 

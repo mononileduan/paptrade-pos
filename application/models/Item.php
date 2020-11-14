@@ -2,7 +2,7 @@
 
 class Item extends CI_Model {
 	public function __construct(){
-		$this->table = 'items';
+		$this->table = 'ITEMS';
 	}
 
 	public function getRows($params = array()){
@@ -57,7 +57,7 @@ class Item extends CI_Model {
 			"CRITICAL_QTY, ".
 			"s.stock_type as STOCK_TYPE, ".
 			"STOCK_TYPE_CONTENT ".
-			"FROM items i, brands b, categories c, stock_types s ".
+			"FROM ITEMS i, BRANDS b, CATEGORIES c, STOCK_TYPES s ".
 			"WHERE b.id=i.brand_id AND c.id=i.category_id AND s.id=i.stock_type_id and i.del=false ";
 
 		if(array_key_exists("conditions", $params)){

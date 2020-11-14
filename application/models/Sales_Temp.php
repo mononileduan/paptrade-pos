@@ -2,7 +2,7 @@
 
 class Sales_Temp extends CI_Model {
 	public function __construct(){
-		$this->table = 'sales_temp';
+		$this->table = 'SALES_TEMP';
 	}
 
 	public function getRows($params = array()){
@@ -49,7 +49,7 @@ class Sales_Temp extends CI_Model {
 			"tmp.ITEM_CNT as ITEM_CNT, ".
 			"concat(u.FIRST_NAME, ' ', u.LAST_NAME) as CREATED_BY, ".
 			"tmp.CREATED_DT as CREATED_DT ".
-			"FROM sales_temp tmp, branches br, users u ".
+			"FROM SALES_TEMP tmp, BRANCHES br, USERS u ".
 			"WHERE br.id=tmp.branch_id and u.username=tmp.created_by ";
 
 		if(array_key_exists("conditions", $params)){

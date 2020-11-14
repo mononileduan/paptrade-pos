@@ -2,7 +2,7 @@
 
 class Sales_Model extends CI_Model {
 	public function __construct(){
-		$this->table = 'sales';
+		$this->table = 'SALES';
 	}
 
 	public function getRows($params = array()){
@@ -125,7 +125,7 @@ class Sales_Model extends CI_Model {
 	}
 
 	public function getSummary($params = array()){
-		$sql = "SELECT COUNT(*) as CNT, sum(GRAND_TOTAL) as TOTAL FROM sales WHERE DATE_SUB(CURDATE(),INTERVAL 0 DAY) <= CREATED_DT ";
+		$sql = "SELECT COUNT(*) as CNT, sum(GRAND_TOTAL) as TOTAL FROM SALES WHERE DATE_SUB(CURDATE(),INTERVAL 0 DAY) <= CREATED_DT ";
 
 		if(array_key_exists("conditions", $params)){
 			foreach ($params['conditions'] as $key => $val) {
@@ -138,7 +138,7 @@ class Sales_Model extends CI_Model {
 	}
 
 	public function getDashboardSummary($params = array()){
-		$sql = "SELECT date_format(CREATED_DT, '%M %Y') as MONTH, COUNT(*) as CNT, sum(GRAND_TOTAL) as TOTAL FROM sales WHERE DATE_SUB(CURDATE(),INTERVAL 6 MONTH) <= CREATED_DT  ";
+		$sql = "SELECT date_format(CREATED_DT, '%M %Y') as MONTH, COUNT(*) as CNT, sum(GRAND_TOTAL) as TOTAL FROM SALES WHERE DATE_SUB(CURDATE(),INTERVAL 6 MONTH) <= CREATED_DT  ";
 
 		if(array_key_exists("conditions", $params)){
 			foreach ($params['conditions'] as $key => $val) {

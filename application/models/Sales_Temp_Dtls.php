@@ -2,7 +2,7 @@
 
 class Sales_Temp_Dtls extends CI_Model {
 	public function __construct(){
-		$this->table = 'sales_temp_dtls';
+		$this->table = 'SALES_TEMP_DTLS';
 	}
 
 	public function getRows($params = array()){
@@ -49,7 +49,7 @@ class Sales_Temp_Dtls extends CI_Model {
 			"i.PRICE as PRICE, ".
 			"inv.QTY as STOCKS, ".
 			"dtls.QUANTITY QTY ".
-			"FROM sales_temp_dtls dtls, branch_inventory inv, items i, brands b ".
+			"FROM SALES_TEMP_DTLS dtls, BRANCH_INVENTORY inv, ITEMS i, BRANDS b ".
 			"WHERE inv.ID=dtls.BRANCH_INVENTORY_ID and i.id=inv.item_id and b.id=i.brand_id ";
 
 		if(array_key_exists("conditions", $params)){

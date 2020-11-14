@@ -2,7 +2,7 @@
 
 class Category extends CI_Model {
 	public function __construct(){
-		$this->table = 'categories';
+		$this->table = 'CATEGORIES';
 	}
 
 	public function getRows($params = array()){

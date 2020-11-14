@@ -2,7 +2,7 @@
 
 class Branch_Inventory_Hist extends CI_Model {
 	public function __construct(){
-		$this->table = 'branch_inventory_hist';
+		$this->table = 'BRANCH_INVENTORY_HIST';
 	}
 
 	public function getRows($params = array()){
@@ -53,7 +53,7 @@ class Branch_Inventory_Hist extends CI_Model {
 			"concat(u.FIRST_NAME, ' ', u.LAST_NAME) as UPDATED_BY, ". 
 			"inv.UPDATED_DT as UPDATED_DT, ". 
 			"inv.REMARKS as REMARKS ". 
-			"FROM branch_inventory_hist inv, users u, branches b ".
+			"FROM BRANCH_INVENTORY_HIST inv, USERS u, BRANCHES b ".
 			"WHERE u.username=inv.updated_by and b.id=inv.branch_id and inv.del=false ";
 
 		if(array_key_exists("conditions", $params)){

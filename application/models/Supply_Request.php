@@ -3,7 +3,7 @@
 class Supply_Request extends CI_Model {
 	
 	public function __construct(){
-		$this->table = 'supply_requests';
+		$this->table = 'SUPPLY_REQUESTS';
 	}
 
 
@@ -70,14 +70,14 @@ class Supply_Request extends CI_Model {
 				}
 			}
 			
-			$sql .= " FROM supply_requests sr, brands br, items i, branches b, users rqu";
+			$sql .= " FROM SUPPLY_REQUESTS sr, BRANDS br, ITEMS i, BRANCHES b, USERS rqu";
 
 			if(array_key_exists("status", $params)){
 				if($params['status'] == 'APPROVED' || $params['status'] == 'REJECTED'){
-					$sql .= ", users apu";
+					$sql .= ", USERS apu";
 				}else if($params['status'] == 'RECEIVED'){
-					$sql .= ", users apu, ".
-					"users ru";
+					$sql .= ", USERS apu, ".
+					"USERS ru";
 				}
 			}
 			
@@ -113,7 +113,7 @@ class Supply_Request extends CI_Model {
 			"concat(rqu.FIRST_NAME, ' ', rqu.LAST_NAME) as REQUESTED_BY, ". 
 			"sr.STATUS as STATUS "; 
 						
-		$sql .= " FROM supply_requests sr, brands br, items i, branches b, users rqu";
+		$sql .= " FROM SUPPLY_REQUESTS sr, BRANDS br, ITEMS i, BRANCHES b, USERS rqu";
 		
 		$sql .= " WHERE sr.del=false AND i.id=sr.item_id AND br.id=i.brand_id AND b.id=sr.branch_id AND rqu.username=sr.requested_by AND sr.STATUS='NEW'";
 			

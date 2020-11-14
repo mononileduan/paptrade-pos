@@ -2,7 +2,7 @@
 
 class Brand extends CI_Model {
 	public function __construct(){
-		$this->table = 'brands';
+		$this->table = 'BRANDS';
 	}
 
 	public function getRows($params = array()){

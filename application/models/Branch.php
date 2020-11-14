@@ -2,7 +2,7 @@
 
 class Branch extends CI_Model {
 	public function __construct(){
-		$this->table = 'branches';
+		$this->table = 'BRANCHES';
 	}
 
 	public function getRows($params = array()){
