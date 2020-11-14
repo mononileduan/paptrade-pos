@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); 
 
-class Stock_Type extends CI_Model {
+class Stock_type extends CI_Model {
 
 	public function __construct(){
 		$this->table = 'STOCK_TYPES';

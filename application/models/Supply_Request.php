@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); 
 
-class Supply_Request extends CI_Model {
+class Supply_request extends CI_Model {
 	
 	public function __construct(){
 		$this->table = 'SUPPLY_REQUESTS';

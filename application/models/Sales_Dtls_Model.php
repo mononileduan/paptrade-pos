@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); 
 
-class Sales_Dtls_Model extends CI_Model {
+class Sales_dtls_model extends CI_Model {
 	public function __construct(){
 		$this->table = 'SALES_DTLS';
 	}

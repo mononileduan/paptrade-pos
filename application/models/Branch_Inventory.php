@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); 
 
-class Branch_Inventory extends CI_Model {
+class Branch_inventory extends CI_Model {
 	public function __construct(){
 		$this->table = 'BRANCH_INVENTORY';
 	}
