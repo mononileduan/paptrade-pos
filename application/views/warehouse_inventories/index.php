@@ -85,13 +85,13 @@
 												<thead>
 													<tr>
 														<th></th>
-														<th width="30%">Item</th>
+														<th width="35%">Item</th>
 														<th width="20%">Category</th>
 														<th width="10%">Unit Price (&#x20B1;)</th>
 														<th width="10%">Current Quantity</th>
 														<th width="10%">Available Quantity</th>
 														<th width="10%">Critical Quantity</th>
-														<th width="10%">Action</th>
+														<th width="5%">Action</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -187,7 +187,8 @@
 								"<a class=\'action-add\' data-mode=\'modal\' title=\'Add\'><i class=\'glyphicon glyphicon-plus\'></i></a>&nbsp;" +
 								"<a class=\'action-deduct\' data-mode=\'modal\' title=\'Deduct\'><i class=\'glyphicon glyphicon-minus\'></i></a>&nbsp;" +
 								"<a class=\'action-edit\' data-mode=\'modal\' title=\'Edit\'><i class=\'glyphicon glyphicon-pencil\'></i></a>&nbsp;" +
-								"<a class=\'action-hist\' data-mode=\'modal\' title=\'History\'><i class=\'glyphicon glyphicon-calendar\'></i></a>"},
+								"<a class=\'action-hist\' data-mode=\'modal\' title=\'History\'><i class=\'glyphicon glyphicon-calendar\'></i></a>&nbsp;" +
+								"<a class=\'action-remove\' data-mode=\'modal\' title=\'Remove\'><i class=\'glyphicon glyphicon-remove\'></i></a>&nbsp;"},
 							{"targets": [ 0 ], "visible": false, "searchable": false}
 						],
 				        "createdRow": function( row, data, dataIndex){
@@ -421,6 +422,50 @@
 				$('#hist-modal').on('shown.bs.modal', function () {
 			       	hist_tbl.columns.adjust();
 				});
+
+
+			    $('#view-data-table tbody').on( 'click', 'a.action-remove', function (id) {
+			    	var data = $("#view-data-table").DataTable().row( $(this).parents('tr') ).data();
+			       	var id = data[0];
+			       	var dscp = data[1];
+			       	$("#remove_modal").find('input[name="id"]').val(id);
+					$("#remove_modal").find('p.dscp').text(dscp);
+			    	$("#remove_modal").modal('show');
+			    } );
+
+			    $("#remove_modal_form").submit(function(e) {
+					e.preventDefault();
+					var id = $("#remove_modal").find('input[name="id"]').val();
+
+					if(id == ''){
+						$("#error_modal .modal-content .modal-body p.text-center").text('Could not proceed with removal. ID not found.');
+					    $("#error_modal").modal('show');
+					}
+					
+					if(id!=''){
+						var data = {};
+						data['submit_remove'] = true;
+						data['id'] = id;
+
+						$.ajax({
+							type : 'POST',
+							data : data,
+							url : '<?= site_url('/warehouse_inventories/index') ?>',
+							success : function(data) { 
+								if(data == 'OK'){
+			    					$("#remove_modal").modal('toggle');
+									$("#success_modal .modal-content .modal-body p.text-center").text("Record successfully removed.");
+									$("#success_modal").attr('data-trigger', 'not-new');
+									$("#success_modal").modal('show');
+								}else{
+									$("#error_modal .modal-content .modal-body p.text-center").text(data);
+									$("#error_modal").modal('show');
+								}
+							}
+						})
+						return;
+					}
+				})
 
 
 			    $('#success_modal').on('hide.bs.modal', function () {

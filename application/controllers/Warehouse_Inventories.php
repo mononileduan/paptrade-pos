@@ -179,6 +179,39 @@ class Warehouse_inventories extends CI_Controller {
 						echo 'OK';
 						exit();
 					}
+				}else if($this->input->post('submit_remove')){
+					$this->form_validation->set_rules('id', 'Inventory', 'required|trim');
+
+					if($this->form_validation->run() == true){
+						$con = array(
+							'returnType' => 'single',
+							'conditions' => array(
+								'inv.del' => false,
+								'inv.id' => $this->input->post('id')
+							)
+						);
+						$inventory = $this->warehouse_inventory->getRowsJoin($con)->row_array();
+						$newVal = array(
+							'status'	=> 'ARCHIVED'
+						);
+						$this->warehouse_inventory->update($inventory['ID'], $newVal);
+
+						$inventory_hist = array(
+							'id'			=> uniqid('', true),
+							'inventory_id'	=> $this->input->post('id'),
+							'item'			=> $inventory['ITEM'],
+							'qty' 			=> $inventory['CURRENT_QTY'],
+							'qty_running'	=> $inventory['CURRENT_QTY'],
+							'movement' 		=> 'OUT',
+							'updated_by'	=> $this->session->userdata('username'),
+							'updated_dt'	=> date('YmdHis'),
+							'remarks'		=> 'Archived'
+							);
+						$this->warehouse_inventory_hist->insert($inventory_hist);
+
+						echo 'OK';
+						exit();
+					}
 				}
 
 
@@ -210,10 +243,16 @@ class Warehouse_inventories extends CI_Controller {
 			$start = intval($this->input->get("start"));
 			$length = intval($this->input->get("length"));
 
-			$con = array();
+			$con = array(
+				'returnType' => 'list',
+				'conditions' => array(
+					'inv.status' => 'ACTIVE'
+				));
 
 			if($this->input->get('item_id') !== null && $this->input->get('item_id') !== ''){
-				$con = array('conditions' => array('item_id' => $this->input->get('item_id')));
+				$con = array('conditions' => array(
+						'item_id' => $this->input->get('item_id'),
+						'inv.status' => 'ACTIVE'));
 			}
 			$inventoryList = $this->warehouse_inventory->getRowsJoin($con);
 
