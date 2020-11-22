@@ -68,6 +68,9 @@
     line-height: 5px;
 }
 
+#amount-total {
+	font-size: 30px;
+}
 
 /******************
 	RECEIPT

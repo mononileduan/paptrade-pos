@@ -82,6 +82,10 @@ table.dataTable td.dt-right {
   text-align: right;
 }
 
+th {
+    text-transform: uppercase;
+}
+
 .dataTables_wrapper .dataTables_length {
 	float: left;
 	margin-right:20px;
