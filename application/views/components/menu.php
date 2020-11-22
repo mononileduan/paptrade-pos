@@ -119,6 +119,14 @@
 					echo '					</tr>';
 				}
 
+				if(in_array('WH_INVENTORY_ARCHIVE', $this->config->item('USER_ROLE_ASSOC_MENU')[$this->session->userdata('user_role')])){
+					echo '					<tr>';
+					echo '						<td>';
+					echo '							<a href="'. site_url('/warehouse_inventories/archived') .'">Inventory Archive</a>';
+					echo '						</td>';
+					echo '					</tr>';
+				}
+
 				if(in_array('WH_SUPPLY_REQUEST', $this->config->item('USER_ROLE_ASSOC_MENU')[$this->session->userdata('user_role')])){
 					echo '					<tr>';
 					echo '						<td>';
@@ -152,6 +160,14 @@
 					echo '					<tr>';
 					echo '						<td>';
 					echo '							<a href="'. site_url('/branch_inventories') .'">Inventory</a>';
+					echo '						</td>';
+					echo '					</tr>';
+				}
+
+				if(in_array('BR_INVENTORY_ARCHIVE', $this->config->item('USER_ROLE_ASSOC_MENU')[$this->session->userdata('user_role')])){
+					echo '					<tr>';
+					echo '						<td>';
+					echo '							<a href="'. site_url('/branch_inventories/archived') .'">Inventory Archive</a>';
 					echo '						</td>';
 					echo '					</tr>';
 				}

@@ -43,9 +43,11 @@ $config['USER_ROLE_ASSOC_MENU'] = array(
 							'ITEM', 
 						'WAREHOUSE_FXN', 
 							'WH_INVENTORY', 
+							'WH_INVENTORY_ARCHIVE', 
 							'WH_SUPPLY_REQUEST', 
 						'BRANCH_FXN', 
 							'BR_INVENTORY', 
+							'BR_INVENTORY_ARCHIVE', 
 							'BR_SUPPLY_REQUEST', 
 						'REPORTS', 
 							'SALES', 
@@ -56,12 +58,14 @@ $config['USER_ROLE_ASSOC_MENU'] = array(
 	'WHOUSE_USER'	=> array(
 						'WAREHOUSE_FXN', 
 							'WH_INVENTORY', 
+							'WH_INVENTORY_ARCHIVE', 
 							'WH_SUPPLY_REQUEST'
 						),
 	'BRANCH_USER'	=> array(
 						'POS', 
 						'BRANCH_FXN', 
 							'BR_INVENTORY', 
+							'BR_INVENTORY_ARCHIVE', 
 							'BR_SUPPLY_REQUEST', 
 						'REPORTS', 
 							'SALES'

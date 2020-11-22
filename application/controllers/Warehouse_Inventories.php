@@ -234,6 +234,21 @@ class Warehouse_inventories extends CI_Controller {
 		}
 	}
 
+	public function archived(){
+		if($this->isLoggedIn && $this->session->userdata('status') == $this->config->item('USER_STATUS_ASSOC')['ACTIVE'][0]){
+			if(in_array('WH_INVENTORY_ARCHIVE', $this->config->item('USER_ROLE_ASSOC_MENU')[$this->session->userdata('user_role')])){
+				$data = array();
+				
+				$this->load->view('warehouse_inventories/archived', $data);
+
+			}else{
+				$this->load->view('components/unauthorized');
+			}
+		}else{
+			redirect('users/logout');
+		}
+	}
+
 	public function list(){
 		if($this->isLoggedIn && $this->session->userdata('status') == $this->config->item('USER_STATUS_ASSOC')['ACTIVE'][0] 
 			&& in_array('WH_INVENTORY', $this->config->item('USER_ROLE_ASSOC_MENU')[$this->session->userdata('user_role')])){
@@ -246,13 +261,15 @@ class Warehouse_inventories extends CI_Controller {
 			$con = array(
 				'returnType' => 'list',
 				'conditions' => array(
-					'inv.status' => 'ACTIVE'
+					'inv.status' => $this->input->get('status') != null ? $this->input->get('status') : 'ACTIVE'
 				));
 
 			if($this->input->get('item_id') !== null && $this->input->get('item_id') !== ''){
 				$con = array('conditions' => array(
 						'item_id' => $this->input->get('item_id'),
-						'inv.status' => 'ACTIVE'));
+						'inv.status' => $this->input->get('status') != null ? $this->input->get('status') : 'ACTIVE'
+					)
+				);
 			}
 			$inventoryList = $this->warehouse_inventory->getRowsJoin($con);
 

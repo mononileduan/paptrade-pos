@@ -236,6 +236,21 @@ class Branch_inventories extends CI_Controller {
 		}
 	}
 
+	public function archived(){
+		if($this->isLoggedIn && $this->session->userdata('status') == $this->config->item('USER_STATUS_ASSOC')['ACTIVE'][0]){
+			if(in_array('BR_INVENTORY_ARCHIVE', $this->config->item('USER_ROLE_ASSOC_MENU')[$this->session->userdata('user_role')])){
+				$data = array();
+				
+				$this->load->view('branch_inventories/archived', $data);
+
+			}else{
+				$this->load->view('components/unauthorized');
+			}
+		}else{
+			redirect('users/logout');
+		}
+	}
+
 	public function list(){
 		if($this->isLoggedIn && $this->session->userdata('status') == $this->config->item('USER_STATUS_ASSOC')['ACTIVE'][0] 
 			&& in_array('BR_INVENTORY', $this->config->item('USER_ROLE_ASSOC_MENU')[$this->session->userdata('user_role')])){
@@ -247,7 +262,7 @@ class Branch_inventories extends CI_Controller {
 			$con = array(
 				'returnType' => 'list',
 				'conditions' => array(
-					'inv.status' => 'ACTIVE'
+					'inv.status' => $this->input->get('status') != null ? $this->input->get('status') : 'ACTIVE'
 				));
 
 			if($this->session->userdata('user_role') != $this->config->item('USER_ROLE_ASSOC')['SYS_ADMIN'][0]){
@@ -255,7 +270,7 @@ class Branch_inventories extends CI_Controller {
 					'returnType' => 'list',
 					'conditions' => array(
 						'inv.branch_id' => $this->session->userdata('branch_id'),
-						'inv.status' => 'ACTIVE'
+						'inv.status' => $this->input->get('status') != null ? $this->input->get('status') : 'ACTIVE'
 					)
 				);
 			}
