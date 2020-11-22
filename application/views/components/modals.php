@@ -316,3 +316,29 @@
 		</div>
 	</div>
 </div>
+
+<div id="remove_modal" class="modal fade">
+	<div class="modal-dialog modal-confirm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="error-icon-box">
+					<i class="material-icons">cancel</i>
+				</div>	
+				<div>		
+					<h4>Delete</h4>	
+				</div>	
+			</div>
+			<div class="modal-body">
+				<p class="text-center">Are you sure you want to remove this record?</p>
+				<p class="dscp text-center"></p>
+			</div>
+			<div class="modal-footer">
+				<form action="" id="remove_modal_form" method="post" accept-charset="utf-8" autocomplete="off">
+					<input type="hidden" name="id">
+					<input type="submit" name="submit_remove" class="btn btn-error btn-success btn-block" value="Yes">
+					<button class="btn btn-info btn-block" data-dismiss="modal">No</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
