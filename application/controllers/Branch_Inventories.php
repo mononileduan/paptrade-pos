@@ -180,12 +180,48 @@ class Branch_inventories extends CI_Controller {
 						echo 'OK';
 						exit();
 					}
+				}else if($this->input->post('submit_remove')){
+					$this->form_validation->set_rules('id', 'Inventory', 'required|trim');
+
+					if($this->form_validation->run() == true){
+						$con = array(
+							'returnType' => 'single',
+							'conditions' => array(
+								'inv.del' => false,
+								'inv.id' => $this->input->post('id')
+							)
+						);
+						$inventory = $this->branch_inventory->getRowsJoin($con)->row_array();
+						$newVal = array(
+							'status'	=> 'ARCHIVED'
+						);
+						$this->branch_inventory->update($inventory['ID'], $newVal);
+
+						$branch_inventory_hist = array(
+							'id'			=> uniqid('', true),
+							'branch_id'		=> $this->session->userdata('branch_id'),
+							'inventory_id'	=> $inventory['ID'],
+							'item'			=> $inventory['ITEM'],
+							'qty' 			=> $inventory['QTY'],
+							'qty_running'	=> $inventory['QTY'],
+							'movement' 		=> 'OUT',
+							'updated_by'	=> $this->session->userdata('username'),
+							'updated_dt'	=> date('YmdHis'),
+							'remarks'		=> 'Archived'
+							);
+						$this->branch_inventory_hist->insert($branch_inventory_hist);
+
+						echo 'OK';
+						exit();
+					}
 				}
 
 
 				$con = array(
 					'returnType' => 'list',
-					'conditions' => array()
+					'conditions' => array(
+						'inv.status' => 'ACTIVE'
+					)
 				);
 				$data['items'] = $this->warehouse_inventory->getRowsJoin($con);
 
@@ -208,13 +244,18 @@ class Branch_inventories extends CI_Controller {
 			$start = intval($this->input->get("start"));
 			$length = intval($this->input->get("length"));
 
-			$con = array('returnType' => 'list');
+			$con = array(
+				'returnType' => 'list',
+				'conditions' => array(
+					'inv.status' => 'ACTIVE'
+				));
 
 			if($this->session->userdata('user_role') != $this->config->item('USER_ROLE_ASSOC')['SYS_ADMIN'][0]){
 				$con = array(
 					'returnType' => 'list',
 					'conditions' => array(
-						'inv.branch_id' => $this->session->userdata('branch_id')
+						'inv.branch_id' => $this->session->userdata('branch_id'),
+						'inv.status' => 'ACTIVE'
 					)
 				);
 			}
@@ -310,7 +351,8 @@ class Branch_inventories extends CI_Controller {
 			$con = array(
 				'returnType' => 'list',
 				'conditions' => array(
-					'inv.branch_id' => $this->session->userdata('branch_id')
+					'inv.branch_id' => $this->session->userdata('branch_id'),
+					'inv.status' => 'ACTIVE'
 				)
 			);
 			$inventoryList = $this->branch_inventory->getRowsJoin($con);
