@@ -356,10 +356,14 @@ class Supply_requests extends CI_Controller {
 			$start = intval($this->input->get("start"));
 			$length = intval($this->input->get("length"));
 
-			$con = array();
+			$con = array('conditions' => array(
+				'inv.status' => 'ACTIVE')
+			);
 
 			if($this->input->get('item_id') !== null && $this->input->get('item_id') !== ''){
-				$con = array('conditions' => array('item_id' => $this->input->get('item_id')));
+				$con = array('conditions' => array(
+					'item_id' => $this->input->get('item_id'),
+					'inv.status' => 'ACTIVE'));
 			}
 			$inventoryList = $this->warehouse_inventory->getRowsJoin($con);
 
