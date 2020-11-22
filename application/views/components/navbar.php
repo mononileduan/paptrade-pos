@@ -2,9 +2,9 @@
 	<div class="navbar-header">
 		<?php
 			if($this->session->userdata('status') == $this->config->item('USER_STATUS_ASSOC')['ACTIVE'][0]){
-				echo '<a class="navbar-brand" href="'.site_url('/users/dashboard').'"><span><img id="logo" src="assets/images/paptrade-nav.png" height="40px"> <small>POS & Inventory System</small></span></a>';
+				echo '<a class="navbar-brand" href="'.site_url('/users/dashboard').'"><span><img id="logo" src="assets/images/paptrade-nav.png" height="40px"> <small>Centralized Sales & Inventory System</small></span></a>';
 			}else{
-				echo '<a class="navbar-brand"><span><img src="assets/images/paptrade-nav.png" height="40px"> <small>POS & Inventory System</small></span></a>';
+				echo '<a class="navbar-brand"><span><img src="assets/images/paptrade-nav.png" height="40px"> <small>Centralized Sales & Inventory System</small></span></a>';
 			}
 		?>
 	</div>

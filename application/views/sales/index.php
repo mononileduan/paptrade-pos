@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>POS & Inventory System</title>
+		<title>Centralized Sales & Inventory System</title>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -224,7 +224,7 @@
 					                    } );
 
 										doc.content.splice( 1, 1, {
-											text: "POS & Inventory System",
+											text: "Centralized Sales & Inventory System",
 											fontSize: 14,
 					                        margin: [ 0, 0, 0, 5 ],
 											alignment: 'center'
@@ -305,7 +305,7 @@
 					                        );
 
 					 					$(win.document.body).find( 'h1' )
-					 						.replaceWith( '<h3>POS & Inventory System</h3>' );
+					 						.replaceWith( '<h3>Centralized Sales & Inventory System</h3>' );
 
 					 					$(win.document.body).find( 'h3' )
 					 						.css( 'text-align', 'center' )

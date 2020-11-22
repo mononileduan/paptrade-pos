@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>POS & Inventory System</title>
+		<title>Centralized Sales & Inventory System</title>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -23,7 +23,7 @@
 								<div class="col-md-6">
 									<div class="logo-container">
 										<img class="logo" src="assets/login/images/paptrade.png">
-										<h2><strong>POS & Inventory System</strong></h2>
+										<h2><strong>Centralized Sales & Inventory System</strong></h2>
 									</div>
 								</div>
 

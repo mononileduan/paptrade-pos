@@ -1,6 +1,6 @@
 <nav class="navbar navbar-default navbar-static-top" role="navigation">
 	<div class="navbar-header">
-		<a class="navbar-brand" href="<?= site_url('/users/dashboard') ?>"><span><img src="assets/images/paptrade-nav.png" height="40px"> <small>POS & Inventory System</small></span></a>
+		<a class="navbar-brand" href="<?= site_url('/users/dashboard') ?>"><span><img src="assets/images/paptrade-nav.png" height="40px"> <small>Centralized Sales & Inventory System</small></span></a>
 	</div>
 	<div style="margin-right: 50px;">
 		<ul class="nav navbar-top-links navbar-right">
