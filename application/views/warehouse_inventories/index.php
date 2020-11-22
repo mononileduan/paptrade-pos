@@ -87,7 +87,7 @@
 														<th></th>
 														<th width="30%">Item</th>
 														<th width="20%">Category</th>
-														<th width="10%">Unit Price</th>
+														<th width="10%">Unit Price (&#x20B1;)</th>
 														<th width="10%">Current Quantity</th>
 														<th width="10%">Available Quantity</th>
 														<th width="10%">Critical Quantity</th>

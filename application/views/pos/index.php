@@ -38,7 +38,7 @@
 										<th>Item</th>
 										<th>Category</th>
 										<th>Stocks</th>
-										<th>Unit Price</th>
+										<th>Unit Price (&#x20B1;)</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -70,9 +70,9 @@
 									<thead>
 										<tr>
 											<th width="50%">Item</th>
-											<th width="15%" class="text-right">Unit Price</th>
+											<th width="15%" class="text-right">Unit Price (&#x20B1;)</th>
 											<th width="15%" class="text-right">Quantity</th>
-											<th width="15%" class="text-right">Sub-Total</th>
+											<th width="15%" class="text-right">Sub-Total (&#x20B1;)</th>
 											<th width="5%"> </th>
 										</tr>
 									</thead>
@@ -90,7 +90,7 @@
 									<div class="row">
 										<div class="col-md-6">
 											<div class="form-group">
-												<input type="text" class="form-control" name="" placeholder="Enter Payment" id="payment" autocomplete="off" max="500000" maxlength="6">
+												<input type="text" class="form-control" name="" placeholder="Enter Payment  (&#x20B1;)" id="payment" autocomplete="off" max="500000" maxlength="6">
 											</div>
 										</div>
 										<div class="col-md-6">

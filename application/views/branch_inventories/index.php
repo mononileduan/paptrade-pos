@@ -89,7 +89,7 @@
 														<th width="25%">Item</th>
 														<th width="15%">Branch</th>
 														<th width="15%">Category</th>
-														<th width="15%">Unit Price</th>
+														<th width="15%">Unit Price (&#x20B1;)</th>
 														<th width="10%">Quantity</th>
 														<th width="10%">Critical Quantity</th>
 														<th width="10%">Action</th>
