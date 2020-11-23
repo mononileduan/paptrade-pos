@@ -27,7 +27,8 @@
 							</tr>
 							<tr>
 								<td>
-									<small><span class="glyphicon glyphicon-calendar"></span>&nbsp; <?=date($this->session->userdata('last_login_dt'))?></small>
+									<small><span class="glyphicon glyphicon-calendar"></span>&nbsp; <?=date('Y-m-d', strtotime($this->session->userdata('last_login_dt')))?></small>
+									&nbsp; <small><span class="glyphicon glyphicon-time"></span>&nbsp; <?=date('H:i:s', strtotime($this->session->userdata('last_login_dt')))?></small>
 								</td>
 							</tr>
 						</table>

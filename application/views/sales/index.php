@@ -52,7 +52,7 @@
 																<tr>
 																	<th>ID</th>
 																	<th width="20%">Branch</th>
-																	<th width="20%">Transaction Date</th>
+																	<th width="20%">Transaction Date & Time</th>
 																	<th width="15%">Reference No.</th>
 																	<th width="15%">Transaction Amount (&#x20B1;)</th>
 																	<th width="25%">Cashier</th>
