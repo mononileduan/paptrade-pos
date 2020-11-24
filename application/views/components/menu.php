@@ -248,6 +248,14 @@
 					echo '					</tr>';
 				}
 
+				if(in_array('MANAGE_DB', $this->config->item('USER_ROLE_ASSOC_MENU')[$this->session->userdata('user_role')])){
+					echo '					<tr>';
+					echo '						<td>';
+					echo '							<a href="'.site_url('/technicals').'">Manage Database</a>';
+					echo '						</td>';
+					echo '					</tr>';
+				}
+
 				echo '				</table>';
 				echo '			</div>';
 				echo '		</div>';

@@ -53,7 +53,8 @@ $config['USER_ROLE_ASSOC_MENU'] = array(
 							'SALES', 
 						'ADMIN', 
 							'BRANCH', 
-							'USER'
+							'USER',
+							'MANAGE_DB'
 						),
 	'WHOUSE_USER'	=> array(
 						'WAREHOUSE_FXN', 

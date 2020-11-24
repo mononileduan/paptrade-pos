@@ -81,6 +81,9 @@ $route['stock_types'] = 'stock_types/index';
 $route['supply_requests/(:any)'] = 'supply_requests/$1';
 $route['supply_requests'] = 'supply_requests/index';
 
+$route['technicals/(:any)'] = 'technicals/$1';
+$route['technicals'] = 'technicals/index';
+
 $route['users/(:any)'] = 'users/$1';
 $route['users'] = 'users/index';
 
